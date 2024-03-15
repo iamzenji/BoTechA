@@ -1,6 +1,6 @@
 <?php
 include 'includes/connection.php';
-include 'includes/sidebar.php';
+include 'includes/header.php';
 ?>
 <div class="main">
     <div class="container mt-5">
@@ -14,7 +14,7 @@ include 'includes/sidebar.php';
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th class=" text-center" style="width: 10%;"> Photo</th>
+                                    <th class="text-center" style="width: 10%;"> Photo</th>
                                     <th class="text-center" style="width: 10%;">Category</th>
                                     <th class="text-center" style="width: 10%;"> Porduct</th>
                                     <th class="text-center" style="width: 10%;"> Brand name </th>

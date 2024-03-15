@@ -1,6 +1,6 @@
 <?php
 include 'includes/connection.php';
-include 'includes/sidebar.php';
+include 'includes/header.php';
 ?>
 <div class="container mt-4">
     <div class="col-md-6">

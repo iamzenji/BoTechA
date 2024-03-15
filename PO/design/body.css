@@ -1,0 +1,327 @@
+.list {
+    padding: 0;
+    list-style: none;
+    padding-bottom: 40px;}.list li {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    align-items: center;}.list h2 {
+    margin: 0;}
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    padding: 0;
+}
+        
+.container1 {
+    margin: 50px auto;
+    max-width: 90%;
+    background-color: #fff;
+    padding: 60px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+        
+.text1 {
+    font-weight: bold;
+    font-size: 24px;
+    bottom: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+/* table */        
+form {
+    margin-bottom: 20px;
+}
+        
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+        
+input[type="text"] {
+    padding: 10px;
+    width: calc(100% - 10px);
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+        
+table {
+    border-collapse: collapse;
+    width: 99.3%;
+    margin-bottom: 40px;
+}    
+table th,
+table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+th {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+}
+
+button {
+    margin-right: 20px;
+    margin-left: 1px;
+    color: #fff;
+    background-color: #007bff;
+    border-radius: 4px;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+        
+button:hover {
+    background-color: #0056b3;
+}
+
+.inline-form {
+    display: flex;
+    align-items: center;
+}
+
+.inline-form label {
+    margin-right: 10px;
+}
+.createnew{
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+     border-radius: 4px;
+     margin-bottom: 20px;
+}
+.createnew:hover{
+    background:   #0056b3 ;
+}
+textarea {
+    width: 100%; /* Adjust the width as needed */
+    height: 200px; /* Adjust the height as needed */
+}
+/* back button*/
+.backbtn{
+    text-decoration: none;
+    font-size: 24px;
+    color: red;
+}
+.backbtn i:hover{
+    color: #b71c1c ;
+}
+/* selection */
+span.select2-selection.select2-selection--single {
+    border-radius: 0;
+    padding: 0.25rem 0.5rem;
+    padding-top: 0.25rem;
+    padding-right: 0.5rem;
+    padding-bottom: 0.25rem;
+    padding-left: 0.5rem;
+    height: auto;
+}
+
+   /* search */ 
+.search{
+    width: max-content;
+    --padding: 14px;
+    align-items: center;
+    display: flex;
+    border-radius: 20px;
+    padding: var(--padding);
+    width: 500px;
+    background: #f6f6f6;
+    transition: box-shadow 0.25s;
+    margin-bottom: 20px;
+}
+.search:focus-within{
+            box-shadow: 0 0 2px rgba(0, 0, 0, 0.75);
+}
+
+.search-input{
+    font-family: 'Lexend', san-serif;
+    font-size: 16px;
+    margin-left: var(--padding);
+    color: #333;
+    border: none;
+    outline: none;
+    flex:1;
+    background: transparent;
+}
+
+.search-input:placeholder{
+    color: rgba(0, 0, 0, 0.25);
+}
+
+/* icons view, update , delete supplier/items */
+span.material-symbols-outlined {
+    color: white;
+}
+.delete_icon {
+    background-color: #F81010;
+    border-radius: 5px;
+    margin-right: 5px;
+    width:30px;
+            
+}
+.edit_icon{
+    background-color: #10F827;
+    border-radius: 5px;
+    margin-right: 5px;
+    width:30px;
+}
+.view_icon{
+    background-color: #007bff;
+    border-radius: 5px;
+    margin-right: 5px;
+    width:30px;
+}
+
+/* delete/insert notification*/
+.delete.alert-success {
+    max-width: 90%;
+    margin: 50px auto;
+    color: #721c24;
+    background-color:  #f8d7da;
+    border-color: #c3e6cb;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+
+.delete.alert-success {
+    position: relative;
+}
+
+.closed {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: .75rem 1.25rem;
+    background: transparent;
+    color: #721c24;
+    font-size:18px;
+}
+.closed:hover{
+    color: white;
+    background:transparent;
+}
+.success-message{
+    font-size:14px;
+}
+.alert.alert-success {
+    max-width: 80%;
+    margin: 50px auto;
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+
+/*active/inactive supplier/items*/
+.status-badge {
+    /* Common styles for both Active and Inactive badges */
+    
+    border-radius: 5px;
+    font-weight: bold;
+    width: 30px;
+}
+
+.badge-success {
+    /* Styles for Active badge */
+    padding: 5px 22px; /* Adjust width by changing padding */
+    border-radius: 5px;
+    background-color: #06f81e;
+    color: white;
+}
+
+.badge-secondary {
+    /* Styles for Inactive badge */
+    padding: 5px 15px; /* Adjust width by changing padding */
+    border-radius: 5px;
+    background-color: grey;
+    color: white;
+}
+
+
+/* btn add order */
+.addorder{
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+.addorder:hover{
+    background-color: #0056b3;
+}
+
+/* btn edit, delete order*/
+.btnedit,
+.btndelete {
+        text-decoration: none;
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 5px;
+}
+
+.btnedit button,
+.btndelete button {
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+        padding: 0;
+}
+.btnedit span,
+.btndelete span {
+    padding: 5px;
+    display: inline-flex;
+    border-radius: 5px;
+}
+
+.btnedit span.material-symbols-outlined,
+.btndelete span.material-symbols-outlined {
+    background-color: #10F827; /* Edit button background color */
+    color: #fff; /* Edit button text color */
+}
+
+.btndelete span.material-symbols-outlined {
+    background-color: #F81010; /* Delete button background color */
+    color: #fff; /* Delete button text color */
+}
+
+.btnedit:hover span.material-symbols-outlined,
+.btndelete:hover span.material-symbols-outlined {
+    background-color:  #2e7d32; /* Edit button background color on hover */
+       
+}
+
+.btndelete:hover span.material-symbols-outlined {
+    background-color: #c62828  ; /* Delete button background color on hover */
+}
+
+/* items */
+
+/*addbtn*/
+.addbtn{
+    float: right;
+}
+.updatebtn{
+    float: right;
+}
+
+/* order */
+
+.price{
+    border: none;
+    border-collapse: collapse;
+}

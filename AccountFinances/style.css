@@ -1,0 +1,270 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+*,*::before,*::after{
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* =========COLORS========= */
+  --body-color: #e1f5fe;
+  --sidebar-color: #81d4fa;
+  --primary-color: #000;
+  --primary-color-light: #F6F5FF;
+  --toggle-color: #DDD;
+  --text-color: #000;
+  --blue:#0d82ca;
+  --light-blue:#0faedf;
+  --lighter-blue:#0fafdf;
+
+  /* ======== TRANSITION ======= */
+  --tran-02: all 0.2s ease ;
+  --tran-03: all 0.3s ease ;
+  --tran-04: all 0.4s ease ;
+  --tran-05: all 0.5s ease ;
+}
+
+svg:hover{
+  fill: var(--lighter-blue);
+  cursor: pointer;
+}
+body {
+  height: 100vh;
+}
+p{
+  margin: 0;
+}
+/* Accounting and Finances */
+.finance-container{
+  display: flex;
+}
+.title-bar{
+  height: fit-content;
+  padding: 1.5em;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(156, 156, 156);
+}
+.right-window{
+  width: 100%;
+}
+.title{
+  display: flex;
+  align-items: center;
+  gap: 2em;
+  color: var(--blue);
+}
+.user{
+  display: inline-flex;
+  align-items: center;
+  gap: 1em;
+}
+.user:hover{
+  color: var(--lighter-blue);
+  fill: var(--lighter-blue);
+  cursor: pointer;
+}
+.user img{
+  object-fit: contain;
+  border-radius: 90px;
+  max-width: 120px;
+  max-height: 70px;
+
+}
+.box{
+  border: 1px solid black;
+  width: 100%;
+  overflow: hidden;
+}
+.box-title{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  padding: 1.5em;
+  color: gray;
+}
+.right-window-container{
+  margin: 2em;
+  min-height: 100vh;
+  transition: all 0.35s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  gap: 4em;
+}
+.box-content{
+  display: flex;
+  width: 100%;
+}
+.box-content-left{
+  width: 50%;
+}
+.box-content-right{
+  height: auto;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3em;
+}
+.box-content-right p{
+  font-weight: 600;
+  color: var(--light-blue);
+  border: 1px solid var(--blue);
+  border-radius: 70px;
+  padding: 2em;
+  margin-right: 2em;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+.finances-color-table th{
+  color: white;
+  background-color: var(--lighter-blue);
+  font-weight: 100;
+  margin: 0;
+}
+
+/* Sidebar */
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+h1 {
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+#left-window{
+  min-width: 70px;
+}
+#sidebar {
+  width: 70px;
+  min-width: 70px;
+  z-index: 1000;
+  height: 100vh;
+  transition: all .25s ease-in-out;
+  background-color: var(--blue);
+  position: fixed;
+}
+
+#sidebar.expand {
+  width: 260px;
+  min-width: 260px;
+}
+
+.toggle-btn {
+  background-color: transparent;
+  cursor: pointer;
+  border: 0;
+  padding: 1rem 1.5rem;
+}
+
+.toggle-btn i {
+  font-size: 1.5rem;
+  color: #FFF;
+}
+
+.sidebar-logo {
+  margin: auto 0;
+}
+
+.sidebar-logo a {
+  color: #FFF;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+#sidebar:not(.expand) .sidebar-logo,
+#sidebar:not(.expand) a.sidebar-link span {
+  display: none;
+}
+
+.sidebar-nav {
+  padding: 2rem 0;
+  flex: 1 1 auto;
+}
+
+a.sidebar-link {
+  padding: .625rem 1.625rem;
+  color: #FFF;
+  display: block;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  border-left: 3px solid transparent;
+}
+
+.sidebar-link i {
+  font-size: 1.1rem;
+  margin-right: .75rem;
+}
+
+a.sidebar-link:hover {
+  background-color: rgba(255, 255, 255, .075);
+  border-left: 3px solid #3b7ddd;
+}
+
+.sidebar-item {
+  position: relative;
+}
+
+#sidebar:not(.expand) .sidebar-item .sidebar-dropdown {
+  position: absolute;
+  top: 0;
+  left: 70px;
+  background-color: var(--blue);
+  padding: 0;
+  min-width: 15rem;
+  display: none;
+}
+
+#sidebar:not(.expand) .sidebar-item:hover .has-dropdown+.sidebar-dropdown {
+  display: block;
+  max-height: 15em;
+  width: 100%;
+  opacity: 1;
+}
+
+#sidebar.expand .sidebar-link[data-bs-toggle="collapse"]::after {
+  border: solid;
+  border-width: 0 .075rem .075rem 0;
+  content: "";
+  display: inline-block;
+  padding: 2px;
+  position: absolute;
+  right: 1.5rem;
+  top: 1.4rem;
+  transform: rotate(-135deg);
+  transition: all .2s ease-out;
+}
+
+#sidebar.expand .sidebar-link[data-bs-toggle="collapse"].collapsed::after {
+  transform: rotate(45deg);
+  transition: all .2s ease-out;
+}
+#left-window.expand{
+  width: 260px;
+  min-width: 260px;
+}
+/* Chart */
+#curve_chart{
+  border: 0.5px solid gray;
+  margin: 2em;
+  min-height: 400px;
+}
