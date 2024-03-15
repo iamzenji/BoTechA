@@ -21,31 +21,37 @@
 
         <ul class="sidebar-nav">
             <li class="sidebar-item">
-                <a href="inventory.php" class="sidebar-link">
+                <a href="pos_dashboard.php" class="sidebar-link">
                     <i class="lni lni-home"></i>
                     <span>Dashboard
                     </span>
                 </a>
             <li class="sidebar-item">
-                <a href="logs.php" class="sidebar-link">
+                <a href="pos.php" class="sidebar-link">
                     <i class="lni lni-invest-monitor"></i>
                     <span>POS</span>
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="logs.php" class="sidebar-link">
+                <a href="records.php" class="sidebar-link">
                     <i class="lni lni-invest-monitor"></i>
                     <span>Record</span>
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="logs.php" class="sidebar-link">
+                <a href="sales.php" class="sidebar-link">
+                    <i class="lni lni-invest-monitor"></i>
+                    <span>Sales</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="reports.php" class="sidebar-link">
                     <i class="lni lni-invest-monitor"></i>
                     <span>Reports</span>
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="logs.php" class="sidebar-link">
+                <a href="mapping.php" class="sidebar-link">
                     <i class="lni lni-invest-monitor"></i>
                     <span>Item Mapping</span>
                 </a>

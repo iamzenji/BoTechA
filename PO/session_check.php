@@ -1,8 +1,9 @@
 <?php
-function check_session() {
+function check_session()
+{
     // Start session
     session_start();
-    
+
     // Check if the user is not logged in
     if (!isset($_SESSION['user_name']) || !isset($_SESSION['id'])) {
         // Redirect to the login page
@@ -10,5 +11,3 @@ function check_session() {
         exit();
     }
 }
-?>
-

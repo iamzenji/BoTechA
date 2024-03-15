@@ -6,11 +6,11 @@
                 <i class="lni lni-grid-alt"></i>
             </button>
             <div class="sidebar-logo">
-                <a href="inventory.php">Inventory</a>
+                <a href="accountFinances.php">Account and Finances</a>
             </div>
         </div>
         <div class="icon-logo">
-            <a href="inventory.php">
+            <a href="accountFinances.php">
                 <img src="src/img/botecha.png" alt="Logo">
             </a>
             <div class="brand-info">
@@ -21,17 +21,11 @@
 
         <ul class="sidebar-nav">
             <li class="sidebar-item">
-                <a href="inventory.php" class="sidebar-link">
+                <a href="accountFinances.php" class="sidebar-link">
                     <i class="lni lni-home"></i>
                     <span>Sales
                     </span>
                 </a>
-            <li class="sidebar-item">
-                <a href="logs.php" class="sidebar-link">
-                    <i class="lni lni-invest-monitor"></i>
-                    <span>Logs</span>
-                </a>
-            </li>
         </ul>
         <div class="sidebar-footer">
             <a href="" class="sidebar-link">

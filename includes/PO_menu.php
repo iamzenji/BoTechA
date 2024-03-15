@@ -6,11 +6,11 @@
                 <i class="lni lni-grid-alt"></i>
             </button>
             <div class="sidebar-logo">
-                <a href="inventory.php">Purcahse Order</a>
+                <a href="purchase_dashboard.php">Purcahse Order</a>
             </div>
         </div>
         <div class="icon-logo">
-            <a href="inventory.php">
+            <a href="purchase_dashboard.php">
                 <img src="src/img/botecha.png" alt="Logo">
             </a>
             <div class="brand-info">
@@ -21,25 +21,25 @@
 
         <ul class="sidebar-nav">
             <li class="sidebar-item">
-                <a href="inventory.php" class="sidebar-link">
+                <a href="purchase_dashboard.php" class="sidebar-link">
                     <i class="lni lni-home"></i>
                     <span>Dashboard
                     </span>
                 </a>
             <li class="sidebar-item">
-                <a href="logs.php" class="sidebar-link">
+                <a href="supplier.php" class="sidebar-link">
                     <i class="lni lni-invest-monitor"></i>
                     <span>Supplier List</span>
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="logs.php" class="sidebar-link">
+                <a href="items.php" class="sidebar-link">
                     <i class="lni lni-invest-monitor"></i>
                     <span>Item List</span>
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="logs.php" class="sidebar-link">
+                <a href="orders.php" class="sidebar-link">
                     <i class="lni lni-invest-monitor"></i>
                     <span>Purchase Orders</span>
                 </a>

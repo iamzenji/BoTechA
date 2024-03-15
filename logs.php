@@ -8,7 +8,7 @@ include 'includes/header.php';
     </div>
     <div class="row mb-2">
         <div class="col-md-6 d-flex">
-            <input type="text" id="searchInput" class="form-control" style="width: 200px;" placeholder="Search">
+            <input type="text" id="searchInput" class=" form-control" style="width: 200px;" placeholder="Search">
         </div>
         <div class="col-md-6 d-flex justify-content-end">
             <button class="btn btn-primary">Export Logs</button>

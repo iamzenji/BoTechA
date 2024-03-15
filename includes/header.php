@@ -7,22 +7,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BoTechA</title>
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="src/css/main.css">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
 </head>
 
 <body>
-    <?php include 'inventory_menu.php'; ?>
-
+    <?php // include 'inventory_menu.php';
+    // include 'admin_menu.php';
+    // include 'finance_menu.php';
+    // include 'hr_menu.php';
+    include 'po_menu.php';
+    // include 'sales_menu.php';
+    ?>
 
     <div class="main">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-
-                <button class="navbar-toggler" type="button" id="sidebarCollapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
                 <a class="navbar-brand" href="inventory.php">
                     <img src="src/img/botecha.png" alt="Logo" width="30" height="30" class="d-inline-block align-top" style="border-radius: 50px;">
                     Bo-Tech-A
