@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 15, 2024 at 06:16 AM
+-- Generation Time: Mar 16, 2024 at 03:57 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -39,7 +39,8 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`cart_id`, `item_id`, `qty`, `scale`) VALUES
-(66, 25, 10, 'piece');
+(66, 25, 10, 'piece'),
+(68, 1, 1, 'piece');
 
 -- --------------------------------------------------------
 
@@ -67,24 +68,21 @@ CREATE TABLE `employee_details` (
   `employee_name` varchar(200) NOT NULL,
   `employee_position` varchar(250) NOT NULL,
   `employee_contact` varchar(200) NOT NULL,
-  `employee_datestart` date DEFAULT NULL
+  `employee_datestart` date DEFAULT NULL,
+  `employee_username` varchar(255) NOT NULL,
+  `employee_password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `employee_details`
 --
 
-INSERT INTO `employee_details` (`employee_id`, `employee_name`, `employee_position`, `employee_contact`, `employee_datestart`) VALUES
-(1, 'John Doe', 'Manager', '09123456789', '2024-03-02'),
-(2, 'Jane Doe', 'Cashier', '09321456987', '2024-03-01'),
-(3, 'Charles Doe', 'Pharmacist', '09123654987', '2024-03-01'),
-(4, 'Lauv Lany', 'Manager', '0915467895', '2024-03-05'),
-(6, 'Lauv Malakas', 'Pharmacist', '09556454874', '2024-03-05'),
-(7, 'Sweet Lauv', 'Pharmacist', '091547515474', '2024-03-05'),
-(8, 'Sweet Lauvs', 'Manager', '09154678951', '2024-03-05'),
-(9, 'Lauvan Lavan', 'Cashier', '09157895145', '2024-03-05'),
-(10, 'Meanit', 'Lauv', '09123854784', '2024-03-04'),
-(11, 'Lauv Lavan', 'Manager', '09123654789', '2024-03-05');
+INSERT INTO `employee_details` (`employee_id`, `employee_name`, `employee_position`, `employee_contact`, `employee_datestart`, `employee_username`, `employee_password`) VALUES
+(17, 'Marco Torres', 'HR Officer', '09556454874', '2024-03-16', 'Marco_1', 'Marco_1'),
+(18, 'Micosh Yutuc', 'Purchase Order Officer', '09154751547', '2024-03-16', 'Micosh_1', 'Micosh_1'),
+(19, 'Aeron Herrera', 'Finance Officer', '09123854784', '2024-03-16', 'Aeron_1', 'Aeron_1'),
+(20, 'Regina Velarde', 'Sales Officer - Cashier', '09548975891', '2024-03-16', 'Regina_1', 'regina_1'),
+(21, 'Zenji Yangco', 'Inventory Officer', '09651254985', '2024-03-16', 'Zenji_1', 'Zenji_1');
 
 -- --------------------------------------------------------
 
@@ -219,7 +217,8 @@ CREATE TABLE `item_list` (
 --
 
 INSERT INTO `item_list` (`id`, `name`, `description`, `status`, `date_created`) VALUES
-(23, 'Biogesic', 'asdas', 1, '2024-03-15 09:29:32');
+(23, 'Biogesic', 'asdas', 1, '2024-03-15 09:29:32'),
+(24, 'Paracetamol', 'kkk', 1, '2024-03-15 13:29:00');
 
 -- --------------------------------------------------------
 
@@ -381,13 +380,13 @@ ALTER TABLE `supplier_list`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT for table `employee_details`
 --
 ALTER TABLE `employee_details`
-  MODIFY `employee_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `employee_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `employee_salary`
@@ -405,7 +404,7 @@ ALTER TABLE `item`
 -- AUTO_INCREMENT for table `item_list`
 --
 ALTER TABLE `item_list`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `item_mapping`
@@ -417,7 +416,7 @@ ALTER TABLE `item_mapping`
 -- AUTO_INCREMENT for table `supplier_list`
 --
 ALTER TABLE `supplier_list`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables
