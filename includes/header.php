@@ -14,11 +14,11 @@
 </head>
 
 <body>
-    <?php // include 'inventory_menu.php';
+    <?php //include 'inventory_menu.php';
     // include 'admin_menu.php';
     // include 'finance_menu.php';
-    // include 'hr_menu.php';
-    include 'po_menu.php';
+    include 'hr_menu.php';
+    // include 'po_menu.php';
     // include 'sales_menu.php';
     ?>
 

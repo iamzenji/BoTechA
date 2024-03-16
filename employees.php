@@ -30,7 +30,6 @@ $result = $connection->query($sql);
       echo '</div>';
     }
 
-
     $connection->close();
     ?>
 
@@ -48,7 +47,7 @@ $result = $connection->query($sql);
       </div>
       <div class="modal-body">
 
-        <form action="config/add_employee.php" method="post">
+        <form action="add_employee.php" method="post">
           <div class="form-group">
             <label for="employeeName">Employee Name</label>
             <input type="text" class="form-control" id="employeeName" name="employeeName" pattern="[A-Za-z\s]+" title="Please enter valid Employee Name" required>
@@ -56,7 +55,23 @@ $result = $connection->query($sql);
 
           <div class="form-group">
             <label for="employeePosition">Position</label>
-            <input type="text" class="form-control" id="employeePosition" name="employeePosition" pattern="[A-Za-z\s]+" title="Please enter valid Employee Position" required>
+            <select class="form-control" id="employeePosition" name="employeePosition" required>
+              <option value="" disabled selected>Select Position</option>
+              <option value="Purchase Order Officer">Purchase Order Officer</option>
+              <option value="Inventory Officer">Inventory Officer</option>
+              <option value="Sales Officer - Cashier">Sales Officer - Cashier</option>
+              <option value="Finance Officer">Finance Officer</option>
+              <option value="HR Officer">HR Officer</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="employeeUsername">Employee Username</label>
+            <input type="text" class="form-control" id="employeeUsername" name="employeeUsername" pattern="[\w@#$%^&*()\-]+" title="Please enter a valid username with letters, numbers, or special characters (@, #, $, %, ^, &, *, (, ), -)" required>
+          </div>
+
+          <div class="form-group">
+            <label for="employeePassword">Employee Password</label>
+            <input type="password" class="form-control" id="employeePassword" name="employeePassword" pattern=".{6,}" title="Password must be at least 6 characters long" required>
           </div>
           <div class="form-group">
             <label for="employeeContact">Employee Contact</label>
@@ -66,6 +81,7 @@ $result = $connection->query($sql);
             <label for="employeeDate">Employee Datestart</label>
             <input type="date" class="form-control" id="employeeDate" name="employeeDate" max="<?php echo date('Y-m-d'); ?>" required>
           </div>
+
           <button type="submit" class="btn btn-primary">Add Employee</button>
         </form>
       </div>

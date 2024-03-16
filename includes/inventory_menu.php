@@ -27,7 +27,7 @@
                     </span>
                 </a>
             <li class="sidebar-item">
-                <a href="logs.php" class="sidebar-link">
+                <a href="inventory_logs.php" class="sidebar-link">
                     <i class="lni lni-invest-monitor"></i>
                     <span>Logs</span>
                 </a>

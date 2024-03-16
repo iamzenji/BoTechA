@@ -20,6 +20,7 @@ include 'includes/header.php';
                 <th>Date</th>
                 <th>Product</th>
                 <th>Quantity</th>
+                <th>Beginning -> Ending Stock On Hand</th>
                 <th>Transaction</th>
                 <th>User</th>
             </tr>
@@ -28,21 +29,24 @@ include 'includes/header.php';
             <tr>
                 <td>Mar 13, 2024, 5:50pm</td>
                 <td>Biogesic</td>
-                <td>100</td>
+                <td>+1000</td>
+                <td>0 -> 1000</td>
                 <td>Stock Order</td>
                 <td>Zenji</td>
             </tr>
             <tr>
                 <td>Mar 14, 2024, 6:50pm</td>
                 <td>Biogesic</td>
-                <td>5</td>
+                <td>-10</td>
+                <td>1000 -> 990</td>
                 <td>Purchase Order</td>
                 <td>Loi</td>
             </tr>
             <tr>
                 <td>Mar 15, 2024, 7:50pm</td>
                 <td>Biogesic</td>
-                <td>5</td>
+                <td>+10</td>
+                <td>990 -> 1000</td>
                 <td>Purchase Return</td>
                 <td>Loi</td>
             </tr>
