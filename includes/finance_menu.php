@@ -17,8 +17,6 @@
                 <div class="brand-name">Bo-Tech-A</div>
             </div>
         </div>
-
-
         <ul class="sidebar-nav">
             <li class="sidebar-item">
                 <a href="accountFinances.php" class="sidebar-link">
@@ -28,7 +26,7 @@
                 </a>
         </ul>
         <div class="sidebar-footer">
-            <a href="" class="sidebar-link">
+            <a href="logout.php" class="sidebar-link">
                 <i class="lni lni-exit"></i>
                 <span>Logout</span>
             </a>

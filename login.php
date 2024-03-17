@@ -1,6 +1,49 @@
 <?php
 include 'includes/connection.php';
+
+session_start();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    $sql = "SELECT * FROM employee_details WHERE employee_username = ? AND employee_password = ?";
+    $stmt = $connection->prepare($sql);
+    $stmt->bind_param("ss", $username, $password);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $employee = $result->fetch_assoc();
+        // employee position
+        $_SESSION['employee_position'] = $employee['employee_position'];
+
+        switch ($employee['employee_position']) {
+            case 'HR Officer':
+                header("Location: employees.php");
+                exit();
+            case 'Purchase Order Officer':
+                header("Location: purchase_dashboard.php");
+                exit();
+            case 'Finance Officer':
+                header("Location: accountFinances.php");
+                exit();
+            case 'Sales Officer - Cashier':
+                header("Location: pos_dashboard.php");
+                exit();
+            case 'Inventory Officer':
+                header("Location: inventory.php");
+                exit();
+        }
+    } else {
+        $error = "Invalid username or password.";
+    }
+    $stmt->close();
+}
+
+$connection->close();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,9 +78,11 @@ include 'includes/connection.php';
                                 <label class="form-check-label" for="remember">Remember me</label>
                             </div>
                             <div class="d-grid">
-                                <button type="button" id="loginBtn" class="btn btn-primary">Login</button>
+                                <button type="submit" id="loginBtn" class="btn btn-primary">Login</button>
                             </div>
-                            <div id="error" class="text-danger"></div>
+                            <?php if (isset($error)) { ?>
+                                <div class="text-danger"><?php echo $error; ?></div>
+                            <?php } ?>
                         </form>
                     </div>
                 </div>

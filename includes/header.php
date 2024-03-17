@@ -1,4 +1,6 @@
-<?php include 'connection.php'; ?>
+<?php include 'connection.php';
+session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,12 +16,26 @@
 </head>
 
 <body>
-    <?php //include 'inventory_menu.php';
-    // include 'admin_menu.php';
-    // include 'finance_menu.php';
-    include 'hr_menu.php';
-    // include 'po_menu.php';
-    // include 'sales_menu.php';
+    <?php if (isset($_SESSION['employee_position'])) {
+        //sidebar based each positon
+        switch ($_SESSION['employee_position']) {
+            case 'HR Officer':
+                include 'hr_menu.php';
+                break;
+            case 'Purchase Order Officer':
+                include 'po_menu.php';
+                break;
+            case 'Finance Officer':
+                include 'finance_menu.php';
+                break;
+            case 'Sales Officer - Cashier':
+                include 'sales_menu.php';
+                break;
+            case 'Inventory Officer':
+                include 'inventory_menu.php';
+                break;
+        }
+    }
     ?>
 
     <div class="main">
@@ -40,7 +56,7 @@
                                 <a class="dropdown-item" href="">Profile</a>
                                 <a class="dropdown-item" href="">Settings</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="">Logout</a>
+                                <a class="dropdown-item" href="logout.php">Logout</a>
                             </div>
                         </li>
                     </ul>
