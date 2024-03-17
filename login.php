@@ -15,6 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($result->num_rows > 0) {
         $employee = $result->fetch_assoc();
+        //employee id
+        $_SESSION['employee_id'] = $employee['employee_id'];
         // employee position
         $_SESSION['employee_position'] = $employee['employee_position'];
 

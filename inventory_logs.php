@@ -1,6 +1,16 @@
 <?php
 include 'includes/connection.php';
 include 'includes/header.php';
+
+if(strlen($_SESSION['employee_id'])===0)
+	{	
+header('location:login.php');
+session_destroy();
+
+}
+
+else{
+
 ?>
 <div class="container mt-4">
     <div class="col-md-6">
@@ -53,3 +63,5 @@ include 'includes/header.php';
         </tbody>
     </table>
 </div>
+
+<?php } ?>

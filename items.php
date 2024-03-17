@@ -1,6 +1,15 @@
 <?php
 include 'includes/connection.php';
 include 'includes/header.php';
+
+if(strlen($_SESSION['employee_id'])===0)
+	{	
+header('location:login.php');
+session_destroy();
+
+}
+else{
+
 ?>
 <section class="home">
     <div class="text1">Item List </div>
@@ -103,3 +112,5 @@ include 'includes/header.php';
         }, 10000); // 10000 milliseconds = 10 seconds
     });
 </script>
+
+<?php } ?>

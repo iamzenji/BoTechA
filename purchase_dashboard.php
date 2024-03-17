@@ -4,6 +4,14 @@
 include 'includes/connection.php';
 include 'includes/header.php';
 
+if(strlen($_SESSION['employee_id'])===0)
+	{	
+header('location:login.php');
+session_destroy();
+
+}
+else{
+
 ?>
     <section class="home">
         <div class="text">Welcome to Purcahse Order Management System - Dashboard</div>
@@ -45,3 +53,5 @@ include 'includes/header.php';
             </div>
         </div>
     </section>
+
+<?php } ?>

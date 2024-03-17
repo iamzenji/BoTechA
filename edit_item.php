@@ -4,6 +4,15 @@ include 'includes/header.php';
 // Call the session check function
 // check_session();
 
+if(strlen($_SESSION['employee_id'])===0)
+	{	
+header('location:login.php');
+session_destroy();
+
+}
+else{
+
+
 $id = $name = $description = $status = '';
 
 // Check if the ID parameter is set in the URL
@@ -76,3 +85,5 @@ $connection->close();
 </body>
 
 </html>
+
+<?php } ?>

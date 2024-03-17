@@ -5,7 +5,17 @@ $dis = 0;
 $price = 0;
 $pera = 0;
 
+session_start();
+
 include 'includes/connection.php';
+
+if(strlen($_SESSION['employee_id'])===0)
+	{	
+header('location:login.php');
+session_destroy();
+
+}
+else{
 
 if (isset($_POST['update_update_btn'])) {
     $update_value = $_POST['update_quantity'];
@@ -152,3 +162,5 @@ if (isset($_POST['cash'])) {
         </table>
     </div>
 </section>
+
+<?php } ?>
