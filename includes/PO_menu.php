@@ -28,19 +28,19 @@
                 </a>
             <li class="sidebar-item">
                 <a href="supplier.php" class="sidebar-link">
-                    <i class="lni lni-invest-monitor"></i>
+                    <i class="lni lni-consulting"></i>
                     <span>Supplier List</span>
                 </a>
             </li>
             <li class="sidebar-item">
                 <a href="items.php" class="sidebar-link">
-                    <i class="lni lni-invest-monitor"></i>
+                    <i class="lni lni-list"></i>
                     <span>Item List</span>
                 </a>
             </li>
             <li class="sidebar-item">
                 <a href="orders.php" class="sidebar-link">
-                    <i class="lni lni-invest-monitor"></i>
+                    <i class="lni lni-weight"></i>
                     <span>Purchase Orders</span>
                 </a>
             </li>

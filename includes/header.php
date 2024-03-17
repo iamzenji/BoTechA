@@ -41,7 +41,7 @@ session_start(); ?>
     <div class="main">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="inventory.php">
+                <a class="navbar-brand" href="">
                     <img src="src/img/botecha.png" alt="Logo" width="30" height="30" class="d-inline-block align-top" style="border-radius: 50px;">
                     Bo-Tech-A
                 </a>

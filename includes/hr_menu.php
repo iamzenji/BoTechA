@@ -22,13 +22,13 @@
         <ul class="sidebar-nav">
             <li class="sidebar-item">
                 <a href="employees.php" class="sidebar-link">
-                    <i class="lni lni-home"></i>
+                    <i class="lni lni-users"></i>
                     <span>Employees
                     </span>
                 </a>
             <li class="sidebar-item">
                 <a href="salary.php" class="sidebar-link">
-                    <i class="lni lni-invest-monitor"></i>
+                    <i class="lni lni-coin"></i>
                     <span>Payroll</span>
                 </a>
             </li>
@@ -40,7 +40,7 @@
             </li>
             <li class="sidebar-item">
                 <a href="" class="sidebar-link">
-                    <i class="lni lni-invest-monitor"></i>
+                    <i class="lni lni-cog"></i>
                     <span>Settings</span>
                 </a>
             </li>
