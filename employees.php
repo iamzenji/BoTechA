@@ -1,6 +1,15 @@
 <?php
 include 'includes/connection.php';
 include 'includes/header.php';
+
+if(strlen($_SESSION['employee_id'])===0)
+	{	
+header('location:login.php');
+session_destroy();
+
+}
+else{
+
 $sql = "SELECT * FROM employee_details";
 $result = $connection->query($sql);
 
@@ -88,3 +97,5 @@ $result = $connection->query($sql);
     </div>
   </div>
 </div>
+
+<?php } ?>;

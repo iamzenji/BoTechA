@@ -2,6 +2,14 @@
 include 'includes/connection.php';
 include 'includes/header.php';
 
+if(strlen($_SESSION['employee_id'])===0)
+	{	
+header('location:login.php');
+session_destroy();
+
+}
+else{
+
 if (isset($_POST['add_piece'])) {
     $product_id = $_POST['product_id'];
     $product_qty = 1;
@@ -88,3 +96,5 @@ if (isset($_POST['add_box'])) {
 <script>
     // new DataTable('#laman');
 </script>
+
+<?php } ?>

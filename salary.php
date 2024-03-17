@@ -2,6 +2,14 @@
 include 'includes/connection.php';
 include 'includes/header.php';
 
+if(strlen($_SESSION['employee_id'])===0)
+	{	
+header('location:login.php');
+session_destroy();
+
+}
+else{
+
 // Fetch data from the database
 $sql = "SELECT ed.employee_name, es.salary, es.insurance, es.tax
         FROM employee_details AS ed
@@ -56,3 +64,5 @@ $result = $connection->query($sql);
 
   </table>
 </div>
+
+<?php } ?>
