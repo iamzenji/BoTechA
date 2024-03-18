@@ -32,6 +32,12 @@
                     <span>Inventory Logs</span>
                 </a>
             </li>
+            <li class="sidebar-item">
+                <a href="inventory_discount.php" class="sidebar-link">
+                    <i class="lni lni-graph"></i>
+                    <span>Discounted Product</span>
+                </a>
+            </li>
 
         </ul>
         <div class="sidebar-footer">
