@@ -8,7 +8,6 @@ if (strlen($_SESSION['employee_id']) === 0) {
     session_destroy();
 } else {
 ?>
-
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-8">
@@ -57,7 +56,6 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                     <td class='align-middle text-center'>SR 2</td>
                                     <td class='align-middle text-center'>100</td>
                                 </tr>
-
                             </tbody>
                         </table>
                     </div>
@@ -65,8 +63,6 @@ if (strlen($_SESSION['employee_id']) === 0) {
             </div>
         </div>
     </div>
-
-
 
     <?php
     // $mydate = '17/02/2011';
