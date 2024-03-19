@@ -50,7 +50,7 @@ session_start(); ?>
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="lni lni-user"></i> Zenji
+                                <i class="lni lni-user"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" style="min-width: 10px;">
                                 <a class="dropdown-item" href="">Profile</a>
