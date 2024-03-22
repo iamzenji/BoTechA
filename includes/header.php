@@ -1,5 +1,22 @@
-<?php include 'connection.php';
-session_start(); ?>
+<?php
+include 'connection.php';
+session_start();
+
+$userName = "";
+
+if (isset($_SESSION['employee_position'])) {
+    $position = $_SESSION['employee_position'];
+
+    $query = "SELECT employee_name FROM employee_details WHERE employee_position = '$position'";
+    $result = mysqli_query($connection, $query);
+
+    if ($result && mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $userName = $row['employee_name'];
+    }
+}
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -50,9 +67,9 @@ session_start(); ?>
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="lni lni-user"></i>
+                                <i class="lni lni-user"></i><?php echo $userName; ?>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" style="min-width: 10px;">
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" style="min-width: 150px;">
                                 <a class="dropdown-item" href="">Profile</a>
                                 <a class="dropdown-item" href="">Settings</a>
                                 <div class="dropdown-divider"></div>
