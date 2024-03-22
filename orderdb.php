@@ -12,8 +12,7 @@ if (isset($_POST['placeorder'])) {
 
     // Insert into orders table
     $insert_order_query = "INSERT INTO orders (supplier_id, subtotal, tax, shipping_fee, grand_total) VALUES ('$supplier_id', '$subtotal', '$tax', '$shippingfee', '$grandtotal')";
-    $insert_cart_query =
-        $result_order = mysqli_query($connection, $insert_order_query);
+    $result_order = mysqli_query($connection, $insert_order_query);
 
     if ($result_order) {
         // Get the order ID of the inserted order
