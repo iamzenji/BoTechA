@@ -185,15 +185,14 @@ td {
       border: color #ddd;
   }
 
-  .card {
+  /* .card {
     width: 100%; 
     max-width: 350px; 
     height: 350px; 
     padding-top: 40px; 
     margin: 40px;
     transition: all 0.35s ease-in-out;
-    
-}
+} */
 
 .card-body {
     text-align: center;
@@ -252,7 +251,7 @@ a.card-link{
     color: #fff;
   }
   
-/* :root {
+:root {
 
   --body-color: #e1f5fe;
   --sidebar-color: #81d4fa;
@@ -268,7 +267,7 @@ a.card-link{
   --tran-03: all 0.3s ease ;
   --tran-04: all 0.4s ease ;
   --tran-05: all 0.5s ease ;
-} */
+} 
 
 svg:hover{
   fill: var(--lighter-blue);
@@ -335,138 +334,11 @@ svg:hover{
   gap: 4em;
 }
 .box-content{
-  display: flex;
-  width: 100%;
-}
-.box-content-left{
-  width: 50%;
-}
-.box-content-right{
-  height: auto;
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 3em;
-}
-.box-content-right p{
-  font-weight: 600;
-  color: var(--light-blue);
-  border: 1px solid var(--blue);
-  border-radius: 70px;
-  padding: 2em;
-  margin-right: 2em;
-}
-table {
   width: 100%;
   border-collapse: collapse;
 }
 
-table th,
-table td {
-  padding: 10px;
-  border: 1px solid #ccc;
-  text-align: center;
-}
-.finances-color-table th{
-  color: white;
-  background-color: var(--lighter-blue);
-  font-weight: 100;
-  margin: 0;
-}
-/* Chart */
-#curve_chart{
-  border: 0.5px solid gray;
-  margin: 2em;
-  min-height: 400px;
-}
 
-/* HR */
-.employee {
-  background-color: #f8f9fa;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border: 1px solid #000000; 
-  margin-bottom: 25px;
-}
-
-
-.employee img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  margin-bottom: 10px;
-}
-
-#container{
-  margin: 20px;
-}
-
-/* Accounting and Finances */
-.finance-container{
-  display: flex;
-}
-.title-bar{
-  height: fit-content;
-  padding: 1.5em;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid rgb(156, 156, 156);
-}
-.right-window{
-  width: 100%;
-}
-.title{
-  display: flex;
-  align-items: center;
-  gap: 2em;
-  color: var(--blue);
-}
-.user{
-  display: inline-flex;
-  align-items: center;
-  gap: 1em;
-}
-.user:hover{
-  color: var(--lighter-blue);
-  fill: var(--lighter-blue);
-  cursor: pointer;
-}
-.user img{
-  object-fit: contain;
-  border-radius: 90px;
-  max-width: 120px;
-  max-height: 70px;
-
-}
-.box{
-  border: 1px solid black;
-  width: 100%;
-  overflow: hidden;
-}
-.box-title{
-  display: flex;
-  align-items: center;
-  width: 100%;
-  justify-content: space-between;
-  padding: 1.5em;
-  color: gray;
-}
-.right-window-container{
-  margin: 2em;
-  min-height: 100vh;
-  transition: all 0.35s ease-in-out;
-  display: flex;
-  flex-direction: column;
-  gap: 4em;
-}
-.box-content{
-  width: 100%;
-  border-collapse: collapse;
-}
 .finances-inbox tr{
   box-shadow: inset 0 -1px 0 0 rgba(100,121,143,0.122)
 }
@@ -508,11 +380,25 @@ table td {
   margin: 0;
 }
 
-/* Chart */
-#curve_chart{
-  border: 0.5px solid gray;
-  margin: 2em;
-  min-height: 400px;
+/* HR */
+.employee {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #000000; 
+  margin-bottom: 25px;
+}
+
+.employee img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+#container{
+  margin: 20px;
 }
 
 /* POS */
@@ -818,7 +704,6 @@ span.material-symbols-outlined {
   color: white;
 }
 
-
 /* btn add order */
 .addorder{
   padding: 10px 20px;
@@ -935,7 +820,7 @@ input[type="text"] {
   border-radius: 4px;
   box-sizing: border-box;
 }
-table {
+/* table {
   width: 99.3%;
   border-collapse: collapse;
   margin-bottom: 40px;
@@ -952,7 +837,7 @@ th {
   background-color: #007bff;
   color: #fff;
   font-weight: bold;
-}
+}*/
 
 button {
   padding: 10px 20px;
@@ -1038,3 +923,88 @@ button:hover {
 .price td[colspan="3"] {
   font-weight: bold;
 }
+
+/* New css */
+
+.btn {
+  margin-right: 10px;
+  padding: 3px 10px;
+}
+
+
+.viewbtn i, .editbtn i , .deletebtn i{
+  color: #fff;
+}
+.viewbtn{
+  background-color: #007bff;
+  border: none;
+}
+.viewbtn:hover{
+  background-color: #0d47a1;
+}
+.editbtn {
+  background-color: #10F827;
+  border: none;
+}
+.deletebtn{
+  background-color: var(--red);
+}
+/* Define custom table heading background color */
+.custom-table thead.th-custom {
+  background-color: #007bff; /* Change this to the desired background color */
+  color: white; /* Change this to the desired text color */
+}
+
+.insertitem{
+  height: auto;
+}
+
+.price-container {
+  overflow: hidden; /* Clear float */
+}
+.price {
+  border-collapse: collapse;
+  width: auto; /* Adjust width as needed */
+  float: right;
+}
+
+.price td {
+  border: none;
+  padding: 5px;
+  
+}
+
+.price input[type="text"] {
+  width: 100%;
+  max-width: 200px; /* Adjust max-width as needed */
+  box-sizing: border-box;
+}
+.price td[colspan="3"] {
+  font-weight: bold; /* Make cells with colspan=3 bold */
+}
+/*select tag */ 
+.select-tag {
+width: 100%; /* Adjust the width as needed */
+}
+.select-tag {
+width: 100%; /* Adjust the width as needed */
+padding: 8px; /* Add padding for better appearance */
+border: 1px solid #ccc; /* Add a border */
+border-radius: 4px; /* Add border radius for rounded corners */
+background-color: #fff; /* Set background color */
+font-size: 14px; /* Set font size */
+color: #333; /* Set text color */
+}
+
+/* Style for when the select element is focused */
+.select-tag:focus {
+outline: none; /* Remove default focus outline */
+border-color: #007bff; /* Change border color when focused */
+box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Add a box shadow when focused */
+}
+/* CSS rules for balanced table */
+.balanced-table th,
+.balanced-table td {
+    width: calc(100% / 7); /* Assuming you have 7 columns */
+}
+

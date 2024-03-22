@@ -8,73 +8,6 @@ if (strlen($_SESSION['employee_id']) === 0) {
 } else {
 
 ?>
-    <!DOCTYPE html>
-    <html lang="en">
-
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Accounting and Finances</title>
-        <link rel="stylesheet" href="style.css">
-
-        <!-- Line Graph -->
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-        <script type="text/javascript">
-            google.charts.load('current', {
-                'packages': ['corechart']
-            });
-            google.charts.setOnLoadCallback(lineChart);
-
-            function lineChart() {
-                var data = google.visualization.arrayToDataTable([
-                    ['Year', 'Sales', 'Expenses'],
-                    ['2004', 6000, 22400],
-                    ['2005', 12334, 34460],
-                    ['2006', 14334, 21120],
-                    ['2007', 137312, 34540],
-                    ['2008', 137312, 34540],
-                    ['2009', 137312, 34540]
-                ]);
-
-                var options = {
-                    title: 'Kapangitan ko',
-                    legend: {
-                        position: 'bottom'
-                    }
-                };
-
-                var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-                chart.draw(data, options);
-            }
-        </script>
-        <script type="text/javascript">
-            google.charts.load("current", {
-                packages: ["corechart"]
-            });
-            google.charts.setOnLoadCallback(drawChart);
-
-            function drawChart() {
-                var data = google.visualization.arrayToDataTable([
-                    ['Task', 'Hours per Day'],
-                    ['Saimon', 11],
-                    ['Pie', 2],
-                    ['Chart', 2],
-                    ['Works', 2],
-                    ['Yay', 7]
-                ]);
-
-                var options = {
-                    title: 'Most Sold Product',
-                    pieHole: 0.5,
-                    height: 500
-                };
-
-                var chart = new google.visualization.PieChart(document.getElementById('donut_chart'));
-                chart.draw(data, options);
-            }
-        </script>
-    </head>
 
     <body>
         <section class="finance-container">
@@ -101,7 +34,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                 <tbody>
                                     <tr class="mailInfo" id="mailInfo">
                                         <td><input class="form-check-input" type="checkbox" id="mailCheckbox"></td>
-                                        <td id="companyName">Company Name</td>
+                                        <td id="companyName"></td>
                                         <td id="messageInfo">Message Info</td>
                                         <td id="messageDate">Feb 31</td>
                                     </tr>
@@ -459,7 +392,6 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                     <td></td>
                                     <td></td>
                                 </tr>
-
                             </tbody>
                         </table>
                     </div>
@@ -467,8 +399,4 @@ if (strlen($_SESSION['employee_id']) === 0) {
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
                 <script src="script.js"></script>
                 <script src="https://kit.fontawesome.com/67c4787375.js" crossorigin="anonymous"></script>
-    </body>
-
-    </html>
-
-<?php } ?>
+            <?php } ?>

@@ -18,7 +18,6 @@
             </div>
         </div>
 
-
         <ul class="sidebar-nav">
             <li class="sidebar-item">
                 <a href="purchase_dashboard.php" class="sidebar-link">
@@ -33,15 +32,21 @@
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="items.php" class="sidebar-link">
+                <a href="item.php" class="sidebar-link">
                     <i class="lni lni-list"></i>
                     <span>Item List</span>
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="orders.php" class="sidebar-link">
+                <a href="order.php" class="sidebar-link">
                     <i class="lni lni-weight"></i>
                     <span>Purchase Orders</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="" class="sidebar-link">
+                    <i class="lni lni-popup"></i>
+                    <span>Notification</span>
                 </a>
             </li>
         </ul>

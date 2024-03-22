@@ -18,7 +18,6 @@
             </div>
         </div>
 
-
         <ul class="sidebar-nav">
             <li class="sidebar-item">
                 <a href="employees.php" class="sidebar-link">
