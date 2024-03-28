@@ -259,6 +259,7 @@ a.card-link{
   --primary-color-light: #F6F5FF;
   --toggle-color: #DDD;
   --text-color: #000;
+  --primary-blue:#0d6efd;
   --blue:#0d82ca;
   --light-blue:#0faedf;
   --lighter-blue:#0fafdf;
@@ -317,6 +318,7 @@ svg:hover{
   width: 100%;
   overflow: hidden;
 }
+
 .box-title{
   display: flex;
   align-items: center;
