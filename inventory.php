@@ -1,5 +1,4 @@
 <?php
-
 include 'includes/header.php';
 include 'includes/connection.php';
 
@@ -7,61 +6,167 @@ if (strlen($_SESSION['employee_id']) === 0) {
     header('location:login.php');
     session_destroy();
 } else {
-?>
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-8">
-                <h2>Manage Inventory</h2>
-            </div>
-            <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <table class="inv-color-table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th class="align-middle text-center bg-info" style="width: 10%;">Category</th>
-                                    <th class="align-middle text-center bg-info" style="width: 10%;"> Brand name </th>
-                                    <th class="align-middle text-center bg-info" style="width: 10%;"> Quantity Stock</th>
-                                    <th class="align-middle text-center bg-info" style="width: 10%;"> Storage Location</th>
-                                    <th class="align-middle text-center bg-info" style="width: 10%;"> Expiration Date</th>
-                                    <th class="align-middle text-center bg-info" style="width: 10%;"> Showroom Quantity Stock</th>
-                                    <th class="align-middle text-center bg-info" style="width: 10%;"> Showroom Location</th>
-                                    <th class="align-middle text-center bg-info" style="width: 10%;"> Quantity to Reorder</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class='align-middle text-center'>Paracetamol</td>
-                                    <td class='align-middle text-center'>Biogesic</td>
-                                    <td class='align-middle text-center'>1000</td>
-                                    <td class='align-middle text-center'>IS 1</td>
-                                    <td class='align-middle text-center'>Feb 20, 2029</td>
-                                    <td class='align-middle text-center'>100</td>
-                                    <td class='align-middle text-center'>SR 1</td>
-                                    <td class='align-middle text-center'>100</td>
-                                </tr>
+    $query = "SELECT inventory.*, cart.category, cart.brand, cart.type, cart.quantity, cart.unit_qty
+              FROM inventory 
+              INNER JOIN cart ON inventory.cart_id = cart.cart_id";
+    $result = mysqli_query($connection, $query);
 
-                            </tbody>
-                        </table>
+    if (mysqli_num_rows($result) > 0) {
+?>
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-8">
+                    <h2>Manage Inventory</h2>
+                </div>
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <table class="table invent-color-table">
+                                <thead>
+                                    <tr>
+                                        <th class="align-middle text-center " style=" font-size: 13px;">Category</th>
+                                        <th class="align-middle text-center " style=" font-size: 13px;">Brand name</th>
+                                        <th class="align-middle text-center " style=" font-size: 13px;">Type</th>
+                                        <th class="align-middle text-center " style=" font-size: 13px;">Quantity Stock</th>
+                                        <th class="align-middle text-center " style=" font-size: 13px;">Unit Quantity</th>
+                                        <th class="align-middle text-center " style=" font-size: 13px;">Storage Location</th>
+                                        <th class="align-middle text-center " style=" font-size: 13px;">Expiration Date</th>
+                                        <th class="align-middle text-center " style=" font-size: 13px;">Showroom Quantity Stock</th>
+                                        <th class="align-middle text-center " style=" font-size: 13px;">Showroom Location</th>
+                                        <th class="align-middle text-center " style=" font-size: 13px;">Quantity to Reorder</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        // total quantity available stock
+                                        $total_quantity = $row['unit_inv_qty'] - $row['showroom_quantity_stock'];
+
+                                        // Check if showroom quantity if below 10 and need to stock
+                                        if ($row['showroom_quantity_stock'] <= 10) {
+                                            // Refill showroom quantity to 100 standard stock
+                                            $row['showroom_quantity_stock'] = 100;
+                                        }
+
+                                        // default 0
+                                        if ($row['showroom_quantity_stock'] < 0) {
+                                            $row['showroom_quantity_stock'] = 0;
+                                        }
+                                    ?>
+                                        <tr class="edit-row" data-toggle="modal" data-target="#editModal_<?php echo $row['inventory_id']; ?>">
+                                            <td class='align-middle text-center' style=" font-size: 13px;"><?php echo $row['category']; ?></td>
+                                            <td class='align-middle text-center' style=" font-size: 13px;"><?php echo $row['brand']; ?></td>
+                                            <td class='align-middle text-center' style=" font-size: 13px;"><?php echo $row['type']; ?></td>
+                                            <td class='align-middle text-center' style=" font-size: 13px;"><?php echo $row['qty_stock'] ?></td>
+                                            <td class='align-middle text-center' style=" font-size: 13px;"><?php echo $total_quantity ?></td>
+                                            <td class='align-middle text-center' style=" font-size: 13px;"><?php echo $row['storage_location']; ?></td>
+                                            <td class='align-middle text-center' style=" font-size: 13px;"><?php echo $row['expiration_date']; ?></td>
+                                            <td class='align-middle text-center' style=" font-size: 13px;"><?php echo $row['showroom_quantity_stock']; ?></td>
+                                            <td class='align-middle text-center' style=" font-size: 13px;"><?php echo $row['showroom_location']; ?></td>
+                                            <td class='align-middle text-center' style=" font-size: 13px;"><?php echo $row['quantity_to_reorder']; ?></td>
+                                        </tr>
+
+                                        <div class="modal fade" id="editModal_<?php echo $row['inventory_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel_<?php echo $row['inventory_id']; ?>" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header bg-primary text-white">
+                                                        <h5 class="modal-title" id="editModalLabel_<?php echo $row['inventory_id']; ?>">Edit Inventory</h5>
+                                                        <button type="button" class="close close-modal-button" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form action="update_inventory.php" method="post">
+                                                            <input type="hidden" name="inventory_id" value="<?php echo $row['inventory_id']; ?>">
+                                                            <div class="form-group">
+                                                                <label for="qty_stock">Quantity Stock:</label>
+                                                                <input type="text" class="form-control" id="qty_stock" name="qty_stock" value="<?php echo $row['qty_stock']; ?>">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="unit_inv_qty">Unit Quantity:</label>
+                                                                <input type="text" class="form-control" id="unit_inv_qty" name="unit_inv_qty" value="<?php echo $row['unit_inv_qty']; ?>">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="storage_location">Storage Location:</label>
+                                                                <input type="text" class="form-control" id="storage_location" name="storage_location" value="<?php echo $row['storage_location']; ?>">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="expiration_date">Expiration Date:</label>
+                                                                <input type="text" class="form-control" id="expiration_date" name="expiration_date" value="<?php echo $row['expiration_date']; ?>">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="showroom_quantity_stock">Showroom Quantity Stock:</label>
+                                                                <input type="text" class="form-control" id="showroom_quantity_stock" name="showroom_quantity_stock" value="<?php echo $row['showroom_quantity_stock']; ?>">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="showroom_location">Showroom Location:</label>
+                                                                <input type="text" class="form-control" id="showroom_location" name="showroom_location" value="<?php echo $row['showroom_location']; ?>">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="quantity_to_reorder">Quantity to Reorder:</label>
+                                                                <input type="text" class="form-control" id="quantity_to_reorder" name="quantity_to_reorder" value="<?php echo $row['quantity_to_reorder']; ?>">
+                                                            </div>
+                                                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    <?php
+                                    }
+                                    ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="10">
+                                            <div class="container pt-3">
+                                                <div class="row align-items-center">
+                                                    <div class="col-md-6">
+                                                        <nav aria-label="Page navigation">
+                                                            <ul class="pagination justify-content-start">
+                                                                <li class="page-item disabled">
+                                                                    <span class="page-link">&laquo;</span>
+                                                                </li>
+                                                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                                <li class="page-item">
+                                                                    <a class="page-link" href="#" aria-label="Next">
+                                                                        <span aria-hidden="true">&raquo;</span>
+                                                                        <span class="sr-only">Next</span>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </nav>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="d-flex justify-content-end">
+                                                            <label for="rowsPerPage" class="mr-5" style="flex-shrink: 0;">Rows per page:</label>
+                                                            <select class="form-control pl-5" id="rowsPerPage" style="width: 60px;">
+                                                                <option>10</option>
+                                                                <option>25</option>
+                                                                <option>50</option>
+                                                                <option>100</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+        <style>
 
-    <?php
-    // $mydate = '17/02/2011';
-    // $mydate_parts = explode('/', $mydate);
-    // $mydate_timestamp = mktime(0, 0, 0, $mydate_parts[1], $mydate_parts[0], $mydate_parts[2]);
-
-    // if($mydate == date('d/m/Y'))
-    // {
-    // echo 'last day to reply';
-    // }
-    // elseif($mydate_timestamp < time())
-    // {
-    // echo 'post has expired and you cannot reply';
-    // }
-
-    ?>
-<?php } ?>
+        </style>
+<?php
+    }
+}
+?>

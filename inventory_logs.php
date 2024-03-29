@@ -2,64 +2,151 @@
 include 'includes/connection.php';
 include 'includes/header.php';
 
-if (strlen($_SESSION['employee_id']) === 0) {
+$userName = "";
+
+if (isset($_SESSION['employee_position'])) {
+    $position = $_SESSION['employee_position'];
+
+    $query = "SELECT employee_name FROM employee_details WHERE employee_position = '$position'";
+    $result = mysqli_query($connection, $query);
+
+    if ($result && mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $userName = $row['employee_name'];
+    }
+}
+
+if (empty($_SESSION['employee_id'])) {
     header('location:login.php');
     session_destroy();
 } else {
 
+    $query = "SELECT inventory_logs.*, cart.brand AS brand_name
+              FROM inventory_logs 
+              INNER JOIN inventory ON inventory_logs.inventory_id = inventory.inventory_id 
+              INNER JOIN cart ON inventory.cart_id = cart.cart_id";
+    $result = mysqli_query($connection, $query);
 ?>
+
     <div class="container mt-4">
         <div class="col-md-6">
             <h2>Inventory Logs</h2>
         </div>
-        <div class="row mb-2">
-            <div class="col-md-6 d-flex">
-                <input type="text" id="searchInput" class=" form-control" style="width: 200px; height: 30px;" placeholder="Search">
-            </div>
-            <div class="col-md-6 d-flex justify-content-end">
-                <button class="btn btn-primary" style="height: 40px;">Export Logs</button>
+        <div class="container row mb-2">
+            <div class="btn-group col-md-2 d-flex">
+                <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="lni lni-lineicons-symbol"></i> Reasons
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">All Reasons</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">Edit Item</a></li>
+                    <li><a class="dropdown-item" href="#">Receive Items</a></li>
+                    <li><a class="dropdown-item" href="#">Sale</a></li>
+                    <li><a class="dropdown-item" href="#">Discounted Items</a></li>
+                </ul>
             </div>
         </div>
-        <table class="inv-color-table table-bordered">
+        <table class="table invent-color-table">
             <thead>
                 <tr>
-                    <th class="bg-info">Date</th>
-                    <th class="bg-info">Product</th>
-                    <th class="bg-info">Employee</th>
-                    <th class="bg-info">Quantity</th>
-                    <th class="bg-info">Stock after</th>
-                    <th class="bg-info">Transaction</th>
+                    <td colspan="6">
+                        <div class="container">
+                            <div class="row align-items-center">
+                                <div class="col-md-6">
+                                    <button class="btn btn-outline-primary" style="height: 40px;">Export Logs</button>
+                                </div>
+                                <div class="align-middle col-md-6">
+                                    <div class="d-flex justify-content-end">
+                                        <button type="button" class="btn btn-outline-primary" id="toggleSearch">
+                                            <i class="lni lni-search-alt"></i>
+                                        </button>
+                                        <div id="searchContainer" class="col-md-6" style="display: none;">
+                                            <div class="d-flex justify-content-end">
+                                                <input type="text" id="searchInput" class="form-control col-md-6" style="width: 260px; height: 30px; font-size: 12px;" placeholder="Search by Date, Name, Employee, Reasons ">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </td>
+
+                </tr>
+            </thead>
+            <thead>
+                <tr>
+                    <th class="align-middle">Date</th>
+                    <th class="align-middle">Brand name</th>
+                    <th class="align-middle">Employee</th>
+                    <th class="align-middle">Adjustment</th>
+                    <th class="align-middle">Stock after</th>
+                    <th class="align-middle">Reasons</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Mar 13, 2024, 5:50pm</td>
-                    <td>Biogesic</td>
-                    <td>Zenji</td>
-                    <td>+1000</td>
-                    <td>0 -> 1000</td>
-                    <td>Stock Order</td>
-                </tr>
-                <tr>
-                    <td>Mar 14, 2024, 6:50pm</td>
-                    <td>Biogesic</td>
-                    <td>Loi</td>
-                    <td>-10</td>
-                    <td>1000 -> 990</td>
-                    <td>Purchase Order</td>
-                </tr>
-                <tr>
-                    <td>Mar 15, 2024, 7:50pm</td>
-                    <td>Biogesic</td>
-                    <td>Loi</td>
-                    <td>+10</td>
-                    <td>990 -> 1000</td>
-                    <td>Purchase Return</td>
-
-                </tr>
-
+                <?php
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $formattedDate = date('F j, Y g:i A', strtotime($row['date']));
+                ?>
+                    <tr>
+                        <td><?php echo $formattedDate; ?></td>
+                        <td><?php echo $row['brand_name']; ?></td>
+                        <td><?php echo $userName; ?></td>
+                        <td><?php echo $row['quantity']; ?></td>
+                        <td><?php echo $row['stock_after']; ?></td>
+                        <td><?php echo $row['reason']; ?></td>
+                    </tr>
+                <?php
+                }
+                ?>
             </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6">
+                        <div class="container pt-3">
+                            <div class="row align-items-center">
+                                <div class="col-md-6">
+                                    <nav aria-label="Page navigation">
+                                        <ul class="pagination justify-content-start">
+                                            <li class="page-item disabled">
+                                                <span class="page-link">&laquo;</span>
+                                            </li>
+                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                    <span class="sr-only">Next</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex justify-content-end">
+                                        <label for="rowsPerPage" class="mr-2" style="flex-shrink: 0;">Rows per page:</label>
+                                        <select class="form-control pl-2" id="rowsPerPage" style="width: 60px;">
+                                            <option>10</option>
+                                            <option>25</option>
+                                            <option>50</option>
+                                            <option>100</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
         </table>
     </div>
-
-<?php } ?>
+<?php
+}
+?>
