@@ -178,29 +178,25 @@ form button {
     margin-top: 10px;
   }
   
-/* table,
-th,
-tr,
-td {
-      border: color #ddd;
-  } */
+
 
 /* inventory */
 
-.invent-color-table {
+.inv-color-table {
   width: 100%;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, .15);
 }
 
-.invent-color-table th {
+.inv-color-table th {
   color: rgb(0, 0, 0);
   background-color: var(--lighter-blue);
   font-weight: 100;
   margin: 0;
+  font-size: 13px;
 }
 
-.table-striped tbody tr:nth-of-type(odd) {
-  background-color: rgba(0, 0, 0, .05);
+.edit-row{
+  font-size: 13px;
 }
 
 .edit-row:hover {
@@ -452,7 +448,7 @@ svg:hover{
   height: 20vh;
 
 }
-table .buntuk{
+.buntuk{
   background-color: rgb(165, 245, 245);
 }
 #laman{

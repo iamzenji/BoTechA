@@ -1,6 +1,6 @@
 <?php
-include 'includes/header.php';
 include 'includes/connection.php';
+include 'includes/header.php';
 
 if (strlen($_SESSION['employee_id']) === 0) {
     header('location:login.php');
@@ -21,19 +21,19 @@ if (strlen($_SESSION['employee_id']) === 0) {
                 <div class="col-md-12">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <table class="table invent-color-table">
+                            <table class="inv-color-table table">
                                 <thead>
-                                    <tr>
-                                        <th class="align-middle text-center " style=" font-size: 13px;">Category</th>
-                                        <th class="align-middle text-center " style=" font-size: 13px;">Brand name</th>
-                                        <th class="align-middle text-center " style=" font-size: 13px;">Type</th>
-                                        <th class="align-middle text-center " style=" font-size: 13px;">Quantity Stock</th>
-                                        <th class="align-middle text-center " style=" font-size: 13px;">Unit Quantity</th>
-                                        <th class="align-middle text-center " style=" font-size: 13px;">Storage Location</th>
-                                        <th class="align-middle text-center " style=" font-size: 13px;">Expiration Date</th>
-                                        <th class="align-middle text-center " style=" font-size: 13px;">Showroom Quantity Stock</th>
-                                        <th class="align-middle text-center " style=" font-size: 13px;">Showroom Location</th>
-                                        <th class="align-middle text-center " style=" font-size: 13px;">Quantity to Reorder</th>
+                                    <tr class="align-middle text-center">
+                                        <th>Category</th>
+                                        <th>Brand name</th>
+                                        <th>Type</th>
+                                        <th>Quantity Stock</th>
+                                        <th>Unit Quantity</th>
+                                        <th>Storage Location</th>
+                                        <th>Expiration Date</th>
+                                        <th>Showroom Quantity Stock</th>
+                                        <th>Showroom Location</th>
+                                        <th>Quantity to Reorder</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -53,17 +53,17 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                             $row['showroom_quantity_stock'] = 0;
                                         }
                                     ?>
-                                        <tr class="edit-row" data-toggle="modal" data-target="#editModal_<?php echo $row['inventory_id']; ?>">
-                                            <td class='align-middle text-center' style=" font-size: 13px;"><?php echo $row['category']; ?></td>
-                                            <td class='align-middle text-center' style=" font-size: 13px;"><?php echo $row['brand']; ?></td>
-                                            <td class='align-middle text-center' style=" font-size: 13px;"><?php echo $row['type']; ?></td>
-                                            <td class='align-middle text-center' style=" font-size: 13px;"><?php echo $row['qty_stock'] ?></td>
-                                            <td class='align-middle text-center' style=" font-size: 13px;"><?php echo $total_quantity ?></td>
-                                            <td class='align-middle text-center' style=" font-size: 13px;"><?php echo $row['storage_location']; ?></td>
-                                            <td class='align-middle text-center' style=" font-size: 13px;"><?php echo $row['expiration_date']; ?></td>
-                                            <td class='align-middle text-center' style=" font-size: 13px;"><?php echo $row['showroom_quantity_stock']; ?></td>
-                                            <td class='align-middle text-center' style=" font-size: 13px;"><?php echo $row['showroom_location']; ?></td>
-                                            <td class='align-middle text-center' style=" font-size: 13px;"><?php echo $row['quantity_to_reorder']; ?></td>
+                                        <tr class="edit-row align-middle text-center" data-toggle="modal" data-target="#editModal_<?php echo $row['inventory_id']; ?>">
+                                            <td><?php echo $row['category']; ?></td>
+                                            <td><?php echo $row['brand']; ?></td>
+                                            <td><?php echo $row['type']; ?></td>
+                                            <td><?php echo $row['qty_stock'] ?></td>
+                                            <td><?php echo $total_quantity ?></td>
+                                            <td><?php echo $row['storage_location']; ?></td>
+                                            <td><?php echo $row['expiration_date']; ?></td>
+                                            <td><?php echo $row['showroom_quantity_stock']; ?></td>
+                                            <td><?php echo $row['showroom_location']; ?></td>
+                                            <td><?php echo $row['quantity_to_reorder']; ?></td>
                                         </tr>
 
                                         <div class="modal fade" id="editModal_<?php echo $row['inventory_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel_<?php echo $row['inventory_id']; ?>" aria-hidden="true">
@@ -151,7 +151,6 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                                             </select>
                                                         </div>
                                                     </div>
-
                                                 </div>
                                             </div>
                                         </td>
@@ -163,9 +162,6 @@ if (strlen($_SESSION['employee_id']) === 0) {
                 </div>
             </div>
         </div>
-        <style>
-
-        </style>
 <?php
     }
 }

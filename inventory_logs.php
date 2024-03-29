@@ -38,14 +38,14 @@ if (empty($_SESSION['employee_id'])) {
                     <i class="lni lni-lineicons-symbol"></i> Reasons
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">All Reasons</a></li>
+                    <li><a class="dropdown-item" href="">All Reasons</a></li>
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-                    <li><a class="dropdown-item" href="#">Edit Item</a></li>
-                    <li><a class="dropdown-item" href="#">Receive Items</a></li>
-                    <li><a class="dropdown-item" href="#">Sale</a></li>
-                    <li><a class="dropdown-item" href="#">Discounted Items</a></li>
+                    <li><a class="dropdown-item" href="">Edit Item</a></li>
+                    <li><a class="dropdown-item" href="">Receive Items</a></li>
+                    <li><a class="dropdown-item" href="">Sale</a></li>
+                    <li><a class="dropdown-item" href="">Discounted Items</a></li>
                 </ul>
             </div>
         </div>
