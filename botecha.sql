@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 16, 2024 at 03:57 PM
+-- Generation Time: Mar 29, 2024 at 04:07 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -29,18 +29,50 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `cart` (
   `cart_id` int(11) NOT NULL,
-  `item_id` int(11) NOT NULL,
-  `qty` int(11) NOT NULL,
-  `scale` varchar(25) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `order_id` int(11) DEFAULT NULL,
+  `category` varchar(255) DEFAULT NULL,
+  `brand` varchar(255) DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `price` decimal(10,2) DEFAULT NULL,
+  `unit` varchar(255) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  `unit_qty` int(11) NOT NULL,
+  `total` decimal(10,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `cart`
 --
 
-INSERT INTO `cart` (`cart_id`, `item_id`, `qty`, `scale`) VALUES
-(66, 25, 10, 'piece'),
-(68, 1, 1, 'piece');
+INSERT INTO `cart` (`cart_id`, `order_id`, `category`, `brand`, `type`, `price`, `unit`, `quantity`, `unit_qty`, `total`) VALUES
+(2, 32, 'Analgesic', 'Biogesic', 'Tablet', 3996.00, '500mg', 3, 300, 7992.00);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `category`
+--
+
+CREATE TABLE `category` (
+  `category_id` int(11) NOT NULL,
+  `category_name` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`category_id`, `category_name`) VALUES
+(1, 'Analgesic'),
+(2, 'Antibiotics'),
+(3, 'Antipyretics'),
+(4, 'Antibiotic'),
+(5, 'Laxative'),
+(6, 'Antihistamine'),
+(7, 'Nonsteroidal Anti-inflammatory Drug (NSAID)'),
+(8, 'Antidiabetic'),
+(9, 'Antidiarrheal'),
+(10, 'Statin');
 
 -- --------------------------------------------------------
 
@@ -155,6 +187,56 @@ INSERT INTO `info` (`item_id`, `stock_piece`, `price_piece`, `price_pack`, `piec
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `inventory`
+--
+
+CREATE TABLE `inventory` (
+  `inventory_id` int(11) NOT NULL,
+  `cart_id` int(11) NOT NULL,
+  `qty_stock` int(11) NOT NULL,
+  `unit_inv_qty` int(11) NOT NULL,
+  `storage_location` varchar(255) NOT NULL,
+  `expiration_date` date NOT NULL,
+  `showroom_quantity_stock` int(11) NOT NULL,
+  `showroom_location` varchar(255) NOT NULL,
+  `quantity_to_reorder` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `inventory`
+--
+
+INSERT INTO `inventory` (`inventory_id`, `cart_id`, `qty_stock`, `unit_inv_qty`, `storage_location`, `expiration_date`, `showroom_quantity_stock`, `showroom_location`, `quantity_to_reorder`) VALUES
+(1, 2, 5, 700, 'IR1', '2030-07-28', 100, 'SR1', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `inventory_logs`
+--
+
+CREATE TABLE `inventory_logs` (
+  `log_id` int(11) NOT NULL,
+  `inventory_id` date NOT NULL,
+  `date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `brand_name` varchar(255) NOT NULL,
+  `employee` varchar(255) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `stock_after` int(11) NOT NULL,
+  `reason` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `inventory_logs`
+--
+
+INSERT INTO `inventory_logs` (`log_id`, `inventory_id`, `date`, `brand_name`, `employee`, `quantity`, `stock_after`, `reason`) VALUES
+(1, '0000-00-00', '2024-03-29 09:01:38', '', '', 0, 500, 'Edit Item'),
+(2, '0000-00-00', '2024-03-29 09:25:45', '', '', 200, 700, 'Edit Item');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `item`
 --
 
@@ -201,28 +283,6 @@ INSERT INTO `item` (`id`, `generic_name`, `brand_name`, `expiration_date`, `medi
 -- --------------------------------------------------------
 
 --
--- Table structure for table `item_list`
---
-
-CREATE TABLE `item_list` (
-  `id` int(50) NOT NULL,
-  `name` varchar(250) NOT NULL,
-  `description` text NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT ' 1 = Active, 0 = Inactive',
-  `date_created` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `item_list`
---
-
-INSERT INTO `item_list` (`id`, `name`, `description`, `status`, `date_created`) VALUES
-(23, 'Biogesic', 'asdas', 1, '2024-03-15 09:29:32'),
-(24, 'Paracetamol', 'kkk', 1, '2024-03-15 13:29:00');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `item_mapping`
 --
 
@@ -263,49 +323,135 @@ INSERT INTO `item_mapping` (`id`, `item_id`, `section`, `colum`, `row`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `medicines`
+-- Table structure for table `medicinetype`
 --
 
-CREATE TABLE `medicines` (
-  `id` int(50) NOT NULL,
-  `category` varchar(250) NOT NULL,
-  `medicinename` text NOT NULL,
-  `type` text NOT NULL,
-  `unit` text NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT ' 1 = Active, 0 = Inactive'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `medicinetype` (
+  `type_id` int(11) NOT NULL,
+  `type_name` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `medicines`
+-- Dumping data for table `medicinetype`
 --
 
-INSERT INTO `medicines` (`id`, `category`, `medicinename`, `type`, `unit`, `status`) VALUES
-(0, 'pain killer', 'biogesic', 'tablet', '500mg', 0);
+INSERT INTO `medicinetype` (`type_id`, `type_name`) VALUES
+(1, 'Tablet'),
+(2, 'Capsule'),
+(3, 'Syrup'),
+(4, 'Drops'),
+(5, 'Suppository');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `supplier_list`
+-- Table structure for table `medicine_list`
 --
 
-CREATE TABLE `supplier_list` (
-  `id` int(30) NOT NULL,
+CREATE TABLE `medicine_list` (
+  `medicine_id` int(11) NOT NULL,
+  `brand` text NOT NULL,
+  `unit` text NOT NULL,
+  `price` text NOT NULL,
+  `description` text NOT NULL,
+  `supplier_id` int(11) DEFAULT NULL,
+  `category_id` int(11) DEFAULT NULL,
+  `type_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `medicine_list`
+--
+
+INSERT INTO `medicine_list` (`medicine_id`, `brand`, `unit`, `price`, `description`, `supplier_id`, `category_id`, `type_id`) VALUES
+(1, 'Biogesic', '500mg', '3996.60', 'Pain reliever, reduced fever', 1, 1, 1),
+(2, 'RiteMED', '500mg', '3900.00', 'dfsfs', 2, 2, 2),
+(3, 'Mefenamic Acid', '500mg', '4000', 'Anti Inflammatory', 1, 7, 2),
+(4, 'Dolfenal', '500mg', '3,506.60', 'Pain blocker for headache, tootache, and dysmenorrhea', 1, 7, 1),
+(5, 'Augmentin', '500mg', '4999.00', 'killing germs', 1, 4, 3),
+(6, 'Dolfenal', '500mg', '3506.60', 'Pain blocker for headache, tootache, and dysmenorrhea', 1, 7, 3),
+(7, 'Dolfenal', '500mg', '6996.60', 'Pain blocker for headache, tootache, and dysmenorrhea', 1, 7, 4),
+(8, 'Dolfenal', '500mg', '3333.00', 'For Human,Pain blocker for headache, tootache, and dysmenorrhea', 1, 7, 5),
+(9, 'Tempra', '500mg', '2100', 'Orange', 3, 2, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `order_id` int(11) NOT NULL,
+  `supplier_id` int(11) DEFAULT NULL,
+  `subtotal` decimal(10,2) DEFAULT NULL,
+  `tax` decimal(10,2) DEFAULT NULL,
+  `shipping_fee` decimal(10,2) DEFAULT NULL,
+  `grand_total` decimal(10,2) DEFAULT NULL,
+  `order_date` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`order_id`, `supplier_id`, `subtotal`, `tax`, `shipping_fee`, `grand_total`, `order_date`) VALUES
+(1, 1, 15993.20, 1919.18, 600.00, 18512.38, '2024-03-22 07:31:13'),
+(2, 1, 15993.20, 1919.18, 600.00, 18512.38, '2024-03-22 07:31:27'),
+(3, 1, 0.00, 0.00, 0.00, 0.00, '2024-03-22 07:31:45'),
+(4, 1, 0.00, 0.00, 0.00, 0.00, '2024-03-22 07:32:25'),
+(5, 1, 11989.80, 1438.78, 600.00, 14028.58, '2024-03-22 07:33:41'),
+(6, 1, 11989.80, 1438.78, 600.00, 14028.58, '2024-03-22 07:35:38'),
+(7, 1, 11989.80, 1438.78, 600.00, 14028.58, '2024-03-22 07:35:57'),
+(8, 1, 7993.20, 959.18, 600.00, 9552.38, '2024-03-22 07:36:12'),
+(9, 1, 7993.20, 959.18, 600.00, 9552.38, '2024-03-22 07:41:17'),
+(10, 1, 7993.20, 959.18, 600.00, 9552.38, '2024-03-22 07:41:51'),
+(11, 1, 7993.20, 959.18, 600.00, 9552.38, '2024-03-22 07:44:55'),
+(12, 2, 3900.00, 468.00, 600.00, 4968.00, '2024-03-22 07:45:11'),
+(13, 1, 0.00, 0.00, 0.00, 0.00, '2024-03-22 07:46:59'),
+(14, 1, 0.00, 0.00, 0.00, 0.00, '2024-03-22 07:48:03'),
+(15, 1, 19983.00, 2397.96, 600.00, 22980.96, '2024-03-22 07:56:26'),
+(17, 1, 3.00, 0.36, 600.00, 603.36, '2024-03-22 10:25:34'),
+(18, 2, 59466.00, 7135.92, 600.00, 67201.92, '2024-03-22 14:18:14'),
+(19, 1, 7013.20, 841.58, 600.00, 8454.78, '2024-03-22 14:19:21'),
+(20, 1, 15993.20, 1919.18, 600.00, 18512.38, '2024-03-22 14:34:59'),
+(21, 1, 0.00, 0.00, 0.00, 0.00, '2024-03-22 14:46:10'),
+(22, 3, 21000.00, 2520.00, 600.00, 24120.00, '2024-03-22 14:46:48'),
+(23, 2, 7800.00, 936.00, 600.00, 9336.00, '2024-03-22 14:48:48'),
+(24, 2, 7800.00, 936.00, 600.00, 9336.00, '2024-03-22 14:57:30'),
+(25, 1, 7993.20, 959.18, 600.00, 9552.38, '2024-03-22 14:59:51'),
+(26, 2, 7800.00, 936.00, 600.00, 9336.00, '2024-03-22 15:02:58'),
+(27, 2, 7800.00, 936.00, 600.00, 9336.00, '2024-03-22 15:04:26'),
+(28, 1, 7993.20, 959.18, 600.00, 9552.38, '2024-03-22 15:10:58'),
+(29, 1, 7993.20, 959.18, 600.00, 9552.38, '2024-03-22 15:12:35'),
+(30, 1, 7993.20, 959.18, 600.00, 9552.38, '2024-03-22 15:15:09'),
+(31, 2, 7800.00, 936.00, 600.00, 9336.00, '2024-03-22 15:19:35'),
+(32, 2, 7800.00, 936.00, 600.00, 9336.00, '2024-03-22 15:21:05');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `supplier`
+--
+
+CREATE TABLE `supplier` (
+  `supplier_id` int(11) NOT NULL,
   `name` varchar(250) NOT NULL,
   `address` text NOT NULL,
   `contact_person` text NOT NULL,
   `contact` varchar(50) NOT NULL,
   `email` varchar(150) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT ' 0 = Inactive, 1 = Active',
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '0 = Inactive, 1 = Active',
   `date_created` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `supplier_list`
+-- Dumping data for table `supplier`
 --
 
-INSERT INTO `supplier_list` (`id`, `name`, `address`, `contact_person`, `contact`, `email`, `status`, `date_created`) VALUES
-(14, 'sdf', 'sdf', 'sd', 'sd', 'sdf', 0, '2024-03-09 21:04:35'),
-(18, 'sdf', 'sdf', 'sd', 'sd', 'sdf', 1, '2024-03-10 16:18:29');
+INSERT INTO `supplier` (`supplier_id`, `name`, `address`, `contact_person`, `contact`, `email`, `status`, `date_created`) VALUES
+(1, 'Pfizer', 'Apalit, Pampanga', 'Veronica Valenzuela', '09987456321', 'veron@gmail.com', 1, '2024-03-21 12:28:45'),
+(2, 'Unilab', 'Bacolor, Pampanga', 'Cyra Tapang', '09123456789', 'cyra@gmail.com', 1, '2024-03-21 15:24:46'),
+(3, 'Biotec', 'Batang guagua', 'Aeronotics', '09777383256', 'Aeronotics@gmail.com', 1, '2024-03-22 22:25:14');
 
 --
 -- Indexes for dumped tables
@@ -316,7 +462,13 @@ INSERT INTO `supplier_list` (`id`, `name`, `address`, `contact_person`, `contact
 --
 ALTER TABLE `cart`
   ADD PRIMARY KEY (`cart_id`),
-  ADD KEY `item_id` (`item_id`);
+  ADD KEY `order_id` (`order_id`);
+
+--
+-- Indexes for table `category`
+--
+ALTER TABLE `category`
+  ADD PRIMARY KEY (`category_id`);
 
 --
 -- Indexes for table `daily_time_record`
@@ -348,15 +500,21 @@ ALTER TABLE `info`
   ADD KEY `item_id` (`item_id`);
 
 --
+-- Indexes for table `inventory`
+--
+ALTER TABLE `inventory`
+  ADD PRIMARY KEY (`inventory_id`);
+
+--
+-- Indexes for table `inventory_logs`
+--
+ALTER TABLE `inventory_logs`
+  ADD PRIMARY KEY (`log_id`);
+
+--
 -- Indexes for table `item`
 --
 ALTER TABLE `item`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `item_list`
---
-ALTER TABLE `item_list`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -367,10 +525,32 @@ ALTER TABLE `item_mapping`
   ADD KEY `item_id` (`item_id`);
 
 --
--- Indexes for table `supplier_list`
+-- Indexes for table `medicinetype`
 --
-ALTER TABLE `supplier_list`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `medicinetype`
+  ADD PRIMARY KEY (`type_id`);
+
+--
+-- Indexes for table `medicine_list`
+--
+ALTER TABLE `medicine_list`
+  ADD PRIMARY KEY (`medicine_id`),
+  ADD KEY `supplier_id` (`supplier_id`),
+  ADD KEY `category_id` (`category_id`),
+  ADD KEY `type_id` (`type_id`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`order_id`),
+  ADD KEY `supplier_id` (`supplier_id`);
+
+--
+-- Indexes for table `supplier`
+--
+ALTER TABLE `supplier`
+  ADD PRIMARY KEY (`supplier_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -380,7 +560,7 @@ ALTER TABLE `supplier_list`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `employee_details`
@@ -395,16 +575,22 @@ ALTER TABLE `employee_salary`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `inventory`
+--
+ALTER TABLE `inventory`
+  MODIFY `inventory_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `inventory_logs`
+--
+ALTER TABLE `inventory_logs`
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
-
---
--- AUTO_INCREMENT for table `item_list`
---
-ALTER TABLE `item_list`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `item_mapping`
@@ -413,10 +599,22 @@ ALTER TABLE `item_mapping`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
--- AUTO_INCREMENT for table `supplier_list`
+-- AUTO_INCREMENT for table `medicine_list`
 --
-ALTER TABLE `supplier_list`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+ALTER TABLE `medicine_list`
+  MODIFY `medicine_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+
+--
+-- AUTO_INCREMENT for table `supplier`
+--
+ALTER TABLE `supplier`
+  MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -426,7 +624,7 @@ ALTER TABLE `supplier_list`
 -- Constraints for table `cart`
 --
 ALTER TABLE `cart`
-  ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `item` (`id`);
+  ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`);
 
 --
 -- Constraints for table `daily_time_record`
@@ -447,6 +645,20 @@ ALTER TABLE `info`
 --
 ALTER TABLE `item_mapping`
   ADD CONSTRAINT `item_mapping_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `item` (`id`);
+
+--
+-- Constraints for table `medicine_list`
+--
+ALTER TABLE `medicine_list`
+  ADD CONSTRAINT `medicine_list_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`supplier_id`),
+  ADD CONSTRAINT `medicine_list_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`),
+  ADD CONSTRAINT `medicine_list_ibfk_3` FOREIGN KEY (`type_id`) REFERENCES `medicinetype` (`type_id`);
+
+--
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`supplier_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
