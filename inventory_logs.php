@@ -49,7 +49,7 @@ if (empty($_SESSION['employee_id'])) {
                 </ul>
             </div>
         </div>
-        <table class="table invent-color-table">
+        <table class="table inv-color-table">
             <thead>
                 <tr>
                     <td colspan="6">
@@ -147,6 +147,12 @@ if (empty($_SESSION['employee_id'])) {
             </tfoot>
         </table>
     </div>
+    <script>
+        document.getElementById('toggleSearch').addEventListener('click', function() {
+            var searchContainer = document.getElementById('searchContainer');
+            searchContainer.style.display = (searchContainer.style.display === 'none' || searchContainer.style.display === '') ? 'block' : 'none';
+        });
+    </script>
 <?php
 }
 ?>

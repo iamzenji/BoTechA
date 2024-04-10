@@ -1,7 +1,6 @@
 <?php
 include 'includes/connection.php';
 include 'includes/header.php';
-// Call the session check function
 
 if (isset($_POST['updatedata'])) {
     // Retrieve form data
@@ -13,7 +12,7 @@ if (isset($_POST['updatedata'])) {
     $contact = $_POST['contact'];
 
     // Connect to the database
-    $connection = mysqli_connect("localhost", "root", "", "botecha");
+    $connection = mysqli_connect("localhost", "root", "", "b");
 
     // Check connection
     if (!$connection) {

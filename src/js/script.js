@@ -11,7 +11,8 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
 })
 
 // Search
-document.getElementById('toggleSearch').addEventListener('click', function() {
-  var searchContainer = document.getElementById('searchContainer');
-  searchContainer.style.display = (searchContainer.style.display === 'none' || searchContainer.style.display === '') ? 'block' : 'none';
-});
+// document.getElementById('toggleSearch').addEventListener('click', function() {
+//   var searchContainer = document.getElementById('searchContainer');
+//   searchContainer.style.display = (searchContainer.style.display === 'none' || searchContainer.style.display === '') ? 'block' : 'none';
+// });
+// comment muna to for the meantime kase di nya na riread sa inventory

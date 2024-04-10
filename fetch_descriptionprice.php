@@ -7,7 +7,7 @@ if (isset($_GET['supplier_id'], $_GET['category_id'], $_GET['brand'], $_GET['typ
     $type = mysqli_real_escape_string($connection, $_GET['type']);
 
     // Query to fetch description, price, and unit based on category, brand, and type
-    $query = "SELECT description, price, unit FROM medicine_list WHERE supplier_id = '$supplier_id' AND category_id = '$category_id' AND brand = '$brand' AND type_id = '$type'";
+    $query = "SELECT description, price, unit, unit_qty FROM medicine_list WHERE supplier_id = '$supplier_id' AND category_id = '$category_id' AND brand = '$brand' AND type_id = '$type'";
     $result = mysqli_query($connection, $query);
 
     if ($result && mysqli_num_rows($result) > 0) {
@@ -16,7 +16,8 @@ if (isset($_GET['supplier_id'], $_GET['category_id'], $_GET['brand'], $_GET['typ
             'success' => true,
             'description' => $row['description'],
             'price' => $row['price'],
-            'unit' => $row['unit']
+            'unit' => $row['unit'],
+            'unit_qty' => $row['unit_qty']
         );
         echo json_encode($response);
     } else {

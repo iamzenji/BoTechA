@@ -2,14 +2,18 @@
 
 include 'includes/connection.php';
 
-$id = $_GET["id"];
-$sql = "DELETE FROM `item_list` WHERE id = $id";
-$result = mysqli_query($connection, $sql);
+if (isset($_POST['deletedata'])) {
+  $id = $_POST['delete_id'];
 
-if ($result) {
-  session_start();
-  $_SESSION['message'] = "Record successfully deleted";
-  header("Location: items.php");
-} else {
-  echo "Failed: " . mysqli_error($connection);
+  // SQL query to delete the medicine item
+  $query = "DELETE FROM medicine_list WHERE medicine_id = '$id'";
+  $query_run = mysqli_query($connection, $query);
+
+  if ($query_run) {
+    echo '<script>alert("Medicine item deleted successfully.");</script>';
+    echo '<script>window.location.href = "supplier-list.php";</script>'; // Redirect to the supplier list page
+  } else {
+    echo '<script>alert("Failed to delete medicine item. Please try again.");</script>';
+    echo '<script>window.location.href = "supplier-list.php";</script>'; // Redirect back to the supplier list page
+  }
 }

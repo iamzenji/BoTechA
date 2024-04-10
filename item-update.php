@@ -1,98 +1,36 @@
 <?php
 include('db_conn.php');
-include('session_check.php');
-// Call the session check function
-check_session();
 
-// Extract the ID from the URL parameter
-$id = isset($_GET["id"]) ? $_GET["id"] : null;
-
-if (isset($_POST["submit"])) {
-    $name = $_POST['name'];
+if (isset($_POST['itemupdate'])) {
+    // Retrieve form data
+    $id = $_POST['id'];
+    $category = $_POST['category'];
+    $brand = $_POST['brand'];
+    $type = $_POST['type'];
     $description = $_POST['description'];
-    $status = $_POST['status'];
+    $unit = $_POST['unit'];
+    $price = $_POST['price'];
+    $supplier_id = $_POST['supplier_id']; // Assuming you're passing the supplier ID through POST
 
-    // Ensure that the ID is not null and is a numeric value
-    if ($id !== null && is_numeric($id)) {
-        $sql = "UPDATE item_list SET name='$name', description='$description', status=$status WHERE id = $id";
+    // Update query
+    $query = "UPDATE medicine_list 
+              SET category_id = '$category', brand = '$brand', type_id = '$type', description = '$description', unit = '$unit', price = '$price' 
+              WHERE medicine_id = '$id'";
 
-        $result = mysqli_query($connection, $sql);
+    // Execute the update query
+    $query_run = mysqli_query($connection, $query);
 
-        if ($result) {
-            header("Location: items.php?msg=Data updated successfully");
-            exit(); // Terminate script after redirect
+    // Check if the query was successful
+    if ($query_run) {
+        echo '<script>alert("Item updated successfully.");</script>';
+        if (isset($supplier_id)) {
+            echo '<script>window.location.href = "supplier-list.php?supplier_id=' . $supplier_id . '";</script>'; // Redirect to the supplier list page based on supplier ID
         } else {
-            echo "Failed: " . mysqli_error($connection);
+            echo '<script>alert("No supplier selected.");</script>';
+            echo '<script>window.location.href = "supplier-list.php";</script>'; // Redirect to a default supplier list page if no supplier is selected
         }
     } else {
-        echo "Invalid ID";
+        echo '<script>alert("Failed to update item. Please try again.");</script>';
+        echo '<script>window.location.href = "item.php";</script>'; // Redirect back to the edit modal page
     }
 }
-?>
-
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="design/body.css">
-    <title>Document</title>
-</head>
-
-<body>
-    <?php include('nav/sidenav.php'); ?>
-
-
-    <section class="home">
-        <div class="container2">
-            <form action="" method="Post">
-
-
-                <ul class="list">
-                    <li>
-                        <h2>Update an item </h2>
-                        <a href="items.php" class="backbtn"><i class='bx bx-x'></i></a>
-                    </li>
-                </ul>
-                <?php
-                $sql = "SELECT * FROM item_list WHERE $id = id LIMIT 1";
-                $result = mysqli_query($connection, $sql);
-                $row = mysqli_fetch_assoc($result);
-                ?>
-
-
-                <div class="form-group">
-                    <label for="name" class="control-label">Item Name</label>
-                    <input type="text" name="name" id="name" class="form-control rounded-0" value="<?php echo $row['name'] ?>">
-                </div>
-                <div class="form-group">
-                    <label for="description" class="control-label">Description</label>
-                    <textarea rows="6" width="70%" name="description" id="description" class="form-control rounded-0" required><?php echo $row['description'] ?></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="status" class="control-label">Status</label>
-                    <select name="status" id="status" class="form-control rounded-0" required>
-                        <option name="status" value="1" <?php echo $row['status'] && $status == "" ? "selected" : "1" ?>>Active</option>
-                        <option name="status" value="0" <?php echo $row['status'] && $status == "" ? "selected" : "0" ?>>Inactive</option>
-
-
-                    </select>
-
-                </div>
-                <button type="submit" name="submit" class="updatebtn">Update</button>
-        </div>
-
-        </form>
-
-        </form>
-        </div>
-
-    </section>
-    <script src="script.js"></script>
-</body>
-
-</html>

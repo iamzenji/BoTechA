@@ -1,5 +1,6 @@
 <?php
 include 'includes/connection.php';
+// Check if supplier_id is set
 if (isset($_GET['supplier_id'])) {
     $supplier_id = $_GET['supplier_id'];
 

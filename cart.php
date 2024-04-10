@@ -57,3 +57,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
                     </tbody>
                 </table>
             </div>
+
+        </div>
+    </div>
+</div>

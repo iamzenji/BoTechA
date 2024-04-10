@@ -1,68 +1,91 @@
 <?php
 include 'includes/connection.php';
 
-// Check if form is submitted
 if (isset($_POST['placeorder'])) {
-    // Retrieve form data
-    $supplier_id = $_POST['supplier_id'];
+    // Retrieve values from the form
     $subtotal = $_POST['subtotal'];
     $tax = $_POST['tax'];
-    $shippingfee = $_POST['shippingfee'];
-    $grandtotal = $_POST['grandtotal'];
+    $shippingFee = $_POST['shippingfee'];
+    $grandTotal = $_POST['grandtotal'];
 
-    // Insert into orders table
-    $insert_order_query = "INSERT INTO orders (supplier_id, subtotal, tax, shipping_fee, grand_total) VALUES ('$supplier_id', '$subtotal', '$tax', '$shippingfee', '$grandtotal')";
-    $result_order = mysqli_query($connection, $insert_order_query);
+    // Generate tracking number
+    $trackingNumber = generateTrackingNumber();
 
-    if ($result_order) {
-        // Get the order ID of the inserted order
+    // Insert order details into the order table
+    $query = "INSERT INTO `order` (subtotal, tax, shipping_fee, grand_total) VALUES ('$subtotal', '$tax', '$shippingFee', '$grandTotal')";
+    $result = mysqli_query($connection, $query);
+
+    // Check if order insertion was successful
+    if ($result) {
+        // Get the ID of the last inserted order row
         $order_id = mysqli_insert_id($connection);
 
-        // Check if cart data is received
-        if (isset($_POST['category']) && isset($_POST['brand']) && isset($_POST['medicinetype']) && isset($_POST['price']) && isset($_POST['unit']) && isset($_POST['qty']) && isset($_POST['total'])) {
-            // Retrieve cart data
+        // Check if the required POST variables are set and are arrays
+        if (
+            isset($_POST['category']) && is_array($_POST['category']) &&
+            isset($_POST['brand']) && is_array($_POST['brand']) &&
+            isset($_POST['type']) && is_array($_POST['type']) &&
+            isset($_POST['unit']) && is_array($_POST['unit']) &&
+            isset($_POST['price']) && is_array($_POST['price']) &&
+            isset($_POST['quantity']) && is_array($_POST['quantity']) &&
+            isset($_POST['unitqty']) && is_array($_POST['unitqty']) &&
+            isset($_POST['total']) && is_array($_POST['total'])
+        ) {
+            // Extract cart items from POST data
             $categories = $_POST['category'];
             $brands = $_POST['brand'];
-            $types = $_POST['medicinetype'];
-            $prices = $_POST['price'];
+            $types = $_POST['type'];
             $units = $_POST['unit'];
-            $quantities = $_POST['qty'];
+            $prices = $_POST['price'];
+            $quantities = $_POST['quantity'];
+            $unit_quantities = $_POST['unitqty'];
             $totals = $_POST['total'];
 
-            // Loop through cart items and insert them into the database
-            for ($i = 0; $i < count($categories); $i++) {
-                $category = $categories[$i];
-                $brand = $brands[$i];
-                $type = $types[$i];
-                $price = $prices[$i];
-                $unit = $units[$i];
-                $quantity = $quantities[$i];
-                $total = $totals[$i];
+            // Get the count of categories to handle empty entries
+            $count = count($categories);
 
-                // Insert cart item into cart table
-                $insert_cart_query = "INSERT INTO cart (order_id, category, brand, type, price, unit, quantity, total) VALUES ('$order_id', '$category', '$brand', '$type', '$price', '$unit', '$quantity', '$total')";
-                $result_cart = mysqli_query($connection, $insert_cart_query);
+            // Iterate through each cart item and insert into database
+            for ($i = 0; $i < $count; $i++) {
+                $category = mysqli_real_escape_string($connection, $categories[$i]);
+                $brand = mysqli_real_escape_string($connection, $brands[$i]);
+                $type = mysqli_real_escape_string($connection, $types[$i]);
 
-                // Check if insertion was successful
-                if (!$result_cart) {
-                    // Handle insertion error
-                    echo "Error inserting cart item: " . mysqli_error($connection);
-                    // You can choose to rollback the order insertion here if needed
+                // Set unit value to a default value if it's empty at index 0
+                $unit = isset($units[1]) ? mysqli_real_escape_string($connection, $units[1]) : "";
+
+                $price = isset($prices[1]) ? mysqli_real_escape_string($connection, $prices[1]) : "";
+                $quantity = mysqli_real_escape_string($connection, $quantities[$i]);
+                $unit_qty = mysqli_real_escape_string($connection, $unit_quantities[$i]);
+                // Set total value to a default value if it's empty at index 0
+                $total = isset($totals[1]) ? mysqli_real_escape_string($connection, $totals[1]) : "";
+
+                // Prepare the SQL query
+                $query = "INSERT INTO cart (category, brand, type, unit, price, quantity, unit_qty, total, order_id, tracking_number) 
+                          VALUES ('$category', '$brand', '$type', '$unit', '$price', '$quantity', '$unit_qty', '$total', '$order_id', '$trackingNumber')";
+
+                // Execute the query and handle errors
+                if (mysqli_query($connection, $query)) {
+                    echo "Cart item inserted successfully.<br>";
+                } else {
+                    echo "Error inserting cart item: " . mysqli_error($connection) . "<br>";
                 }
             }
 
-            // Redirect to a success page after all cart items are inserted
-            header("Location: order.php");
-            exit();
+            // Redirect user to a thank you page or back to the form
+            //header("Location: order.php");
+            //exit();
         } else {
-            // Handle case where cart data is not received
-            echo "Cart data not received.";
+            // Handle the case where the required POST variables are not set or are not arrays
+            echo "Invalid POST data";
         }
     } else {
-        // Handle order insertion error
         echo "Error inserting order: " . mysqli_error($connection);
     }
-} else {
-    // Handle cases where the form is not submitted
-    echo "Form not submitted!";
+}
+
+// Function to generate tracking number
+function generateTrackingNumber()
+{
+    // Generate a unique tracking number (you can use any logic here)
+    return "TN" . uniqid();
 }

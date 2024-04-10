@@ -1,5 +1,8 @@
 <?php
 include 'includes/connection.php';
+$connection = mysqli_connect("localhost", "root", "");
+$db = mysqli_select_db($connection, 'botecha');
+
 if (isset($_POST['insertdata'])) {
     // Retrieving form data
     $name = $_POST['name'];

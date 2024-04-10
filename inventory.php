@@ -7,7 +7,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
     session_destroy();
 } else {
     $query = "SELECT inventory.*, cart.category, cart.brand, cart.type, cart.quantity, cart.unit_qty
-              FROM inventory 
+              FROM inventory    
               INNER JOIN cart ON inventory.cart_id = cart.cart_id";
     $result = mysqli_query($connection, $query);
 
@@ -23,6 +23,34 @@ if (strlen($_SESSION['employee_id']) === 0) {
                         <div class="panel-body">
                             <table class="inv-color-table table">
                                 <thead>
+                                    <tr>
+                                        <td colspan="9">
+                                            <div class="container">
+                                                <div class="row align-items-center">
+                                                    <div class="col-md-6">
+                                                        <button class="btn btn-outline-primary" style="height: 40px;">Export Inventory</button>
+                                                    </div>
+                                                    <div class="align-middle col-md-6">
+                                                        <div class="d-flex justify-content-end">
+                                                            <button type="button" class="btn btn-outline-primary" id="toggleSearch">
+                                                                <i class="lni lni-search-alt"></i>
+                                                            </button>
+                                                            <div id="searchContainer" class="col-md-6" style="display: none;">
+                                                                <div class="d-flex justify-content-end">
+                                                                    <input type="text" id="searchInput" class="form-control col-md-6" style="width: 260px; height: 30px; font-size: 12px;" placeholder="Search by Category, Brand name, Type ">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </td>
+
+                                    </tr>
+                                </thead>
+                                <thead>
                                     <tr class="align-middle text-center">
                                         <th>Category</th>
                                         <th>Brand name</th>
@@ -30,7 +58,6 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                         <th>Quantity Stock</th>
                                         <th>Unit Quantity</th>
                                         <th>Storage Location</th>
-                                        <th>Expiration Date</th>
                                         <th>Showroom Quantity Stock</th>
                                         <th>Showroom Location</th>
                                         <th>Quantity to Reorder</th>
@@ -60,7 +87,6 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                             <td><?php echo $row['qty_stock'] ?></td>
                                             <td><?php echo $total_quantity ?></td>
                                             <td><?php echo $row['storage_location']; ?></td>
-                                            <td><?php echo $row['expiration_date']; ?></td>
                                             <td><?php echo $row['showroom_quantity_stock']; ?></td>
                                             <td><?php echo $row['showroom_location']; ?></td>
                                             <td><?php echo $row['quantity_to_reorder']; ?></td>
@@ -90,10 +116,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                                                 <label for="storage_location">Storage Location:</label>
                                                                 <input type="text" class="form-control" id="storage_location" name="storage_location" value="<?php echo $row['storage_location']; ?>">
                                                             </div>
-                                                            <div class="form-group">
-                                                                <label for="expiration_date">Expiration Date:</label>
-                                                                <input type="text" class="form-control" id="expiration_date" name="expiration_date" value="<?php echo $row['expiration_date']; ?>">
-                                                            </div>
+
                                                             <div class="form-group">
                                                                 <label for="showroom_quantity_stock">Showroom Quantity Stock:</label>
                                                                 <input type="text" class="form-control" id="showroom_quantity_stock" name="showroom_quantity_stock" value="<?php echo $row['showroom_quantity_stock']; ?>">
@@ -162,6 +185,12 @@ if (strlen($_SESSION['employee_id']) === 0) {
                 </div>
             </div>
         </div>
+        <script>
+            document.getElementById('toggleSearch').addEventListener('click', function() {
+                var searchContainer = document.getElementById('searchContainer');
+                searchContainer.style.display = (searchContainer.style.display === 'none' || searchContainer.style.display === '') ? 'block' : 'none';
+            });
+        </script>
 <?php
     }
 }

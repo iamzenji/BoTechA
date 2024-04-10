@@ -38,10 +38,33 @@
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="order.php" class="sidebar-link">
-                    <i class="lni lni-weight"></i>
-                    <span>Purchase Orders</span>
+                <a href="#" class="sidebar-link collapsed has-dropdown  text-decoration-none" data-bs-toggle="collapse" data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
+                    <i class="lni lni-cart"></i>
+                    <span>Purchase Order</span>
                 </a>
+                <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                    <li class="sidebar-item">
+                        <a href="order-add.php" class="sidebar-link text-decoration-none">Ordering</a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider text-decoration-none ">
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="order.php" class="sidebar-link text-decoration-none">Orders</a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link text-decoration-none">To Pickup</a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link text-decoration-none">To Receive</a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link text-decoration-none">Complete</a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link text-decoration-none">Return</a>
+                    </li>
+                </ul>
             </li>
             <li class="sidebar-item">
                 <a href="" class="sidebar-link">
