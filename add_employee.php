@@ -1,5 +1,7 @@
 <?php
 include 'includes/connection.php';
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Retrieve form data
     $employeeName = $_POST['employeeName'];
@@ -15,10 +17,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Execute the SQL statement
     if ($connection->query($sql) === TRUE) {
-        echo '<script>alert("Employee Added Successfully!");</script>';
-        echo '<script>window.location.href = "employeees.php";</script>';
+        // Display success message using JavaScript modal
+        echo '<script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    var modal = document.getElementById("myModal");
+                    var okButton = document.getElementById("okButton");
+
+                    modal.style.display = "block";
+
+                    okButton.onclick = function() {
+                        modal.style.display = "none";
+                        window.location.href = "employeees.php";
+                    }
+
+                    window.onclick = function(event) {
+                        if (event.target == modal) {
+                            modal.style.display = "none";
+                            window.location.href = "employeees.php";
+                        }
+                    }
+                });
+            </script>';
     } else {
         echo "Error: " . $sql . "<br>" . $connection->error;
     }
 }
+
+// Close the database connection
 $connection->close();
+?>
+
+<div id="myModal" class="modal">
+
+
+    <div class="modal-content">
+        <p>Employee Added Successfully!</p>
+        <button id="okButton">OK</button>
+    </div>
+
+</div>

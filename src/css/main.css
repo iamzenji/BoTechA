@@ -441,6 +441,86 @@ svg:hover{
   margin: 20px;
 }
 
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgba(0,0,0,0.4); 
+}
+
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  text-align: center;
+}
+
+
+#okButton {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-picture {
+  display: block;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+}
+
+.employeetabs {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: auto;
+  margin: 50px auto;
+  padding: 25px;
+}
+.employeetabs input[type="radio"] {
+  display: none;
+}
+.employeetabs label{
+  padding: 25px;
+  background-color: rgb(68, 125, 230);
+  font-weight: bold;
+}
+
+.employeetabs .tab {
+  width: 100%;
+  padding: 20px;
+  background-color: rgb(255, 255, 255);
+  order: 1;
+  display: none;
+}
+
+.employeetabs input[type='radio']:checked + label + .tab {
+  display: block;
+}
+
+.employeetabs input[type='radio']:checked + label {
+  background-color: rgb(255, 255, 255);
+}
+
 /* POS */
 
 .wrap{
