@@ -21,6 +21,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
       <?php
       // Loop through each row from the database result
       while ($row = $result->fetch_assoc()) {
+        $employee_id = $row['employee_id'];
         $employeeName = $row['employee_name'];
         $position = $row['employee_position'];
         $employeeContact = $row['employee_contact'];
@@ -29,13 +30,15 @@ if (strlen($_SESSION['employee_id']) === 0) {
         echo '<div class="col-md-4">';
         echo '<div class="employee">';
         echo '<img src="https://via.placeholder.com/100" alt="' . $employeeName . '">';
-        echo '<h3>' . $employeeName . '</h3>';
+        // Make the employee name clickable with a link to another page
+        echo '<h3><a href="employeeprof.php?id=' . $employee_id . '">' . $employeeName . '</a></h3>';
         echo '<p>Position: ' . $position . '</p>';
         echo '<p>Employee Contact: ' . $employeeContact . '</p>';
         echo '</div>';
         echo '</div>';
       }
 
+      // Close the database connection
       $connection->close();
       ?>
 

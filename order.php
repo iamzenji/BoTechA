@@ -104,9 +104,9 @@ if (strlen($_SESSION['employee_id']) === 0) {
 
 
                                 // Fetch distinct tracking numbers from the cart table
-                                $query = "SELECT DISTINCT c.tracking_number, o.grand_total
-          FROM cart c
-          INNER JOIN orders o ON c.order_id = o.id";
+                                $query = "SELECT DISTINCT cart.tracking_number, `order`.grand_total
+          FROM cart 
+          INNER JOIN `order`  ON cart.order_id = `order`.id";
                                 $result = mysqli_query($connection, $query);
 
                                 // Check if query executed successfully
@@ -144,10 +144,6 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                     echo "Error fetching data: " . mysqli_error($connection);
                                 }
                                 ?>
-
-
-
-
                             </tbody>
                         </table>
                     </div>

@@ -17,24 +17,22 @@
             font-family: 'Space Grotesk', sans-serif;
         }
 
-        /* Additional CSS for borders */
         .table-bordered th,
         .table-bordered td {
             border: 1px solid #dee2e6;
         }
 
-        /* CSS for adjusting dropdown size */
         .year-dropdown {
             width: 100px;
-            /* Adjust width as needed */
+
         }
 
-        /* CSS for coloring only the top part of the table */
+
         .table-bordered thead {
             background-color: #3943ac;
-            /* Desired color */
+
             color: #ffffff;
-            /* Text color on the background */
+
         }
     </style>
 </head>

@@ -179,8 +179,6 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                    // Include database connection file
-                                    include 'connection.php';
                                     $days = array("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday");
 
                                     foreach ($days as $day) {

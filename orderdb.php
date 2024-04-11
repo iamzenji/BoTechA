@@ -63,11 +63,22 @@ if (isset($_POST['placeorder'])) {
                 $query = "INSERT INTO cart (category, brand, type, unit, price, quantity, unit_qty, total, order_id, tracking_number) 
                           VALUES ('$category', '$brand', '$type', '$unit', '$price', '$quantity', '$unit_qty', '$total', '$order_id', '$trackingNumber')";
 
+
                 // Execute the query and handle errors
                 if (mysqli_query($connection, $query)) {
-                    echo "Cart item inserted successfully.<br>";
+                    header("Location: order.php");
                 } else {
                     echo "Error inserting cart item: " . mysqli_error($connection) . "<br>";
+                }
+
+                $query1 = "INSERT INTO inventory (category, brand, type, unit, qty_stock, unit_inv_qty) 
+                VALUES ('$category', '$brand', '$type', '$unit', '$quantity', '$unit_qty')";
+
+                // Execute the query and handle errors
+                if (mysqli_query($connection, $query1)) {
+                    echo "Inventory item inserted successfully.<br>";
+                } else {
+                    echo "Error inserting inventory item: " . mysqli_error($connection) . "<br>";
                 }
             }
 

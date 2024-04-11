@@ -1,79 +1,63 @@
-<?php include 'includes/connection.php';
+<?php
+include 'includes/connection.php';
 include 'includes/header.php';
-
-if(strlen($_SESSION['employee_id'])===0)
-	{	
-header('location:login.php');
-session_destroy();
-
-}
-else{
-
 ?>
 
-<div class="main-content">
-    <div class="container">
-        <div class="header">
-            <h1><i class='bx bx-history bx-tada'></i> Records</h1>
-        </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+</head>
 
-        <div>
-            <form class="sircing" action="" method="post">
-                <input type="text" placeholder="Search data" name="search">
-                <button class="btn" name="submit">Search</button>
-            </form>
-        </div>
+<body>
+    <?php $_SESSION['name'] = "mark";
+    $_SESSION['id'] = 1; ?>
 
-        <table class="items">
+    <div class="main-content">
+        <div class="container">
+            <div class="header">
+                <h1><i class='bx bx-history bx-tada'></i>Records</h1>
 
-            <?php
-            if (isset($_POST['submit'])) {
-                $search = $_POST['search'];
+            </div>
 
-                $sql = "SELECT * from item where brand_name = '$search' or generic_name = '$search'";
-                $result = $connection->query($sql);
-
-                if (!$result) {
-                    die("invalid query: " . $connection->error);
-                }
-                if (mysqli_num_rows($result) > 0) {
-                    echo "
-                    <thead>
+            <h2><?php echo $_SESSION['name']; ?></h2>
+            <p>Your Transact Info :</p>
+            <table class="table">
+                <thead>
                     <tr>
-                        <th>Generic</th>
-                        <th>Brand</th>
-                        <th>Type</th>
-                        <th>Dosage</th>
-                        <th>Item Map</th>
-                        <th>Action</th>
-                        
+                        <th>Transact # </th>
+                        <th>Method</th>
+                        <th>Total Amount</th>
+                        <th>Total Discount</th>
+                        <th>Date</th>
                     </tr>
                 </thead>
-                    ";
-                }
+                <tbody>
+                    <?php
+                    $cashier = $_SESSION['id'];
+                    $sql = "SELECT * FROM `transact` WHERE cashier_id = $cashier;";
+                    $result = $connection->query($sql);
 
-                // basan nala kada row
-                while ($row = $result->fetch_assoc()) {
-                    echo "
-                    <tbody>
-                    <tr>
-                            <td>$row[generic_name]</td>
-                            <td>$row[brand_name]</td>
-                            <td>$row[medicine_type]</td>
-                            <td>$row[dosage]</td>
-                            <td></td>
-                            <td></td>
-                        
-                    </tr>
-                    </tbody>
-                  
-                    ";
-                }
-            }
-            ?>
-
-        </table>
+                    if (!$result) {
+                        die("Invalid query: " . $connection->error);
+                    }
+                    while ($row = $result->fetch_assoc()) {
+                    ?>
+                        <tr>
+                            <td><?php echo "$row[transact_no]"; ?></td>
+                            <td><?php echo "$row[pay_method]"; ?></td>
+                            <td><?php echo "$row[total_amount]"; ?></td>
+                            <td><?php echo "$row[total_dis]"; ?></td>
+                            <td><?php echo "$row[date]"; ?></td>
+                        </tr>
+                    <?php   } ?>
+                </tbody>
+            </table>
+            </tbody>
+            </table>
+        </div>
     </div>
-</div>
-
-<?php } ?>
+</body>

@@ -6,9 +6,11 @@ if (strlen($_SESSION['employee_id']) === 0) {
     header('location:login.php');
     session_destroy();
 } else {
-    $query = "SELECT inventory.*, cart.category, cart.brand, cart.type, cart.quantity, cart.unit_qty
-              FROM inventory    
-              INNER JOIN cart ON inventory.cart_id = cart.cart_id";
+    // $query = "SELECT inventory.*, cart.category, cart.brand, cart.type, cart.quantity, cart.unit_qty
+    //           FROM inventory    
+    //           INNER JOIN cart ON inventory.cart_id = cart.id";
+
+    $query = "SELECT * FROM inventory";
     $result = mysqli_query($connection, $query);
 
     if (mysqli_num_rows($result) > 0) {
@@ -66,8 +68,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                 <tbody>
                                     <?php
                                     while ($row = mysqli_fetch_assoc($result)) {
-                                        // total quantity available stock
-                                        $total_quantity = $row['unit_inv_qty'] - $row['showroom_quantity_stock'];
+
 
                                         // Check if showroom quantity if below 10 and need to stock
                                         if ($row['showroom_quantity_stock'] <= 10) {
@@ -79,6 +80,9 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                         if ($row['showroom_quantity_stock'] < 0) {
                                             $row['showroom_quantity_stock'] = 0;
                                         }
+
+                                        // total quantity available stock
+                                        $total_quantity = $row['unit_inv_qty'] - $row['showroom_quantity_stock'];
                                     ?>
                                         <tr class="edit-row align-middle text-center" data-toggle="modal" data-target="#editModal_<?php echo $row['inventory_id']; ?>">
                                             <td><?php echo $row['category']; ?></td>

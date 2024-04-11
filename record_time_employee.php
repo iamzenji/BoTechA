@@ -1,6 +1,7 @@
 <?php
 // Include database connection file
 include 'includes/connection.php';
+
 date_default_timezone_set('Asia/Manila');
 
 // Initialize the $employee_id variable
@@ -25,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["time_in"])) {
 
     // If there is already a record for the current date, show a message
     if ($result_check->num_rows > 0) {
-        echo "<script>alert('You have already timed in today!'); window.location.href = 'dtrRevisedManager.php?id=" . $employee_id . "';</script>";
+        echo "<script>alert('You have already timed in today!'); window.location.href = 'dtrRevisedEmployee.php';</script>";
     } else {
         // Get the current time
         $currentTime = date("H:i:s");
@@ -67,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["time_in"])) {
             }
 
             // Redirect to dtrRevisedManager.php with the employee_id parameter
-            echo "<script>alert('Time In Recorded Successfully!'); window.location.href = 'dtrRevisedManager.php?id=" . $employee_id . "';</script>";
+            echo "<script>alert('Time In Recorded Successfully!'); window.location.href = 'dtrRevisedEmployee.php';</script>";
         } else {
             echo "Error recording Time In: " . $connection->error;
         }
@@ -92,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["time_out"])) {
 
     // If there is a record for the current date and time_out is not null, show a message
     if ($result_check->num_rows > 0) {
-        echo "<script>alert('You have already timed out today!'); window.location.href = 'dtrRevisedManager.php?id=" . $employee_id . "'; </script>";
+        echo "<script>alert('You have already timed out today!'); window.location.href = 'dtrRevisedEmployee.php'; </script>";
     } else {
         // Check if there is a record for the current date and time_in is not null
         $sql_check_in = "SELECT * FROM dtrrevised WHERE employee_id = ? AND date = ? AND time_in IS NOT NULL";
@@ -103,7 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["time_out"])) {
 
         // If there is no record for the current date and time_in is null, show a message
         if ($result_check_in->num_rows == 0) {
-            echo "<script>alert('You must time in first before timing out!'); window.location.href = 'dtrRevisedManager.php?id=" . $employee_id . "'; </script>";
+            echo "<script>alert('You must time in first before timing out!'); window.location.href = 'dtrRevisedEmployee.php'; </script>";
         } else {
             // Get the current time
             $currentTime = date("H:i:s");
@@ -115,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["time_out"])) {
 
             if ($stmt->execute()) {
                 // Redirect to dtrRevisedManager.php with the employee_id parameter
-                echo "<script>alert('Time Out Recorded Successfully!'); window.location.href = 'dtrRevisedManager.php?id=" . $employee_id . "';</script>";
+                echo "<script>alert('Time Out Recorded Successfully!'); window.location.href = 'dtrRevisedEmployee.php';</script>";
             } else {
                 echo "Error recording Time Out: " . $connection->error;
             }
@@ -130,5 +131,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["time_out"])) {
     }
 }
 
-// Close database connection
+// Close database connectionection
 $connection->close();

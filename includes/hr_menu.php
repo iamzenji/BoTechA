@@ -38,6 +38,18 @@
                 </a>
             </li>
             <li class="sidebar-item">
+                <a href="#" class="sidebar-link">
+                    <i class="lni lni-popup"></i>
+                    <span>Warning Tab</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link">
+                    <i class="lni lni-cog"></i>
+                    <span>Setting</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
                 <a href="" class="sidebar-link">
                     <i class="lni lni-cog"></i>
                     <span>Settings</span>

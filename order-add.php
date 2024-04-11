@@ -17,8 +17,8 @@ if (strlen($_SESSION['employee_id']) === 0) {
                         <!-- Rest of your form -->
 
                         <div class="container text-center">
-                            <div class="table-responsive">
-                                <table class="table table-boarded table-striped text-left" id="myTable">
+                            <div>
+                                <table class="table table-boarded table-striped text-left " id="myTable">
                                     <h2 class="text-center pb-2">New Purchase Order</h2>
                                     <div class="row mb-3">
                                         <div class="col-md-6">
@@ -61,7 +61,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                             <th>Unit</th>
                                             <th>Price</th>
                                             <th>Qty</th>
-                                            <th>Unit Qty</th>
+                                            <th>Unit/Qty </th>
                                             <th>Total</th>
                                         </tr>
                                     </thead>
@@ -88,8 +88,8 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                             <!-- Inside the table body -->
                                             <td><input type="text" class="form-control" name="unit[]" readonly></td>
                                             <td><input type="text" class="form-control" name="price[]" value="0" readonly></td>
-                                            <td><input type="number" class="form-control" name="qty[]" onchange="calculateTotal(this)"></td>
-                                            <td><input type="text" class="form-control" name="unit_qty[]" onchange></td>
+                                            <td><input type="number" class="form-control" name="qty[]" onchange="calculateTotal(this)" onchange="validateQuantity(this)" min="0"></td>
+                                            <td><input type="text" class="form-control" name="unit_qty[]" onchange readonly></td>
                                             <td><input type="text" class="form-control" name="total[]" readonly></td>
 
                                         </tr>
@@ -97,8 +97,8 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                 </table>
                             </div>
                         </div>
-                        <div class="container  text-center">
-                            <h2>Selected Medicines</h2>
+                        <div class="container  text-center mt-3">
+                            <h2 class=" mt-3">Selected Medicines</h2>
                             <table class="table" id="cartTable">
                                 <thead>
                                     <tr>
@@ -107,8 +107,8 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                         <th>Type</th>
                                         <th>Price</th>
                                         <th>Unit</th>
-                                        <th>Quantity</th>
-                                        <th>Unit Qty</th>
+                                        <th>Quantity/box</th>
+                                        <th>Unit/Qty.pcs</th>
                                         <th>Total Price</th>
                                     </tr>
                                 </thead>
@@ -144,7 +144,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
                         </div>
 
                         <button type="button" class="btn btn-primary" onclick="addToCart()">Add to Cart</button>
-                        <button type="submit" class="btn btn-success" name="placeorder">Place Order</button>
+                        <button type="submit" class="btn btn-success" name="placeorder">Purchase</button>
                     </form>
                 </div>
             </div>
@@ -152,6 +152,21 @@ if (strlen($_SESSION['employee_id']) === 0) {
 
     </div>
     <script>
+        function togglePurchaseButton() {
+            var cartTable = document.getElementById("cartTable").getElementsByTagName("tbody")[0];
+            var purchaseButton = document.querySelector('button[name="placeorder"]');
+
+            // Check if there are any rows in the cart table
+            if (cartTable.rows.length > 0) {
+                purchaseButton.disabled = false; // Enable purchase button
+            } else {
+                purchaseButton.disabled = true; // Disable purchase button
+            }
+        }
+
+        // Call the function initially to set the initial state of the purchase button
+        togglePurchaseButton();
+
         function addToCart() {
             var table = document.getElementById("myTable");
             var rows = table.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
@@ -187,7 +202,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
                     var cell5 = newRow.insertCell(4);
                     var cell6 = newRow.insertCell(5);
                     var cell7 = newRow.insertCell(6);
-                    var cell8 = newRow.insertCell(7); // Add cell for unit quantity
+                    var cell8 = newRow.insertCell(7); // Add cell for total price
 
                     cell1.innerHTML = category;
                     cell2.innerHTML = brand;
@@ -195,10 +210,13 @@ if (strlen($_SESSION['employee_id']) === 0) {
                     cell4.innerHTML = price; // Show price instead of description
                     cell5.innerHTML = unit;
                     cell6.innerHTML = quantity;
-                    cell7.innerHTML = unitQty; // Show unit quantity
+                    var calculatedUnitQty = parseFloat(unitQty) * parseFloat(quantity);
+                    cell7.innerHTML = calculatedUnitQty; // Show unit quantity
 
-                    // Calculate and show total price
-                    var totalPrice = parseFloat(quantity) * parseFloat(price);
+                    // Calculate total price
+                    var totalPrice = parseFloat(price) * parseFloat(quantity);
+
+                    // Show total price
                     cell8.innerHTML = totalPrice.toFixed(2); // Show total price with 2 decimal places
 
                     // Reset select elements
@@ -213,7 +231,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
                     createHiddenInputField('unit[]', unit, newRow);
                     createHiddenInputField('price[]', price, newRow);
                     createHiddenInputField('quantity[]', quantity, newRow);
-                    createHiddenInputField('unitqty[]', unitQty, newRow); // Add hidden input for unit quantity
+                    createHiddenInputField('unitqty[]', calculatedUnitQty, newRow); // Add hidden input for unit quantity
                     createHiddenInputField('total[]', totalPrice, newRow); // Add hidden input for total price
 
                     // Clear input values
@@ -228,8 +246,8 @@ if (strlen($_SESSION['employee_id']) === 0) {
             }
             // Compute cart totals after adding items to the cart
             computeCartTotals();
+            togglePurchaseButton();
         }
-
 
         function createHiddenInputField(name, value, row) {
             var input = document.createElement('input');
@@ -264,6 +282,13 @@ if (strlen($_SESSION['employee_id']) === 0) {
             document.querySelector('input[name="tax"]').value = tax.toFixed(2);
             document.querySelector('input[name="shippingfee"]').value = shippingFee.toFixed(2);
             document.querySelector('input[name="grandtotal"]').value = (subtotal + tax + shippingFee).toFixed(2);
+        }
+    </script>
+    <script>
+        function validateQuantity(input) {
+            if (input.value <= 0) {
+                input.value = 0; // Set the value to 0 if it's negative
+            }
         }
     </script>
 
@@ -410,29 +435,5 @@ if (strlen($_SESSION['employee_id']) === 0) {
             // Update the total field in the same row
             row.querySelector('input[name="total[]"]').value = isNaN(total) ? '' : total.toFixed(2);
         }
-        // Event listener for quantity input
-        document.querySelectorAll('input[name="qty[]"]').forEach(function(input) {
-            input.addEventListener('input', function() {
-                // Get the corresponding row of the input field
-                var row = this.closest('tr');
-
-                // Get the quantity value
-                var quantity = parseFloat(this.value);
-
-                // If quantity is valid, update unit_qty
-                if (!isNaN(quantity)) {
-                    // Get the unit_qty value
-                    var unitQty = parseFloat(row.querySelector('input[name="unit_qty[]"]').value);
-
-                    // If unit_qty is valid, calculate and update unit_qty
-                    if (!isNaN(unitQty)) {
-                        row.querySelector('input[name="unit_qty[]"]').value = (unitQty * quantity);
-
-                        // Calculate and fill total
-                        calculate(row.querySelector('input[name="qty[]"]'));
-                    }
-                }
-            });
-        });
     </script>
 <?php } ?>

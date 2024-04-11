@@ -85,6 +85,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['from_date']) && isset
         <button type="submit">Search</button>
     </form>
 
+    <!-- 🐞🦋🐛🐛🦗🐜🦟 -->
+
     <?php if ($result_dtr->num_rows > 0) : ?>
         <table>
             <thead>
@@ -110,11 +112,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['from_date']) && isset
         <p>No DTR records found.</p>
     <?php endif; ?>
 
+    <form action="record_time_employee.php?id=<?php echo $_SESSION['employee_id']; ?>" method="post">
+        <button type="submit" name="time_in" class="btn btn-primary">Time In</button>
+    </form>
+    <form action="record_time_employee.php?id=<?php echo $_SESSION['employee_id']; ?>" method="post">
+        <button type="submit" name="time_out" class="btn btn-primary">Time Out</button>
+    </form>
+
 </body>
 
 </html>
 
 <?php
-// Close database connection
+// Close database connectionection
 $connection->close();
 ?>

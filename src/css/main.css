@@ -220,9 +220,6 @@ form button {
   color: #ccc;
 } 
 
-
-
-
   /* .card {
     width: 100%; 
     max-width: 350px; 
@@ -472,14 +469,14 @@ svg:hover{
   cursor: pointer;
 }
 
-.container {
+/* .container {
   max-width: 800px;
   margin: 20px auto;
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+} */
 
 .profile-picture {
   display: block;
@@ -521,7 +518,7 @@ svg:hover{
   background-color: rgb(255, 255, 255);
 }
 
-/* POS */
+/* Sales */
 
 .wrap{
   width: 45vw;
@@ -1051,7 +1048,6 @@ button:hover {
   padding: 3px 10px;
 }
 
-
 .viewbtn i, .editbtn i , .deletebtn i{
   color: #fff;
 }
@@ -1069,10 +1065,10 @@ button:hover {
 .deletebtn{
   background-color: var(--red);
 }
-/* Define custom table heading background color */
+
 .custom-table thead.th-custom {
-  background-color: #007bff; /* Change this to the desired background color */
-  color: white; /* Change this to the desired text color */
+  background-color: #007bff; 
+  color: white; 
 }
 
 .insertitem{
@@ -1080,11 +1076,11 @@ button:hover {
 }
 
 .price-container {
-  overflow: hidden; /* Clear float */
+  overflow: hidden; 
 }
 .price {
   border-collapse: collapse;
-  width: auto; /* Adjust width as needed */
+  width: auto; 
   float: right;
 }
 
@@ -1096,35 +1092,32 @@ button:hover {
 
 .price input[type="text"] {
   width: 100%;
-  max-width: 200px; /* Adjust max-width as needed */
+  max-width: 200px; 
   box-sizing: border-box;
 }
 .price td[colspan="3"] {
-  font-weight: bold; /* Make cells with colspan=3 bold */
-}
-/*select tag */ 
-.select-tag {
-width: 100%; /* Adjust the width as needed */
-}
-.select-tag {
-width: 100%; /* Adjust the width as needed */
-padding: 8px; /* Add padding for better appearance */
-border: 1px solid #ccc; /* Add a border */
-border-radius: 4px; /* Add border radius for rounded corners */
-background-color: #fff; /* Set background color */
-font-size: 14px; /* Set font size */
-color: #333; /* Set text color */
+  font-weight: bold; 
 }
 
-/* Style for when the select element is focused */
-.select-tag:focus {
-outline: none; /* Remove default focus outline */
-border-color: #007bff; /* Change border color when focused */
-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Add a box shadow when focused */
+.select-tag {
+width: 100%;
 }
-/* CSS rules for balanced table */
+.select-tag {
+width: 100%; 
+padding: 8px; 
+border: 1px solid #ccc; 
+border-radius: 4px;
+background-color: #fff;
+font-size: 14px;
+}
+
+.select-tag:focus {
+outline: none;
+border-color: #007bff; 
+box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); 
+}
+
 .balanced-table th,
 .balanced-table td {
-    width: calc(100% / 7); /* Assuming you have 7 columns */
+    width: calc(100% / 7);
 }
-

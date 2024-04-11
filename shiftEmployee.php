@@ -109,11 +109,15 @@
             <!-- PHP code to fetch shift records from the database -->
             <?php
             // Include database connection file
+            session_start();
             include 'includes/connection.php';
 
+            //Get Employee ID from Session
+
+            $employee_id = $_SESSION['employee_id'];
 
             // Query to fetch shift records
-            $sql = "SELECT * FROM shift";
+            $sql = "SELECT * FROM shift WHERE employee_id = $employee_id";
             $result = $connection->query($sql);
 
             if ($result->num_rows > 0) {
@@ -131,7 +135,7 @@
             } else {
                 echo "<tr><td colspan='4'>No shifts found</td></tr>";
             }
-            // Close database connection
+            // Close database connectionection
             $connection->close();
             ?>
         </tbody>

@@ -21,10 +21,10 @@ if (empty($_SESSION['employee_id'])) {
     session_destroy();
 } else {
 
-    $query = "SELECT inventory_logs.*, cart.brand AS brand_name
+    $query = "SELECT inventory_logs.*, inventory.brand AS brand_name
               FROM inventory_logs 
-              INNER JOIN inventory ON inventory_logs.inventory_id = inventory.inventory_id 
-              INNER JOIN cart ON inventory.cart_id = cart.cart_id";
+              INNER JOIN inventory ON inventory_logs.inventory_id = inventory.inventory_id ";
+
     $result = mysqli_query($connection, $query);
 ?>
 
