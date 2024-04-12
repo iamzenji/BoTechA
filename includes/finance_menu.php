@@ -21,9 +21,17 @@
             <li class="sidebar-item">
                 <a href="accountFinances.php" class="sidebar-link">
                     <i class="lni lni-home"></i>
-                    <span>Sales
+                    <span>Finances
                     </span>
                 </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="financesinbox.php" class="sidebar-link">
+                    <i class="lni lni-home"></i>
+                    <span>Inbox
+                    </span>
+                </a>
+            </li>
         </ul>
         <div class="sidebar-footer">
             <a href="logout.php" class="sidebar-link">

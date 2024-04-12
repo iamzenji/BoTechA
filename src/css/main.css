@@ -375,7 +375,6 @@ svg:hover{
   border-collapse: collapse;
 }
 
-
 .finances-inbox tr{
   box-shadow: inset 0 -1px 0 0 rgba(100,121,143,0.122)
 }
@@ -416,6 +415,31 @@ svg:hover{
   font-weight: 100;
   margin: 0;
 }
+.finance-container .right-window .modal-dialog{
+  min-width: 80%;
+  min-height: 80%;
+}
+.totalbalance-info {
+  display: flex;
+  align-items: center;
+  place-content: center;
+  gap: 1.5em;
+  font-size: 2.5em;
+  padding: 2em;
+  color: var(--primary-blue);
+}
+.finance-container .table{
+  margin-bottom: 0;
+}
+.finance-container .table thead th{
+  background-color: var(--lighter-blue);
+  color: white;
+  font-weight: 200;
+}
+.finance-container .table tbody th{
+  width: 5%;
+}
+
 
 /* HR */
 .employee {
@@ -451,14 +475,14 @@ svg:hover{
 }
 
 
-.modal-content {
+/* .modal-content {
   background-color: #fefefe;
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
   text-align: center;
-}
+} */
 
 
 #okButton {

@@ -7,6 +7,13 @@ if (strlen($_SESSION['employee_id']) === 0) {
   session_destroy();
 } else {
 
+//   // Check if the user's position is "HR Officer"
+//   if (!isset($_SESSION['employee_position']) || $_SESSION['employee_position'] !== 'HR Officer') {
+//     // Redirect to a page with an unauthorized access message
+//     header("Location: unauthorized.php");
+//     exit();
+// }
+
   date_default_timezone_set('Asia/Manila');
 
   // Get employee ID from the URL
@@ -19,9 +26,9 @@ if (strlen($_SESSION['employee_id']) === 0) {
 
   // Fetch data for the specific employee from the employee_details table
   $sql_employee = "SELECT employee_name, insurance, tax, pay_per_hour, date
-                   FROM employee_details AS ed
-                   JOIN employee_salary AS es ON ed.employee_id = es.employee_id
-                   WHERE ed.employee_id = ?";
+FROM employee_details AS ed
+JOIN employee_salary AS es ON ed.employee_id = es.employee_id
+WHERE ed.employee_id = ?";
   $stmt_employee = $connection->prepare($sql_employee);
   $stmt_employee->bind_param("i", $employee_id);
   $stmt_employee->execute();
@@ -49,7 +56,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
     $totalSalary -= $tax;
     return $totalSalary;
   }
-?>
+  ?>
   <!DOCTYPE html>
   <html>
 
