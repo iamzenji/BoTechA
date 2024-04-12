@@ -132,10 +132,11 @@ if (empty($_SESSION['employee_id'])) {
                                     <div class="d-flex justify-content-end">
                                         <label for="rowsPerPage" class="mr-2" style="flex-shrink: 0;">Rows per page:</label>
                                         <select class="form-control pl-2" id="rowsPerPage" style="width: 60px;">
-                                            <option>10</option>
-                                            <option>25</option>
-                                            <option>50</option>
-                                            <option>100</option>
+                                            <option value="10">10</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                            <option value="-1">All</option>
                                         </select>
                                     </div>
                                 </div>
@@ -151,6 +152,23 @@ if (empty($_SESSION['employee_id'])) {
         document.getElementById('toggleSearch').addEventListener('click', function() {
             var searchContainer = document.getElementById('searchContainer');
             searchContainer.style.display = (searchContainer.style.display === 'none' || searchContainer.style.display === '') ? 'block' : 'none';
+        });
+        document.getElementById('rowsPerPage').addEventListener('change', function() {
+            // Get the selected number of rows per page
+            var rowsPerPage = parseInt(this.value);
+
+            // Get all table rows excluding the header and footer
+            var rows = document.querySelectorAll('tbody tr');
+
+            // Hide all rows
+            rows.forEach(function(row) {
+                row.style.display = 'none';
+            });
+
+            // Show only the first 10 rows
+            for (var i = 0; i < Math.min(rowsPerPage, rows.length); i++) {
+                rows[i].style.display = '';
+            }
         });
     </script>
 <?php

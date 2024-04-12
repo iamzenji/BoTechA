@@ -6,9 +6,6 @@ if (strlen($_SESSION['employee_id']) === 0) {
     header('location:login.php');
     session_destroy();
 } else {
-    // $query = "SELECT inventory.*, cart.category, cart.brand, cart.type, cart.quantity, cart.unit_qty
-    //           FROM inventory    
-    //           INNER JOIN cart ON inventory.cart_id = cart.id";
 
     $query = "SELECT * FROM inventory";
     $result = mysqli_query($connection, $query);
@@ -193,6 +190,22 @@ if (strlen($_SESSION['employee_id']) === 0) {
             document.getElementById('toggleSearch').addEventListener('click', function() {
                 var searchContainer = document.getElementById('searchContainer');
                 searchContainer.style.display = (searchContainer.style.display === 'none' || searchContainer.style.display === '') ? 'block' : 'none';
+            });
+            document.getElementById('rowsPerPage').addEventListener('change', function() {
+                var rowsPerPage = parseInt(this.value);
+                var rows = document.querySelectorAll('.edit-row');
+
+                // Hide all rows
+                rows.forEach(function(row) {
+                    row.style.display = 'none';
+                });
+
+                // Show selected number of rows
+                for (var i = 0; i < rowsPerPage; i++) {
+                    if (rows[i]) {
+                        rows[i].style.display = 'table-row';
+                    }
+                }
             });
         </script>
 <?php

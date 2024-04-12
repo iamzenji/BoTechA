@@ -6,7 +6,17 @@ if (strlen($_SESSION['employee_id']) === 0) {
     header('location:login.php');
     session_destroy();
 } else {
+    $query = "SELECT DISTINCT category FROM inventory";
+    $result = mysqli_query($connection, $query);
+    $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
+    $query = "SELECT DISTINCT brand FROM inventory";
+    $result = mysqli_query($connection, $query);
+    $brands = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    $query = "SELECT DISTINCT type FROM inventory";
+    $result = mysqli_query($connection, $query);
+    $types = mysqli_fetch_all($result, MYSQLI_ASSOC);
 ?>
 
     <div class="container mt-5">
@@ -20,7 +30,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
                         <div class="container">
                             <div class="row align-items-center">
                                 <div class="col-md-6">
-                                    <button class="btn btn-outline-primary" style="height: 40px;">Add Discount</button>
+                                    <button id="addDiscountButton" class="btn btn-outline-primary" style="height: 40px;">Add Discount</button>
                                 </div>
                                 <div class="align-middle col-md-6">
                                     <div class="d-flex justify-content-end">
@@ -94,65 +104,88 @@ if (strlen($_SESSION['employee_id']) === 0) {
             </tfoot>
         </table>
     </div>
+    <div id="addDiscountModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="addDiscountModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="addDiscountModalLabel">Add Discount</h5>
+                    <button type="button" class="close close-modal-button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <select class="form-control" id="category">
+                                <option value="" selected disabled>Select category</option>
+                                <?php foreach ($categories as $category) : ?>
+                                    <option value="<?php echo $category['category']; ?>"><?php echo $category['category']; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="brand">Brand name</label>
+                            <select class="form-control" id="brand">
+                                <option value="" selected disabled>Select brand</option>
+                                <?php foreach ($brands as $brand) : ?>
+                                    <option value="<?php echo $brand['brand']; ?>"><?php echo $brand['brand']; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="type">Type</label>
+                            <select class="form-control" id="type">
+                                <option value="" selected disabled>Select type</option>
+                                <?php foreach ($types as $type) : ?>
+                                    <option value="<?php echo $type['type']; ?>"><?php echo $type['type']; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="value">Value</label>
+                            <input type="text" class="form-control" id="value" placeholder="Enter value">
+                        </div>
+                        <div class="form-group">
+                            <label for="unitQuantity">Unit Quantity</label>
+                            <input type="text" class="form-control" id="unitQuantity" placeholder="Enter unit quantity">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Add Discount</button>
+                </div>
+            </div>
+        </div>
+
     </div>
     <script>
         document.getElementById('toggleSearch').addEventListener('click', function() {
             var searchContainer = document.getElementById('searchContainer');
             searchContainer.style.display = (searchContainer.style.display === 'none' || searchContainer.style.display === '') ? 'block' : 'none';
         });
+
+        document.getElementById('addDiscountButton').addEventListener('click', function() {
+            $('#addDiscountModal').modal('show');
+        });
+        document.getElementById('rowsPerPage').addEventListener('change', function() {
+            var rowsPerPage = parseInt(this.value);
+            var rows = document.querySelectorAll('.inv-color-table tbody tr');
+            var totalRows = rows.length;
+
+            // Hide all rows
+            rows.forEach(function(row) {
+                row.style.display = 'none';
+            });
+
+            // Show selected number of rows
+            for (var i = 0; i < rowsPerPage && i < totalRows; i++) {
+                rows[i].style.display = '';
+            }
+        });
+
+        // Initially, trigger the change event to set the initial display
+        document.getElementById('rowsPerPage').dispatchEvent(new Event('change'));
     </script>
 
-
-    <!-- <div class="container mt-5">
-        <div class="col-md-8">
-            <div class="row">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <strong>
-                            <h2>Add Discounted Product</h2>
-                        </strong>
-                    </div>
-                    <div class="panel-body">
-                        <div class="col-md-12">
-                            <form method="post" action="add_product.php" class="clearfix">
-                                <div class="form-group">
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <select class="form-control" name="product-category">
-                                                <option value="">Select Product</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="input-group">
-                                                <span class="input-group-addon">
-                                                    <i class="lni lni-shopping-basket"></i>
-                                                </span>
-                                                <input type="number" class="form-control" name="product-quantity" placeholder="Product Quantity">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="input-group">
-                                                <span class="input-group-addon">
-                                                    <p>&#x20B1;</p>
-                                                </span>
-                                                <input type="number" class="form-control" name="selling-price" placeholder="Selling Price">
-                                                <span class="input-group-addon">.00</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button type="submit" name="add_product" class="btn btn-outline-primary">Add product</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
 <?php } ?>
