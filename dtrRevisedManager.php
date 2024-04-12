@@ -14,7 +14,12 @@
         <?php
         session_start();
         include 'includes/connection.php';
-
+        // Check if the user's position is "HR Officer"
+        if (!isset($_SESSION['employee_position']) || $_SESSION['employee_position'] !== 'HR Officer') {
+            // Redirect to a page with an unauthorized access message
+            header("Location: unauthorized.php");
+            exit();
+        }
         // Check if the employee ID is provided in the URL
         if (isset($_GET['id'])) {
             $employee_id = $_GET['id'];
@@ -85,7 +90,7 @@
 
         <button type="button" class="btn btn-secondary mb-3" onclick="window.print()">Print DTR</button>
 
-        <?php if ($result_dtr->num_rows > 0) : ?>
+        <?php if ($result_dtr->num_rows > 0): ?>
             <table class="table">
                 <thead>
                     <tr>
@@ -96,20 +101,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while ($row_dtr = $result_dtr->fetch_assoc()) : ?>
+                    <?php while ($row_dtr = $result_dtr->fetch_assoc()): ?>
                         <tr>
                             <td><?php echo $row_dtr['date']; ?></td>
                             <td><?php echo $row_dtr['time_in']; ?></td>
                             <td><?php echo $row_dtr['time_out']; ?></td>
                             <td>
                                 <?php echo $row_dtr['remarks']; ?>
-                                <button onclick="window.location.href = 'add_remark.php?id=<?php echo $row_dtr['record_id']; ?>'" class="btn btn-sm btn-primary ml-2">Add/Edit</button>
+                                <button
+                                    onclick="window.location.href = 'add_remark.php?id=<?php echo $row_dtr['record_id']; ?>'"
+                                    class="btn btn-sm btn-primary ml-2">Add/Edit</button>
                             </td>
                         </tr>
                     <?php endwhile; ?>
                 </tbody>
             </table>
-        <?php else : ?>
+        <?php else: ?>
             <p>No DTR records found.</p>
         <?php endif; ?>
         <form action="record_time.php?id=<?php echo $employee_id; ?>" method="post">
