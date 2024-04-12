@@ -19,6 +19,7 @@ if (isset($_POST['placeorder'])) {
     if ($result) {
         // Get the ID of the last inserted order row
         $order_id = mysqli_insert_id($connection);
+        $employee_id = $_SESSION['employee_id'];
 
         // Check if the required POST variables are set and are arrays
         if (
@@ -79,6 +80,14 @@ if (isset($_POST['placeorder'])) {
                     echo "Inventory item inserted successfully.<br>";
                 } else {
                     echo "Error inserting inventory item: " . mysqli_error($connection) . "<br>";
+                }
+                $insert_query = "INSERT INTO inventory_logs (inventory_id, date, brand_name, employee, quantity, stock_after, reason) 
+                VALUES ('$category', NOW(), '$brand', '$employee_id', '$quantity', '$unit_qty', 'Purchase order')";
+                $insert_result = mysqli_query($connection, $insert_query);
+
+                // Check for successful insertion into inventory_logs
+                if (!$insert_result) {
+                    echo "Error inserting into inventory_logs: " . mysqli_error($connection) . "<br>";
                 }
             }
 

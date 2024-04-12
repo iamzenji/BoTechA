@@ -11,6 +11,18 @@ if (strlen($_SESSION['employee_id']) === 0) {
     $result = mysqli_query($connection, $query);
 
     if (mysqli_num_rows($result) > 0) {
+        $existing_items = array();
+
+        while ($row = mysqli_fetch_assoc($result)) {
+            $key = $row['category'] . $row['brand'] . $row['type'];
+
+            if (array_key_exists($key, $existing_items)) {
+                $existing_items[$key]['qty_stock'] = $row['qty_stock'];
+                $existing_items[$key]['unit_inv_qty'] = $row['unit_inv_qty'];
+            } else {
+                $existing_items[$key] = $row;
+            }
+        }
 ?>
         <div class="container mt-5">
             <div class="row">
@@ -21,34 +33,6 @@ if (strlen($_SESSION['employee_id']) === 0) {
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <table class="inv-color-table table">
-                                <thead>
-                                    <tr>
-                                        <td colspan="9">
-                                            <div class="container">
-                                                <div class="row align-items-center">
-                                                    <div class="col-md-6">
-                                                        <button class="btn btn-outline-primary" style="height: 40px;">Export Inventory</button>
-                                                    </div>
-                                                    <div class="align-middle col-md-6">
-                                                        <div class="d-flex justify-content-end">
-                                                            <button type="button" class="btn btn-outline-primary" id="toggleSearch">
-                                                                <i class="lni lni-search-alt"></i>
-                                                            </button>
-                                                            <div id="searchContainer" class="col-md-6" style="display: none;">
-                                                                <div class="d-flex justify-content-end">
-                                                                    <input type="text" id="searchInput" class="form-control col-md-6" style="width: 260px; height: 30px; font-size: 12px;" placeholder="Search by Category, Brand name, Type ">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </td>
-
-                                    </tr>
-                                </thead>
                                 <thead>
                                     <tr class="align-middle text-center">
                                         <th>Category</th>
@@ -64,35 +48,19 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                 </thead>
                                 <tbody>
                                     <?php
-                                    while ($row = mysqli_fetch_assoc($result)) {
-
-
-                                        // Check if showroom quantity if below 10 and need to stock
-                                        if ($row['showroom_quantity_stock'] <= 10) {
-                                            // Refill showroom quantity to 100 standard stock
-                                            $row['showroom_quantity_stock'] = 100;
-                                        }
-
-                                        // default 0
-                                        if ($row['showroom_quantity_stock'] < 0) {
-                                            $row['showroom_quantity_stock'] = 0;
-                                        }
-
-                                        // total quantity available stock
-                                        $total_quantity = $row['unit_inv_qty'] - $row['showroom_quantity_stock'];
+                                    foreach ($existing_items as $row) {
                                     ?>
                                         <tr class="edit-row align-middle text-center" data-toggle="modal" data-target="#editModal_<?php echo $row['inventory_id']; ?>">
                                             <td><?php echo $row['category']; ?></td>
                                             <td><?php echo $row['brand']; ?></td>
                                             <td><?php echo $row['type']; ?></td>
                                             <td><?php echo $row['qty_stock'] ?></td>
-                                            <td><?php echo $total_quantity ?></td>
+                                            <td><?php echo $row['unit_inv_qty'] - $row['showroom_quantity_stock']; ?></td>
                                             <td><?php echo $row['storage_location']; ?></td>
                                             <td><?php echo $row['showroom_quantity_stock']; ?></td>
                                             <td><?php echo $row['showroom_location']; ?></td>
                                             <td><?php echo $row['quantity_to_reorder']; ?></td>
                                         </tr>
-
                                         <div class="modal fade" id="editModal_<?php echo $row['inventory_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel_<?php echo $row['inventory_id']; ?>" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
@@ -136,79 +104,37 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                                 </div>
                                             </div>
                                         </div>
-
                                     <?php
                                     }
                                     ?>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="10">
-                                            <div class="container pt-3">
-                                                <div class="row align-items-center">
-                                                    <div class="col-md-6">
-                                                        <nav aria-label="Page navigation">
-                                                            <ul class="pagination justify-content-start">
-                                                                <li class="page-item disabled">
-                                                                    <span class="page-link">&laquo;</span>
-                                                                </li>
-                                                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                                <li class="page-item">
-                                                                    <a class="page-link" href="#" aria-label="Next">
-                                                                        <span aria-hidden="true">&raquo;</span>
-                                                                        <span class="sr-only">Next</span>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </nav>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="d-flex justify-content-end">
-                                                            <label for="rowsPerPage" class="mr-5" style="flex-shrink: 0;">Rows per page:</label>
-                                                            <select class="form-control pl-5" id="rowsPerPage" style="width: 60px;">
-                                                                <option>10</option>
-                                                                <option>25</option>
-                                                                <option>50</option>
-                                                                <option>100</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <script>
-            document.getElementById('toggleSearch').addEventListener('click', function() {
-                var searchContainer = document.getElementById('searchContainer');
-                searchContainer.style.display = (searchContainer.style.display === 'none' || searchContainer.style.display === '') ? 'block' : 'none';
-            });
-            document.getElementById('rowsPerPage').addEventListener('change', function() {
-                var rowsPerPage = parseInt(this.value);
-                var rows = document.querySelectorAll('.edit-row');
-
-                // Hide all rows
-                rows.forEach(function(row) {
-                    row.style.display = 'none';
-                });
-
-                // Show selected number of rows
-                for (var i = 0; i < rowsPerPage; i++) {
-                    if (rows[i]) {
-                        rows[i].style.display = 'table-row';
-                    }
-                }
-            });
-        </script>
 <?php
     }
 }
 ?>
+<script>
+    document.getElementById('toggleSearch').addEventListener('click', function() {
+        var searchContainer = document.getElementById('searchContainer');
+        searchContainer.style.display = (searchContainer.style.display === 'none' || searchContainer.style.display === '') ? 'block' : 'none';
+    });
+    document.getElementById('rowsPerPage').addEventListener('change', function() {
+        var rowsPerPage = parseInt(this.value);
+        var rows = document.querySelectorAll('.edit-row');
+
+        rows.forEach(function(row) {
+            row.style.display = 'none';
+        });
+
+        for (var i = 0; i < rowsPerPage; i++) {
+            if (rows[i]) {
+                rows[i].style.display = 'table-row';
+            }
+        }
+    });
+</script>

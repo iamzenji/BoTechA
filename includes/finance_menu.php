@@ -27,7 +27,7 @@
             </li>
             <li class="sidebar-item">
                 <a href="financesinbox.php" class="sidebar-link">
-                    <i class="lni lni-home"></i>
+                    <i class="lni lni-envelope"></i>
                     <span>Inbox
                     </span>
                 </a>

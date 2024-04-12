@@ -173,18 +173,15 @@ if (strlen($_SESSION['employee_id']) === 0) {
             var rows = document.querySelectorAll('.inv-color-table tbody tr');
             var totalRows = rows.length;
 
-            // Hide all rows
             rows.forEach(function(row) {
                 row.style.display = 'none';
             });
 
-            // Show selected number of rows
             for (var i = 0; i < rowsPerPage && i < totalRows; i++) {
                 rows[i].style.display = '';
             }
         });
 
-        // Initially, trigger the change event to set the initial display
         document.getElementById('rowsPerPage').dispatchEvent(new Event('change'));
     </script>
 

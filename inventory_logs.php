@@ -21,10 +21,7 @@ if (empty($_SESSION['employee_id'])) {
     session_destroy();
 } else {
 
-    $query = "SELECT inventory_logs.*, inventory.brand AS brand_name
-              FROM inventory_logs 
-              INNER JOIN inventory ON inventory_logs.inventory_id = inventory.inventory_id ";
-
+    $query = "SELECT * FROM inventory_logs";
     $result = mysqli_query($connection, $query);
 ?>
 
@@ -154,10 +151,10 @@ if (empty($_SESSION['employee_id'])) {
             searchContainer.style.display = (searchContainer.style.display === 'none' || searchContainer.style.display === '') ? 'block' : 'none';
         });
         document.getElementById('rowsPerPage').addEventListener('change', function() {
-            // Get the selected number of rows per page
+            // Get the selected number of rows
             var rowsPerPage = parseInt(this.value);
 
-            // Get all table rows excluding the header and footer
+            // Get all table rows
             var rows = document.querySelectorAll('tbody tr');
 
             // Hide all rows
@@ -165,7 +162,6 @@ if (empty($_SESSION['employee_id'])) {
                 row.style.display = 'none';
             });
 
-            // Show only the first 10 rows
             for (var i = 0; i < Math.min(rowsPerPage, rows.length); i++) {
                 rows[i].style.display = '';
             }
