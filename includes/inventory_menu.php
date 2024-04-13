@@ -38,6 +38,12 @@
                     <span>Discounted Product</span>
                 </a>
             </li>
+            <li class="sidebar-item">
+                <a href="inventory_return.php" class="sidebar-link">
+                    <i class="lni lni-reply"></i>
+                    <span>Return Product</span>
+                </a>
+            </li>
 
         </ul>
         <div class="sidebar-footer">

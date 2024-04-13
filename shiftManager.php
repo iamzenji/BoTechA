@@ -93,10 +93,10 @@
                 <?php
                 // Include database connection file
                 include 'includes/connection.php';
+                session_start();
 
                 // Check if the user's position is "HR Officer"
                 if (!isset($_SESSION['employee_position']) || $_SESSION['employee_position'] !== 'HR Officer') {
-                    // Redirect to a page with an unauthorized access message
                     header("Location: unauthorized.php");
                     exit();
                 }
@@ -229,7 +229,7 @@
             modal.style.display = 'block';
 
             // Set the delete button's onclick event handler to pass the shiftId and employeeId
-            document.getElementById('confirmDeleteBtn').onclick = function () {
+            document.getElementById('confirmDeleteBtn').onclick = function() {
                 // Redirect to delete_shift.php with the shiftId and employeeId parameters
                 window.location.href = 'delete_shift.php?id=' + shiftId + '&employee_id=' + employeeId;
             };
@@ -239,7 +239,7 @@
         function toggleTimeInputs(checkbox) {
             var row = checkbox.parentNode.parentNode;
             var timeInputs = row.querySelectorAll('input[type="time"]');
-            timeInputs.forEach(function (input) {
+            timeInputs.forEach(function(input) {
                 input.disabled = !checkbox.checked;
             });
         }

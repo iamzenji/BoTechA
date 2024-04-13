@@ -29,21 +29,18 @@ if (empty($_SESSION['employee_id'])) {
         <div class="col-md-6">
             <h2>Inventory Logs</h2>
         </div>
-        <div class="container row mb-2">
-            <div class="btn-group col-md-2 d-flex">
-                <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="lni lni-lineicons-symbol"></i> Reasons
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="">All Reasons</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item" href="">Edit Item</a></li>
-                    <li><a class="dropdown-item" href="">Receive Items</a></li>
-                    <li><a class="dropdown-item" href="">Sale</a></li>
-                    <li><a class="dropdown-item" href="">Discounted Items</a></li>
-                </ul>
+        <div class="container row mb-1">
+
+            <div class="dropdown">
+                <button class="dropbtn btn btn-outline-primary dropdown-toggle"><i class="lni lni-lineicons-symbol"></i> Reasons</button>
+                <div class="dropdown-content">
+                    <a href="#">All Reasons</a>
+                    <hr>
+                    <a href="#">Edit Item</a>
+                    <a href="#">Receive Items</a>
+                    <a href="#">Sale</a>
+                    <a href="#">Discounted Items</a>
+                </div>
             </div>
         </div>
         <table class="table inv-color-table">
@@ -53,7 +50,7 @@ if (empty($_SESSION['employee_id'])) {
                         <div class="container">
                             <div class="row align-items-center">
                                 <div class="col-md-6">
-                                    <button class="btn btn-outline-primary" style="height: 40px;">Export Logs</button>
+                                    <button id="exportLogs" class="btn btn-outline-primary" style="height: 40px;">Export Logs</button>
                                 </div>
                                 <div class="align-middle col-md-6">
                                     <div class="d-flex justify-content-end">
@@ -88,7 +85,7 @@ if (empty($_SESSION['employee_id'])) {
             <tbody>
                 <?php
                 while ($row = mysqli_fetch_assoc($result)) {
-                    $formattedDate = date('F j, Y g:i A', strtotime($row['date']));
+                    $formattedDate = date('F j Y g:i A', strtotime($row['date']));
                 ?>
                     <tr>
                         <td><?php echo $formattedDate; ?></td>
@@ -145,6 +142,8 @@ if (empty($_SESSION['employee_id'])) {
             </tfoot>
         </table>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
     <script>
         document.getElementById('toggleSearch').addEventListener('click', function() {
             var searchContainer = document.getElementById('searchContainer');
@@ -166,6 +165,55 @@ if (empty($_SESSION['employee_id'])) {
                 rows[i].style.display = '';
             }
         });
+
+        function exportToCSV() {
+            var rows = document.querySelectorAll('tbody tr');
+
+            var csvData = [];
+
+            var headerRow = [];
+
+            document.querySelectorAll('thead th').forEach(function(header) {
+                headerRow.push(header.textContent.trim());
+            });
+
+            csvData.push(headerRow.join(','));
+
+            rows.forEach(function(row) {
+
+                var rowData = [];
+
+                var dateTime = row.querySelector('td:first-child').textContent.trim();
+                rowData.push(dateTime);
+
+                for (var i = 1; i < row.cells.length; i++) {
+                    rowData.push(row.cells[i].textContent.trim());
+                }
+
+                csvData.push(rowData.join(','));
+            });
+
+            var csvContent = csvData.join('\n');
+
+            var blob = new Blob([csvContent], {
+                type: 'text/csv;charset=utf-8;'
+            });
+
+            var url = URL.createObjectURL(blob);
+
+            var link = document.createElement("a");
+
+            link.setAttribute("href", url);
+            link.setAttribute("download", "inventory_logs.csv");
+
+            document.body.appendChild(link);
+
+            link.click();
+
+            document.body.removeChild(link);
+        }
+
+        document.getElementById('exportLogs').addEventListener('click', exportToCSV);
     </script>
 <?php
 }

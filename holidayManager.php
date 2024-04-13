@@ -69,8 +69,7 @@
 
         <!-- Button to trigger modal -->
         <div class="table-container">
-            <button type="button" class="btn btn-primary btn-add-holiday" data-toggle="modal"
-                data-target="#addHolidayModal">Add Holiday</button>
+            <button type="button" class="btn btn-primary btn-add-holiday" data-toggle="modal" data-target="#addHolidayModal">Add Holiday</button>
         </div>
 
         <!-- Table -->
@@ -89,9 +88,10 @@
                     <?php
                     // Include database connection file
                     include 'includes/connection.php';
+                    session_start();
                     // Check if the user's position is "HR Officer"
                     if (!isset($_SESSION['employee_position']) || $_SESSION['employee_position'] !== 'HR Officer') {
-                        // Redirect to a page with an unauthorized access message
+
                         header("Location: unauthorized.php");
                         exit();
                     }
@@ -148,8 +148,7 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="addHolidayModal" tabindex="-1" role="dialog" aria-labelledby="addHolidayModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="addHolidayModal" tabindex="-1" role="dialog" aria-labelledby="addHolidayModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -196,7 +195,7 @@
         const offsetDateInput = document.getElementById('offset_date');
 
         // Add event listener to date input field
-        dateInput.addEventListener('change', function () {
+        dateInput.addEventListener('change', function() {
             // Set the value of offset date input field to match the selected date
             offsetDateInput.value = this.value;
         });

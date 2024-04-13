@@ -22,7 +22,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
 
     <div class="container mt-5">
         <div class="col-md-6">
-            <h2>Discounts</h2>
+            <h2>Return Product</h2>
         </div>
         <table class="inv-color-table table">
             <thead>
@@ -31,7 +31,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
                         <div class="container">
                             <div class="row align-items-center">
                                 <div class="col-md-6">
-                                    <button id="addDiscountButton" class="btn btn-outline-primary" style="height: 40px;">Add Discount</button>
+                                    <button id="addReturnButton" class="btn btn-outline-primary" style="height: 40px;">Add Return Product</button>
                                 </div>
                                 <div class="align-middle col-md-6">
                                     <div class="d-flex justify-content-end">
@@ -58,24 +58,24 @@ if (strlen($_SESSION['employee_id']) === 0) {
                     <th>Category</th>
                     <th>Brand name</th>
                     <th>Type</th>
-                    <th>Value</th>
                     <th>Unit Quantity</th>
+                    <th>Reasons</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                $query = "SELECT category, brand, type, value, unit_qty FROM discounted_item";
+                $query = "SELECT id, category, brand, type, unit_qty FROM return_item";
                 $result = mysqli_query($connection, $query);
-                while ($row = mysqli_fetch_assoc($result)) {
-                    echo "<tr class='align-middle text-center'>";
-                    echo "<td>" . $row['category'] . "</td>";
-                    echo "<td>" . $row['brand'] . "</td>";
-                    echo "<td>" . $row['type'] . "</td>";
-                    echo "<td>" . $row['value'] . "</td>";
-                    echo "<td>" . $row['unit_qty'] . "</td>";
-                    echo "</tr>";
-                }
-                ?>
+                $return_items = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                foreach ($return_items as $item) : ?>
+                    <tr class="align-middle text-center">
+                        <td><?php echo $item['category']; ?></td>
+                        <td><?php echo $item['brand']; ?></td>
+                        <td><?php echo $item['type']; ?></td>
+                        <td><?php echo $item['unit_qty']; ?></td>
+                        <td>Purchase Return</td>
+                    </tr>
+                <?php endforeach; ?>
             </tbody>
             <tfoot>
                 <tr>
@@ -118,17 +118,17 @@ if (strlen($_SESSION['employee_id']) === 0) {
             </tfoot>
         </table>
     </div>
-    <div id="addDiscountModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="addDiscountModalLabel" aria-hidden="true">
+    <div id="addReturnModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="addReturnModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title" id="addDiscountModalLabel">Add Discount</h5>
+                    <h5 class="modal-title" id="addReturnModalLabel">Add Return</h5>
                     <button type="button" class="close close-modal-button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="add_discount.php" method="post">
+                    <form action="add_return.php" method="post">
                         <div class="form-group">
                             <label for="category">Category</label>
                             <select class="form-control" name="category">
@@ -157,16 +157,16 @@ if (strlen($_SESSION['employee_id']) === 0) {
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="value">Value</label>
-                            <input type="text" class="form-control" name="value" placeholder="Enter value">
-                        </div>
-                        <div class="form-group">
                             <label for="unitQuantity">Unit Quantity</label>
                             <input type="text" class="form-control" name="unitQuantity" placeholder="Enter unit quantity">
                         </div>
+                        <div class="form-group">
+                            <label for="reasons">Reasons</label>
+                            <input type="text" class="form-control" name="reasons" value="Purchase Return" disabled>
+                        </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" name="addDiscount">Add Discount</button>
+                    <button type="submit" class="btn btn-primary" name="addReturn">Add Return</button>
                 </div>
                 </form>
             </div>
@@ -180,8 +180,8 @@ if (strlen($_SESSION['employee_id']) === 0) {
             searchContainer.style.display = (searchContainer.style.display === 'none' || searchContainer.style.display === '') ? 'block' : 'none';
         });
 
-        document.getElementById('addDiscountButton').addEventListener('click', function() {
-            $('#addDiscountModal').modal('show');
+        document.getElementById('addReturnButton').addEventListener('click', function() {
+            $('#addReturnModal').modal('show');
         });
         document.getElementById('rowsPerPage').addEventListener('change', function() {
             var rowsPerPage = parseInt(this.value);
