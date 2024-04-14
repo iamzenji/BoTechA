@@ -18,32 +18,54 @@ if (isset($_POST['addDiscount'])) {
         $value = mysqli_real_escape_string($connection, $_POST['value']);
         $unitQuantity = mysqli_real_escape_string($connection, $_POST['unitQuantity']);
 
-        $query = "INSERT INTO discounted_item (category, brand, type, value, unit_qty) 
-                  VALUES (?, ?, ?, ?, ?)";
-        $stmt = mysqli_prepare($connection, $query);
-        mysqli_stmt_bind_param($stmt, "sssss", $category, $brand, $type, $value, $unitQuantity);
+        // Check if employee_id is set in the session
+        if (isset($_SESSION['employee_id'])) {
+            $employee_id = $_SESSION['employee_id'];
 
-        if (mysqli_stmt_execute($stmt)) {
-            echo "Discounted item inserted successfully.<br>";
-            mysqli_stmt_close($stmt);
+            // Get unit_inv_qty before the discount
+            $select_unit_inv_qty_query = "SELECT unit_inv_qty FROM inventory WHERE category = ? AND brand = ? AND type = ?";
+            $select_unit_inv_qty_stmt = mysqli_prepare($connection, $select_unit_inv_qty_query);
+            mysqli_stmt_bind_param($select_unit_inv_qty_stmt, "sss", $category, $brand, $type);
+            mysqli_stmt_execute($select_unit_inv_qty_stmt);
+            mysqli_stmt_bind_result($select_unit_inv_qty_stmt, $unit_inv_qty_before);
+            mysqli_stmt_fetch($select_unit_inv_qty_stmt);
+            mysqli_stmt_close($select_unit_inv_qty_stmt);
 
             // Update inventory quantity
-            $update_query = "UPDATE inventory SET unit_inv_qty = unit_inv_qty - ? 
-                             WHERE category = ? AND brand = ? AND type = ?";
+            $update_query = "UPDATE inventory SET unit_inv_qty = unit_inv_qty - ? WHERE category = ? AND brand = ? AND type = ?";
             $update_stmt = mysqli_prepare($connection, $update_query);
             mysqli_stmt_bind_param($update_stmt, "isss", $unitQuantity, $category, $brand, $type);
             mysqli_stmt_execute($update_stmt);
             mysqli_stmt_close($update_stmt);
 
+            // Get unit_inv_qty after the discount
+            $select_unit_inv_qty_stmt = mysqli_prepare($connection, $select_unit_inv_qty_query);
+            mysqli_stmt_bind_param($select_unit_inv_qty_stmt, "sss", $category, $brand, $type);
+            mysqli_stmt_execute($select_unit_inv_qty_stmt);
+            mysqli_stmt_bind_result($select_unit_inv_qty_stmt, $unit_inv_qty_after);
+            mysqli_stmt_fetch($select_unit_inv_qty_stmt);
+            mysqli_stmt_close($select_unit_inv_qty_stmt);
+
+            // Insert into discounted_item table
+            $insert_discount_query = "INSERT INTO discounted_item (category, brand, type, value, unit_qty) 
+                                      VALUES (?, ?, ?, ?, ?)";
+            $insert_discount_stmt = mysqli_prepare($connection, $insert_discount_query);
+            mysqli_stmt_bind_param($insert_discount_stmt, "sssid", $category, $brand, $type, $value, $unitQuantity);
+            mysqli_stmt_execute($insert_discount_stmt);
+            mysqli_stmt_close($insert_discount_stmt);
+
             // Log the inventory update
-            $insert_query = "INSERT INTO inventory_logs (inventory_id, date, brand_name, employee, quantity, stock_after, reason) 
-                VALUES ('$category', NOW(), '$brand', '$employee_id', '$unitQuantity', '$unit_qty', 'Add Discount')";
-            $insert_result = mysqli_query($connection, $insert_query);
+            $insert_log_query = "INSERT INTO inventory_logs (inventory_id, date, brand_name, employee, quantity, stock_after, reason) 
+                                VALUES (?, NOW(), ?, ?, ?, ?, 'Add Discount')";
+            $insert_log_stmt = mysqli_prepare($connection, $insert_log_query);
+            mysqli_stmt_bind_param($insert_log_stmt, "sssid", $category, $brand, $employee_id, $unitQuantity, $unit_inv_qty_after);
+            mysqli_stmt_execute($insert_log_stmt);
+            mysqli_stmt_close($insert_log_stmt);
 
             header("Location: inventory_discount.php");
             exit();
         } else {
-            echo "Error inserting discounted item: " . mysqli_error($connection) . "<br>";
+            echo "Employee ID not set in session.";
         }
     } else {
         echo "Invalid POST data";

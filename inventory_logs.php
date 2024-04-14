@@ -21,7 +21,7 @@ if (empty($_SESSION['employee_id'])) {
     session_destroy();
 } else {
 
-    $query = "SELECT * FROM inventory_logs";
+    $query = "SELECT il.*, i.unit_inv_qty as stock_before, i.unit_inv_qty - il.quantity as stock_after FROM inventory_logs il JOIN inventory i ON il.inventory_id = i.category AND il.brand_name = i.brand";
     $result = mysqli_query($connection, $query);
 ?>
 
@@ -37,9 +37,10 @@ if (empty($_SESSION['employee_id'])) {
                     <a href="#">All Reasons</a>
                     <hr>
                     <a href="#">Edit Item</a>
-                    <a href="#">Receive Items</a>
+                    <a href="#">Purchase order</a>
                     <a href="#">Sale</a>
-                    <a href="#">Discounted Items</a>
+                    <a href="#">Add Discount</a>
+                    <a href="#">Return Item</a>
                 </div>
             </div>
         </div>
@@ -54,14 +55,17 @@ if (empty($_SESSION['employee_id'])) {
                                 </div>
                                 <div class="align-middle col-md-6">
                                     <div class="d-flex justify-content-end">
-                                        <button type="button" class="btn btn-outline-primary" id="toggleSearch">
+                                        <button type="button" class="btn btn-outline-primary" id="toggleSearch" style="margin-right: 10px;">
                                             <i class="lni lni-search-alt"></i>
                                         </button>
                                         <div id="searchContainer" class="col-md-6" style="display: none;">
                                             <div class="d-flex justify-content-end">
-                                                <input type="text" id="searchInput" class="form-control col-md-6" style="width: 260px; height: 30px; font-size: 12px;" placeholder="Search by Date, Name, Employee, Reasons ">
+                                                <input type="text" id="searchInput" class="form-control col-md-6" style="width: 260px; height: 30px; font-size: 12px; margin-right: 10px;" placeholder="Search by Date, Name, Employee, Reasons ">
                                             </div>
                                         </div>
+                                        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="filterByDateBtn">
+                                            <i class="lni lni-lineicons-symbol"></i> Date
+                                        </button>
                                     </div>
 
                                 </div>
@@ -78,7 +82,7 @@ if (empty($_SESSION['employee_id'])) {
                     <th class="align-middle">Brand name</th>
                     <th class="align-middle">Employee</th>
                     <th class="align-middle">Adjustment</th>
-                    <th class="align-middle">Stock after</th>
+                    <th class="align-middle">Before -> After Stock On Hand</th>
                     <th class="align-middle">Reasons</th>
                 </tr>
             </thead>
@@ -87,12 +91,12 @@ if (empty($_SESSION['employee_id'])) {
                 while ($row = mysqli_fetch_assoc($result)) {
                     $formattedDate = date('F j Y g:i A', strtotime($row['date']));
                 ?>
-                    <tr>
+                    <tr data-reason="<?php echo $row['reason']; ?>">
                         <td><?php echo $formattedDate; ?></td>
                         <td><?php echo $row['brand_name']; ?></td>
                         <td><?php echo $userName; ?></td>
                         <td><?php echo $row['quantity']; ?></td>
-                        <td><?php echo $row['stock_after']; ?></td>
+                        <td><?php echo $row['stock_before'] . ' -> ' . $row['stock_after']; ?></td>
                         <td><?php echo $row['reason']; ?></td>
                     </tr>
                 <?php
@@ -142,32 +146,71 @@ if (empty($_SESSION['employee_id'])) {
             </tfoot>
         </table>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+
+    <div class="modal" id="dateFilterModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">Filter by Date</h5>
+                    <button type="button" class="close close-modal-button" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="startDate">From Date:</label>
+                        <input type="date" class="form-control" id="startDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate">To Date:</label>
+                        <input type="date" class="form-control" id="endDate">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="applyDateFilter">Apply</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         document.getElementById('toggleSearch').addEventListener('click', function() {
             var searchContainer = document.getElementById('searchContainer');
             searchContainer.style.display = (searchContainer.style.display === 'none' || searchContainer.style.display === '') ? 'block' : 'none';
         });
         document.getElementById('rowsPerPage').addEventListener('change', function() {
-            // Get the selected number of rows
             var rowsPerPage = parseInt(this.value);
+            var rows = document.querySelectorAll('.inv-color-table tbody tr');
+            var totalRows = rows.length;
 
-            // Get all table rows
-            var rows = document.querySelectorAll('tbody tr');
-
-            // Hide all rows
             rows.forEach(function(row) {
                 row.style.display = 'none';
             });
 
-            for (var i = 0; i < Math.min(rowsPerPage, rows.length); i++) {
+            for (var i = 0; i < rowsPerPage && i < totalRows; i++) {
                 rows[i].style.display = '';
             }
         });
 
+        document.getElementById('rowsPerPage').dispatchEvent(new Event('change'));
+        document.querySelectorAll('.dropdown-con a').forEach(function(link) {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+
+                var selectedReason = this.textContent.trim();
+
+                document.querySelectorAll('tbody tr').forEach(function(row) {
+                    var rowReason = row.getAttribute('data-reason');
+                    if (selectedReason === 'All Reasons' || selectedReason === rowReason) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+        });
+
         function exportToCSV() {
-            var rows = document.querySelectorAll('tbody tr');
+            var visibleRows = document.querySelectorAll('tbody tr:not([style*="display: none"])');
 
             var csvData = [];
 
@@ -179,8 +222,7 @@ if (empty($_SESSION['employee_id'])) {
 
             csvData.push(headerRow.join(','));
 
-            rows.forEach(function(row) {
-
+            visibleRows.forEach(function(row) {
                 var rowData = [];
 
                 var dateTime = row.querySelector('td:first-child').textContent.trim();
@@ -214,7 +256,35 @@ if (empty($_SESSION['employee_id'])) {
         }
 
         document.getElementById('exportLogs').addEventListener('click', exportToCSV);
+
+        document.getElementById('filterByDateBtn').addEventListener('click', function() {
+            $('#dateFilterModal').modal('show');
+        });
+
+        document.getElementById('applyDateFilter').addEventListener('click', function() {
+            var startDate = document.getElementById('startDate').value;
+            var endDate = document.getElementById('endDate').value;
+
+            document.querySelectorAll('tbody tr').forEach(function(row) {
+                var date = row.querySelector('td:first-child').textContent.trim();
+                var rowDate = new Date(date);
+
+                if (startDate && endDate) {
+                    var filterStartDate = new Date(startDate);
+                    var filterEndDate = new Date(endDate);
+
+                    if (rowDate >= filterStartDate && rowDate <= filterEndDate) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                }
+            });
+
+            $('#dateFilterModal').modal('hide');
+        });
     </script>
+
 <?php
 }
 ?>

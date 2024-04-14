@@ -196,18 +196,19 @@ if (strlen($_SESSION['employee_id']) === 0) {
     });
     document.getElementById('rowsPerPage').addEventListener('change', function() {
         var rowsPerPage = parseInt(this.value);
-        var rows = document.querySelectorAll('.edit-row');
+        var rows = document.querySelectorAll('.inv-color-table tbody tr');
+        var totalRows = rows.length;
 
         rows.forEach(function(row) {
             row.style.display = 'none';
         });
 
-        for (var i = 0; i < rowsPerPage; i++) {
-            if (rows[i]) {
-                rows[i].style.display = 'table-row';
-            }
+        for (var i = 0; i < rowsPerPage && i < totalRows; i++) {
+            rows[i].style.display = '';
         }
     });
+
+    document.getElementById('rowsPerPage').dispatchEvent(new Event('change'));
 
     function exportToCSV() {
         var rows = document.querySelectorAll('tbody tr');
