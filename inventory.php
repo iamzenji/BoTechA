@@ -11,16 +11,20 @@ if (strlen($_SESSION['employee_id']) === 0) {
     $result = mysqli_query($connection, $query);
 
     if (mysqli_num_rows($result) > 0) {
-        $existing_items = array();
+        $consolidated_items = array();
 
         while ($row = mysqli_fetch_assoc($result)) {
             $key = $row['category'] . $row['brand'] . $row['type'];
 
-            if (array_key_exists($key, $existing_items)) {
-                $existing_items[$key]['qty_stock'] = $row['qty_stock'];
-                $existing_items[$key]['unit_inv_qty'] = $row['unit_inv_qty'];
+            if (array_key_exists($key, $consolidated_items)) {
+                // If the item already exists, add the quantities
+                $consolidated_items[$key]['qty_stock'] += $row['qty_stock'];
+                $consolidated_items[$key]['unit_inv_qty'] += $row['unit_inv_qty'];
+                $consolidated_items[$key]['showroom_quantity_stock'] += $row['showroom_quantity_stock'];
+                // You can add similar logic for other fields you want to aggregate
             } else {
-                $existing_items[$key] = $row;
+                // Otherwise, add the item to the consolidated array
+                $consolidated_items[$key] = $row;
             }
         }
 ?>
@@ -76,7 +80,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                 </thead>
                                 <tbody>
                                     <?php
-                                    foreach ($existing_items as $row) {
+                                    foreach ($consolidated_items as $row) {
                                     ?>
                                         <tr class="edit-row align-middle text-center" data-toggle="modal" data-target="#editModal_<?php echo $row['inventory_id']; ?>">
                                             <td><?php echo $row['category']; ?></td>

@@ -221,13 +221,13 @@ form button {
 } 
 
 
-.dropdown {
+.dropdown-logs {
   position: relative;
   display: inline-block; 
   width: 20px;
 }
 
-.dropdown-content {
+.dropdown-con {
   display: none;
   position: absolute;
   background-color: #f9f9f9;
@@ -236,18 +236,18 @@ form button {
   z-index: 1;
 }
 
-.dropdown-content a {
+.dropdown-con a {
   color: black;
   padding: 4px 16px;
   text-decoration: none;
   display: block;
 }
 
-.dropdown-content a:hover {
+.dropdown-con a:hover {
   background-color: #f1f1f1;
 }
 
-.dropdown:hover .dropdown-content {
+.dropdown-logs:hover .dropdown-con {
   display: block;
 }
 

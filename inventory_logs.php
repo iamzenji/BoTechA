@@ -31,9 +31,9 @@ if (empty($_SESSION['employee_id'])) {
         </div>
         <div class="container row mb-1">
 
-            <div class="dropdown">
+            <div class="dropdown-logs">
                 <button class="dropbtn btn btn-outline-primary dropdown-toggle"><i class="lni lni-lineicons-symbol"></i> Reasons</button>
-                <div class="dropdown-content">
+                <div class="dropdown-con">
                     <a href="#">All Reasons</a>
                     <hr>
                     <a href="#">Edit Item</a>
