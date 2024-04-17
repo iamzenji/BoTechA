@@ -15,14 +15,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $prev_inventory_result = mysqli_query($connection, $prev_inventory_query);
     $prev_inventory_row = mysqli_fetch_assoc($prev_inventory_result);
 
-    // Calculate quantity changes
-    $unit_inv_qty_change = $unit_inv_qty - $prev_inventory_row['unit_inv_qty'];
-
     // Update inventory table
-    $update_query = "UPDATE inventory SET qty_stock = '$qty_stock', unit_inv_qty = '$unit_inv_qty', storage_location = '$storage_location', showroom_quantity_stock = '$showroom_quantity_stock', showroom_location = '$showroom_location', quantity_to_reorder = '$quantity_to_reorder' WHERE inventory_id = '$inventory_id'";
+    $update_query = "UPDATE inventory SET qty_stock = '$qty_stock', unit_inv_qty = $unit_inv_qty, storage_location = '$storage_location', showroom_quantity_stock = '$showroom_quantity_stock', showroom_location = '$showroom_location', quantity_to_reorder = '$quantity_to_reorder' WHERE inventory_id = '$inventory_id'";
     $update_result = mysqli_query($connection, $update_query);
+    
 
     if ($update_result) {
+
+        // Calculate quantity changes
+
+        $unit_inv_qty_change = $unit_inv_qty - $prev_inventory_row['unit_inv_qty'] ;
+
         // edit history of item
         $insert_query = "INSERT INTO inventory_logs (inventory_id, date, brand_name, employee, quantity, stock_after, reason) 
         VALUES ('$inventory_id', NOW(), '{$prev_inventory_row['brand']}', '{$_SESSION['employee_id']}', '$unit_inv_qty_change',

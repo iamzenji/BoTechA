@@ -21,7 +21,9 @@ if (empty($_SESSION['employee_id'])) {
     session_destroy();
 } else {
 
-    $query = "SELECT il.*, i.unit_inv_qty as stock_before, i.unit_inv_qty - il.quantity as stock_after FROM inventory_logs il JOIN inventory i ON il.inventory_id = i.category AND il.brand_name = i.brand";
+    $query = "SELECT il.*, i.brand FROM inventory_logs il INNER JOIN inventory i ON il.inventory_id = i.category AND il.brand_name = i.brand";
+
+    
     $result = mysqli_query($connection, $query);
 ?>
 
@@ -90,13 +92,14 @@ if (empty($_SESSION['employee_id'])) {
                 <?php
                 while ($row = mysqli_fetch_assoc($result)) {
                     $formattedDate = date('F j Y g:i A', strtotime($row['date']));
+                    $stock_before = $row['stock_after'] - $row['quantity'];
                 ?>
                     <tr data-reason="<?php echo $row['reason']; ?>">
                         <td><?php echo $formattedDate; ?></td>
                         <td><?php echo $row['brand_name']; ?></td>
                         <td><?php echo $userName; ?></td>
                         <td><?php echo $row['quantity']; ?></td>
-                        <td><?php echo $row['stock_before'] . ' -> ' . $row['stock_after']; ?></td>
+                        <td><?php echo $stock_before . ' -> ' . $row['stock_after']; ?></td>
                         <td><?php echo $row['reason']; ?></td>
                     </tr>
                 <?php
