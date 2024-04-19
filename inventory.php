@@ -7,7 +7,19 @@ if (strlen($_SESSION['employee_id']) === 0) {
     session_destroy();
 } else {
 
-    $query = "SELECT * FROM inventory";
+    $query = "SELECT i.*, il.stock_after
+    FROM inventory i
+    INNER JOIN (
+        SELECT inventory_id, brand_name,MAX(date) AS latest_timestamp
+        FROM inventory_logs
+        GROUP BY inventory_id, brand_name
+    ) latest_logs ON i.inventory_id = latest_logs.inventory_id
+    INNER JOIN inventory_logs il ON latest_logs.inventory_id = il.inventory_id AND latest_logs.brand_name = i.brand AND latest_logs.latest_timestamp = il.date";
+
+    // $query = "SELECT i.*, il.stock_after 
+    //           FROM inventory_logs il
+    //           JOIN inventory i";
+
     $result = mysqli_query($connection, $query);
 
     if (mysqli_num_rows($result) > 0) {
@@ -19,6 +31,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
             if (array_key_exists($key, $consolidated_items)) {
                 // If the item already exists, add the quantities
                 $consolidated_items[$key]['qty_stock'] += $row['qty_stock'];
+                $consolidated_items[$key]['total_cost'] += $row['total_cost'];
                 $consolidated_items[$key]['unit_inv_qty'] += $row['unit_inv_qty'];
                 $consolidated_items[$key]['showroom_quantity_stock'] += $row['showroom_quantity_stock'];
                 // You can add similar logic for other fields you want to aggregate
@@ -76,6 +89,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                         <th>Showroom Quantity Stock</th>
                                         <th>Showroom Location</th>
                                         <th>Quantity to Reorder</th>
+                                        <th>Total Cost</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -87,11 +101,12 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                             <td><?php echo $row['brand']; ?></td>
                                             <td><?php echo $row['type']; ?></td>
                                             <td><?php echo $row['qty_stock'] ?></td>
-                                            <td><?php echo $row['unit_inv_qty'] - $row['showroom_quantity_stock']; ?></td>
+                                            <td><?php echo $row['stock_after'] - $row['showroom_quantity_stock']; ?></td>
                                             <td><?php echo $row['storage_location']; ?></td>
                                             <td><?php echo $row['showroom_quantity_stock']; ?></td>
                                             <td><?php echo $row['showroom_location']; ?></td>
                                             <td><?php echo $row['quantity_to_reorder']; ?></td>
+                                            <td><?php echo $row['total_cost']; ?></td>
                                         </tr>
                                         <div class="modal fade" id="editModal_<?php echo $row['inventory_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel_<?php echo $row['inventory_id']; ?>" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
@@ -112,7 +127,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                                             <div class="form-group">
                                                                 <label for="unit_inv_qty">Unit Quantity:</label>
                                                                 <input type="text" class="form-control" id="unit_inv_qty" name="unit_inv_qty" value="<?php echo $row['unit_inv_qty']; ?>">
-                                                            </div>
+                                                            </div> 
                                                             <div class="form-group">
                                                                 <label for="storage_location">Storage Location:</label>
                                                                 <input type="text" class="form-control" id="storage_location" name="storage_location" value="<?php echo $row['storage_location']; ?>">
