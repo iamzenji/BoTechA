@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header("Location: purchase_dashboard.php");
                 exit();
             case 'Finance Officer':
-                header("Location: accountFinances.php");
+                header("Location: financeHome.php");
                 exit();
             case 'Sales Officer - Cashier':
                 header("Location: pos_dashboard.php");

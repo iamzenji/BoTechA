@@ -15,6 +15,7 @@ if (isset($_POST['placeorder'])) {
     $query = "INSERT INTO `order` (subtotal, tax, shipping_fee, grand_total) VALUES ('$subtotal', '$tax', '$shippingFee', '$grandTotal')";
     $result = mysqli_query($connection, $query);
 
+
     // Check if order insertion was successful
     if ($result) {
         // Get the ID of the last inserted order row
@@ -89,6 +90,23 @@ if (isset($_POST['placeorder'])) {
                 if (!$insert_result) {
                     echo "Error inserting into inventory_logs: " . mysqli_error($connection) . "<br>";
                 }
+                // -----------------------------------------------
+                // -- THIS PART IS ADDED BY: FINANCE MANAGEMENT --
+
+                // Automatic Request Budget after ordering, inserting data to finance inbox
+                $transactNumber = random_int(1000000, 9999999);
+                $companyName = "PO";
+                $msgInfo = "Purchase Order Request";
+                $totalPrice = $grandTotal;
+                $financeinboxquery = "INSERT INTO `finance_inbox` (id, company, msginfo, cost) VALUES ('$transactNumber','$companyName', '$msgInfo', '$totalPrice')";
+                $financeresult = mysqli_query($connection, $financeinboxquery);
+
+                // Inserting data to PO inbox
+                $financeinboxPOquery = "INSERT INTO `finance_inbox_po` (id, company, msginfo, cost) VALUES ('$transactNumber','$companyName', '$msgInfo', '$totalPrice')";
+                $financePOresult = mysqli_query($connection, $financeinboxPOquery);
+
+                // -----------------------------------------------
+
             }
 
             // Redirect user to a thank you page or back to the form

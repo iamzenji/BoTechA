@@ -23,7 +23,7 @@ if (empty($_SESSION['employee_id'])) {
 
     $query = "SELECT il.*, i.brand FROM inventory_logs il INNER JOIN inventory i ON il.inventory_id = i.category AND il.brand_name = i.brand";
 
-    
+
     $result = mysqli_query($connection, $query);
 ?>
 
@@ -92,7 +92,7 @@ if (empty($_SESSION['employee_id'])) {
                 <?php
                 while ($row = mysqli_fetch_assoc($result)) {
                     $formattedDate = date('F j Y g:i A', strtotime($row['date']));
-                    $stock_before = $row['stock_after'] - $row['quantity'];
+                    $stock_before = $row['stock_after'] + $row['quantity'];
                 ?>
                     <tr data-reason="<?php echo $row['reason']; ?>">
                         <td><?php echo $formattedDate; ?></td>

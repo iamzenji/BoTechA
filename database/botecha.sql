@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 19, 2024 at 01:01 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- Generation Time: Apr 19, 2024 at 09:48 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -46,41 +46,15 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id`, `category`, `brand`, `type`, `unit`, `price`, `quantity`, `unit_qty`, `total`, `order_id`, `tracking_number`) VALUES
-(1, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 0.00, 1, 0, 3996.60, 1, 'TN6616b1011ab04'),
-(2, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 1, 0, 3996.60, 2, 'TN6616b189dbe85'),
-(3, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 2, 300, 7993.20, 3, 'TN6616b1e72b706'),
-(4, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 1, 150, 3996.60, 4, 'TN6616b2056ee69'),
-(5, 'Paracetamol', 'Biogesic Tempra', 'Syrup', '250mg', 4596.60, 1, 200, 4596.60, 5, 'TN6616b23999df8'),
-(6, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 1, 150, 3996.60, 6, 'TN6616b268e7797'),
-(7, 'Paracetamol', 'Biogesic Tempra', 'Syrup', '500mg', 3996.60, 2, 400, 3996.60, 6, 'TN6616b268e7797'),
-(8, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 1, 150, 3996.60, 8, 'TN6616bfeb95c99'),
-(9, 'Anti', 'Mefenamec', 'Tablet', '500mg', 4000.00, 5, 20, 20000.00, 10, 'TN66180598b0300'),
-(10, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 1, 150, 3996.60, 11, 'TN661807f460db3'),
-(11, 'Anti', 'Mefenamec', 'Tablet', '500mg', 4000.00, 2, 20, 8000.00, 12, 'TN661809231e4cd'),
-(12, 'Anti', 'Mefenamec', 'Tablet', '500mg', 4000.00, 2, 20, 8000.00, 13, 'TN6618098654372'),
-(13, 'Anti', 'Mefenamec', 'Tablet', '500mg', 4000.00, 2, 20, 8000.00, 14, 'TN661809942e700'),
-(14, 'Anti', 'Mefenamec', 'Tablet', '500mg', 4000.00, 10, 20, 40000.00, 15, 'TN661809ca4b0d4'),
-(15, 'Anti', 'Mefenamec', 'Tablet', '500mg', 4000.00, 5, 20, 20000.00, 16, 'TN66180a311a7f6'),
-(16, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 10, 150, 39966.00, 17, 'TN66180f054a0d0'),
-(17, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 3, 150, 11989.80, 18, 'TN66181023360f5'),
-(18, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 4, 150, 15986.40, 19, 'TN6618108ec432f'),
-(19, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 50, 7500, 199830.00, 20, 'TN6618148c79776'),
-(20, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 5, 750, 19983.00, 21, 'TN66197b3e983f7'),
-(21, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 5, 750, 19983.00, 22, 'TN66197e0c19764'),
-(22, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 5, 750, 19983.00, 23, 'TN66197f119cab3'),
-(23, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 8, 1200, 31972.80, 24, 'TN66197f66b1cab'),
-(24, 'Paracetamol', 'Biogesic Tempra', 'Syrup', '250mg', 4596.60, 10, 2000, 45966.00, 25, 'TN6619813fb9946'),
-(25, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 15, 2250, 59949.00, 26, 'TN66198298c2ab9'),
-(26, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 1000, 150000, 3996600.00, 27, 'TN6619e68eaa356'),
-(27, 'Paracetamol', 'Biogesic Tempra', 'Syrup', '500mg', 3996.60, 5555, 1111000, 3996600.00, 27, 'TN6619e68eaa356'),
-(28, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 2, 300, 7993.20, 28, 'TN661a8e562ff2e'),
-(29, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 23, 3450, 91921.80, 29, 'TN661ab02d37fd5'),
-(30, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 5, 750, 19983.00, 30, 'TN661b605e6b31d'),
-(31, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 10, 1500, 39966.00, 31, 'TN661b609529823'),
-(32, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 2, 300, 7993.20, 32, 'TN661b60dda5c7f'),
-(33, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 20, 3000, 79932.00, 33, 'TN661b637160928'),
-(34, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 50, 7500, 199830.00, 34, 'TN661b7398d7f83'),
-(35, 'Paracetamol', 'Biogesic Tempra', 'Syrup', '500mg', 3996.60, 50, 10000, 199830.00, 34, 'TN661b7398d7f83');
+(1, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 10, 1500, 39966.00, 35, 'TN6622b7703b880'),
+(2, 'Paracetamol', 'Biogesic Tempra', 'Syrup', '500mg', 3996.60, 10, 2000, 39966.00, 35, 'TN6622b7703b880'),
+(10, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 1, 150, 3996.60, 46, 'TN6622c49c0baa2'),
+(11, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 1, 150, 3996.60, 47, 'TN6622c4a9cd1de'),
+(12, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 1, 150, 3996.60, 48, 'TN6622c51ee1b96'),
+(13, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 1, 150, 3996.60, 49, 'TN6622c52015140'),
+(14, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 1, 150, 3996.60, 50, 'TN6622c5b582317'),
+(15, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 10, 1500, 39966.00, 51, 'TN6622c6870179f'),
+(16, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 4, 600, 15986.40, 52, 'TN6622c72fd8318');
 
 -- --------------------------------------------------------
 
@@ -132,16 +106,6 @@ CREATE TABLE `discounted_item` (
   `value` decimal(10,0) NOT NULL,
   `unit_qty` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `discounted_item`
---
-
-INSERT INTO `discounted_item` (`id`, `category`, `brand`, `type`, `value`, `unit_qty`) VALUES
-(1, 'Paracetamol', 'Biogesic', 'Tablet', 10, 100),
-(2, 'Paracetamol', 'Biogesic', 'Tablet', 5, 300),
-(3, 'Paracetamol', 'Biogesic', 'Tablet', 4, 100),
-(4, 'Paracetamol', 'Biogesic', 'Tablet', 4, 100);
 
 -- --------------------------------------------------------
 
@@ -276,6 +240,77 @@ INSERT INTO `employee_salary_revised` (`id`, `employee_id`, `salary`, `insurance
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `finance_balance`
+--
+
+CREATE TABLE `finance_balance` (
+  `transactionID` int(11) NOT NULL,
+  `currentbal` int(11) NOT NULL,
+  `cost` int(11) DEFAULT NULL,
+  `companyname` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `finance_balance`
+--
+
+INSERT INTO `finance_balance` (`transactionID`, `currentbal`, `cost`, `companyname`) VALUES
+(7794684, -45362, 18505, 0),
+(7183168, 0, 45362, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `finance_inbox`
+--
+
+CREATE TABLE `finance_inbox` (
+  `id` int(11) NOT NULL,
+  `company` varchar(255) DEFAULT NULL,
+  `msginfo` text DEFAULT NULL,
+  `date` datetime NOT NULL DEFAULT current_timestamp(),
+  `status` varchar(55) DEFAULT 'Pending',
+  `cost` decimal(10,0) DEFAULT NULL,
+  `approvaldate` datetime DEFAULT NULL,
+  `approvalmsg` text DEFAULT '----------'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `finance_inbox`
+--
+
+INSERT INTO `finance_inbox` (`id`, `company`, `msginfo`, `date`, `status`, `cost`, `approvaldate`, `approvalmsg`) VALUES
+(7183168, 'PO', 'Purchase Order Request', '2024-04-20 03:31:19', 'Approved', 45362, '2024-04-20 03:46:21', 'as'),
+(7794684, 'PO', 'Purchase Order Request', '2024-04-20 03:34:07', 'Approved', 18505, '2024-04-20 03:44:31', 'asd');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `finance_inbox_po`
+--
+
+CREATE TABLE `finance_inbox_po` (
+  `id` int(11) NOT NULL,
+  `company` varchar(255) DEFAULT NULL,
+  `msginfo` text DEFAULT NULL,
+  `date` datetime NOT NULL DEFAULT current_timestamp(),
+  `status` varchar(55) DEFAULT 'Pending',
+  `cost` decimal(10,0) DEFAULT NULL,
+  `approvaldate` datetime DEFAULT NULL,
+  `approvalmsg` text DEFAULT '----------'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `finance_inbox_po`
+--
+
+INSERT INTO `finance_inbox_po` (`id`, `company`, `msginfo`, `date`, `status`, `cost`, `approvaldate`, `approvalmsg`) VALUES
+(7183168, 'PO', 'Purchase Order Request', '2024-04-20 03:31:19', 'Approved', 45362, '2024-04-20 03:46:21', 'as'),
+(7794684, 'PO', 'Purchase Order Request', '2024-04-20 03:34:07', 'Approved', 18505, '2024-04-20 03:44:31', 'asd');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `holiday`
 --
 
@@ -366,14 +401,6 @@ CREATE TABLE `inventory` (
   `total_cost` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `inventory`
---
-
-INSERT INTO `inventory` (`inventory_id`, `category`, `brand`, `type`, `unit`, `qty_stock`, `unit_inv_qty`, `storage_location`, `showroom_quantity_stock`, `showroom_location`, `quantity_to_reorder`, `total_cost`) VALUES
-(1, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 50, 6900, 'IS1', 100, 'SL1', 100, 41400),
-(2, 'Paracetamol', 'Biogesic Tempra', 'Syrup', '500mg', 50, 10100, 'IS2', 100, 'SL2', 100, 60600);
-
 -- --------------------------------------------------------
 
 --
@@ -390,34 +417,6 @@ CREATE TABLE `inventory_logs` (
   `stock_after` int(11) NOT NULL,
   `reason` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `inventory_logs`
---
-
-INSERT INTO `inventory_logs` (`log_id`, `inventory_id`, `date`, `brand_name`, `employee`, `quantity`, `stock_after`, `reason`) VALUES
-(1, '0000-00-00', '2024-04-14 06:11:36', 'Biogesic', '', 50, 7500, 'Purchase order'),
-(2, '0000-00-00', '2024-04-14 06:11:36', 'Biogesic Tempra', '', 50, 10000, 'Purchase order'),
-(3, '0000-00-00', '2024-04-14 06:12:44', 'Biogesic', '', 0, 7500, 'Edit Item'),
-(4, '0000-00-00', '2024-04-14 06:13:07', 'Biogesic Tempra', '', 0, 10000, 'Edit Item'),
-(5, '0000-00-00', '2024-04-14 06:13:45', 'Biogesic', '21', 100, 7400, 'Add Discount'),
-(6, '0000-00-00', '2024-04-14 06:16:07', 'Biogesic Tempra', '21', 100, 10100, 'Return Item'),
-(7, '0000-00-00', '2024-04-14 06:17:26', 'Biogesic', '21', 300, 7100, 'Add Discount'),
-(8, '0000-00-00', '2024-04-14 15:14:17', 'Biogesic', '21', 100, 7000, 'Add Discount'),
-(33, '0000-00-00', '2024-04-14 19:27:10', 'Biogesic', '', -63000, 70000, 'Edit Item'),
-(38, '0000-00-00', '2024-04-15 18:38:58', 'Biogesic', '', -63000, 70000, 'Edit Item'),
-(39, '0000-00-00', '2024-04-15 18:40:59', 'Biogesic', '', 0, 7000, 'Edit Item'),
-(40, '0000-00-00', '2024-04-15 18:42:43', 'Biogesic', '21', 100, 6900, 'Add Discount'),
-(58, '0000-00-00', '2024-04-16 19:02:17', 'Biogesic', '', 0, 69000, 'Edit Item'),
-(59, '0000-00-00', '2024-04-16 19:02:31', 'Biogesic', '', -62100, 6900, 'Edit Item'),
-(60, '0000-00-00', '2024-04-16 19:02:56', 'Biogesic', '', 62100, 69000, 'Edit Item'),
-(61, '0000-00-00', '2024-04-16 19:06:18', 'Biogesic', '', -62100, 6900, 'Edit Item'),
-(62, '0000-00-00', '2024-04-16 19:06:37', 'Biogesic Tempra', '', 90900, 101000, 'Edit Item'),
-(63, '0000-00-00', '2024-04-16 19:07:03', 'Biogesic Tempra', '', -90900, 10100, 'Edit Item'),
-(64, '0000-00-00', '2024-04-19 10:54:41', 'Biogesic', '', 62100, 69000, 'Edit Item'),
-(65, '0000-00-00', '2024-04-19 10:55:01', 'Biogesic', '', -62100, 6900, 'Edit Item'),
-(66, '0000-00-00', '2024-04-19 10:55:10', 'Biogesic Tempra', '', 90900, 101000, 'Edit Item'),
-(67, '0000-00-00', '2024-04-19 10:55:18', 'Biogesic Tempra', '', -90900, 10100, 'Edit Item');
 
 -- --------------------------------------------------------
 
@@ -573,40 +572,24 @@ CREATE TABLE `order` (
 --
 
 INSERT INTO `order` (`id`, `subtotal`, `tax`, `shipping_fee`, `grand_total`) VALUES
-(1, 3996.60, 479.59, 600.00, 5076.19),
-(2, 3996.60, 479.59, 600.00, 5076.19),
-(3, 7993.20, 959.18, 600.00, 9552.38),
-(4, 3996.60, 479.59, 600.00, 5076.19),
-(5, 4596.60, 551.59, 600.00, 5748.19),
-(6, 13189.80, 1582.78, 600.00, 15372.58),
-(7, 0.00, 0.00, 0.00, 0.00),
-(8, 3996.60, 479.59, 600.00, 5076.19),
-(9, 0.00, 0.00, 0.00, 0.00),
-(10, 20000.00, 2400.00, 600.00, 23000.00),
-(11, 3996.60, 479.59, 600.00, 5076.19),
-(12, 8000.00, 960.00, 600.00, 9560.00),
-(13, 8000.00, 960.00, 600.00, 9560.00),
-(14, 8000.00, 960.00, 600.00, 9560.00),
-(15, 40000.00, 4800.00, 600.00, 45400.00),
-(16, 20000.00, 2400.00, 600.00, 23000.00),
-(17, 39966.00, 4795.92, 600.00, 45361.92),
-(18, 11989.80, 1438.78, 600.00, 14028.58),
-(19, 15986.40, 1918.37, 600.00, 18504.77),
-(20, 199830.00, 23979.60, 600.00, 224409.60),
-(21, 19983.00, 2397.96, 600.00, 22980.96),
-(22, 19983.00, 2397.96, 600.00, 22980.96),
-(23, 19983.00, 2397.96, 600.00, 22980.96),
-(24, 31972.80, 3836.74, 600.00, 36409.54),
-(25, 45966.00, 5515.92, 600.00, 52081.92),
-(26, 59949.00, 7193.88, 600.00, 67742.88),
-(27, 29530713.00, 3543685.56, 600.00, 33074998.56),
-(28, 7993.20, 959.18, 600.00, 9552.38),
-(29, 91921.80, 11030.62, 600.00, 103552.42),
-(30, 19983.00, 2397.96, 600.00, 22980.96),
-(31, 39966.00, 4795.92, 600.00, 45361.92),
-(32, 7993.20, 959.18, 600.00, 9552.38),
-(33, 79932.00, 9591.84, 600.00, 90123.84),
-(34, 429660.00, 51559.20, 600.00, 481819.20);
+(35, 85932.00, 10311.84, 600.00, 96843.84),
+(36, 3996.60, 479.59, 600.00, 5076.19),
+(37, 4596.60, 551.59, 600.00, 5748.19),
+(38, 4596.60, 551.59, 600.00, 5748.19),
+(39, 3996.60, 479.59, 600.00, 5076.19),
+(40, 3996.60, 479.59, 600.00, 5076.19),
+(41, 3996.60, 479.59, 600.00, 5076.19),
+(42, 491581.80, 58989.82, 600.00, 551171.62),
+(43, 3996.60, 479.59, 600.00, 5076.19),
+(44, 3996.60, 479.59, 600.00, 5076.19),
+(45, 3996.60, 479.59, 600.00, 5076.19),
+(46, 3996.60, 479.59, 600.00, 5076.19),
+(47, 3996.60, 479.59, 600.00, 5076.19),
+(48, 3996.60, 479.59, 600.00, 5076.19),
+(49, 3996.60, 479.59, 600.00, 5076.19),
+(50, 3996.60, 479.59, 600.00, 5076.19),
+(51, 39966.00, 4795.92, 600.00, 45361.92),
+(52, 15986.40, 1918.37, 600.00, 18504.77);
 
 -- --------------------------------------------------------
 
@@ -621,13 +604,6 @@ CREATE TABLE `return_item` (
   `type` varchar(255) NOT NULL,
   `unit_qty` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `return_item`
---
-
-INSERT INTO `return_item` (`id`, `category`, `brand`, `type`, `unit_qty`) VALUES
-(2, 'Paracetamol', 'Biogesic Tempra', 'Syrup', 100);
 
 -- --------------------------------------------------------
 
@@ -761,6 +737,18 @@ ALTER TABLE `employee_salary_revised`
   ADD KEY `employee_id` (`employee_id`);
 
 --
+-- Indexes for table `finance_inbox`
+--
+ALTER TABLE `finance_inbox`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `finance_inbox_po`
+--
+ALTER TABLE `finance_inbox_po`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `holiday`
 --
 ALTER TABLE `holiday`
@@ -844,7 +832,7 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -856,7 +844,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `discounted_item`
 --
 ALTER TABLE `discounted_item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `dtrrevised`
@@ -883,6 +871,18 @@ ALTER TABLE `employee_salary_revised`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
+-- AUTO_INCREMENT for table `finance_inbox`
+--
+ALTER TABLE `finance_inbox`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7794685;
+
+--
+-- AUTO_INCREMENT for table `finance_inbox_po`
+--
+ALTER TABLE `finance_inbox_po`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7794685;
+
+--
 -- AUTO_INCREMENT for table `holiday`
 --
 ALTER TABLE `holiday`
@@ -892,13 +892,13 @@ ALTER TABLE `holiday`
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `inventory_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `inventory_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `inventory_logs`
 --
 ALTER TABLE `inventory_logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `item`
@@ -922,13 +922,13 @@ ALTER TABLE `medicine_list`
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `return_item`
 --
 ALTER TABLE `return_item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `shift`

@@ -18,40 +18,76 @@ if (strlen($_SESSION['employee_id']) === 0) {
                         <div class="box-title">
                             <!-- Total Money -->
                             <p>Total Financial Balance</p>
+                            <button class="btn btn-success" data-toggle="modal" data-target="#addBalModal"
+                                data-bs-placement=" top" title="Add Balance">+ Add Balance</button>
+                            <!-- Add Balance Modal -->
+                            <div class="modal fade" id="addBalModal" tabindex="-1" aria-labelledby="addbalLabel"
+                                role="dialog" aria-hidden="true">
+                                <div class="modal-dialog mailinfo modal-dialog-centered modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="addbalLabel">
+                                                Message
+                                                Info</h5>
+                                            <button type="button" class="close btn-close" data-dismiss="modal"
+                                                aria-label="Close">
+                                            </button>
+                                        </div>
+                                        <form action=financeConfigAddBudget.php method="POST">
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <p>Input a number to add balance:</p>
+                                                    <input type="number" class="form-control" min="0" name="addbal"
+                                                        required>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-success" name="btnaddbudget">Add
+                                                    Budget</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                                    aria-label="Close">Close</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
                         <div class="box-content totalbalance">
                             <div class="totalbalance-info">
+                                <?php
+                                // Balance
+                                $balquery = "SELECT f_b.*, f_i.* FROM finance_balance f_b, finance_inbox f_i WHERE f_b.transactionID = f_i.id";
+                                $balresult = mysqli_query($connection, $balquery);
+                                $totalbal = 0;
+
+                                while ($balrow = mysqli_fetch_assoc($balresult)) {
+                                    $totalbal += $balrow['currentbal']; // Accumulate total balance
+                                }
+                                $totalbaldisplay = "₱" . number_format($totalbal); ?>
                                 <span>Total Balance:</span>
-                                <span>₱1,000,000</span>
+                                <span><?php echo "$totalbaldisplay"; ?></span>
                             </div>
                             <table class="table table-hover recent-transaction-table finances-color-table payroll-table">
                                 <thead>
                                     <tr>
-                                        <th scope="col">#</th>
                                         <th scope="col">Transaction ID</th>
                                         <th scope="col">Management</th>
+                                        <th scope="col">Current Balance</th>
                                         <th scope="col">Deducted Cost</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>insert id here</td>
-                                        <td>PO</td>
-                                        <td>₱-69</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>smhmshmsdf</td>
-                                        <td>SMS</td>
-                                        <td>₱-69</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>id</td>
-                                        <td>SMS</td>
-                                        <td>₱-69</td>
-                                    </tr>
+                                    <?php // Reset pointer to beginning of result set
+                                        mysqli_data_seek($balresult, 0);
+                                        while ($bal = mysqli_fetch_assoc($balresult)) { ?>
+                                        <tr>
+                                            <td><?= $bal['transactionID'] ?></td>
+                                            <td><?= $bal['company'] ?></td>
+                                            <td><?= $bal['currentbal'] ?></td>
+                                            <td><?= $bal['cost'] ?></td>
+                                        </tr>
+                                    <?php } ?>
                                 </tbody>
                             </table>
                         </div>
@@ -646,4 +682,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
                     crossorigin="anonymous"></script>
                 <script src="script.js"></script>
                 <script src="https://kit.fontawesome.com/67c4787375.js" crossorigin="anonymous"></script>
-            <?php } ?>
+
+                <?php
+}
+mysqli_close($connection); ?>

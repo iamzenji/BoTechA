@@ -37,6 +37,14 @@
                     <span>Item List</span>
                 </a>
             </li>
+            <!-- ADDED BY: FINANCE -->
+            <li class="sidebar-item">
+                <a href="financeInboxPO.php" class="sidebar-link">
+                    <i class="lni lni-envelope"></i>
+                    <span>Inbox</span>
+                </a>
+            </li>
+            <!-- ----------------- -->
             <li class="sidebar-item">
                 <a href="#" class="sidebar-link collapsed has-dropdown  text-decoration-none" data-bs-toggle="collapse" data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
                     <i class="lni lni-cart"></i>

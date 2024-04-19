@@ -127,7 +127,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                                             <div class="form-group">
                                                                 <label for="unit_inv_qty">Unit Quantity:</label>
                                                                 <input type="text" class="form-control" id="unit_inv_qty" name="unit_inv_qty" value="<?php echo $row['unit_inv_qty']; ?>">
-                                                            </div> 
+                                                            </div>
                                                             <div class="form-group">
                                                                 <label for="storage_location">Storage Location:</label>
                                                                 <input type="text" class="form-control" id="storage_location" name="storage_location" value="<?php echo $row['storage_location']; ?>">

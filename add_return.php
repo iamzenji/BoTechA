@@ -29,7 +29,7 @@ if (isset($_POST['addReturn'])) {
                 mysqli_stmt_close($stmt);
 
                 // Update inventory quantity
-                $update_query = "UPDATE inventory SET unit_inv_qty = unit_inv_qty + ? 
+                $update_query = "UPDATE inventory SET unit_inv_qty = unit_inv_qty - ? 
                                  WHERE category = ? AND brand = ? AND type = ?";
                 $update_stmt = mysqli_prepare($connection, $update_query);
                 mysqli_stmt_bind_param($update_stmt, "isss", $unitQuantity, $category, $brand, $type);
