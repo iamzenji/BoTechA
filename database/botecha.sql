@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 14, 2024 at 02:46 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Generation Time: Apr 19, 2024 at 01:01 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -139,7 +139,9 @@ CREATE TABLE `discounted_item` (
 
 INSERT INTO `discounted_item` (`id`, `category`, `brand`, `type`, `value`, `unit_qty`) VALUES
 (1, 'Paracetamol', 'Biogesic', 'Tablet', 10, 100),
-(2, 'Paracetamol', 'Biogesic', 'Tablet', 5, 300);
+(2, 'Paracetamol', 'Biogesic', 'Tablet', 5, 300),
+(3, 'Paracetamol', 'Biogesic', 'Tablet', 4, 100),
+(4, 'Paracetamol', 'Biogesic', 'Tablet', 4, 100);
 
 -- --------------------------------------------------------
 
@@ -360,16 +362,17 @@ CREATE TABLE `inventory` (
   `storage_location` varchar(255) NOT NULL,
   `showroom_quantity_stock` int(11) NOT NULL,
   `showroom_location` varchar(255) NOT NULL,
-  `quantity_to_reorder` int(11) NOT NULL
+  `quantity_to_reorder` int(11) NOT NULL,
+  `total_cost` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `inventory`
 --
 
-INSERT INTO `inventory` (`inventory_id`, `category`, `brand`, `type`, `unit`, `qty_stock`, `unit_inv_qty`, `storage_location`, `showroom_quantity_stock`, `showroom_location`, `quantity_to_reorder`) VALUES
-(1, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 50, 7100, 'IS1', 100, 'SL1', 100),
-(2, 'Paracetamol', 'Biogesic Tempra', 'Syrup', '500mg', 50, 10100, 'IS2', 100, 'SL2', 100);
+INSERT INTO `inventory` (`inventory_id`, `category`, `brand`, `type`, `unit`, `qty_stock`, `unit_inv_qty`, `storage_location`, `showroom_quantity_stock`, `showroom_location`, `quantity_to_reorder`, `total_cost`) VALUES
+(1, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 50, 6900, 'IS1', 100, 'SL1', 100, 41400),
+(2, 'Paracetamol', 'Biogesic Tempra', 'Syrup', '500mg', 50, 10100, 'IS2', 100, 'SL2', 100, 60600);
 
 -- --------------------------------------------------------
 
@@ -399,7 +402,22 @@ INSERT INTO `inventory_logs` (`log_id`, `inventory_id`, `date`, `brand_name`, `e
 (4, '0000-00-00', '2024-04-14 06:13:07', 'Biogesic Tempra', '', 0, 10000, 'Edit Item'),
 (5, '0000-00-00', '2024-04-14 06:13:45', 'Biogesic', '21', 100, 7400, 'Add Discount'),
 (6, '0000-00-00', '2024-04-14 06:16:07', 'Biogesic Tempra', '21', 100, 10100, 'Return Item'),
-(7, '0000-00-00', '2024-04-14 06:17:26', 'Biogesic', '21', 300, 7100, 'Add Discount');
+(7, '0000-00-00', '2024-04-14 06:17:26', 'Biogesic', '21', 300, 7100, 'Add Discount'),
+(8, '0000-00-00', '2024-04-14 15:14:17', 'Biogesic', '21', 100, 7000, 'Add Discount'),
+(33, '0000-00-00', '2024-04-14 19:27:10', 'Biogesic', '', -63000, 70000, 'Edit Item'),
+(38, '0000-00-00', '2024-04-15 18:38:58', 'Biogesic', '', -63000, 70000, 'Edit Item'),
+(39, '0000-00-00', '2024-04-15 18:40:59', 'Biogesic', '', 0, 7000, 'Edit Item'),
+(40, '0000-00-00', '2024-04-15 18:42:43', 'Biogesic', '21', 100, 6900, 'Add Discount'),
+(58, '0000-00-00', '2024-04-16 19:02:17', 'Biogesic', '', 0, 69000, 'Edit Item'),
+(59, '0000-00-00', '2024-04-16 19:02:31', 'Biogesic', '', -62100, 6900, 'Edit Item'),
+(60, '0000-00-00', '2024-04-16 19:02:56', 'Biogesic', '', 62100, 69000, 'Edit Item'),
+(61, '0000-00-00', '2024-04-16 19:06:18', 'Biogesic', '', -62100, 6900, 'Edit Item'),
+(62, '0000-00-00', '2024-04-16 19:06:37', 'Biogesic Tempra', '', 90900, 101000, 'Edit Item'),
+(63, '0000-00-00', '2024-04-16 19:07:03', 'Biogesic Tempra', '', -90900, 10100, 'Edit Item'),
+(64, '0000-00-00', '2024-04-19 10:54:41', 'Biogesic', '', 62100, 69000, 'Edit Item'),
+(65, '0000-00-00', '2024-04-19 10:55:01', 'Biogesic', '', -62100, 6900, 'Edit Item'),
+(66, '0000-00-00', '2024-04-19 10:55:10', 'Biogesic Tempra', '', 90900, 101000, 'Edit Item'),
+(67, '0000-00-00', '2024-04-19 10:55:18', 'Biogesic Tempra', '', -90900, 10100, 'Edit Item');
 
 -- --------------------------------------------------------
 
@@ -838,7 +856,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `discounted_item`
 --
 ALTER TABLE `discounted_item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `dtrrevised`
@@ -880,7 +898,7 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `inventory_logs`
 --
 ALTER TABLE `inventory_logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `item`

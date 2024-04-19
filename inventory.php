@@ -31,6 +31,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
             if (array_key_exists($key, $consolidated_items)) {
                 // If the item already exists, add the quantities
                 $consolidated_items[$key]['qty_stock'] += $row['qty_stock'];
+                $consolidated_items[$key]['total_cost'] += $row['total_cost'];
                 $consolidated_items[$key]['unit_inv_qty'] += $row['unit_inv_qty'];
                 $consolidated_items[$key]['showroom_quantity_stock'] += $row['showroom_quantity_stock'];
                 // You can add similar logic for other fields you want to aggregate
@@ -88,6 +89,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                         <th>Showroom Quantity Stock</th>
                                         <th>Showroom Location</th>
                                         <th>Quantity to Reorder</th>
+                                        <th>Total Cost</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -104,6 +106,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                             <td><?php echo $row['showroom_quantity_stock']; ?></td>
                                             <td><?php echo $row['showroom_location']; ?></td>
                                             <td><?php echo $row['quantity_to_reorder']; ?></td>
+                                            <td><?php echo $row['total_cost']; ?></td>
                                         </tr>
                                         <div class="modal fade" id="editModal_<?php echo $row['inventory_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel_<?php echo $row['inventory_id']; ?>" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
