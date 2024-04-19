@@ -21,7 +21,9 @@ if (empty($_SESSION['employee_id'])) {
     session_destroy();
 } else {
 
-    $query = "SELECT il.*, i.brand FROM inventory_logs il INNER JOIN inventory i ON il.inventory_id = i.category AND il.brand_name = i.brand";
+    $query = "SELECT il.*, i.brand FROM inventory_logs il 
+              INNER JOIN inventory i ON il.inventory_id = i.category AND il.brand_name = i.brand
+              ORDER BY il.date DESC";
 
 
     $result = mysqli_query($connection, $query);
@@ -155,7 +157,7 @@ if (empty($_SESSION['employee_id'])) {
             <div class="modal-content">
                 <div class="modal-header bg-primary text-white">
                     <h5 class="modal-title">Filter by Date</h5>
-                    <button type="button" class="close close-modal-button" data-dismiss="modal">&times;</button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
@@ -168,7 +170,6 @@ if (empty($_SESSION['employee_id'])) {
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" id="applyDateFilter">Apply</button>
                 </div>
             </div>
@@ -179,6 +180,23 @@ if (empty($_SESSION['employee_id'])) {
         document.getElementById('toggleSearch').addEventListener('click', function() {
             var searchContainer = document.getElementById('searchContainer');
             searchContainer.style.display = (searchContainer.style.display === 'none' || searchContainer.style.display === '') ? 'block' : 'none';
+        });
+        document.getElementById('searchInput').addEventListener('input', function() {
+            var searchValue = this.value.trim().toLowerCase();
+            var rows = document.querySelectorAll('.inv-color-table tbody tr');
+
+            rows.forEach(function(row) {
+                var date = row.querySelector('td:nth-child(1)').textContent.trim().toLowerCase();
+                var brand = row.querySelector('td:nth-child(2)').textContent.trim().toLowerCase();
+                var employee = row.querySelector('td:nth-child(3)').textContent.trim().toLowerCase();
+                var reasons = row.querySelector('td:nth-child(6)').textContent.trim().toLowerCase();
+
+                if (date.includes(searchValue) || brand.includes(searchValue) || employee.includes(searchValue) || reasons.includes(searchValue)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
         });
         document.getElementById('rowsPerPage').addEventListener('change', function() {
             var rowsPerPage = parseInt(this.value);

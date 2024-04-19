@@ -65,7 +65,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                                             </button>
                                                             <div id="searchContainer" class="col-md-6" style="display: none;">
                                                                 <div class="d-flex justify-content-end">
-                                                                    <input type="text" id="searchInput" class="form-control col-md-6" style="width: 260px; height: 30px; font-size: 12px;" placeholder="Search by Date, Name, Employee, Reasons ">
+                                                                    <input type="text" id="searchInput" class="form-control col-md-6" style="width: 260px; height: 30px; font-size: 12px;" placeholder="Search by Category, Brand name, Type ">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -209,6 +209,29 @@ if (strlen($_SESSION['employee_id']) === 0) {
         var searchContainer = document.getElementById('searchContainer');
         searchContainer.style.display = (searchContainer.style.display === 'none' || searchContainer.style.display === '') ? 'block' : 'none';
     });
+
+    // Function to handle search functionality
+    function handleSearch() {
+        var input = document.getElementById('searchInput').value.toLowerCase();
+        var rows = document.querySelectorAll('.inv-color-table tbody tr');
+
+        rows.forEach(function(row) {
+            var category = row.querySelector('td:nth-child(1)').textContent.toLowerCase();
+            var brand = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+            var type = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
+
+            if (category.indexOf(input) > -1 || brand.indexOf(input) > -1 || type.indexOf(input) > -1) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+
+    document.getElementById('searchInput').addEventListener('input', handleSearch);
+
+    // Initial search to handle any pre-filled search input
+    handleSearch();
     document.getElementById('rowsPerPage').addEventListener('change', function() {
         var rowsPerPage = parseInt(this.value);
         var rows = document.querySelectorAll('.inv-color-table tbody tr');

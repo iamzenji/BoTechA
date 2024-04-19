@@ -123,9 +123,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
             <div class="modal-content">
                 <div class="modal-header bg-primary text-white">
                     <h5 class="modal-title" id="addDiscountModalLabel">Add Discount</h5>
-                    <button type="button" class="close close-modal-button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="add_discount.php" method="post">

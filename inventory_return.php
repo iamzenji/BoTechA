@@ -123,9 +123,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
             <div class="modal-content">
                 <div class="modal-header bg-primary text-white">
                     <h5 class="modal-title" id="addReturnModalLabel">Add Return</h5>
-                    <button type="button" class="close close-modal-button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="add_return.php" method="post">
@@ -183,6 +181,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
         document.getElementById('addReturnButton').addEventListener('click', function() {
             $('#addReturnModal').modal('show');
         });
+
         document.getElementById('rowsPerPage').addEventListener('change', function() {
             var rowsPerPage = parseInt(this.value);
             var rows = document.querySelectorAll('.inv-color-table tbody tr');
@@ -198,7 +197,22 @@ if (strlen($_SESSION['employee_id']) === 0) {
         });
 
         document.getElementById('rowsPerPage').dispatchEvent(new Event('change'));
+
+        document.getElementById('searchInput').addEventListener('input', function() {
+            var searchQuery = this.value.toLowerCase();
+            var rows = document.querySelectorAll('.inv-color-table tbody tr');
+
+            rows.forEach(function(row) {
+                var rowData = row.textContent.toLowerCase();
+                if (rowData.includes(searchQuery)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
     </script>
+
 
 
 <?php } ?>
