@@ -220,6 +220,32 @@ form button {
   color: #ccc;
 } 
 
+.card {
+  width: 100%; 
+  max-width: 350px; 
+  height: 350px; 
+  padding-top: 20px; 
+  margin: 20px;
+  transition: all 0.35s ease-in-out;
+  
+  
+}
+
+.card-body {
+  text-align: center;
+ 
+}
+
+.card-title {
+  font-size: 1.25rem; 
+  margin-top: 1.5rem; 
+}
+a.card-link{
+  text-decoration: none;
+}
+
+
+
 
 .dropdown-logs {
   position: relative;
@@ -266,19 +292,6 @@ form button {
     margin: 40px;
     transition: all 0.35s ease-in-out;
 } */
-
-.card-body {
-    text-align: center;
-   
-}
-
-.card-title {
-    font-size: 1.25rem; 
-    margin-top: 1.5rem; 
-}
-a.card-link{
-    text-decoration: none;
-}
 
 .input-group-addon{
     background-color: #fcfcfc;

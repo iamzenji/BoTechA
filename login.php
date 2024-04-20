@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header("Location: pos_dashboard.php");
                 exit();
             case 'Inventory Officer':
-                header("Location: inventory.php");
+                header("Location: inventory_dashboard.php");
                 exit();
         }
     } else {

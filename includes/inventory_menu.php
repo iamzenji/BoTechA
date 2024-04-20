@@ -21,14 +21,22 @@
 
         <ul class="sidebar-nav">
             <li class="sidebar-item">
-                <a href="inventory.php" class="sidebar-link">
+                <a href="inventory_dashboard.php" class="sidebar-link">
                     <i class="lni lni-home"></i>
+                    <span>Dashboard
+                    </span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="inventory.php" class="sidebar-link">
+                    <i class="lni lni-invest-monitor"></i>
                     <span>Manage Stocks
                     </span>
                 </a>
+            </li>
             <li class="sidebar-item">
                 <a href="inventory_logs.php" class="sidebar-link">
-                    <i class="lni lni-invest-monitor"></i>
+                    <i class="lni lni-files"></i>
                     <span>Inventory Logs</span>
                 </a>
             </li>

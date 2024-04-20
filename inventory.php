@@ -26,7 +26,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
         $consolidated_items = array();
 
         while ($row = mysqli_fetch_assoc($result)) {
-            $key = $row['category'] . $row['brand'] . $row['type'];
+            $key = $row['supplier'] . $row['category'] . $row['brand'] . $row['type'];
 
             if (array_key_exists($key, $consolidated_items)) {
                 // If the item already exists, add the quantities
@@ -80,6 +80,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                 </thead>
                                 <thead>
                                     <tr class="align-middle text-center">
+                                        <th>Supplier</th>
                                         <th>Category</th>
                                         <th>Brand name</th>
                                         <th>Type</th>
@@ -97,6 +98,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                     foreach ($consolidated_items as $row) {
                                     ?>
                                         <tr class="edit-row align-middle text-center" data-toggle="modal" data-target="#editModal_<?php echo $row['inventory_id']; ?>">
+                                            <td><?php echo $row['supplier']; ?></td>
                                             <td><?php echo $row['category']; ?></td>
                                             <td><?php echo $row['brand']; ?></td>
                                             <td><?php echo $row['type']; ?></td>

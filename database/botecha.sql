@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 19, 2024 at 09:48 PM
+-- Generation Time: Apr 20, 2024 at 09:44 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -54,7 +54,21 @@ INSERT INTO `cart` (`id`, `category`, `brand`, `type`, `unit`, `price`, `quantit
 (13, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 1, 150, 3996.60, 49, 'TN6622c52015140'),
 (14, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 1, 150, 3996.60, 50, 'TN6622c5b582317'),
 (15, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 10, 1500, 39966.00, 51, 'TN6622c6870179f'),
-(16, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 4, 600, 15986.40, 52, 'TN6622c72fd8318');
+(16, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 4, 600, 15986.40, 52, 'TN6622c72fd8318'),
+(17, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 10, 1500, 39966.00, 53, 'TN6622d013a4fc3'),
+(18, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 10, 1500, 39966.00, 53, 'TN6622d013a4fc3'),
+(19, 'Paracetamol', 'Biogesic Tempra', 'Syrup', '500mg', 3996.60, 15, 3000, 39966.00, 53, 'TN6622d013a4fc3'),
+(20, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 15, 2250, 59949.00, 54, 'TN6622d081d85f6'),
+(21, 'Paracetamol', 'Biogesic Tempra', 'Syrup', '500mg', 3996.60, 15, 3000, 59949.00, 54, 'TN6622d081d85f6'),
+(22, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 15, 2250, 59949.00, 55, 'TN6622d09b4fd78'),
+(23, 'Paracetamol', 'Biogesic Tempra', 'Syrup', '250mg', 4596.60, 2, 400, 9193.20, 56, 'TN6622d1ddec4c3'),
+(24, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 16, 2400, 63945.60, 57, 'TN6622d2f3f1117'),
+(25, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 10, 1500, 39966.00, 58, 'TN66230441dd49b'),
+(26, 'Paracetamol', 'Biogesic Tempra', 'Syrup', '250mg', 4596.60, 23, 4600, 105721.80, 59, 'TN66240c58f1774'),
+(27, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 10, 1500, 39966.00, 60, 'TN66240dd39b32e'),
+(28, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 5, 750, 19983.00, 61, 'TN66240ed3d7656'),
+(29, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 3, 450, 11989.80, 62, 'TN66241a6fb379d'),
+(30, 'Paracetamol', 'Neozep', 'Tablet', '500mg', 3996.60, 10, 2000, 11989.80, 62, 'TN66241a6fb379d');
 
 -- --------------------------------------------------------
 
@@ -100,12 +114,20 @@ CREATE TABLE `daily_time_record` (
 
 CREATE TABLE `discounted_item` (
   `id` int(11) NOT NULL,
+  `supplier` varchar(255) NOT NULL,
   `category` varchar(255) NOT NULL,
   `brand` varchar(255) NOT NULL,
   `type` varchar(255) NOT NULL,
   `value` decimal(10,0) NOT NULL,
   `unit_qty` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `discounted_item`
+--
+
+INSERT INTO `discounted_item` (`id`, `supplier`, `category`, `brand`, `type`, `value`, `unit_qty`) VALUES
+(1, 'UNILAB', 'Paracetamol', 'Neozep', 'Tablet', 5, 50);
 
 -- --------------------------------------------------------
 
@@ -280,8 +302,14 @@ CREATE TABLE `finance_inbox` (
 --
 
 INSERT INTO `finance_inbox` (`id`, `company`, `msginfo`, `date`, `status`, `cost`, `approvaldate`, `approvalmsg`) VALUES
+(1179392, 'PO', 'Purchase Order Request', '2024-04-20 07:54:41', 'Denied', 45362, '2024-04-20 09:28:20', 'kkk'),
+(3897459, 'PO', 'Purchase Order Request', '2024-04-21 02:52:03', 'Pending', 22981, NULL, '----------'),
+(4954463, 'PO', 'Purchase Order Request', '2024-04-21 02:47:47', 'Pending', 45362, NULL, '----------'),
+(5616664, 'PO', 'Purchase Order Request', '2024-04-21 03:41:35', 'Pending', 70029, NULL, '----------'),
+(7118311, 'PO', 'Purchase Order Request', '2024-04-21 02:41:29', 'Pending', 119008, NULL, '----------'),
 (7183168, 'PO', 'Purchase Order Request', '2024-04-20 03:31:19', 'Approved', 45362, '2024-04-20 03:46:21', 'as'),
-(7794684, 'PO', 'Purchase Order Request', '2024-04-20 03:34:07', 'Approved', 18505, '2024-04-20 03:44:31', 'asd');
+(7794684, 'PO', 'Purchase Order Request', '2024-04-20 03:34:07', 'Approved', 18505, '2024-04-20 03:44:31', 'asd'),
+(9006138, 'PO', 'Purchase Order Request', '2024-04-21 03:41:35', 'Pending', 70029, NULL, '----------');
 
 -- --------------------------------------------------------
 
@@ -305,8 +333,14 @@ CREATE TABLE `finance_inbox_po` (
 --
 
 INSERT INTO `finance_inbox_po` (`id`, `company`, `msginfo`, `date`, `status`, `cost`, `approvaldate`, `approvalmsg`) VALUES
+(1179392, 'PO', 'Purchase Order Request', '2024-04-20 07:54:41', 'Denied', 45362, '2024-04-20 09:28:20', 'kkk'),
+(3897459, 'PO', 'Purchase Order Request', '2024-04-21 02:52:03', 'Pending', 22981, NULL, '----------'),
+(4954463, 'PO', 'Purchase Order Request', '2024-04-21 02:47:47', 'Pending', 45362, NULL, '----------'),
+(5616664, 'PO', 'Purchase Order Request', '2024-04-21 03:41:35', 'Pending', 70029, NULL, '----------'),
+(7118311, 'PO', 'Purchase Order Request', '2024-04-21 02:41:29', 'Pending', 119008, NULL, '----------'),
 (7183168, 'PO', 'Purchase Order Request', '2024-04-20 03:31:19', 'Approved', 45362, '2024-04-20 03:46:21', 'as'),
-(7794684, 'PO', 'Purchase Order Request', '2024-04-20 03:34:07', 'Approved', 18505, '2024-04-20 03:44:31', 'asd');
+(7794684, 'PO', 'Purchase Order Request', '2024-04-20 03:34:07', 'Approved', 18505, '2024-04-20 03:44:31', 'asd'),
+(9006138, 'PO', 'Purchase Order Request', '2024-04-21 03:41:35', 'Pending', 70029, NULL, '----------');
 
 -- --------------------------------------------------------
 
@@ -388,6 +422,7 @@ INSERT INTO `info` (`item_id`, `stock_piece`, `price_piece`, `price_pack`, `piec
 
 CREATE TABLE `inventory` (
   `inventory_id` int(11) NOT NULL,
+  `supplier` varchar(255) NOT NULL,
   `category` varchar(255) NOT NULL,
   `brand` varchar(255) NOT NULL,
   `type` varchar(255) NOT NULL,
@@ -400,6 +435,14 @@ CREATE TABLE `inventory` (
   `quantity_to_reorder` int(11) NOT NULL,
   `total_cost` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `inventory`
+--
+
+INSERT INTO `inventory` (`inventory_id`, `supplier`, `category`, `brand`, `type`, `unit`, `qty_stock`, `unit_inv_qty`, `storage_location`, `showroom_quantity_stock`, `showroom_location`, `quantity_to_reorder`, `total_cost`) VALUES
+(1, 'UNILAB', 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3, 430, 'IL2', 100, 'SL2', 100, 2580),
+(2, 'UNILAB', 'Paracetamol', 'Neozep', 'Tablet', '500mg', 10, 1950, 'IL1', 100, 'SL1', 100, 11700);
 
 -- --------------------------------------------------------
 
@@ -417,6 +460,18 @@ CREATE TABLE `inventory_logs` (
   `stock_after` int(11) NOT NULL,
   `reason` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `inventory_logs`
+--
+
+INSERT INTO `inventory_logs` (`log_id`, `inventory_id`, `date`, `brand_name`, `employee`, `quantity`, `stock_after`, `reason`) VALUES
+(1, '0000-00-00', '2024-04-20 19:41:35', 'Biogesic', '', 3, 450, 'Purchase order'),
+(2, '0000-00-00', '2024-04-20 19:41:35', 'Neozep', '', 10, 2000, 'Purchase order'),
+(3, '0000-00-00', '2024-04-20 19:42:38', 'Neozep', '21', 50, 1950, 'Add Discount'),
+(4, '0000-00-00', '2024-04-20 19:43:05', 'Biogesic', '21', 20, 430, 'Return Item'),
+(5, '0000-00-00', '2024-04-20 19:43:34', 'Neozep', '', 0, 1950, 'Edit Item'),
+(6, '0000-00-00', '2024-04-20 19:43:53', 'Biogesic', '', 0, 430, 'Edit Item');
 
 -- --------------------------------------------------------
 
@@ -551,7 +606,9 @@ CREATE TABLE `medicine_list` (
 INSERT INTO `medicine_list` (`medicine_id`, `brand`, `unit`, `price`, `unit_qty`, `description`, `supplier_id`, `category_id`, `type_id`) VALUES
 (2, 'Biogesic', '500mg', '3996.60', '150', 'Analgesic', 1, 2, 1),
 (3, 'Biogesic Tempra', '250mg', '4596.60', '200', 'Fever, headache, muscular aches & pain, toothache, colds, ear ache', 1, 2, 3),
-(5, 'knkzhikzhj', 'jjjjj', 'rrr', 'rrrr', 'ljlj', 3, 4, 1);
+(5, 'knkzhikzhj', 'jjjjj', 'rrr', 'rrrr', 'ljlj', 3, 4, 1),
+(6, 'Biogesic', '500mg', '4000', '150', 'Acetaminophen', 1, 2, 1),
+(7, 'Neozep', '500mg', '5000', '200', 'Non-Drowsy', 1, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -589,7 +646,17 @@ INSERT INTO `order` (`id`, `subtotal`, `tax`, `shipping_fee`, `grand_total`) VAL
 (49, 3996.60, 479.59, 600.00, 5076.19),
 (50, 3996.60, 479.59, 600.00, 5076.19),
 (51, 39966.00, 4795.92, 600.00, 45361.92),
-(52, 15986.40, 1918.37, 600.00, 18504.77);
+(52, 15986.40, 1918.37, 600.00, 18504.77),
+(53, 148881.00, 17865.72, 600.00, 167346.72),
+(54, 128898.00, 15467.76, 600.00, 144965.76),
+(55, 59949.00, 7193.88, 600.00, 67742.88),
+(56, 9193.20, 1103.18, 600.00, 10896.38),
+(57, 63945.60, 7673.47, 600.00, 72219.07),
+(58, 39966.00, 4795.92, 600.00, 45361.92),
+(59, 105721.80, 12686.62, 600.00, 119008.42),
+(60, 39966.00, 4795.92, 600.00, 45361.92),
+(61, 19983.00, 2397.96, 600.00, 22980.96),
+(62, 61989.80, 7438.78, 600.00, 70028.58);
 
 -- --------------------------------------------------------
 
@@ -599,11 +666,19 @@ INSERT INTO `order` (`id`, `subtotal`, `tax`, `shipping_fee`, `grand_total`) VAL
 
 CREATE TABLE `return_item` (
   `id` int(11) NOT NULL,
+  `supplier` varchar(255) NOT NULL,
   `category` varchar(255) NOT NULL,
   `brand` varchar(255) NOT NULL,
   `type` varchar(255) NOT NULL,
   `unit_qty` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `return_item`
+--
+
+INSERT INTO `return_item` (`id`, `supplier`, `category`, `brand`, `type`, `unit_qty`) VALUES
+(1, 'UNILAB', 'Paracetamol', 'Biogesic', 'Tablet', 20);
 
 -- --------------------------------------------------------
 
@@ -671,9 +746,7 @@ CREATE TABLE `supplier` (
 --
 
 INSERT INTO `supplier` (`supplier_id`, `name`, `address`, `contact_person`, `contact`, `email`, `date_created`) VALUES
-(1, 'UNILAB', 'Bacolor, Pampanga', 'Cyra Tapang', '09123456789', 'cyra@gmail.com', '2024-04-03 17:56:39'),
-(2, 'BIOTECH', 'magliman', '09777658758', 'Zenji', 'dfdsfds@.com', '2024-04-13 09:50:09'),
-(3, 'hghghg', 'jhjhjhjkhk', 'kjkj', 'jhgjgg', 'kjkj', '2024-04-13 09:51:26');
+(1, 'UNILAB', 'Bacolor', 'micosh', '09754265749', 'micosh@gmail.com', '2024-04-21 03:35:26');
 
 --
 -- Indexes for dumped tables
@@ -832,7 +905,7 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -844,7 +917,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `discounted_item`
 --
 ALTER TABLE `discounted_item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `dtrrevised`
@@ -874,13 +947,13 @@ ALTER TABLE `employee_salary_revised`
 -- AUTO_INCREMENT for table `finance_inbox`
 --
 ALTER TABLE `finance_inbox`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7794685;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9006139;
 
 --
 -- AUTO_INCREMENT for table `finance_inbox_po`
 --
 ALTER TABLE `finance_inbox_po`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7794685;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9006139;
 
 --
 -- AUTO_INCREMENT for table `holiday`
@@ -892,13 +965,13 @@ ALTER TABLE `holiday`
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `inventory_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `inventory_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `inventory_logs`
 --
 ALTER TABLE `inventory_logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `item`
@@ -916,19 +989,19 @@ ALTER TABLE `item_mapping`
 -- AUTO_INCREMENT for table `medicine_list`
 --
 ALTER TABLE `medicine_list`
-  MODIFY `medicine_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `medicine_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT for table `return_item`
 --
 ALTER TABLE `return_item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `shift`
@@ -946,7 +1019,7 @@ ALTER TABLE `shiftdetails`
 -- AUTO_INCREMENT for table `supplier`
 --
 ALTER TABLE `supplier`
-  MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables

@@ -6,6 +6,10 @@ if (strlen($_SESSION['employee_id']) === 0) {
     header('location:login.php');
     session_destroy();
 } else {
+    $query = "SELECT DISTINCT supplier FROM inventory";
+    $result = mysqli_query($connection, $query);
+    $supplier = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
     $query = "SELECT DISTINCT category FROM inventory";
     $result = mysqli_query($connection, $query);
     $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -55,19 +59,21 @@ if (strlen($_SESSION['employee_id']) === 0) {
             </thead>
             <thead>
                 <tr class="align-middle text-center">
+                    <th>Supplier</th>
                     <th>Category</th>
                     <th>Brand name</th>
                     <th>Type</th>
-                    <th>Value</th>
+                    <th>Unit cost</th>
                     <th>Unit Quantity</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                $query = "SELECT category, brand, type, value, unit_qty FROM discounted_item";
+                $query = "SELECT supplier, category, brand, type, value, unit_qty FROM discounted_item";
                 $result = mysqli_query($connection, $query);
                 while ($row = mysqli_fetch_assoc($result)) {
                     echo "<tr class='align-middle text-center'>";
+                    echo "<td>" . $row['supplier'] . "</td>";
                     echo "<td>" . $row['category'] . "</td>";
                     echo "<td>" . $row['brand'] . "</td>";
                     echo "<td>" . $row['type'] . "</td>";
@@ -128,6 +134,15 @@ if (strlen($_SESSION['employee_id']) === 0) {
                 <div class="modal-body">
                     <form action="add_discount.php" method="post">
                         <div class="form-group">
+                            <label for="supplier">supplier</label>
+                            <select class="form-control" name="supplier">
+                                <option value="" selected disabled>Select supplier</option>
+                                <?php foreach ($supplier as $supplier) : ?>
+                                    <option value="<?php echo $supplier['supplier']; ?>"><?php echo $supplier['supplier']; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="category">Category</label>
                             <select class="form-control" name="category">
                                 <option value="" selected disabled>Select category</option>
@@ -155,7 +170,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="value">Value</label>
+                            <label for="value">Unit cost</label>
                             <input type="text" class="form-control" name="value" placeholder="Enter value">
                         </div>
                         <div class="form-group">
