@@ -103,8 +103,8 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                             <td><?php echo $row['category']; ?></td>
                                             <td><?php echo $row['brand']; ?></td>
                                             <td><?php echo $row['type']; ?></td>
-                                            <td><?php echo $row['qty_stock'] ?></td>
-                                            <td><?php echo $row['stock_after'] - $row['showroom_quantity_stock']; ?></td>
+                                            <td><?php echo $row['qty_stock']  ?></td>
+                                            <td><?php echo $row['stock_after'] - $row['showroom_quantity_stock'] ." (" . $row['unit_cost'] . "/ea)"; ?></td>
                                             <td><?php echo $row['storage_location']; ?></td>
                                             <td><?php echo $row['showroom_quantity_stock']; ?></td>
                                             <td><?php echo $row['showroom_location']; ?></td>

@@ -16,10 +16,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $prev_inventory_row = mysqli_fetch_assoc($prev_inventory_result);
 
     // Update inventory table
-    $update_query = "UPDATE inventory SET qty_stock = '$qty_stock', unit_inv_qty = $unit_inv_qty, storage_location = '$storage_location', showroom_quantity_stock = '$showroom_quantity_stock', showroom_location = '$showroom_location', quantity_to_reorder = '$quantity_to_reorder', total_cost = $unit_inv_qty * 6 WHERE inventory_id = '$inventory_id'";
+    $update_query = "UPDATE inventory SET qty_stock = '$qty_stock', unit_inv_qty = $unit_inv_qty, storage_location = '$storage_location', showroom_quantity_stock = '$showroom_quantity_stock', showroom_location = '$showroom_location', quantity_to_reorder = '$quantity_to_reorder', total_cost = $unit_inv_qty * unit_cost WHERE inventory_id = '$inventory_id'";
     $update_result = mysqli_query($connection, $update_query);
 
-    // change the "6" if their is a value to fetch in line 19
     
 
     if ($update_result) {

@@ -76,7 +76,7 @@ if (isset($_POST['addDiscount'])) {
             mysqli_stmt_close($insert_log_stmt);
 
             // Update total cost in the inventory
-            $update_total_cost = "UPDATE inventory SET total_cost = $unit_inv_qty_after * 6 WHERE supplier = '$supplier' AND category = '$category' AND brand = '$brand' AND type = '$type'";
+            $update_total_cost = "UPDATE inventory SET total_cost = $unit_inv_qty_after * unit_cost WHERE supplier = '$supplier' AND category = '$category' AND brand = '$brand' AND type = '$type'";
             $update_result = mysqli_query($connection, $update_total_cost);
             // change the "6" if their is a value to fetch in line 63
 
