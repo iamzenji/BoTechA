@@ -23,6 +23,14 @@ if (isset($_POST['addDiscount'])) {
         // Check if employee_id is set in the session
         if (isset($_SESSION['employee_id'])) {
             $employee_id = $_SESSION['employee_id'];
+            $userName = "";
+            $query = "SELECT employee_name FROM employee_details WHERE employee_id = '$employee_id' ";
+            $result = mysqli_query($connection, $query);
+        
+            if ($result && mysqli_num_rows($result) > 0) {
+                $row = mysqli_fetch_assoc($result);
+                $userName = $row['employee_name'];
+            }
 
             // Get unit_inv_qty before the discount
             $select_unit_inv_qty_query = "SELECT unit_inv_qty FROM inventory WHERE supplier = ? AND category = ? AND brand = ? AND type = ?";
@@ -48,11 +56,14 @@ if (isset($_POST['addDiscount'])) {
             mysqli_stmt_fetch($select_unit_inv_qty_stmt);
             mysqli_stmt_close($select_unit_inv_qty_stmt);
 
+            // Calculate total cost
+            $total_cost = $value * $unitQuantity;
+
             // Insert into discounted_item table
-            $insert_discount_query = "INSERT INTO discounted_item (supplier, category, brand, type, value, unit_qty) 
-                                      VALUES (?, ?, ?, ?, ?, ?)";
+            $insert_discount_query = "INSERT INTO discounted_item (employee, supplier, category, brand, type, value, unit_qty, total_cost) 
+                                      VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             $insert_discount_stmt = mysqli_prepare($connection, $insert_discount_query);
-            mysqli_stmt_bind_param($insert_discount_stmt, "ssssid", $supplier, $category, $brand, $type, $value, $unitQuantity);
+            mysqli_stmt_bind_param($insert_discount_stmt, "sssssidd", $userName, $supplier, $category, $brand, $type, $value, $unitQuantity, $total_cost);
             mysqli_stmt_execute($insert_discount_stmt);
             mysqli_stmt_close($insert_discount_stmt);
 
@@ -60,9 +71,14 @@ if (isset($_POST['addDiscount'])) {
             $insert_log_query = "INSERT INTO inventory_logs (inventory_id, date, brand_name, employee, quantity, stock_after, reason) 
                                 VALUES (?, NOW(), ?, ?, ?, ?, 'Add Discount')";
             $insert_log_stmt = mysqli_prepare($connection, $insert_log_query);
-            mysqli_stmt_bind_param($insert_log_stmt, "sssid", $category, $brand, $employee_id, $unitQuantity, $unit_inv_qty_after);
+            mysqli_stmt_bind_param($insert_log_stmt, "sssid", $category, $brand, $userName, $unitQuantity, $unit_inv_qty_after);
             mysqli_stmt_execute($insert_log_stmt);
             mysqli_stmt_close($insert_log_stmt);
+
+            // Update total cost in the inventory
+            $update_total_cost = "UPDATE inventory SET total_cost = $unit_inv_qty_after * unit_cost WHERE supplier = '$supplier' AND category = '$category' AND brand = '$brand' AND type = '$type'";
+            $update_result = mysqli_query($connection, $update_total_cost);
+            // change the "6" if their is a value to fetch in line 63
 
             header("Location: inventory_discount.php");
             exit();

@@ -5,7 +5,11 @@ include 'includes/header.php';
 if (strlen($_SESSION['employee_id']) === 0) {
     header('location:login.php');
     session_destroy();
+
+    
 } else {
+
+    
     $query = "SELECT DISTINCT supplier FROM inventory";
     $result = mysqli_query($connection, $query);
     $supplier = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -59,6 +63,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
             </thead>
             <thead>
                 <tr class="align-middle text-center">
+                    <th>Employee</th>
                     <th>Supplier</th>
                     <th>Category</th>
                     <th>Brand name</th>
@@ -69,11 +74,12 @@ if (strlen($_SESSION['employee_id']) === 0) {
             </thead>
             <tbody>
                 <?php
-                $query = "SELECT id, supplier, category, brand, type, unit_qty FROM return_item";
+                $query = "SELECT * FROM return_item";
                 $result = mysqli_query($connection, $query);
                 $return_items = mysqli_fetch_all($result, MYSQLI_ASSOC);
                 foreach ($return_items as $item) : ?>
                     <tr class="align-middle text-center">
+                        <td><?php echo $item['employee']; ?></td>
                         <td><?php echo $item['supplier']; ?></td>
                         <td><?php echo $item['category']; ?></td>
                         <td><?php echo $item['brand']; ?></td>
