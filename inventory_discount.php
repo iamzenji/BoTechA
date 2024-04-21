@@ -59,26 +59,30 @@ if (strlen($_SESSION['employee_id']) === 0) {
             </thead>
             <thead>
                 <tr class="align-middle text-center">
+                    <th>Employee</th>
                     <th>Supplier</th>
                     <th>Category</th>
                     <th>Brand name</th>
                     <th>Type</th>
                     <th>Unit cost</th>
                     <th>Unit Quantity</th>
+                    <th>Total Cost</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                $query = "SELECT supplier, category, brand, type, value, unit_qty FROM discounted_item";
+                $query = "SELECT * FROM discounted_item";
                 $result = mysqli_query($connection, $query);
                 while ($row = mysqli_fetch_assoc($result)) {
                     echo "<tr class='align-middle text-center'>";
+                    echo "<td>" . $row['employee'] . "</td>";
                     echo "<td>" . $row['supplier'] . "</td>";
                     echo "<td>" . $row['category'] . "</td>";
                     echo "<td>" . $row['brand'] . "</td>";
                     echo "<td>" . $row['type'] . "</td>";
                     echo "<td>" . $row['value'] . "</td>";
                     echo "<td>" . $row['unit_qty'] . "</td>";
+                    echo "<td>" . $row['total_cost'] . "</td>";
                     echo "</tr>";
                 }
                 ?>

@@ -91,6 +91,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                         <th>Showroom Location</th>
                                         <th>Quantity to Reorder</th>
                                         <th>Total Cost</th>
+                                        <th>Item Label</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -109,6 +110,16 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                             <td><?php echo $row['showroom_location']; ?></td>
                                             <td><?php echo $row['quantity_to_reorder']; ?></td>
                                             <td><?php echo $row['total_cost']; ?></td>
+                                            <td><select name="item_label">
+                                                <option value="option1">High Stock</option>
+                                                <option value="option2">Low Stock</option>
+                                                <option value="option3">Fast moving</option>
+
+                                            </select></td>
+                                            <td><form action="" method="post"> 
+                                                    <button>Request Order</button>
+                                                </form>
+                                            </td>
                                         </tr>
                                         <div class="modal fade" id="editModal_<?php echo $row['inventory_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel_<?php echo $row['inventory_id']; ?>" aria-hidden="true">
                                             <div class="modal-dialog" role="document">

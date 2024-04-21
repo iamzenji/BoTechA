@@ -4,17 +4,7 @@ include 'includes/header.php';
 
 $userName = "";
 
-if (isset($_SESSION['employee_position'])) {
-    $position = $_SESSION['employee_position'];
 
-    $query = "SELECT employee_name FROM employee_details WHERE employee_position = '$position'";
-    $result = mysqli_query($connection, $query);
-
-    if ($result && mysqli_num_rows($result) > 0) {
-        $row = mysqli_fetch_assoc($result);
-        $userName = $row['employee_name'];
-    }
-}
 
 if (empty($_SESSION['employee_id'])) {
     header('location:login.php');
@@ -99,7 +89,7 @@ if (empty($_SESSION['employee_id'])) {
                     <tr data-reason="<?php echo $row['reason']; ?>">
                         <td><?php echo $formattedDate; ?></td>
                         <td><?php echo $row['brand_name']; ?></td>
-                        <td><?php echo $userName; ?></td>
+                        <td><?php echo $row['employee']; ?></td>
                         <td><?php echo $row['quantity']; ?></td>
                         <td><?php echo $stock_before . ' -> ' . $row['stock_after']; ?></td>
                         <td><?php echo $row['reason']; ?></td>
