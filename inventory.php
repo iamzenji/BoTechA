@@ -42,17 +42,21 @@ if (strlen($_SESSION['employee_id']) === 0) {
         }
 ?>
         <div class="container mt-5">
-            <div class="row">
+            <div class="row align-items-center">
                 <div class="col-md-8">
                     <h2>Manage Inventory</h2>
                 </div>
+                <!-- <div class="col-md-4 d-flex justify-content-end">
+                    <button id=" yourButtonId" class="btn btn-outline-primary"><i class="fas fa-bell"></i></button>
+
+                </div> -->
                 <div class="col-md-12">
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <table class="inv-color-table table">
                                 <thead>
                                     <tr>
-                                        <td colspan="10">
+                                        <td colspan="13">
                                             <div class="container">
                                                 <div class="row align-items-center">
                                                     <div class="col-md-6">
@@ -92,6 +96,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                         <th>Quantity to Reorder</th>
                                         <th>Total Cost</th>
                                         <th>Item Label</th>
+                                        <th>Request Order</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -104,20 +109,20 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                             <td><?php echo $row['brand']; ?></td>
                                             <td><?php echo $row['type']; ?></td>
                                             <td><?php echo $row['qty_stock']  ?></td>
-                                            <td><?php echo $row['stock_after'] - $row['showroom_quantity_stock'] ." (" . $row['unit_cost'] . "/ea)"; ?></td>
+                                            <td><?php echo $row['stock_after'] - $row['showroom_quantity_stock'] . " (" . $row['unit_cost'] . "/ea)"; ?></td>
                                             <td><?php echo $row['storage_location']; ?></td>
                                             <td><?php echo $row['showroom_quantity_stock']; ?></td>
                                             <td><?php echo $row['showroom_location']; ?></td>
                                             <td><?php echo $row['quantity_to_reorder']; ?></td>
                                             <td><?php echo $row['total_cost']; ?></td>
-                                            <td><select name="item_label">
-                                                <option value="option1">High Stock</option>
-                                                <option value="option2">Low Stock</option>
-                                                <option value="option3">Fast moving</option>
-
-                                            </select></td>
-                                            <td><form action="" method="post"> 
-                                                    <button>Request Order</button>
+                                            <td><select name="item_label" class="rounded-pill border border-primary" onclick="stopPropagation(event);">
+                                                    <option value="option1">High Stock</option>
+                                                    <option value="option2">Low Stock</option>
+                                                    <option value="option3">Fast moving</option>
+                                                </select>
+                                            <td>
+                                                <form action="" method="post">
+                                                    <button class="btn btn-sm btn-outline-primary rounded-pill">Request Order</button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -170,7 +175,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="10">
+                                        <td colspan="13">
                                             <div class="container pt-3">
                                                 <div class="row align-items-center">
                                                     <div class="col-md-6">
@@ -222,6 +227,10 @@ if (strlen($_SESSION['employee_id']) === 0) {
         var searchContainer = document.getElementById('searchContainer');
         searchContainer.style.display = (searchContainer.style.display === 'none' || searchContainer.style.display === '') ? 'block' : 'none';
     });
+
+    function stopPropagation(event) {
+        event.stopPropagation();
+    }
 
     // Function to handle search functionality
     function handleSearch() {

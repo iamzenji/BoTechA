@@ -5,11 +5,9 @@ include 'includes/header.php';
 if (strlen($_SESSION['employee_id']) === 0) {
     header('location:login.php');
     session_destroy();
-
-    
 } else {
 
-    
+
     $query = "SELECT DISTINCT supplier FROM inventory";
     $result = mysqli_query($connection, $query);
     $supplier = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -35,7 +33,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
         <table class="inv-color-table table">
             <thead>
                 <tr>
-                    <td colspan="6">
+                    <td colspan="8">
                         <div class="container">
                             <div class="row align-items-center">
                                 <div class="col-md-6">

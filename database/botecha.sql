@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 20, 2024 at 09:44 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Generation Time: Apr 21, 2024 at 06:06 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -114,20 +114,24 @@ CREATE TABLE `daily_time_record` (
 
 CREATE TABLE `discounted_item` (
   `id` int(11) NOT NULL,
+  `employee` varchar(50) NOT NULL,
   `supplier` varchar(255) NOT NULL,
   `category` varchar(255) NOT NULL,
   `brand` varchar(255) NOT NULL,
   `type` varchar(255) NOT NULL,
   `value` decimal(10,0) NOT NULL,
-  `unit_qty` int(11) NOT NULL
+  `unit_qty` int(11) NOT NULL,
+  `total_cost` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `discounted_item`
 --
 
-INSERT INTO `discounted_item` (`id`, `supplier`, `category`, `brand`, `type`, `value`, `unit_qty`) VALUES
-(1, 'UNILAB', 'Paracetamol', 'Neozep', 'Tablet', 5, 50);
+INSERT INTO `discounted_item` (`id`, `employee`, `supplier`, `category`, `brand`, `type`, `value`, `unit_qty`, `total_cost`) VALUES
+(1, '', 'UNILAB', 'Paracetamol', 'Neozep', 'Tablet', 5, 50, 0),
+(2, 'Zenji Yangco', 'UNILAB', 'Paracetamol', 'Neozep', 'Tablet', 4, 10, 40),
+(3, 'Zenji Yangco', 'UNILAB', 'Paracetamol', 'Biogesic', 'Tablet', 4, 10, 40);
 
 -- --------------------------------------------------------
 
@@ -429,6 +433,7 @@ CREATE TABLE `inventory` (
   `unit` varchar(255) NOT NULL,
   `qty_stock` int(11) NOT NULL,
   `unit_inv_qty` int(11) NOT NULL,
+  `unit_cost` int(50) NOT NULL,
   `storage_location` varchar(255) NOT NULL,
   `showroom_quantity_stock` int(11) NOT NULL,
   `showroom_location` varchar(255) NOT NULL,
@@ -440,9 +445,9 @@ CREATE TABLE `inventory` (
 -- Dumping data for table `inventory`
 --
 
-INSERT INTO `inventory` (`inventory_id`, `supplier`, `category`, `brand`, `type`, `unit`, `qty_stock`, `unit_inv_qty`, `storage_location`, `showroom_quantity_stock`, `showroom_location`, `quantity_to_reorder`, `total_cost`) VALUES
-(1, 'UNILAB', 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3, 430, 'IL2', 100, 'SL2', 100, 2580),
-(2, 'UNILAB', 'Paracetamol', 'Neozep', 'Tablet', '500mg', 10, 1950, 'IL1', 100, 'SL1', 100, 11700);
+INSERT INTO `inventory` (`inventory_id`, `supplier`, `category`, `brand`, `type`, `unit`, `qty_stock`, `unit_inv_qty`, `unit_cost`, `storage_location`, `showroom_quantity_stock`, `showroom_location`, `quantity_to_reorder`, `total_cost`) VALUES
+(1, 'UNILAB', 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3, 300, 5, 'IL2', 100, 'SL2', 100, 1500),
+(2, 'UNILAB', 'Paracetamol', 'Neozep', 'Tablet', '500mg', 10, 2000, 6, 'IL1', 100, 'SL1', 100, 12000);
 
 -- --------------------------------------------------------
 
@@ -471,7 +476,18 @@ INSERT INTO `inventory_logs` (`log_id`, `inventory_id`, `date`, `brand_name`, `e
 (3, '0000-00-00', '2024-04-20 19:42:38', 'Neozep', '21', 50, 1950, 'Add Discount'),
 (4, '0000-00-00', '2024-04-20 19:43:05', 'Biogesic', '21', 20, 430, 'Return Item'),
 (5, '0000-00-00', '2024-04-20 19:43:34', 'Neozep', '', 0, 1950, 'Edit Item'),
-(6, '0000-00-00', '2024-04-20 19:43:53', 'Biogesic', '', 0, 430, 'Edit Item');
+(6, '0000-00-00', '2024-04-20 19:43:53', 'Biogesic', '', 0, 430, 'Edit Item'),
+(7, '0000-00-00', '2024-04-21 09:27:39', 'Neozep', '0', 100, 1850, 'Return Item'),
+(8, '0000-00-00', '2024-04-21 10:03:56', 'Biogesic', '0', 100, 330, 'Return Item'),
+(9, '0000-00-00', '2024-04-21 10:04:36', 'Biogesic', '', 70, 400, 'Edit Item'),
+(10, '0000-00-00', '2024-04-21 10:11:09', 'Biogesic', '0', 100, 300, 'Return Item'),
+(11, '0000-00-00', '2024-04-21 10:12:43', 'Biogesic', '0', 100, 200, 'Return Item'),
+(12, '0000-00-00', '2024-04-21 10:35:33', 'Neozep', '21', 10, 1810, 'Add Discount'),
+(13, '0000-00-00', '2024-04-21 11:22:16', 'Biogesic', '', 200, 400, 'Edit Item'),
+(14, '0000-00-00', '2024-04-21 11:22:38', 'Biogesic', 'Zenji Yangco', 100, 300, 'Return Item'),
+(15, '0000-00-00', '2024-04-21 11:23:08', 'Biogesic', 'Zenji Yangco', 10, 290, 'Add Discount'),
+(16, '0000-00-00', '2024-04-21 15:23:23', 'Neozep', '', 190, 2000, 'Edit Item'),
+(17, '0000-00-00', '2024-04-21 15:24:52', 'Biogesic', '', 10, 300, 'Edit Item');
 
 -- --------------------------------------------------------
 
@@ -666,6 +682,7 @@ INSERT INTO `order` (`id`, `subtotal`, `tax`, `shipping_fee`, `grand_total`) VAL
 
 CREATE TABLE `return_item` (
   `id` int(11) NOT NULL,
+  `employee` varchar(50) NOT NULL,
   `supplier` varchar(255) NOT NULL,
   `category` varchar(255) NOT NULL,
   `brand` varchar(255) NOT NULL,
@@ -677,8 +694,14 @@ CREATE TABLE `return_item` (
 -- Dumping data for table `return_item`
 --
 
-INSERT INTO `return_item` (`id`, `supplier`, `category`, `brand`, `type`, `unit_qty`) VALUES
-(1, 'UNILAB', 'Paracetamol', 'Biogesic', 'Tablet', 20);
+INSERT INTO `return_item` (`id`, `employee`, `supplier`, `category`, `brand`, `type`, `unit_qty`) VALUES
+(1, '', 'UNILAB', 'Paracetamol', 'Biogesic', 'Tablet', 20),
+(2, 'Zenji Yangco', 'UNILAB', 'Paracetamol', 'Neozep', 'Tablet', 100),
+(3, 'Zenji Yangco', 'UNILAB', 'Paracetamol', 'Neozep', 'Tablet', 10),
+(4, 'Zenji Yangco', 'UNILAB', 'Paracetamol', 'Biogesic', 'Tablet', 100),
+(5, 'Zenji Yangco', 'UNILAB', 'Paracetamol', 'Biogesic', 'Tablet', 100),
+(6, 'Zenji Yangco', 'UNILAB', 'Paracetamol', 'Biogesic', 'Tablet', 100),
+(7, 'Zenji Yangco', 'UNILAB', 'Paracetamol', 'Biogesic', 'Tablet', 100);
 
 -- --------------------------------------------------------
 
@@ -917,7 +940,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `discounted_item`
 --
 ALTER TABLE `discounted_item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `dtrrevised`
@@ -971,7 +994,7 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `inventory_logs`
 --
 ALTER TABLE `inventory_logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `item`
@@ -1001,7 +1024,7 @@ ALTER TABLE `order`
 -- AUTO_INCREMENT for table `return_item`
 --
 ALTER TABLE `return_item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `shift`

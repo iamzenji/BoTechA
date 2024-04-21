@@ -6,11 +6,11 @@
                 <i class="lni lni-grid-alt"></i>
             </button>
             <div class="sidebar-logo">
-                <a href="inventory.php">Inventory</a>
+                <a href="inventory_dashboard.php">Inventory</a>
             </div>
         </div>
         <div class="icon-logo">
-            <a href="inventory.php">
+            <a href="inventory_dashboard.php">
                 <img src="src/img/botecha.png" alt="Logo">
             </a>
             <div class="brand-info">
