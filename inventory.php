@@ -115,17 +115,36 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                             <td><?php echo $row['showroom_location']; ?></td>
                                             <td><?php echo $row['quantity_to_reorder']; ?></td>
                                             <td><?php echo $row['total_cost']; ?></td>
-                                            <td><select name="item_label" class="rounded-pill border border-primary" onclick="stopPropagation(event);">
+                                            <td>
+                                                <select name="item_label" id="itemLabelSelect" class="rounded-pill border border-primary" onclick="stopPropagation(event);">
                                                     <option value="option1">High Stock</option>
                                                     <option value="option2">Low Stock</option>
                                                     <option value="option3">Fast moving</option>
                                                 </select>
                                             <td>
-                                                <form action="" method="post">
-                                                    <button class="btn btn-sm btn-outline-primary rounded-pill">Request Order</button>
+                                                <form onsubmit="return confirmRequestOrder(event)">
+                                                    <button type="submit" class="btn btn-sm btn-outline-primary rounded-pill" onclick="stopPropagation(event);">Request Order</button>
                                                 </form>
                                             </td>
                                         </tr>
+                                        <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="confirmModalLabel">Confirm Request Order</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p id="modalBodyText"></p>
+                                                    </div>
+                                                    <div class="modal-footer">
+
+                                                        <button type="button" class="btn btn-primary" onclick="submitRequestOrder()">Confirm</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div class="modal fade" id="editModal_<?php echo $row['inventory_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel_<?php echo $row['inventory_id']; ?>" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
@@ -232,6 +251,36 @@ if (strlen($_SESSION['employee_id']) === 0) {
         event.stopPropagation();
     }
 
+    function handleLabelSelection() {
+        var select = document.getElementById('itemLabelSelect');
+        var selectedOption = select.options[select.selectedIndex].value;
+
+        // Reset border color
+        select.classList.remove('border-danger');
+
+        // Check the selected option and change border color if necessary
+        if (selectedOption === 'option2') {
+            select.classList.add('border-danger');
+        }
+        localStorage.setItem('selectedLabel', selectedOption);
+    }
+
+    // Add event listener to the select element to handle selection change
+    document.getElementById('itemLabelSelect').addEventListener('change', handleLabelSelection);
+
+    // Function to set the selected option when the page loads
+    function setSelectedLabel() {
+        var selectedLabel = localStorage.getItem('selectedLabel');
+        if (selectedLabel) {
+            document.getElementById('itemLabelSelect').value = selectedLabel;
+            // Trigger the selection change event to update border color if necessary
+            handleLabelSelection();
+        }
+    }
+
+    // Call the function to set the selected option when the page loads
+    setSelectedLabel();
+
     // Function to handle search functionality
     function handleSearch() {
         var input = document.getElementById('searchInput').value.toLowerCase();
@@ -318,4 +367,26 @@ if (strlen($_SESSION['employee_id']) === 0) {
     }
 
     document.getElementById('exportLogs').addEventListener('click', exportToCSV);
+
+
+    function confirmRequestOrder(event) {
+        var selectedRow = event.target.closest('tr');
+
+        // Collect item details from the selected row
+        var itemDetails = '';
+        itemDetails += '<strong>Supplier:</strong> ' + selectedRow.cells[0].textContent.trim() + '<br>';
+        itemDetails += '<strong>Category:</strong> ' + selectedRow.cells[1].textContent.trim() + '<br>';
+        itemDetails += '<strong>Brand Name:</strong> ' + selectedRow.cells[2].textContent.trim() + '<br>';
+        itemDetails += '<strong>Type:</strong> ' + selectedRow.cells[3].textContent.trim() + '<br>';
+
+        document.getElementById('modalBodyText').innerHTML = itemDetails;
+        $('#confirmModal').modal('show');
+
+        return false;
+    }
+
+    function submitRequestOrder() {
+
+        $('#confirmModal').modal('hide');
+    }
 </script>
