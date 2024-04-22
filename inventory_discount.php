@@ -215,6 +215,20 @@ if (strlen($_SESSION['employee_id']) === 0) {
         });
 
         document.getElementById('rowsPerPage').dispatchEvent(new Event('change'));
+
+        document.getElementById('searchInput').addEventListener('input', function() {
+            var searchQuery = this.value.toLowerCase();
+            var rows = document.querySelectorAll('.inv-color-table tbody tr');
+
+            rows.forEach(function(row) {
+                var rowData = row.textContent.toLowerCase();
+                if (rowData.includes(searchQuery)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
     </script>
 
 

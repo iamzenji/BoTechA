@@ -116,7 +116,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                             <td><?php echo $row['quantity_to_reorder']; ?></td>
                                             <td><?php echo $row['total_cost']; ?></td>
                                             <td>
-                                                <select name="item_label" id="itemLabelSelect" class="rounded-pill border border-primary" onclick="stopPropagation(event);">
+                                                <select name="item_label" class="item-label-select rounded-pill border border-primary" data-inventory-id="<?php echo $row['inventory_id']; ?>" onclick="stopPropagation(event);">
                                                     <option value="option1">High Stock</option>
                                                     <option value="option2">Low Stock</option>
                                                     <option value="option3">Fast moving</option>
@@ -140,6 +140,19 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                                     <div class="modal-footer">
 
                                                         <button type="button" class="btn btn-primary" onclick="submitRequestOrder()">Confirm</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="successModalLabel">Success</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Your order request has been successfully submitted.
                                                     </div>
                                                 </div>
                                             </div>
@@ -251,8 +264,8 @@ if (strlen($_SESSION['employee_id']) === 0) {
         event.stopPropagation();
     }
 
-    function handleLabelSelection() {
-        var select = document.getElementById('itemLabelSelect');
+    function handleLabelSelection(event) {
+        var select = event.target;
         var selectedOption = select.options[select.selectedIndex].value;
 
         // Reset border color
@@ -262,20 +275,32 @@ if (strlen($_SESSION['employee_id']) === 0) {
         if (selectedOption === 'option2') {
             select.classList.add('border-danger');
         }
-        localStorage.setItem('selectedLabel', selectedOption);
+
+        // Get the inventory ID associated with this select element
+        var inventoryId = select.dataset.inventoryId;
+
+        // Save selected label to localStorage for this specific inventory ID
+        localStorage.setItem('selectedLabel_' + inventoryId, selectedOption);
     }
 
-    // Add event listener to the select element to handle selection change
-    document.getElementById('itemLabelSelect').addEventListener('change', handleLabelSelection);
+    // Add event listeners to each select element individually
+    document.querySelectorAll('.item-label-select').forEach(function(select) {
+        select.addEventListener('change', handleLabelSelection);
+    });
 
     // Function to set the selected option when the page loads
     function setSelectedLabel() {
-        var selectedLabel = localStorage.getItem('selectedLabel');
-        if (selectedLabel) {
-            document.getElementById('itemLabelSelect').value = selectedLabel;
-            // Trigger the selection change event to update border color if necessary
-            handleLabelSelection();
-        }
+        document.querySelectorAll('.item-label-select').forEach(function(select) {
+            var inventoryId = select.dataset.inventoryId;
+            var selectedLabel = localStorage.getItem('selectedLabel_' + inventoryId);
+            if (selectedLabel) {
+                select.value = selectedLabel;
+                // Trigger the selection change event to update border color if necessary
+                handleLabelSelection({
+                    target: select
+                });
+            }
+        });
     }
 
     // Call the function to set the selected option when the page loads
@@ -388,5 +413,10 @@ if (strlen($_SESSION['employee_id']) === 0) {
     function submitRequestOrder() {
 
         $('#confirmModal').modal('hide');
+    }
+
+    function submitRequestOrder() {
+        $('#confirmModal').modal('hide');
+        $('#successModal').modal('show');
     }
 </script>
