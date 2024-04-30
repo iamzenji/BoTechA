@@ -19,7 +19,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $update_query = "UPDATE inventory SET qty_stock = '$qty_stock', unit_inv_qty = $unit_inv_qty, storage_location = '$storage_location', showroom_quantity_stock = '$showroom_quantity_stock', showroom_location = '$showroom_location', quantity_to_reorder = '$quantity_to_reorder', total_cost = $unit_inv_qty * unit_cost WHERE inventory_id = '$inventory_id'";
     $update_result = mysqli_query($connection, $update_query);
 
+    // Check if employee_id is set in the session
+    if (isset($_SESSION['employee_id'])) {
+        $employee_id = $_SESSION['employee_id'];
+        $userName = "";
+        $query = "SELECT employee_name FROM employee_details WHERE employee_id = '$employee_id' ";
+        $result = mysqli_query($connection, $query);
     
+        if ($result && mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
+            $userName = $row['employee_name'];
+        }
+    } else {
+        echo "Employee ID not set in session.";
+    }
 
     if ($update_result) {
 
@@ -29,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // edit history of item
         $insert_query = "INSERT INTO inventory_logs (inventory_id, date, brand_name, employee, quantity, stock_after, reason) 
-        VALUES ('$inventory_id', NOW(), '{$prev_inventory_row['brand']}', '{$_SESSION['employee_id']}', '$unit_inv_qty_change',
+        VALUES ('$inventory_id', NOW(), '{$prev_inventory_row['brand']}', ' $userName', '$unit_inv_qty_change',
         '$unit_inv_qty', 'Edit Item')";
         $insert_result = mysqli_query($connection, $insert_query);
 
