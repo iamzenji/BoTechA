@@ -81,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['updatestatus'])) {
 
                     // Insert into inventory_logs table
                     $insert_query = "INSERT INTO inventory_logs (inventory_id, date, brand_name, employee,  quantity, stock_after, reason) 
-                    VALUES ('$Category', NOW(), '$brand',  '$userName', '$quantity', '$unit_qty', 'Purchase order')";
+                    VALUES ('$Category', NOW(), '$brand',  '$employeeName', '$quantity', '$unit_qty', 'Purchase order')";
                     $insert_result = mysqli_query($connection, $insert_query);
 
                     // Check for successful insertion into inventory_logs
@@ -101,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['updatestatus'])) {
                 } else {
                     echo "Employee ID not set in session.";
                 }
-            } else { 
+            } else {
                 // If execution fails, display SQL error
                 echo "Error executing query: " . $stmt->error;
             }

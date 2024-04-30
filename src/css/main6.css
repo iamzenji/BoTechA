@@ -160,7 +160,7 @@ a.sidebar-link:hover {
 
 #sidebar:not(.expand) .sidebar-item:hover .has-dropdown+.sidebar-dropdown {
     display: block;
-    max-height: 15em;
+    max-height: 47em;
     width: 100%;
     opacity: 1;
 }
@@ -228,8 +228,7 @@ form button {
   margin: 20px;
   transition: all 0.35s ease-in-out;
   
-  
-}
+} 
 
 .card-body {
   text-align: center;

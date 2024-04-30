@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 21, 2024 at 06:06 PM
+-- Generation Time: Apr 30, 2024 at 05:09 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -73,23 +73,95 @@ INSERT INTO `cart` (`id`, `category`, `brand`, `type`, `unit`, `price`, `quantit
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `cart_table`
+--
+
+CREATE TABLE `cart_table` (
+  `id` int(11) NOT NULL,
+  `Category` varchar(50) NOT NULL,
+  `brand` varchar(50) NOT NULL,
+  `unit` varchar(50) DEFAULT NULL,
+  `wholesaleprice` decimal(10,2) DEFAULT NULL,
+  `unitcost` decimal(10,2) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  `unit_qty` int(11) DEFAULT NULL,
+  `total` decimal(10,2) DEFAULT NULL,
+  `order_id` int(11) NOT NULL,
+  `delivery_status_id` int(11) DEFAULT NULL,
+  `tracking_number` varchar(100) DEFAULT NULL,
+  `delivery_date` varchar(100) DEFAULT NULL,
+  `order_date` date DEFAULT NULL,
+  `order_time` time DEFAULT NULL,
+  `supplier_id` int(11) NOT NULL,
+  `type_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `cart_table`
+--
+
+INSERT INTO `cart_table` (`id`, `Category`, `brand`, `unit`, `wholesaleprice`, `unitcost`, `quantity`, `unit_qty`, `total`, `order_id`, `delivery_status_id`, `tracking_number`, `delivery_date`, `order_date`, `order_time`, `supplier_id`, `type_id`) VALUES
+(2, 'Hormonal Therapies', 'Premarin', '0.625mg', 1000.00, 100.00, 1, 10, 1000.00, 2, 1, 'PO-662f34a71b2ce', '2024-05-04', '2024-04-29', '07:48:23', 0, 0),
+(3, 'Dermatological Agents ', 'Cortaid', '15 grams', 2000.00, 200.00, 1, 10, 2000.00, 3, 1, 'PO-662f395f506d8', '2024-05-04', '2024-04-29', '08:08:31', 0, 0),
+(4, 'Paracetamol', 'Biogesic', '250mg', 1129.60, 41.00, 1, 150, 1129.60, 4, 1, 'PO-662f39972eafc', '2024-05-04', '2024-04-29', '08:09:27', 1, 0),
+(5, 'Paracetamol', 'Biogesic', '250mg', 1129.60, 41.00, 1, 150, 1129.60, 6, 1, 'PO-662f3a537a300', '2024-05-04', '2024-04-29', '08:12:35', 1, 0),
+(6, 'Paracetamol', 'Biogesic', '250mg', 1129.60, 41.00, 1, 150, 1129.60, 7, 1, 'PO-662f465ebf105', '2024-05-04', '2024-04-29', '09:03:58', 1, 0),
+(7, 'Paracetamol', 'Biogesic', '250mg', 1129.60, 41.00, 1, 150, 1129.60, 8, 1, 'PO-662f4b2b14f7b', '2024-05-04', '2024-04-29', '09:24:27', 1, 0),
+(8, 'Paracetamol', 'Biogesic', '250mg', 1129.60, 41.00, 1, 150, 1129.60, 9, 1, 'PO-662f4b5ba9fbb', '2024-05-04', '2024-04-29', '09:25:15', 1, 0),
+(9, 'Paracetamol', 'Biogesic', '250mg', 1129.60, 41.00, 1, 150, 1129.60, 10, 1, 'PO-662f4cce0400c', '2024-05-04', '2024-04-29', '09:31:26', 1, 0),
+(10, 'Hormonal Therapies', 'Premarin', '1.25mg', 1500.00, 150.00, 1, 10, 1500.00, 11, 1, 'PO-662f4dc2c89f3', '2024-05-04', '2024-04-29', '09:35:30', 2, 0),
+(11, 'Paracetamol', 'Biogesic', 'Capsule', 250.00, 1129.60, 1, 41, 250.00, 12, 1, 'PO-662f4f650c686', '2024-05-04', '2024-04-29', '09:42:29', 1, 0),
+(12, 'Paracetamol', 'Biogesic', '41', 250.00, 1129.60, 1, 150, 250.00, 13, 1, 'PO-662f5755b86a8', '2024-05-04', '2024-04-29', '10:16:21', 1, 0),
+(13, '', '', NULL, NULL, NULL, NULL, NULL, NULL, 14, 1, 'PO-662f58d172b71', '2024-05-04', '2024-04-29', '10:22:41', 1, 3),
+(14, '', '', '', 0.00, 0.00, 0, 0, 0.00, 15, 1, 'PO-662f593e8e23b', '2024-05-04', '2024-04-29', '10:24:30', 1, 3),
+(15, 'Paracetamol', 'Biogesic', '41', 250.00, 1129.60, 1, 150, 250.00, 16, 1, 'PO-662f59ab74274', '2024-05-04', '2024-04-29', '10:26:19', 1, 0),
+(16, 'Paracetamol', 'Biogesic', '41', 250.00, 1129.60, 1, 150, 250.00, 17, 1, 'PO-662f5be7901f8', '2024-05-04', '2024-04-29', '10:35:51', 1, 0),
+(17, 'Paracetamol', 'Biogesic', '41', 250.00, 1129.60, 1, 150, 250.00, 18, 1, 'PO-662f5c6f3224a', '2024-05-04', '2024-04-29', '10:38:07', 1, 0),
+(18, 'Paracetamol', 'Biogesic', '41', 250.00, 1129.60, 1, 150, 250.00, 19, 1, 'PO-662f5c86f3c4f', '2024-05-04', '2024-04-29', '10:38:30', 1, 0),
+(19, 'Paracetamol', 'Biogesic', '41', 250.00, 1129.60, 1, 150, 250.00, 21, 1, 'PO-662f5f3434a6e', '2024-05-04', '2024-04-29', '10:49:56', 1, 0),
+(20, 'Paracetamol', 'Biogesic', '41', 250.00, 1129.60, 1, 150, 250.00, 22, 1, 'PO-662f5f8adc6a9', '2024-05-04', '2024-04-29', '10:51:22', 1, 0),
+(21, 'Paracetamol', 'Biogesic', '41', 250.00, 1129.60, 1, 150, 250.00, 23, 1, 'PO-662f60723918d', '2024-05-04', '2024-04-29', '10:55:14', 1, 0),
+(22, 'Paracetamol', 'Biogesic', '41', 250.00, 1129.60, 1, 150, 250.00, 31, 1, 'PO-662f635d94f31', '2024-05-04', '2024-04-29', '11:07:41', 1, 0),
+(23, 'Paracetamol', 'Biogesic', '41', 250.00, 1129.60, 1, 150, 250.00, 32, 1, 'PO-662f636839c22', '2024-05-04', '2024-04-29', '11:07:52', 1, 0),
+(24, 'Paracetamol', 'Biogesic', '41', 250.00, 1129.60, 1, 150, 250.00, 37, 1, 'PO-662f650c26d52', '2024-05-04', '2024-04-29', '11:14:52', 0, 0),
+(25, 'Paracetamol', 'Biogesic', '41', 250.00, 1129.60, 1, 150, 250.00, 38, 1, 'PO-662f658d128db', '2024-05-04', '2024-04-29', '11:17:01', 1, 3),
+(26, 'Paracetamol', 'Biogesic', '41', 250.00, 1129.60, 1, 150, 250.00, 39, 1, 'PO-662f65e1a2cd7', '2024-05-04', '2024-04-29', '11:18:25', 1, 3),
+(27, 'Dermatological Agents ', 'Cortaid', '350.00', 30.00, 3500.00, 1, 10, 30.00, 40, 1, 'PO-662f661932567', '2024-05-04', '2024-04-29', '11:19:21', 2, 1),
+(28, 'Analgesic', 'Bioflu', '8', 500.00, 500.00, 1, 24, 500.00, 41, 4, 'PO-662f70e50dbf3', '2024-05-04', '2024-04-29', '12:05:25', 2, 2),
+(29, 'Analgesic', 'Bioflu', '8', 500.00, 500.00, 1, 24, 500.00, 42, 5, 'PO-662fdd652cdaa', '2024-05-04', '2024-04-29', '19:48:21', 2, 2),
+(30, 'Dermatological Agents ', 'Cortaid', '200.00', 15.00, 2000.00, 1, 10, 15.00, 43, 5, 'PO-662fde192f4cd', '2024-05-04', '2024-04-29', '19:51:21', 2, 1),
+(31, 'Analgesic', 'Bioflu', '8', 500.00, 500.00, 1, 24, 500.00, 44, 5, 'PO-662fe4e1261b3', '2024-05-04', '2024-04-29', '20:20:17', 2, 2),
+(32, 'Hormonal Therapies', 'Premarin', '150.00', 1.25, 1500.00, 1, 10, 1.25, 45, 5, 'PO-662fe8e2a5fd3', '2024-05-04', '2024-04-29', '20:37:22', 2, 2),
+(33, 'Analgesic', 'Bioflu', '8', 500.00, 500.00, 1, 24, 500.00, 46, 5, 'PO-662fe98cbde8a', '2024-05-04', '2024-04-29', '20:40:12', 2, 2),
+(34, 'Dermatological Agents ', 'Cortaid', '200.00', 15.00, 2000.00, 1, 10, 15.00, 47, 5, 'PO-662fea893b5e6', '2024-05-04', '2024-04-29', '20:44:25', 2, 1),
+(35, 'Laxatives ', 'Dulcolax', '30.00', 5.00, 300.00, 1, 10, 5.00, 48, 5, 'PO-662ffe57c83c7', '2024-05-04', '2024-04-29', '22:08:55', 2, 2),
+(36, 'Immunizations ', 'Fluzone', '500.00', 5.00, 5000.00, 1, 10, 5.00, 49, 5, 'PO-6630588f4ed65', '2024-05-05', '2024-04-30', '04:33:51', 2, 5),
+(37, 'Hormonal Therapies', 'Premarin', '150.00', 1.25, 1500.00, 1, 10, 1.25, 50, 1, 'PO-66305a847d6d1', '2024-05-05', '2024-04-30', '04:42:12', 2, 2);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `category`
 --
 
 CREATE TABLE `category` (
   `category_id` int(11) NOT NULL,
-  `category_name` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `category_name` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `category`
 --
 
 INSERT INTO `category` (`category_id`, `category_name`) VALUES
-(1, 'Loperamide'),
-(2, 'Paracetamol'),
-(3, 'Anti'),
-(4, 'ano]hmn');
+(1, 'Paracetamol'),
+(2, 'Cardiovascular Medications'),
+(3, 'Dermatological Agents '),
+(4, 'Diuretics '),
+(5, 'Hormonal Therapies'),
+(6, 'Immunizations '),
+(7, 'Laxatives '),
+(8, 'Analgesic');
 
 -- --------------------------------------------------------
 
@@ -105,6 +177,30 @@ CREATE TABLE `daily_time_record` (
   `record_shift` varchar(100) NOT NULL,
   `record_date` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `delivery_status`
+--
+
+CREATE TABLE `delivery_status` (
+  `id` int(11) NOT NULL,
+  `status_name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `delivery_status`
+--
+
+INSERT INTO `delivery_status` (`id`, `status_name`) VALUES
+(1, 'Pending'),
+(2, 'To Ship'),
+(3, 'To Receive'),
+(4, 'Order Received'),
+(5, 'Completed'),
+(6, 'Cancel'),
+(7, 'Return/Refund');
 
 -- --------------------------------------------------------
 
@@ -447,7 +543,13 @@ CREATE TABLE `inventory` (
 
 INSERT INTO `inventory` (`inventory_id`, `supplier`, `category`, `brand`, `type`, `unit`, `qty_stock`, `unit_inv_qty`, `unit_cost`, `storage_location`, `showroom_quantity_stock`, `showroom_location`, `quantity_to_reorder`, `total_cost`) VALUES
 (1, 'UNILAB', 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3, 300, 5, 'IL2', 100, 'SL2', 100, 1500),
-(2, 'UNILAB', 'Paracetamol', 'Neozep', 'Tablet', '500mg', 10, 2000, 6, 'IL1', 100, 'SL1', 100, 12000);
+(2, 'UNILAB', 'Paracetamol', 'Neozep', 'Tablet', '500mg', 10, 2000, 6, 'IL1', 100, 'SL1', 100, 12000),
+(3, 'Unilever', 'Dermatological Agents ', 'Cortaid', 'Tablet', '200.00', 1, 10, 0, '', 0, '', 0, 15),
+(4, 'Unilever', 'Analgesic', 'Bioflu', 'Tablet', '8', 1, 24, 0, '', 0, '', 0, 500),
+(5, 'Unilever', 'Hormonal Therapies', 'Premarin', 'Tablet', '150.00', 1, 10, 0, '', 0, '', 0, 1),
+(6, 'Unilever', 'Laxatives ', 'Dulcolax', 'Tablet', '30.00', 1, 10, 300, '', 0, '', 0, 5),
+(7, 'Unilever', 'Dermatological Agents ', 'Cortaid', 'Tablet', '200.00', 1, 10, 2000, '', 0, '', 0, 15),
+(8, 'Unilever', 'Immunizations ', 'Fluzone', 'Tablet', '500.00', 1, 10, 5000, '', 0, '', 0, 5);
 
 -- --------------------------------------------------------
 
@@ -487,7 +589,31 @@ INSERT INTO `inventory_logs` (`log_id`, `inventory_id`, `date`, `brand_name`, `e
 (14, '0000-00-00', '2024-04-21 11:22:38', 'Biogesic', 'Zenji Yangco', 100, 300, 'Return Item'),
 (15, '0000-00-00', '2024-04-21 11:23:08', 'Biogesic', 'Zenji Yangco', 10, 290, 'Add Discount'),
 (16, '0000-00-00', '2024-04-21 15:23:23', 'Neozep', '', 190, 2000, 'Edit Item'),
-(17, '0000-00-00', '2024-04-21 15:24:52', 'Biogesic', '', 10, 300, 'Edit Item');
+(17, '0000-00-00', '2024-04-21 15:24:52', 'Biogesic', '', 10, 300, 'Edit Item'),
+(18, '0000-00-00', '2024-04-29 19:59:47', '', '', 0, 0, 'Purchase order'),
+(19, '0000-00-00', '2024-04-29 20:00:18', '', '', 0, 0, 'Purchase order'),
+(20, '0000-00-00', '2024-04-29 20:00:35', 'Cortaid', '', 1, 10, 'Purchase order'),
+(21, '0000-00-00', '2024-04-29 20:04:33', '', '', 0, 0, 'Purchase order'),
+(22, '0000-00-00', '2024-04-29 20:04:35', '', '', 0, 0, 'Purchase order'),
+(23, '0000-00-00', '2024-04-29 20:04:46', '', '', 0, 0, 'Purchase order'),
+(24, '0000-00-00', '2024-04-29 20:05:00', 'Bioflu', '', 1, 24, 'Purchase order'),
+(25, '0000-00-00', '2024-04-29 20:05:26', '', '', 0, 0, 'Purchase order'),
+(26, '0000-00-00', '2024-04-29 20:05:30', '', '', 0, 0, 'Purchase order'),
+(27, '0000-00-00', '2024-04-29 20:05:47', 'Premarin', '', 1, 10, 'Purchase order'),
+(28, '0000-00-00', '2024-04-29 20:08:57', '', '', 0, 0, 'Purchase order'),
+(29, '0000-00-00', '2024-04-29 20:08:58', '', '', 0, 0, 'Purchase order'),
+(30, '0000-00-00', '2024-04-29 20:09:00', '', '', 0, 0, 'Purchase order'),
+(31, '0000-00-00', '2024-04-29 20:09:01', 'Dulcolax', '', 1, 10, 'Purchase order'),
+(32, '0000-00-00', '2024-04-30 02:34:34', '', '', 0, 0, 'Purchase order'),
+(33, '0000-00-00', '2024-04-30 02:34:37', '', '', 0, 0, 'Purchase order'),
+(34, '0000-00-00', '2024-04-30 02:34:40', 'Cortaid', '', 1, 10, 'Purchase order'),
+(35, '0000-00-00', '2024-04-30 02:35:44', '', '', 0, 0, 'Purchase order'),
+(36, '0000-00-00', '2024-04-30 02:35:49', '', '', 0, 0, 'Purchase order'),
+(37, '0000-00-00', '2024-04-30 02:35:52', '', '', 0, 0, 'Purchase order'),
+(38, '0000-00-00', '2024-04-30 02:42:54', '', '', 0, 0, 'Purchase order'),
+(39, '0000-00-00', '2024-04-30 02:42:57', '', '', 0, 0, 'Purchase order'),
+(40, '0000-00-00', '2024-04-30 02:43:02', '', '', 0, 0, 'Purchase order'),
+(41, '0000-00-00', '2024-04-30 02:43:07', 'Fluzone', '', 1, 10, 'Purchase order');
 
 -- --------------------------------------------------------
 
@@ -584,18 +710,34 @@ INSERT INTO `item_mapping` (`id`, `item_id`, `section`, `colum`, `row`) VALUES
 CREATE TABLE `medicinetype` (
   `type_id` int(11) NOT NULL,
   `type_name` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `medicinetype`
 --
 
 INSERT INTO `medicinetype` (`type_id`, `type_name`) VALUES
-(1, 'Tablet'),
-(2, 'Capsule'),
-(3, 'Syrup'),
-(4, 'Drops'),
-(5, 'Suppository');
+(1, 'Creams and Ointments'),
+(2, 'Tablet'),
+(3, 'Capsule'),
+(4, 'Syrup'),
+(5, 'Injectables'),
+(6, 'Patches'),
+(7, 'Suppositories'),
+(8, 'Nasal Sprays'),
+(9, 'Eye Drops'),
+(10, 'Dental Products'),
+(11, 'Medical Devices'),
+(12, 'Contraceptives'),
+(13, 'Personal Lubricants'),
+(14, 'Hygiene Products'),
+(15, 'Antiseptic Solutions'),
+(16, 'Allergy Relief Products'),
+(17, 'Wound Dressings'),
+(18, 'Diabetic Supplies'),
+(19, 'Digestive Aids'),
+(20, 'Vitamins and Minerals'),
+(21, 'Others');
 
 -- --------------------------------------------------------
 
@@ -607,24 +749,89 @@ CREATE TABLE `medicine_list` (
   `medicine_id` int(11) NOT NULL,
   `brand` text NOT NULL,
   `unit` text NOT NULL,
-  `price` text NOT NULL,
   `unit_qty` text NOT NULL,
+  `wholesaleprice` text NOT NULL,
+  `unitcost` text NOT NULL,
   `description` text NOT NULL,
   `supplier_id` int(11) DEFAULT NULL,
   `category_id` int(11) DEFAULT NULL,
   `type_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `medicine_list`
 --
 
-INSERT INTO `medicine_list` (`medicine_id`, `brand`, `unit`, `price`, `unit_qty`, `description`, `supplier_id`, `category_id`, `type_id`) VALUES
-(2, 'Biogesic', '500mg', '3996.60', '150', 'Analgesic', 1, 2, 1),
-(3, 'Biogesic Tempra', '250mg', '4596.60', '200', 'Fever, headache, muscular aches & pain, toothache, colds, ear ache', 1, 2, 3),
-(5, 'knkzhikzhj', 'jjjjj', 'rrr', 'rrrr', 'ljlj', 3, 4, 1),
-(6, 'Biogesic', '500mg', '4000', '150', 'Acetaminophen', 1, 2, 1),
-(7, 'Neozep', '500mg', '5000', '200', 'Non-Drowsy', 1, 2, 1);
+INSERT INTO `medicine_list` (`medicine_id`, `brand`, `unit`, `unit_qty`, `wholesaleprice`, `unitcost`, `description`, `supplier_id`, `category_id`, `type_id`) VALUES
+(42, 'Lipitor', '10 mg', '10.00', '500.00', '50.00', 'beta-blockers', 2, 2, 2),
+(43, 'Lipitor', '20 mg', '10.00', '750.00', '75.00', 'beta-blockers', 2, 2, 2),
+(44, 'Lipitor', '40 mg', '10.00', '1000.00', '100.00', 'beta-blockers', 2, 2, 2),
+(45, 'Lipitor', '80mg', '10.00', '1200.00', '120.00', 'beta-blockers', 2, 2, 2),
+(46, 'Cortaid', '15 grams', '10.00', '2000.00', '200.00', 'for skin conditions', 2, 3, 1),
+(47, 'Cortaid', '30 grams', '10.00', '3500.00', '350.00', 'for skin conditions', 2, 3, 1),
+(48, 'Lasix', '20 mg', '10.00', '500.00', '50.00', 'for fluid retention', 2, 4, 2),
+(49, 'Lasix', '40 mg', '10.00', '750.00', '75.00', 'for fluid retention', 2, 4, 2),
+(50, 'Lasix', '80 mg', '10.00', '1000.00', '100.00', 'for fluid retention', 2, 4, 2),
+(51, 'Premarin', '0.3mg', '10.00', '800.00', '80.00', 'hormone replacement therapy', 2, 5, 2),
+(52, 'Premarin', '0.625mg', '10.00', '1000.00', '100.00', 'hormone replacement therapy', 2, 5, 2),
+(53, 'Premarin', '0.9mg', '10.00', '1200.00', '120.00', 'hormone replacement therapy', 2, 5, 2),
+(54, 'Premarin', '1.25mg', '10.00', '1500.00', '150.00', 'hormone replacement therapy', 2, 5, 2),
+(55, 'Fluzone', '5ml', '10.00', '5000.00', '500.00', 'vaccines', 2, 6, 5),
+(56, 'Fluzone', '10ml', '10.00', '9000.00', '900.00', 'vaccines', 2, 6, 5),
+(57, 'Dulcolax', '5mg', '10.00', '300.00', '30.00', 'Stool Softeners', 2, 7, 2),
+(58, 'Dulcolax', '10mg', '10.00', '500.00', '50.00', 'Stool Softeners', 2, 7, 2),
+(59, 'Bioflu', '500mg', '24', '500', '8', 'Anti flu', 2, 8, 2),
+(61, 'Lipitor', '10 mg', '10.00', '500.00', '50.00', 'beta-blockers', 2, 2, 2),
+(62, 'Lipitor', '20 mg', '10.00', '750.00', '75.00', 'beta-blockers', 2, 2, 2),
+(63, 'Lipitor', '40 mg', '10.00', '1000.00', '100.00', 'beta-blockers', 2, 2, 2),
+(64, 'Lipitor', '80mg', '10.00', '1200.00', '120.00', 'beta-blockers', 2, 2, 2),
+(65, 'Cortaid', '15 grams', '10.00', '2000.00', '200.00', 'for skin conditions', 2, 3, 1),
+(66, 'Cortaid', '30 grams', '10.00', '3500.00', '350.00', 'for skin conditions', 2, 3, 1),
+(67, 'Lasix', '20 mg', '10.00', '500.00', '50.00', 'for fluid retention', 2, 4, 2),
+(68, 'Lasix', '40 mg', '10.00', '750.00', '75.00', 'for fluid retention', 2, 4, 2),
+(69, 'Lasix', '80 mg', '10.00', '1000.00', '100.00', 'for fluid retention', 2, 4, 2),
+(70, 'Premarin', '0.3mg', '10.00', '800.00', '80.00', 'hormone replacement therapy', 2, 5, 2),
+(71, 'Premarin', '0.625mg', '10.00', '1000.00', '100.00', 'hormone replacement therapy', 2, 5, 2),
+(72, 'Premarin', '0.9mg', '10.00', '1200.00', '120.00', 'hormone replacement therapy', 2, 5, 2),
+(73, 'Premarin', '1.25mg', '10.00', '1500.00', '150.00', 'hormone replacement therapy', 2, 5, 2),
+(74, 'Fluzone', '5ml', '10.00', '5000.00', '500.00', 'vaccines', 2, 6, 5),
+(75, 'Fluzone', '10ml', '10.00', '9000.00', '900.00', 'vaccines', 2, 6, 5),
+(76, 'Dulcolax', '5mg', '10.00', '300.00', '30.00', 'Stool Softeners', 2, 7, 2),
+(77, 'Dulcolax', '10mg', '10.00', '500.00', '50.00', 'Stool Softeners', 2, 7, 2),
+(78, 'Lipitor', '10 mg', '10.00', '500.00', '50.00', 'beta-blockers', 2, 2, 2),
+(79, 'Lipitor', '20 mg', '10.00', '750.00', '75.00', 'beta-blockers', 2, 2, 2),
+(80, 'Lipitor', '40 mg', '10.00', '1000.00', '100.00', 'beta-blockers', 2, 2, 2),
+(81, 'Lipitor', '80mg', '10.00', '1200.00', '120.00', 'beta-blockers', 2, 2, 2),
+(82, 'Cortaid', '15 grams', '10.00', '2000.00', '200.00', 'for skin conditions', 2, 3, 1),
+(83, 'Cortaid', '30 grams', '10.00', '3500.00', '350.00', 'for skin conditions', 2, 3, 1),
+(84, 'Lasix', '20 mg', '10.00', '500.00', '50.00', 'for fluid retention', 2, 4, 2),
+(85, 'Lasix', '40 mg', '10.00', '750.00', '75.00', 'for fluid retention', 2, 4, 2),
+(86, 'Lasix', '80 mg', '10.00', '1000.00', '100.00', 'for fluid retention', 2, 4, 2),
+(87, 'Premarin', '0.3mg', '10.00', '800.00', '80.00', 'hormone replacement therapy', 2, 5, 2),
+(88, 'Premarin', '0.625mg', '10.00', '1000.00', '100.00', 'hormone replacement therapy', 2, 5, 2),
+(89, 'Premarin', '0.9mg', '10.00', '1200.00', '120.00', 'hormone replacement therapy', 2, 5, 2),
+(90, 'Premarin', '1.25mg', '10.00', '1500.00', '150.00', 'hormone replacement therapy', 2, 5, 2),
+(91, 'Fluzone', '5ml', '10.00', '5000.00', '500.00', 'vaccines', 2, 6, 5),
+(92, 'Fluzone', '10ml', '10.00', '9000.00', '900.00', 'vaccines', 2, 6, 5),
+(93, 'Dulcolax', '5mg', '10.00', '300.00', '30.00', 'Stool Softeners', 2, 7, 2),
+(94, 'Dulcolax', '10mg', '10.00', '500.00', '50.00', 'Stool Softeners', 2, 7, 2),
+(95, 'Lipitor', '10 mg', '10.00', '500.00', '50.00', 'beta-blockers', 2, 2, 2),
+(96, 'Lipitor', '20 mg', '10.00', '750.00', '75.00', 'beta-blockers', 2, 2, 2),
+(97, 'Lipitor', '40 mg', '10.00', '1000.00', '100.00', 'beta-blockers', 2, 2, 2),
+(98, 'Lipitor', '80mg', '10.00', '1200.00', '120.00', 'beta-blockers', 2, 2, 2),
+(99, 'Cortaid', '15 grams', '10.00', '2000.00', '200.00', 'for skin conditions', 2, 3, 1),
+(100, 'Cortaid', '30 grams', '10.00', '3500.00', '350.00', 'for skin conditions', 2, 3, 1),
+(101, 'Lasix', '20 mg', '10.00', '500.00', '50.00', 'for fluid retention', 2, 4, 2),
+(102, 'Lasix', '40 mg', '10.00', '750.00', '75.00', 'for fluid retention', 2, 4, 2),
+(103, 'Lasix', '80 mg', '10.00', '1000.00', '100.00', 'for fluid retention', 2, 4, 2),
+(104, 'Premarin', '0.3mg', '10.00', '800.00', '80.00', 'hormone replacement therapy', 2, 5, 2),
+(105, 'Premarin', '0.625mg', '10.00', '1000.00', '100.00', 'hormone replacement therapy', 2, 5, 2),
+(106, 'Premarin', '0.9mg', '10.00', '1200.00', '120.00', 'hormone replacement therapy', 2, 5, 2),
+(107, 'Premarin', '1.25mg', '10.00', '1500.00', '150.00', 'hormone replacement therapy', 2, 5, 2),
+(108, 'Fluzone', '5ml', '10.00', '5000.00', '500.00', 'vaccines', 2, 6, 5),
+(109, 'Fluzone', '10ml', '10.00', '9000.00', '900.00', 'vaccines', 2, 6, 5),
+(110, 'Dulcolax', '5mg', '10.00', '300.00', '30.00', 'Stool Softeners', 2, 7, 2),
+(111, 'Dulcolax', '10mg', '10.00', '500.00', '50.00', 'Stool Softeners', 2, 7, 2);
 
 -- --------------------------------------------------------
 
@@ -677,6 +884,101 @@ INSERT INTO `order` (`id`, `subtotal`, `tax`, `shipping_fee`, `grand_total`) VAL
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `order_table`
+--
+
+CREATE TABLE `order_table` (
+  `id` int(11) NOT NULL,
+  `subtotal` decimal(10,2) DEFAULT NULL,
+  `tax` decimal(10,2) DEFAULT NULL,
+  `shipping_fee` decimal(10,2) DEFAULT NULL,
+  `grand_total` decimal(10,2) DEFAULT NULL,
+  `payment_method` text NOT NULL,
+  `supplier_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `order_table`
+--
+
+INSERT INTO `order_table` (`id`, `subtotal`, `tax`, `shipping_fee`, `grand_total`, `payment_method`, `supplier_id`) VALUES
+(2, 4000.00, 480.00, 600.00, 4600.00, 'Cash on Delivery', 2),
+(3, 2000.00, 240.00, 600.00, 2600.00, 'Cash on Delivery', 2),
+(4, 1129.60, 135.55, 600.00, 1729.60, 'Cash on Delivery', 1),
+(5, 1129.60, 135.55, 600.00, 1729.60, 'Cash on Delivery', 1),
+(6, 1129.60, 135.55, 600.00, 1729.60, 'Cash on Delivery', 1),
+(7, 1129.60, 135.55, 600.00, 1729.60, 'Cash on Delivery', 1),
+(8, 1129.60, 135.55, 600.00, 1729.60, 'Cash on Delivery', 1),
+(9, 1129.60, 135.55, 600.00, 1729.60, 'Cash on Delivery', 1),
+(10, 1129.60, 135.55, 600.00, 1729.60, 'Cash on Delivery', 1),
+(11, 1500.00, 180.00, 600.00, 2100.00, 'Cash on Delivery', 2),
+(12, 250.00, 30.00, 600.00, 850.00, 'Cash on Delivery', 1),
+(13, 250.00, 30.00, 600.00, 850.00, 'Cash on Delivery', 1),
+(14, 250.00, 30.00, 600.00, 850.00, 'Cash on Delivery', 1),
+(15, 250.00, 30.00, 600.00, 850.00, 'Cash on Delivery', 1),
+(16, 250.00, 30.00, 600.00, 850.00, 'Cash on Delivery', 1),
+(17, 250.00, 30.00, 600.00, 850.00, 'Cash on Delivery', 1),
+(18, 250.00, 30.00, 600.00, 850.00, 'Cash on Delivery', 1),
+(19, 250.00, 30.00, 600.00, 850.00, 'Cash on Delivery', 1),
+(20, 250.00, 30.00, 600.00, 850.00, 'Cash on Delivery', 1),
+(21, 250.00, 30.00, 600.00, 850.00, 'Cash on Delivery', 1),
+(22, 250.00, 30.00, 600.00, 850.00, 'Cash on Delivery', 1),
+(23, 250.00, 30.00, 600.00, 850.00, 'Cash on Delivery', 1),
+(24, 250.00, 30.00, 600.00, 850.00, 'Cash on Delivery', 1),
+(25, 250.00, 30.00, 600.00, 850.00, 'Cash on Delivery', 1),
+(26, 250.00, 30.00, 600.00, 850.00, 'Cash on Delivery', 1),
+(27, 250.00, 30.00, 600.00, 850.00, 'Cash on Delivery', 1),
+(28, 250.00, 30.00, 600.00, 850.00, 'Cash on Delivery', 1),
+(29, 250.00, 30.00, 600.00, 850.00, 'Cash on Delivery', 1),
+(30, 250.00, 30.00, 600.00, 850.00, 'Cash on Delivery', 1),
+(31, 250.00, 30.00, 600.00, 850.00, 'Cash on Delivery', 1),
+(32, 250.00, 30.00, 600.00, 850.00, 'Cash on Delivery', 1),
+(33, 250.00, 30.00, 600.00, 850.00, 'Cash on Delivery', 1),
+(34, 250.00, 30.00, 600.00, 850.00, 'Cash on Delivery', 1),
+(35, 250.00, 30.00, 600.00, 850.00, 'Cash on Delivery', 1),
+(36, 250.00, 30.00, 600.00, 850.00, 'Cash on Delivery', 1),
+(37, 250.00, 30.00, 600.00, 850.00, 'Cash on Delivery', 1),
+(38, 250.00, 30.00, 600.00, 850.00, 'Cash on Delivery', 1),
+(39, 250.00, 30.00, 600.00, 850.00, 'Cash on Delivery', 1),
+(40, 150.00, 18.00, 600.00, 750.00, 'Cash on Delivery', 2),
+(41, 500.00, 60.00, 600.00, 1100.00, 'Cash on Delivery', 2),
+(42, 500.00, 60.00, 600.00, 1100.00, 'Cash on Delivery', 2),
+(43, 15.00, 1.80, 600.00, 615.00, 'Cash on Delivery', 2),
+(44, 500.00, 60.00, 600.00, 1100.00, 'Cash on Delivery', 2),
+(45, 1.25, 0.15, 600.00, 601.25, 'Cash on Delivery', 2),
+(46, 500.00, 60.00, 600.00, 1100.00, 'Cash on Delivery', 2),
+(47, 15.00, 1.80, 600.00, 615.00, 'Cash on Delivery', 2),
+(48, 5.00, 0.60, 600.00, 605.00, 'Cash on Delivery', 2),
+(49, 5.00, 0.60, 600.00, 605.00, 'Cash on Delivery', 2),
+(50, 1.25, 0.15, 600.00, 601.25, 'Cash on Delivery', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `purchase_table`
+--
+
+CREATE TABLE `purchase_table` (
+  `id` int(11) NOT NULL,
+  `brand` varchar(255) NOT NULL,
+  `unit_qty` int(11) NOT NULL,
+  `unitcost` decimal(10,2) NOT NULL,
+  `total_cost` decimal(10,2) NOT NULL,
+  `purchase_date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `purchase_table`
+--
+
+INSERT INTO `purchase_table` (`id`, `brand`, `unit_qty`, `unitcost`, `total_cost`, `purchase_date`) VALUES
+(1, 'Biogesic', 600, 5.99, 599.00, '2024-04-24'),
+(2, 'Bioflu', 100, 5.99, 599.00, '2024-04-24'),
+(3, 'Neozep', 200, 12.75, 2550.00, '2024-04-26');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `return_item`
 --
 
@@ -702,6 +1004,44 @@ INSERT INTO `return_item` (`id`, `employee`, `supplier`, `category`, `brand`, `t
 (5, 'Zenji Yangco', 'UNILAB', 'Paracetamol', 'Biogesic', 'Tablet', 100),
 (6, 'Zenji Yangco', 'UNILAB', 'Paracetamol', 'Biogesic', 'Tablet', 100),
 (7, 'Zenji Yangco', 'UNILAB', 'Paracetamol', 'Biogesic', 'Tablet', 100);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `return_status`
+--
+
+CREATE TABLE `return_status` (
+  `id` int(11) NOT NULL,
+  `return_name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `return_status`
+--
+
+INSERT INTO `return_status` (`id`, `return_name`) VALUES
+(1, 'Pending'),
+(2, 'Accepted'),
+(3, 'Declined');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `return_table`
+--
+
+CREATE TABLE `return_table` (
+  `id` int(11) NOT NULL,
+  `supplier_id` int(11) DEFAULT NULL,
+  `delivery_status_id` int(11) DEFAULT NULL,
+  `transaction_number` varchar(255) NOT NULL,
+  `reason_return` text NOT NULL,
+  `item` varchar(255) NOT NULL,
+  `Note` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `return_status_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -761,15 +1101,17 @@ CREATE TABLE `supplier` (
   `contact_person` text NOT NULL,
   `contact` varchar(50) NOT NULL,
   `email` varchar(150) NOT NULL,
-  `date_created` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `shippingfee` text NOT NULL,
+  `modeofpayment` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `supplier`
 --
 
-INSERT INTO `supplier` (`supplier_id`, `name`, `address`, `contact_person`, `contact`, `email`, `date_created`) VALUES
-(1, 'UNILAB', 'Bacolor', 'micosh', '09754265749', 'micosh@gmail.com', '2024-04-21 03:35:26');
+INSERT INTO `supplier` (`supplier_id`, `name`, `address`, `contact_person`, `contact`, `email`, `shippingfee`, `modeofpayment`) VALUES
+(1, 'Pfizer', 'Florida, Pampanga', 'Veronica Valenzuela', '09090909090', 'valenzuelaveronica@gmail.com', '600.00', 'Cash on Delivery'),
+(2, 'Unilever', 'Bacolor,Pampanga', 'Cyra Tapang', '09123456789', 'joy_joy@gmail.com', '600.00', 'Cash on Delivery');
 
 --
 -- Indexes for dumped tables
@@ -781,6 +1123,14 @@ INSERT INTO `supplier` (`supplier_id`, `name`, `address`, `contact_person`, `con
 ALTER TABLE `cart`
   ADD PRIMARY KEY (`id`),
   ADD KEY `order_id` (`order_id`);
+
+--
+-- Indexes for table `cart_table`
+--
+ALTER TABLE `cart_table`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `order_id` (`order_id`),
+  ADD KEY `delivery_status_id` (`delivery_status_id`);
 
 --
 -- Indexes for table `category`
@@ -796,6 +1146,12 @@ ALTER TABLE `daily_time_record`
   ADD KEY `ada` (`rec_emp_id`),
   ADD KEY `dada` (`record_emp_name`),
   ADD KEY `sasa` (`record_emp_position`);
+
+--
+-- Indexes for table `delivery_status`
+--
+ALTER TABLE `delivery_status`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `discounted_item`
@@ -882,10 +1238,19 @@ ALTER TABLE `item_mapping`
   ADD KEY `item_id` (`item_id`);
 
 --
+-- Indexes for table `medicinetype`
+--
+ALTER TABLE `medicinetype`
+  ADD PRIMARY KEY (`type_id`);
+
+--
 -- Indexes for table `medicine_list`
 --
 ALTER TABLE `medicine_list`
-  ADD PRIMARY KEY (`medicine_id`);
+  ADD PRIMARY KEY (`medicine_id`),
+  ADD KEY `supplier_id` (`supplier_id`),
+  ADD KEY `category_id` (`category_id`),
+  ADD KEY `type_id` (`type_id`);
 
 --
 -- Indexes for table `order`
@@ -894,10 +1259,38 @@ ALTER TABLE `order`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `order_table`
+--
+ALTER TABLE `order_table`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `supplier_id` (`supplier_id`);
+
+--
+-- Indexes for table `purchase_table`
+--
+ALTER TABLE `purchase_table`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `return_item`
 --
 ALTER TABLE `return_item`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `return_status`
+--
+ALTER TABLE `return_status`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `return_table`
+--
+ALTER TABLE `return_table`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `supplier_id` (`supplier_id`),
+  ADD KEY `delivery_status_id` (`delivery_status_id`),
+  ADD KEY `return_status_id` (`return_status_id`);
 
 --
 -- Indexes for table `shift`
@@ -931,10 +1324,22 @@ ALTER TABLE `cart`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
+-- AUTO_INCREMENT for table `cart_table`
+--
+ALTER TABLE `cart_table`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+
+--
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `delivery_status`
+--
+ALTER TABLE `delivery_status`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `discounted_item`
@@ -988,13 +1393,13 @@ ALTER TABLE `holiday`
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `inventory_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `inventory_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `inventory_logs`
 --
 ALTER TABLE `inventory_logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `item`
@@ -1009,10 +1414,16 @@ ALTER TABLE `item_mapping`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
+-- AUTO_INCREMENT for table `medicinetype`
+--
+ALTER TABLE `medicinetype`
+  MODIFY `type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
 -- AUTO_INCREMENT for table `medicine_list`
 --
 ALTER TABLE `medicine_list`
-  MODIFY `medicine_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `medicine_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
 
 --
 -- AUTO_INCREMENT for table `order`
@@ -1021,10 +1432,34 @@ ALTER TABLE `order`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
+-- AUTO_INCREMENT for table `order_table`
+--
+ALTER TABLE `order_table`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+
+--
+-- AUTO_INCREMENT for table `purchase_table`
+--
+ALTER TABLE `purchase_table`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `return_item`
 --
 ALTER TABLE `return_item`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `return_status`
+--
+ALTER TABLE `return_status`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `return_table`
+--
+ALTER TABLE `return_table`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `shift`
@@ -1042,7 +1477,7 @@ ALTER TABLE `shiftdetails`
 -- AUTO_INCREMENT for table `supplier`
 --
 ALTER TABLE `supplier`
-  MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
@@ -1053,6 +1488,13 @@ ALTER TABLE `supplier`
 --
 ALTER TABLE `cart`
   ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`);
+
+--
+-- Constraints for table `cart_table`
+--
+ALTER TABLE `cart_table`
+  ADD CONSTRAINT `cart_table_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `order_table` (`id`),
+  ADD CONSTRAINT `cart_table_ibfk_2` FOREIGN KEY (`delivery_status_id`) REFERENCES `delivery_status` (`id`);
 
 --
 -- Constraints for table `daily_time_record`
@@ -1091,6 +1533,28 @@ ALTER TABLE `info`
 --
 ALTER TABLE `item_mapping`
   ADD CONSTRAINT `item_mapping_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `item` (`id`);
+
+--
+-- Constraints for table `medicine_list`
+--
+ALTER TABLE `medicine_list`
+  ADD CONSTRAINT `medicine_list_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`supplier_id`),
+  ADD CONSTRAINT `medicine_list_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`),
+  ADD CONSTRAINT `medicine_list_ibfk_3` FOREIGN KEY (`type_id`) REFERENCES `medicinetype` (`type_id`);
+
+--
+-- Constraints for table `order_table`
+--
+ALTER TABLE `order_table`
+  ADD CONSTRAINT `order_table_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`supplier_id`);
+
+--
+-- Constraints for table `return_table`
+--
+ALTER TABLE `return_table`
+  ADD CONSTRAINT `return_table_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`supplier_id`),
+  ADD CONSTRAINT `return_table_ibfk_2` FOREIGN KEY (`delivery_status_id`) REFERENCES `delivery_status` (`id`),
+  ADD CONSTRAINT `return_table_ibfk_3` FOREIGN KEY (`return_status_id`) REFERENCES `return_status` (`id`);
 
 --
 -- Constraints for table `shift`

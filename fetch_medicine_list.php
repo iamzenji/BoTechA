@@ -1,9 +1,8 @@
 <?php
 // Include the database connection
 include 'includes/connection.php';
-
 // Check if the supplier_id parameter is set
-if (isset($_GET['supplier_id'])) {
+if(isset($_GET['supplier_id'])) {
     // Sanitize the supplier_id to prevent SQL injection
     $supplier_id = mysqli_real_escape_string($connection, $_GET['supplier_id']);
 
@@ -16,7 +15,7 @@ if (isset($_GET['supplier_id'])) {
     $result = mysqli_query($connection, $query);
 
     // Check if the query was successful
-    if ($result) {
+    if($result) {
         // Start building the HTML content for the medicine list table
         $output = '<table class="table table-striped">
                         <thead>
@@ -27,20 +26,22 @@ if (isset($_GET['supplier_id'])) {
                                 <th>Description</th>
                                 <th>Type</th>
                                 <th>Unit</th>
-                                <th>Price</th>
+                                <th>Wholesale Price</th>
+                                <th>Unit Cost</th>
                             </tr>
                         </thead>
                         <tbody>';
         // Fetch and display each medicine record
-        while ($row = mysqli_fetch_assoc($result)) {
-            $output .= '<tr>
+        while($row = mysqli_fetch_assoc($result)) {
+            $output .= '<tr class="">
                             <td>' . $row["medicine_id"] . '</td>
                             <td>' . $row["category_name"] . '</td>
                             <td>' . $row["brand"] . '</td>
                             <td>' . $row["description"] . '</td>
                             <td>' . $row["type_name"] . '</td>
                             <td>' . $row["unit"] . '</td>
-                            <td>' . $row["price"] . '</td>
+                            <td>' . $row["wholesaleprice"] . '</td>
+                            <td>' . $row["unitcost"] . '</td>
                         </tr>';
         }
         // Close the table
