@@ -44,42 +44,48 @@
                     <span>Inbox</span>
                 </a>
             </li>
+            <li class="sidebar-item item">
+                    <a href="order-add.php" class="sidebar-link link">
+                    <i class="lni lni-cart"></i>
+                        <span>Ordering</span>
+                    </a>
+                </li>
             <!-- ----------------- -->
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link collapsed has-dropdown  text-decoration-none" data-bs-toggle="collapse" data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
-                    <i class="lni lni-cart"></i>
-                    <span>Purchase Order</span>
-                </a>
-                <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                    <li class="sidebar-item">
-                        <a href="order-add.php" class="sidebar-link text-decoration-none">Ordering</a>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider text-decoration-none ">
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="order.php" class="sidebar-link text-decoration-none">Orders</a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link text-decoration-none">To Pickup</a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link text-decoration-none">To Receive</a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link text-decoration-none">Complete</a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link text-decoration-none">Return</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="sidebar-item">
-                <a href="" class="sidebar-link">
-                    <i class="lni lni-popup"></i>
-                    <span>Notification</span>
-                </a>
-            </li>
+                    <a href="#" class="sidebar-link collapsed has-dropdown  text-decoration-none" data-bs-toggle="collapse"
+                        data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
+                        <i class="bi bi-bag-check"></i>
+                        <span>Purchase Order</span>
+                    </a>
+                    <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li><hr class="dropdown-divider text-decoration-none "></li>
+                        
+                        <li class="sidebar-item">
+                            <a href="order.php" class="sidebar-link text-decoration-none">Orders</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="toship.php" class="sidebar-link text-decoration-none">To Ship</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="toreceive.php" class="sidebar-link text-decoration-none">To Receive</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="orderreceive.php" class="sidebar-link text-decoration-none">Order Received</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="completed.php" class="sidebar-link text-decoration-none">Completed</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="cancel.php" class="sidebar-link text-decoration-none">Cancel</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="return.php" class="sidebar-link text-decoration-none">Return</a>
+                        </li>
+                        
+                        
+                    </ul>
+                </li>
+           
         </ul>
         <div class="sidebar-footer">
             <a href="logout.php" class="sidebar-link">

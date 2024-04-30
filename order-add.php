@@ -8,432 +8,415 @@ if (strlen($_SESSION['employee_id']) === 0) {
 } else {
 
 ?>
-    <div class="wrapper">
-        <div class="main p-3">
-            <div class="">
-                <div class="container">
+   <div class="wrapper">
+   
+    <div class="main p-3">
+            <h2 class="text-center pb-2">New Purchase Order</h2>
+            <div class="row">
+                <div class="col-md-6">
                     <form action="orderdb.php" method="post">
+                        <div class="form-group">
+                            <input type="hidden" name="tracking_number" id="tracking_number" class="form-control">
+                            <label for="supplier" class="text-left mb-2">Supplier</label>
+                            <select class="form-control custom-select custom-select-sm rounded-0 select2" name="supplier_id" id="supplier_id">
+    <option value="" disabled selected>--Select Supplier--</option>
+    <?php
+    $query = "SELECT * FROM supplier";
+    $result = mysqli_query($connection, $query);
+    if ($result && mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $selected = isset($_POST['supplier_id']) && $_POST['supplier_id'] == $row['supplier_id'] ? "selected" : "";
+            echo "<option value='{$row['supplier_id']}' $selected>{$row['name']}</option>";
+        }
+    } else {
+        echo '<option value="" disabled>No suppliers found</option>';
+    }
+    ?>
 
-                        <!-- Rest of your form -->
+</select></div>
+                        <div class="form-group">
+                            <label for="category" class="text-left mb-2">Category</label>
+                            <table class="table">
+                                <tbody id="category_table_body">
+                                         </tbody> </table> </div>
+                        <div class="form-group">
+                            <table class="table" id="brand_table_body">
+                                <tbody id="brand_table_body">
+                                         </tbody>
+</table></div><div class="mt-8">
+    <button type="button" class="btn btn-primary" onclick="addToCart()">Add to Cart</button>
+    <button type="button" class="btn btn-success" id="purchaseBtn" disabled>Purchase</button>
+</div>
+<button type="button" class="btn btn-success d-none" id="purchaseModalBtn" data-toggle="modal" data-target="#purchaseConfirmationModal">Purchase</button>
+                </div>
+                <div class="col-md-6">
+                    <div class="container text-center mt-3">
+                        <h2 class="mt-3">Purchase Medicines</h2>
+                        <table class="table" id="cartTable">
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Brand</th>
+                                    <th>Type</th>
+                                    <th>Wholesale Price</th>
+                                    <th>Unit Cost</th>
+                                    <th>Unit/Size</th>
+                                    <th>Box</th>
+                                    <th>Pieces</th>
+                                    <th>Total Price</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+if(isset($_POST['brand'])) {
+    foreach($_POST['brand'] as $index => $brand) {
+        $wholesaleprice = $_POST['wholesaleprice'][$index];
+        $unit = $_POST['unit'][$index];
+        $unit_qty = $_POST['unit_qty'][$index];
 
-                        <div class="container text-center">
-                            <div>
-                                <table class="table table-boarded table-striped text-left " id="myTable">
-                                    <h2 class="text-center pb-2">New Purchase Order</h2>
-                                    <div class="row mb-3">
-                                        <div class="col-md-6">
-                                            <label for="supplier" class="text-left mb-2">Supplier</label>
-                                            <select class="form-control custom-select custom-select-sm rounded-0 select2" name="supplier_id" id="supplier_id">
-                                                <option value="" disabled selected>--Select Supplier--</option>
-                                                <?php
-                                                // Query to fetch supplier list
-                                                $query = "SELECT * FROM supplier";
-                                                $result = mysqli_query($connection, $query);
+        // Fetch type_id information from database based on brand
+        $query_type = "SELECT type_id FROM medicinetype WHERE brand = '$brand'";
+        $statement = mysqli_prepare($connection, $query_type);
+        mysqli_stmt_bind_param($statement, "s", $brand);
+        mysqli_stmt_execute($statement);
+        $result_type = mysqli_stmt_get_result($statement);
 
-                                                // Check if query executed successfully
-                                                if ($result && mysqli_num_rows($result) > 0) {
-                                                    // Output option tags for each supplier
-                                                    while ($row = mysqli_fetch_assoc($result)) {
-                                                        $selected = isset($_POST['supplier_id']) && $_POST['supplier_id'] == $row['supplier_id'] ? "selected" : "";
-                                                        echo "<option value='{$row['supplier_id']}' $selected>{$row['name']}</option>";
-                                                    }
-                                                } else {
-                                                    // Output a default option in case no suppliers are found
-                                                    echo '<option value="" disabled>No suppliers found</option>';
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-6 text-left">
-                                            <label for="tracking_number" class="text-left mb-2">Tracking Number</label>
-                                            <input type="text" name="tracking_number" id="tracking_number" class="form-control">
-                                            <small class="form-text text-muted">Leave it blank</small>
-                                        </div>
-                                    </div>
+        // Check if query executed successfully and fetch type_id
+        if ($result_type && mysqli_num_rows($result_type) > 0) {
+            $row_type = mysqli_fetch_assoc($result_type);
+            $type_id = $row_type['type_id'];
 
+            // Output hidden inputs for each item
+            echo "<input type='hidden' name='brand[]' value='$brand'>";
+            echo "<input type='hidden' name='wholesaleprice[]' value='$wholesaleprice'>";
+            echo "<input type='hidden' name='unit[]' value='$unit'>";
+            echo "<input type='hidden' name='unit_qty[]' value='$unit_qty'>";
+            echo "<input type='hidden' name='type_id[]' value='$type_id'>"; // Add type_id information here
+        } else {
+            // Handle case where no type_id found
+            echo "Type information not found for brand: $brand<br>";
+        }
+    }
+}
 
-                                    <thead>
-                                        <tr>
-                                            <th>Category</th>
-                                            <th>Brand</th>
-                                            <th>Type</th>
-                                            <th>Description</th>
-                                            <th>Unit</th>
-                                            <th>Price</th>
-                                            <th>Qty</th>
-                                            <th>Unit/Qty </th>
-                                            <th>Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <select name="category" id="category" class="form-control select-tag" disabled>
-                                                    <option value="" disabled selected>--Select Supplier First--</option>
-                                                </select>
-
-                                            </td>
-                                            <td>
-                                                <select name="brand" id="brand" class="form-control select-tag" disabled>
-                                                    <option value="" disabled selected>--Select Category First--</option>
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <select name="medicinetype" id="medicinetype" class="form-control select-tag" disabled>
-                                                    <option value="" disabled selected>--Select Brand First--</option>
-                                                </select>
-                                            </td>
-
-                                            <td><input type="text" class="form-control" name="description[]" readonly></td>
-                                            <!-- Inside the table body -->
-                                            <td><input type="text" class="form-control" name="unit[]" readonly></td>
-                                            <td><input type="text" class="form-control" name="price[]" value="0" readonly></td>
-                                            <td><input type="number" class="form-control" name="qty[]" onchange="calculateTotal(this)" onchange="validateQuantity(this)" min="0"></td>
-                                            <td><input type="text" class="form-control" name="unit_qty[]" onchange readonly></td>
-                                            <td><input type="text" class="form-control" name="total[]" readonly></td>
-
-                                        </tr>
-                                    </tbody>
-                                </table>
+            ?>
+              </tbody>                            
+                        </table>
+                    </div>
+                    <div class="price-container mt-3">
+                <div class="container pt-10">
+                    <div class="row">
+                        <div class="col-md-6 text-align-left">
+                            <div class="mt-7 ">
+                                <label for="payment">Mode of Payment:</label><br>
+                                <input type="radio" id="cash" name="payment" value="Cash on Delivery" checked>
+                                <label for="cash">Cash on Delivery</label><br>
+                                <input type="radio" id="cash" name="payment" value="Credit card" disabled>
+                                <label for="cash" class="text-secondary">Credit Card</label><br>
+                                <input type="radio" id="cash" name="payment" value="Debit card" disabled>
+                                <label for="cash" class="text-secondary">Debit Card</label><br>
+                                <input type="radio" id="cash" name="payment" value="Online Banking" disabled>
+                                <label for="cash" class="text-secondary">Online Banking</label><br>
                             </div>
                         </div>
-                        <div class="container  text-center mt-3">
-                            <h2 class=" mt-3">Selected Medicines</h2>
-                            <table class="table" id="cartTable">
-                                <thead>
-                                    <tr>
-                                        <th>Category</th>
-                                        <th>Brand</th>
-                                        <th>Type</th>
-                                        <th>Price</th>
-                                        <th>Unit</th>
-                                        <th>Quantity/box</th>
-                                        <th>Unit/Qty.pcs</th>
-                                        <th>Total Price</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- Selected medicines will be added here dynamically -->
-
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="price-container mt-3 text-right">
-
-                            <table class="price ">
+                        <div class="col-md-6 text-align-righ">
+                            <table class="price">
                                 <tr>
                                     <td colspan="3" class="boldtd text-right">Subtotal:</td>
                                     <td colspan="2"><input type="text" name="subtotal" readonly></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="3" class="boldtd  text-right">Tax(12%):</td>
-                                    <td colspan="2"><input type="text" name="tax"></td>
+                                    <td colspan="3" class="boldtd text-right">Tax(12%):</td>
+                                    <td colspan="2"><input type="text" name="tax" readonly></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="3" class="boldtd  text-right">Shipping fee:</td>
-                                    <td colspan="2"><input type="text" name="shippingfee"></td>
-                                </tr>
-
-                                <tr>
-                                    <td colspan="3" class="boldtd">Total:</td>
+    <td colspan="3" class="boldtd text-right">Shipping fee:</td>
+    <td colspan="2"><input type="text" id="shippingFee" name="shippingFee" readonly></td>
+</tr>
+<tr>
+    <td colspan="5" class="discount-notification" style="display: none;"></td>
+</tr> <tr>                              <td colspan="3" class="boldtd text-right">Total:</td>
                                     <td colspan="2"><input type="text" name="grandtotal" readonly></td>
-                                </tr>
-                            </table>
-
-                        </div>
-
-                        <button type="button" class="btn btn-primary" onclick="addToCart()">Add to Cart</button>
-                        <button type="submit" class="btn btn-success" name="placeorder">Purchase</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-    </div>
-    <script>
-        function togglePurchaseButton() {
-            var cartTable = document.getElementById("cartTable").getElementsByTagName("tbody")[0];
-            var purchaseButton = document.querySelector('button[name="placeorder"]');
-
-            // Check if there are any rows in the cart table
-            if (cartTable.rows.length > 0) {
-                purchaseButton.disabled = false; // Enable purchase button
-            } else {
-                purchaseButton.disabled = true; // Disable purchase button
-            }
+</tr></table></div></div></div> </div></form>
+            <div class="col-md-6 mt-10">
+        <h3 class="mt-10">Fast Selling Items</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Brand</th>
+                        <th>Sales</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php
+ include 'includes/connection.php';
+$query = "SELECT brand, SUM(unit_qty) AS total_sales
+          FROM purchase_table
+          GROUP BY brand
+          HAVING total_sales >= 500
+          ORDER BY total_sales DESC";
+$result = mysqli_query($connection, $query);
+if ($result) {
+    echo "<tbody>";
+    while ($row = mysqli_fetch_assoc($result)) {
+        echo "<tr>";
+        echo "<td>" . $row['brand'] . "</td>"; 
+        echo "<td>" . $row['total_sales'] . "</td>"; 
+        echo "<td>Fast Selling</td>";
+        echo "</tr>";
+    }
+    echo "</tbody>";
+} else {
+    echo "Error: " . mysqli_error($connection);
+}
+mysqli_close($connection);
+?>
+</tbody></table></div></div></div>
+<div class="modal fade"id="purchaseConfirmationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm Purchase</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      Are you sure you want to proceed with this purchase?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary" name="confirmPurchaseBtn" id="confirmPurchaseBtn">Yes, Purchase</button>
+      </div></div></div></div></div></div>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+$(document).ready(function() {
+    var confirmationShown = false; 
+    function showPurchaseModal(selectedMedicines) {
+        $('#selectedMedicinesInput').val(JSON.stringify(selectedMedicines));
+        $('#purchaseConfirmationModal').modal('show');
+        confirmationShown = true; 
+    }
+    $('#purchaseBtn').on('click', function() {
+        var selectedMedicines = getSelectedMedicines();
+        showPurchaseModal(selectedMedicines);
+    });
+    $('#confirmPurchaseBtn').on('click', function() {
+        if (confirmationShown) {
+            $('form').submit(); 
+            confirmationShown = false; 
         }
-
-        // Call the function initially to set the initial state of the purchase button
-        togglePurchaseButton();
-
-        function addToCart() {
-            var table = document.getElementById("myTable");
-            var rows = table.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
-            var cartTable = document.getElementById("cartTable").getElementsByTagName("tbody")[0];
-
-            for (var i = 0; i < rows.length; i++) {
-                var cells = rows[i].getElementsByTagName("td");
-                var categorySelect = cells[0].getElementsByTagName("select")[0];
-                var brandSelect = cells[1].getElementsByTagName("select")[0];
-                var typeSelect = cells[2].getElementsByTagName("select")[0];
-                var descriptionInput = cells[3].getElementsByTagName("input")[0]; // Get description input
-                var unitInput = cells[4].getElementsByTagName("input")[0];
-                var priceInput = cells[5].getElementsByTagName("input")[0];
-                var quantityInput = cells[6].getElementsByTagName("input")[0];
-                var unitQtyInput = cells[7].getElementsByTagName("input")[0]; // Get unitqty input
-                var totalInput = cells[8].getElementsByTagName("input")[0];
-
-                var category = categorySelect.options[categorySelect.selectedIndex].text;
-                var brand = brandSelect.options[brandSelect.selectedIndex].text;
-                var type = typeSelect.options[typeSelect.selectedIndex].text;
-                var unit = unitInput.value;
-                var price = parseFloat(priceInput.value);
-                var quantity = quantityInput.value;
-                var unitQty = unitQtyInput.value; // Get unitqty value
-                var total = parseFloat(totalInput.value);
-
-                if (category && brand && type && unit && price && quantity && unitQty && total) {
-                    var newRow = cartTable.insertRow(cartTable.rows.length);
-                    var cell1 = newRow.insertCell(0);
-                    var cell2 = newRow.insertCell(1);
-                    var cell3 = newRow.insertCell(2);
-                    var cell4 = newRow.insertCell(3);
-                    var cell5 = newRow.insertCell(4);
-                    var cell6 = newRow.insertCell(5);
-                    var cell7 = newRow.insertCell(6);
-                    var cell8 = newRow.insertCell(7); // Add cell for total price
-
-                    cell1.innerHTML = category;
-                    cell2.innerHTML = brand;
-                    cell3.innerHTML = type;
-                    cell4.innerHTML = price; // Show price instead of description
-                    cell5.innerHTML = unit;
-                    cell6.innerHTML = quantity;
-                    var calculatedUnitQty = parseFloat(unitQty) * parseFloat(quantity);
-                    cell7.innerHTML = calculatedUnitQty; // Show unit quantity
-
-                    // Calculate total price
-                    var totalPrice = parseFloat(price) * parseFloat(quantity);
-
-                    // Show total price
-                    cell8.innerHTML = totalPrice.toFixed(2); // Show total price with 2 decimal places
-
-                    // Reset select elements
-                    categorySelect.selectedIndex = 0;
-                    brandSelect.selectedIndex = 0;
-                    typeSelect.selectedIndex = 0;
-
-                    // Create hidden input fields for each cart item
-                    createHiddenInputField('category[]', category, newRow);
-                    createHiddenInputField('brand[]', brand, newRow);
-                    createHiddenInputField('type[]', type, newRow);
-                    createHiddenInputField('unit[]', unit, newRow);
-                    createHiddenInputField('price[]', price, newRow);
-                    createHiddenInputField('quantity[]', quantity, newRow);
-                    createHiddenInputField('unitqty[]', calculatedUnitQty, newRow); // Add hidden input for unit quantity
-                    createHiddenInputField('total[]', totalPrice, newRow); // Add hidden input for total price
-
-                    // Clear input values
-                    descriptionInput.value = ''; // Reset description input
-                    unitInput.value = '';
-                    priceInput.value = '';
-                    quantityInput.value = '';
-                    unitQtyInput.value = ''; // Reset unit quantity input
-                    totalInput.value = '';
-                }
-
-            }
-            // Compute cart totals after adding items to the cart
-            computeCartTotals();
-            togglePurchaseButton();
-        }
-
-        function createHiddenInputField(name, value, row) {
-            var input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = name;
-            input.value = value;
-            row.appendChild(input);
-        }
-
-        function computeCartTotals() {
-            var cartTable = document.getElementById("cartTable").getElementsByTagName("tbody")[0];
-            var subtotal = 0;
-
-            // Iterate through each row in the cart table
-            for (var i = 0; i < cartTable.rows.length; i++) {
-                var row = cartTable.rows[i];
-                var cells = row.cells;
-                var totalPrice = parseFloat(cells[7].innerText); // Total price is in the 8th cell (index 7)
-
-                // Add the total price of eac5h item to the subtotal
-                subtotal += totalPrice;
-            }
-
-            // Calculate tax (assuming 12% tax rate)
-            var tax = 0.12 * subtotal;
-
-            // Fixed shipping fee
-            var shippingFee = 600.00;
-
-            // Set subtotal, tax, shipping fee, and grand total values
-            document.querySelector('input[name="subtotal"]').value = subtotal.toFixed(2);
-            document.querySelector('input[name="tax"]').value = tax.toFixed(2);
-            document.querySelector('input[name="shippingfee"]').value = shippingFee.toFixed(2);
-            document.querySelector('input[name="grandtotal"]').value = (subtotal + tax + shippingFee).toFixed(2);
-        }
-    </script>
-    <script>
-        function validateQuantity(input) {
-            if (input.value <= 0) {
-                input.value = 0; // Set the value to 0 if it's negative
-            }
-        }
-    </script>
-
-
-    <script>
-        // Function to fetch categories for the selected supplier
-        function fetchCategories(categorySelect) {
-            var supplierId = document.getElementById('supplier_id').value;
-
-            // Reset previous options
-            categorySelect.innerHTML = '<option value="" disabled selected>Loading categories...</option>';
-
-            // Fetch categories via AJAX
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', 'fetch_categories.php?supplier_id=' + supplierId, true);
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    categorySelect.innerHTML = xhr.responseText;
-                    categorySelect.disabled = false; // Enable category select
-                } else {
-                    categorySelect.innerHTML = '<option value="" disabled selected>Error loading categories</option>';
-                }
-            };
-            xhr.send();
-        }
-
-        function fetchBrands(brandSelect, categoryId) {
-            var supplierId = document.getElementById('supplier_id').value;
-
-            // Reset previous options
-            brandSelect.innerHTML = '<option value="" disabled selected>Loading brands...</option>';
-
-            // Fetch brands via AJAX
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', 'fetch-brands.php?supplier_id=' + supplierId + '&category_id=' + categoryId, true);
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    brandSelect.innerHTML = xhr.responseText;
-                    brandSelect.disabled = false; // Enable brand select
-                } else {
-                    brandSelect.innerHTML = '<option value="" disabled selected>Error loading brands</option>';
-                }
-            };
-            xhr.send();
-        }
-
-        function fetchTypes(typeSelect, categoryId, brand) {
-            var supplierId = document.getElementById('supplier_id').value;
-
-            // Fetch types via AJAX
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', 'fetch-types.php?supplier_id=' + supplierId + '&category_id=' + categoryId + '&brand=' + brand, true);
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    typeSelect.innerHTML = xhr.responseText;
-                    typeSelect.disabled = false; // Enable type select
-                } else {
-                    typeSelect.innerHTML = '<option value="" disabled selected>Error loading types</option>';
-                }
-            };
-            xhr.send();
-        }
-
-        // Event listener for brand select
-        document.getElementById('brand').addEventListener('change', function() {
-            var categoryId = document.getElementById('category').value;
-            var brand = this.value;
-            var typeSelect = document.getElementById('medicinetype');
-            fetchTypes(typeSelect, categoryId, brand);
+    });
+    $('#cancelPurchaseBtn').on('click', function() {
+        $('#purchaseConfirmationModal').modal('hide'); 
+    });
+});
+function getSelectedMedicines() {
+    var selectedMedicines = [];
+    $('input[name="selected_medicines[]"]:checked').each(function () {
+        var category_name = $(this).closest('tr').find('td:eq(1)').text();
+        var brand = $(this).closest('tr').find('td:eq(2)').text();
+        var wholesalePrice = parseFloat($(this).closest('tr').find('td:eq(4)').text()); 
+        var Unitcost = parseFloat($(this).closest('tr').find('td:eq(5)').text()); 
+        var unit = $(this).closest('tr').find('td:eq(3)').text();
+        var unitQty = parseFloat($(this).closest('tr').find('td:eq(6)').text()); 
+        var quantity = parseFloat($(this).closest('tr').find('.quantity').val()) || 1; 
+        var totalPrice = wholesalePrice * quantity; 
+        var hiddenInputs = '<input type="hidden" name="category_name[]" value="' + category_name + '">' + 
+        '<input type="hidden" name="brand[]" value="' + brand + '">' +
+            '<input type="hidden" name="wholesaleprice[]" value="' + wholesalePrice + '">' +
+            '<input type="hidden" name="unitcost[]" value="' + Unitcost + '">' +
+            '<input type="hidden" name="unit[]" value="' + unit + '">' +
+            '<input type="hidden" name="unit_qty[]" value="' + unitQty + '">' +
+            '<input type="hidden" name="quantity[]" value="' + quantity + '">';
+        selectedMedicines.push({
+            category_name: category_name,
+            brand: brand,
+            wholesalePrice: wholesalePrice,
+            Unitcost: Unitcost,
+            unit: unit,
+            unitQty: unitQty,
+            quantity: quantity,
+            totalPrice: totalPrice
         });
-
-
-
-
-        // Event listener for supplier select
-        document.getElementById('supplier_id').addEventListener('change', function() {
-            // Fetch categories for the selected supplier
-            var categorySelects = document.querySelectorAll('select[name="category"]');
-            categorySelects.forEach(function(select) {
-                fetchCategories(select);
+    });
+    return selectedMedicines;
+}
+  </script>
+    <script>
+        $(document).ready(function() {
+            function updatePurchaseButton() {
+                var isEmpty = $('#brand_table_body').is(':empty');
+                $('#purchaseBtn').prop('disabled', isEmpty);
+            }
+            $('#supplier_id').change(function() {
+                fetchBrands();
             });
-        });
-        // Event listener for category select
-        document.getElementById('category').addEventListener('change', function() {
-            var categoryId = this.value;
-            var brandSelect = document.getElementById('brand');
-            fetchBrands(brandSelect, categoryId);
-
-        });
-
-
-
-        document.getElementById('medicinetype').addEventListener('change', function() {
-            var typeId = this.value;
-            if (typeId !== '') {
-                fetchDescriptionAndPrice(typeId);
-            } else {
-                // Clear description and price fields if no type is selected
-                document.querySelector('input[name="description[]"]').value = '';
-                document.querySelector('input[name="price[]"]').value = '';
+            function fetchBrands() {
+                var supplierId = $('#supplier_id').val();
+                $.ajax({
+                    type: 'GET',
+                    url: 'fetch-brands.php',
+                    data: {
+                        supplier_id: supplierId
+                    },
+                    success: function(response) {
+                        $('#brand_table_body').html(response);
+                        updatePurchaseButton();
+                    },
+                    error: function() {
+                        $('#brand_table_body').html('<tr><td colspan="4">Error loading brands</td></tr>');
+                        updatePurchaseButton();
+                    }
+                });
             }
         });
-
-        function fetchDescriptionAndPrice(typeId) {
-            var supplierId = document.getElementById('supplier_id').value;
-            var categoryId = document.getElementById('category').value;
-            var brand = document.getElementById('brand').value;
-
-            // Fetch description and price via AJAX
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', 'fetch_descriptionprice.php?supplier_id=' + supplierId + '&category_id=' + categoryId + '&brand=' + brand + '&type=' + typeId, true);
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    var response = JSON.parse(xhr.responseText);
-                    if (response.success) {
-                        // Populate description and price fields
-                        document.querySelector('input[name="description[]"]').value = response.description;
-                        document.querySelector('input[name="price[]"]').value = response.price;
-                        document.querySelector('input[name="unit[]"]').value = response.unit;
-                        document.querySelector('input[name="unit_qty[]"]').value = response.unit_qty;
-                    } else {
-                        // Handle the case where description and price could not be fetched
-                    }
-                } else {
-                    // Handle the case where the request failed
-                }
-            };
-            xhr.send();
-        }
-
-
-
-        function calculateTotal(input) {
-            // Get the corresponding row of the input field
-            var row = input.closest('tr');
-
-            // Get the price and unit values
-            var price = parseFloat(row.querySelector('input[name="price[]"]').value);
-            var unit = parseFloat(input.value);
-
-            // Calculate the total
-            var total = price * unit;
-
-            // Update the total field in the same row
-            row.querySelector('input[name="total[]"]').value = isNaN(total) ? '' : total.toFixed(2);
-        }
     </script>
+<script>
+function removeMedicine(button) {
+    $(button).closest('tr').remove();
+    updateTotalPrice();
+    updatePriceTable(parseFloat($('#shippingFee').text()));
+}
+$(document).ready(function () {
+    $('#supplier_id').change(function () {
+        var supplierId = $(this).val();
+        $.ajax({
+            url: 'get_shipping_fee.php',
+            type: 'GET',
+            data: { supplier_id: supplierId }, 
+            success: function(response) {
+                $('#shippingFee').text(response);
+                updatePriceTable(parseFloat(response));
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+    updateTotalPrice();
+});
+
+function addToCart() {
+    var selectedMedicines = [];
+    var supplierId = $('#supplier_id').val();
+    $.ajax({
+        url: 'get_shipping_fee.php',
+        type: 'GET',
+        data: { supplier_id: supplierId },
+        success: function(response) {
+            $('#shippingFee').text(response);
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+        }
+    });
+    $('input[name="selected_medicines[]"]:checked').each(function() {
+        var category_name = $(this).closest('tr').find('td:eq(1)').text();
+        var brand = $(this).closest('tr').find('td:eq(2)').text();
+        var wholesalePrice = parseFloat($(this).closest('tr').find('td:eq(4)').text());
+        var Unitcost = parseFloat($(this).closest('tr').find('td:eq(5)').text());
+        var unit = $(this).closest('tr').find('td:eq(6)').text();
+        var unitQty = parseFloat($(this).closest('tr').find('td:eq(7)').text());
+        var quantity = parseFloat($(this).closest('tr').find('.quantity').val()) || 1;
+        var totalPrice = wholesalePrice * quantity;
+        var type = $(this).closest('tr').find('td:eq(3)').text(); // Fetching the type information
+        var hiddenInputs = '<input type="hidden" name="category_name[]" value="' + category_name + '">' +
+            '<input type="hidden" name="brand[]" value="' + brand + '">' +
+            '<input type="hidden" name="type[]" value="' + type + '">'+
+            '<input type="hidden" name="wholesaleprice[]" value="' + wholesalePrice + '">' +
+            '<input type="hidden" name="unitcost[]" value="' + Unitcost + '">' +
+            '<input type="hidden" name="unit[]" value="' + unit + '">' +
+            '<input type="hidden" name="unit_qty[]" value="' + unitQty + '">' +
+            '<input type="hidden" name="quantity[]" value="' + quantity + '">'; // Adding type as a hidden input
+        $('#brand_table_body').append(hiddenInputs);
+        selectedMedicines.push({
+            category_name: category_name,
+            brand: brand,
+            wholesalePrice: wholesalePrice,
+            Unitcost: Unitcost,
+            unit: unit,
+            unitQty: unitQty,
+            quantity: quantity,
+            totalPrice: totalPrice,
+            type: type // Including type in the selected medicines array
+        });
+    });
+    $('#cartTable tbody').empty();
+    selectedMedicines.forEach(function(medicine) {
+        $('#cartTable tbody').append(
+            '<tr>' +
+            '<td>' + medicine.category_name + '</td>' +
+            '<td>' + medicine.brand + '</td>' +
+            '<td>' + medicine.type + '</td>' + 
+            '<td>' + medicine.Unitcost.toFixed(2) + '</td>' +
+            '<td>' + medicine.wholesalePrice.toFixed(2) + '</td>' +
+            '<td>' + medicine.unit + '</td>' +
+            '<td>' + medicine.quantity + '</td>' +
+            '<td>' + medicine.unitQty + '</td>' +// Displaying type in the cart table
+            '<td class="total">' + medicine.totalPrice.toFixed(2) + '</td>' +
+            '<td><button type="button" class="btn btn-danger btn-sm remove-btn" onclick="removeMedicine(this)"><i class="bi bi-x-square-fill"></i></button></td>' +
+            '</tr>'
+        );
+    });
+    $('#purchaseBtn').prop('disabled', false);
+    updateTotalPrice();
+    updatePriceTable(parseFloat($('#shippingFee').text()));
+}
+
+function updateTotalPrice() {
+    var totalPrice = 0;
+    $('#cartTable tbody tr').each(function () {
+        totalPrice += parseFloat($(this).find('.total').text());
+    });
+    $('#totalPrice').text(totalPrice.toFixed(2));
+}
+function updatePriceTable(shippingFee) {
+    var subtotal = 0;
+    $('#cartTable tbody tr').each(function () {
+        subtotal += parseFloat($(this).find('.total').text());
+    });
+    var discount = 0; 
+    var discountPercent = 0; 
+    if (subtotal >= 30000) {
+        discount = 1; 
+        discountPercent = 100;
+    } else if (subtotal >= 25000) {
+        discount = 0.8; 
+        discountPercent = 80;
+    } else if (subtotal >= 20000) {
+        discount = 0.6;
+        discountPercent = 60;
+    } else if (subtotal >= 15000) {
+        discount = 0.4;
+        discountPercent = 40;
+    } else if (subtotal >= 10000) {
+        discount = 0.2;
+        discountPercent = 20;
+    } else if (subtotal >= 5000) {
+        discount = 0.1;
+        discountPercent = 10;
+    }
+    var discountedShippingFee = shippingFee * (1 - discount);
+    if (discount > 0) {
+        $('#shippingFee').next('.discount-notification').remove(); 
+        $('#shippingFee').after('<div class="discount-notification"> You have received a ' + discountPercent + '% discount on shipping fee.</div>');
+    } else {
+        $('#shippingFee').next('.discount-notification').remove(); 
+    }
+    $('input[name="shippingFee"]').val(discountedShippingFee.toFixed(2));
+    if ($('#cartTable tbody tr').length === 0) {
+        subtotal = 0;
+        var tax = 0;
+        var grandTotal = 0;
+    } else {
+        var tax = subtotal * 0.12;
+        var grandTotal = subtotal + discountedShippingFee;
+    }
+    $('input[name="subtotal"]').val(subtotal.toFixed(2));
+    $('input[name="tax"]').val(tax.toFixed(2));
+    $('input[name="shippingFee"]').val(discountedShippingFee.toFixed(2));
+    $('input[name="grandtotal"]').val(grandTotal.toFixed(2));
+}
+</script>
 <?php } ?>

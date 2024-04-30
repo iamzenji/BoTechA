@@ -1,26 +1,53 @@
 <?php
 include 'includes/connection.php';
-// Check if supplier_id and category_id are set
-if (isset($_GET['supplier_id']) && isset($_GET['category_id'])) {
-    $supplier_id = $_GET['supplier_id'];
-    $category_id = $_GET['category_id'];
 
-    // Query to fetch brands associated with the selected category and supplier
-    $query = "SELECT DISTINCT ml.brand FROM medicine_list ml
-              WHERE ml.supplier_id = $supplier_id AND ml.category_id = $category_id";
+if(isset($_GET['supplier_id'])) {
+    $supplierId = mysqli_real_escape_string($connection, $_GET['supplier_id']);
+    
+    $query = "SELECT ml.brand, mt.type_name AS type, ml.unit, ml.wholesaleprice, ml.unitcost, ml.unit_qty, c.category_name
+    FROM medicine_list ml
+    JOIN category c ON ml.category_id = c.category_id
+    JOIN MedicineType mt ON ml.type_id = mt.type_id
+    WHERE ml.supplier_id = $supplierId
+    ORDER BY ml.brand ASC";
 
     $result = mysqli_query($connection, $query);
-
-    // Check if query executed successfully
-    if ($result && mysqli_num_rows($result) > 0) {
-        // Output option tags for each brand
-        echo '<option value="" disabled selected>--Select Brand--</option>';
-        while ($row = mysqli_fetch_assoc($result)) {
-            echo "<option value='{$row['brand']}'>{$row['brand']}</option>";
+    if($result) {
+        if(mysqli_num_rows($result) > 0) {
+            $output = '<table class="table">';
+            $output .= '<tr>
+            <th> </th>
+            <th>Category</th>
+            <th>Brand</th>
+            <th>Type</th>
+            <th>Wholesale Price</th>
+            <th>Unit Cost</th>
+            <th>Unit</th>
+            <th>Pieces</th>
+            <th>Quantity</th>
+            </tr>'; 
+            while($row = mysqli_fetch_assoc($result)) {
+                $output .= '<tr>';
+                $output .= '<td><input type="checkbox" name="selected_medicines[]"  value="' . $row['brand'] .  '"></td>';
+                $output .= '<td>' . $row['category_name'] . '</td>';
+                $output .= '<td>' . $row['brand'] . '</td>';
+                $output .= '<td>' . $row['type'] . '</td>';
+                $output .= '<td>' . $row['wholesaleprice'] . '</td>';
+                $output .= '<td>' . $row['unitcost'] . '</td>';
+                $output .= '<td>' . $row['unit'] . '</td>';
+                $output .= '<td>' . $row['unit_qty'] . '</td>';
+                $output .= '<td><input type="number" class="form-control quantity" name="quantity[]" value="1" min="1"></td>';
+                $output .= '</tr>';
+            }
+            $output .= '</table>'; 
+            echo $output; 
+        } else {
+            echo '<p>No brands found for the selected categories.</p>';
         }
     } else {
-        echo '<option value="" disabled selected>No brands found</option>';
+        echo '<p>Error executing query: ' . mysqli_error($connection) . '</p>';
     }
 } else {
-    echo '<option value="" disabled selected>Invalid request</option>';
+    echo '<p>Supplier ID or Category IDs are not provided.</p>';
 }
+?>
