@@ -23,23 +23,6 @@ if (strlen($_SESSION['employee_id']) === 0) {
     $result = mysqli_query($connection, $query);
 
     if (mysqli_num_rows($result) > 0) {
-        $consolidated_items = array();
-
-        while ($row = mysqli_fetch_assoc($result)) {
-            $key = $row['supplier'] . $row['category'] . $row['brand'] . $row['type'];
-
-            if (array_key_exists($key, $consolidated_items)) {
-                // If the item already exists, add the quantities
-                $consolidated_items[$key]['qty_stock'] += $row['qty_stock'];
-                $consolidated_items[$key]['total_cost'] += $row['total_cost'];
-                $consolidated_items[$key]['unit_inv_qty'] += $row['unit_inv_qty'];
-                $consolidated_items[$key]['showroom_quantity_stock'] += $row['showroom_quantity_stock'];
-                // You can add similar logic for other fields you want to aggregate
-            } else {
-                // Otherwise, add the item to the consolidated array
-                $consolidated_items[$key] = $row;
-            }
-        }
 ?>
         <div class="container mt-5">
             <div class="row align-items-center">
@@ -88,6 +71,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                         <th>Category</th>
                                         <th>Brand name</th>
                                         <th>Type</th>
+                                        <th>Unit</th>
                                         <th>Quantity Stock</th>
                                         <th>Unit Quantity</th>
                                         <th>Storage Location</th>
@@ -101,13 +85,14 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                 </thead>
                                 <tbody>
                                     <?php
-                                    foreach ($consolidated_items as $row) {
+                                        while ($row = mysqli_fetch_assoc($result)) {
                                     ?>
                                         <tr class="edit-row align-middle text-center" data-toggle="modal" data-target="#editModal_<?php echo $row['inventory_id']; ?>">
                                             <td><?php echo $row['supplier']; ?></td>
                                             <td><?php echo $row['category']; ?></td>
                                             <td><?php echo $row['brand']; ?></td>
                                             <td><?php echo $row['type']; ?></td>
+                                            <td><?php echo $row['unit']; ?></td>
                                             <td><?php echo $row['qty_stock']  ?></td>
                                             <td><?php echo $row['stock_after'] - $row['showroom_quantity_stock'] . " (" . $row['unit_cost'] . "/ea)"; ?></td>
                                             <td><?php echo $row['storage_location']; ?></td>

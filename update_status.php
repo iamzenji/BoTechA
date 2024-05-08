@@ -72,15 +72,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['updatestatus'])) {
                                 $userName = $row['employee_name'];
                             }
 
-                            // Insert into inventory table
-                            $query1 = "INSERT INTO inventory (supplier, category, brand, type, unit, qty_stock, unit_inv_qty, unit_cost, total_cost) 
-                            VALUES ('$supplierName', '$Category', '$brand', '$type', '$unit', '$quantity', '$unit_qty', '$unitcost', $total)";
-            
-                            // Execute the query and handle errors
-                            if (mysqli_query($connection, $query1)) {
-                                echo "Inventory item inserted successfully.<br>";
+                            // Check if the product already exists in inventory
+                            $check_inventory_query = "SELECT * FROM inventory WHERE supplier = '$supplierName' AND category = '$Category' AND brand = '$brand' AND type = '$type' AND unit = '$unit'";
+                            $check_inventory_result = mysqli_query($connection, $check_inventory_query);
+
+                            if(mysqli_num_rows($check_inventory_result) > 0) {
+                                // Product exists in inventory, update the quantity
+                                $update_inventory_query = "UPDATE inventory SET qty_stock = qty_stock + $quantity, total_cost = total_cost + $total WHERE supplier = '$supplierName' AND category = '$Category' AND brand = '$brand' AND type = '$type' AND unit = '$unit'";
+                                if(mysqli_query($connection, $update_inventory_query)) {
+                                    echo "Inventory updated successfully.<br>";
+                                } else {
+                                    echo "Error updating inventory: " . mysqli_error($connection) . "<br>";
+                                }
                             } else {
-                                echo "Error inserting inventory item: " . mysqli_error($connection) . "<br>";
+                                // Product does not exist in inventory, insert new entry
+                                $insert_inventory_query = "INSERT INTO inventory (supplier, category, brand, type, unit, qty_stock, unit_inv_qty, unit_cost, total_cost) 
+                                VALUES ('$supplierName', '$Category', '$brand', '$type', '$unit', '$quantity', '$unit_qty', '$unitcost', $total)";
+                                if(mysqli_query($connection, $insert_inventory_query)) {
+                                    echo "Inventory item inserted successfully.<br>";
+                                } else {
+                                    echo "Error inserting inventory item: " . mysqli_error($connection) . "<br>";
+                                }
                             }
 
                             // Insert into inventory_logs table
