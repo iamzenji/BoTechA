@@ -20,6 +20,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // employee position
         $_SESSION['employee_position'] = $employee['employee_position'];
 
+// sales info
+        $_SESSION['user_name'] = $employee['employee_username'];
+        $_SESSION['name'] = $employee['employee_name'];
+        $_SESSION['id'] = $employee['employee_id'];
+// only
         switch ($employee['employee_position']) {
             case 'HR Officer':
                 header("Location: employees.php");
@@ -31,7 +36,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header("Location: financeHome.php");
                 exit();
             case 'Sales Officer - Cashier':
-                header("Location: pos_dashboard.php");
+                header("Location: sales/dashboard.php");
+                exit();
+            case 'Cashier':
+                header("Location: sales/dashboard.php");
                 exit();
             case 'Inventory Officer':
                 header("Location: inventory_dashboard.php");

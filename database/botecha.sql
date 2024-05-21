@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 30, 2024 at 05:09 AM
+-- Generation Time: May 19, 2024 at 02:26 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -69,6 +69,19 @@ INSERT INTO `cart` (`id`, `category`, `brand`, `type`, `unit`, `price`, `quantit
 (28, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 5, 750, 19983.00, 61, 'TN66240ed3d7656'),
 (29, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 3, 450, 11989.80, 62, 'TN66241a6fb379d'),
 (30, 'Paracetamol', 'Neozep', 'Tablet', '500mg', 3996.60, 10, 2000, 11989.80, 62, 'TN66241a6fb379d');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cart_sales`
+--
+
+CREATE TABLE `cart_sales` (
+  `cart_id` int(11) NOT NULL,
+  `item_id` int(11) NOT NULL,
+  `qty` int(11) NOT NULL,
+  `scale` varchar(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -268,7 +281,8 @@ INSERT INTO `dtrrevised` (`record_id`, `employee_id`, `date`, `time_in`, `time_o
 (37, 18, '2024-04-12', '07:00:00', '09:00:00', ''),
 (38, 20, '2024-04-10', '07:00:00', '09:00:00', ''),
 (39, 21, '2024-04-10', '07:00:00', '09:00:00', ''),
-(44, 55, '2024-04-01', '05:18:20', '19:18:54', '');
+(44, 55, '2024-04-01', '05:18:20', '19:18:54', ''),
+(45, 20, '2024-05-17', '18:44:38', '18:44:50', '');
 
 -- --------------------------------------------------------
 
@@ -291,6 +305,8 @@ CREATE TABLE `employee_details` (
 --
 
 INSERT INTO `employee_details` (`employee_id`, `employee_name`, `employee_position`, `employee_contact`, `employee_datestart`, `employee_username`, `employee_password`) VALUES
+(1, 'Mark Salazar', 'Cashier', '09124365780', '2024-05-18', 'marksalazar', 'mark12345'),
+(2, 'Justin Abrenica', 'Cashier', '09213465870', '2024-05-18', 'justin', 'justin12345'),
 (17, 'Marco Torres', 'HR Officer', '09556454874', '2024-03-16', 'Marco_1', 'Marco_1'),
 (18, 'Micosh Yutuc', 'Purchase Order Officer', '09154751547', '2024-03-16', 'Micosh_1', 'Micosh_1'),
 (19, 'Aeron Herrera', 'Finance Officer', '09123854784', '2024-03-16', 'Aeron_1', 'Aeron_1'),
@@ -472,51 +488,6 @@ INSERT INTO `holiday` (`id`, `date`, `title`, `details`, `offset_date`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `info`
---
-
-CREATE TABLE `info` (
-  `item_id` int(11) NOT NULL,
-  `stock_piece` int(11) DEFAULT NULL,
-  `price_piece` int(11) DEFAULT NULL,
-  `price_pack` int(11) DEFAULT NULL,
-  `piece_pack` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `info`
---
-
-INSERT INTO `info` (`item_id`, `stock_piece`, `price_piece`, `price_pack`, `piece_pack`) VALUES
-(1, 3000, 10, 1000, 100),
-(2, 3000, 17, 1700, 100),
-(3, 3000, 17, 1700, 100),
-(4, 3000, 17, 1700, 100),
-(5, 3000, 17, 1700, 100),
-(6, 3000, 114, 1140, 10),
-(7, 3000, 150, 1500, 10),
-(8, 3000, 20, 200, 10),
-(9, 3000, 30, 300, 10),
-(10, 3000, 50, 500, 10),
-(11, 3000, 50, 5000, 100),
-(12, 3000, 105, 10500, 100),
-(13, 3000, 95, 950, 10),
-(14, 3000, 445, 4450, 10),
-(15, 3000, 400, 4000, 10),
-(16, 3000, 145, 1450, 10),
-(17, 3000, 479, 4790, 10),
-(18, 3000, 47, 470, 10),
-(19, 3000, 115, 1150, 10),
-(20, 3000, 135, 1350, 10),
-(21, 3000, 10, 1000, 100),
-(22, 3000, 9, 900, 100),
-(23, 3000, 21, 2100, 100),
-(24, 3000, 30, 3000, 100),
-(25, 3000, 8, 800, 100);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `inventory`
 --
 
@@ -528,10 +499,13 @@ CREATE TABLE `inventory` (
   `type` varchar(255) NOT NULL,
   `unit` varchar(255) NOT NULL,
   `qty_stock` int(11) NOT NULL,
-  `unit_inv_qty` int(11) NOT NULL,
   `unit_cost` int(50) NOT NULL,
-  `storage_location` varchar(255) NOT NULL,
   `showroom_quantity_stock` int(11) NOT NULL,
+  `price_pack` int(11) NOT NULL,
+  `piece_pack` int(11) NOT NULL,
+  `stock_pack` int(11) NOT NULL,
+  `unit_inv_qty` int(11) NOT NULL,
+  `storage_location` varchar(255) NOT NULL,
   `showroom_location` varchar(255) NOT NULL,
   `quantity_to_reorder` int(11) NOT NULL,
   `total_cost` int(50) NOT NULL
@@ -541,15 +515,15 @@ CREATE TABLE `inventory` (
 -- Dumping data for table `inventory`
 --
 
-INSERT INTO `inventory` (`inventory_id`, `supplier`, `category`, `brand`, `type`, `unit`, `qty_stock`, `unit_inv_qty`, `unit_cost`, `storage_location`, `showroom_quantity_stock`, `showroom_location`, `quantity_to_reorder`, `total_cost`) VALUES
-(1, 'UNILAB', 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3, 300, 5, 'IL2', 100, 'SL2', 100, 1500),
-(2, 'UNILAB', 'Paracetamol', 'Neozep', 'Tablet', '500mg', 10, 2000, 6, 'IL1', 100, 'SL1', 100, 12000),
-(3, 'Unilever', 'Dermatological Agents ', 'Cortaid', 'Tablet', '200.00', 1, 10, 0, '', 0, '', 0, 15),
-(4, 'Unilever', 'Analgesic', 'Bioflu', 'Tablet', '8', 1, 24, 0, '', 0, '', 0, 500),
-(5, 'Unilever', 'Hormonal Therapies', 'Premarin', 'Tablet', '150.00', 1, 10, 0, '', 0, '', 0, 1),
-(6, 'Unilever', 'Laxatives ', 'Dulcolax', 'Tablet', '30.00', 1, 10, 300, '', 0, '', 0, 5),
-(7, 'Unilever', 'Dermatological Agents ', 'Cortaid', 'Tablet', '200.00', 1, 10, 2000, '', 0, '', 0, 15),
-(8, 'Unilever', 'Immunizations ', 'Fluzone', 'Tablet', '500.00', 1, 10, 5000, '', 0, '', 0, 5);
+INSERT INTO `inventory` (`inventory_id`, `supplier`, `category`, `brand`, `type`, `unit`, `qty_stock`, `unit_cost`, `showroom_quantity_stock`, `price_pack`, `piece_pack`, `stock_pack`, `unit_inv_qty`, `storage_location`, `showroom_location`, `quantity_to_reorder`, `total_cost`) VALUES
+(1, 'UNILAB', 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3, 5, 98, 500, 100, 100, 300, 'IL2', 'SL2', 100, 1500),
+(2, 'UNILAB', 'Paracetamol', 'Neozep', 'Tablet', '500mg', 10, 6, 96, 600, 100, 100, 2000, 'IL1', 'SL1', 100, 12000),
+(3, 'Unilever', 'Dermatological Agents ', 'Cortaid', 'Tablet', '200.00', 1, 0, 0, 0, 0, 0, 10, '', '', 0, 0),
+(4, 'Unilever', 'Analgesic', 'Bioflu', 'Tablet', '8', 1, 0, 0, 0, 0, 0, 24, '', '', 0, 500),
+(5, 'Unilever', 'Hormonal Therapies', 'Premarin', 'Tablet', '150.00', 1, 0, 100, 0, 0, 0, 10, '', '', 0, 0),
+(6, 'Unilever', 'Laxatives ', 'Dulcolax', 'Tablet', '30.00', 1, 300, 0, 0, 0, 0, 10, '', '', 0, 5),
+(7, 'Unilever', 'Dermatological Agents ', 'Cortaid', 'Tablet', '200.00', 1, 2000, 82, 10000, 5, 82, 10, '', '', 0, 20000),
+(8, 'Unilever', 'Immunizations ', 'Fluzone', 'Tablet', '500.00', 1, 5000, 0, 0, 0, 0, 10, '', '', 0, 5);
 
 -- --------------------------------------------------------
 
@@ -613,7 +587,16 @@ INSERT INTO `inventory_logs` (`log_id`, `inventory_id`, `date`, `brand_name`, `e
 (38, '0000-00-00', '2024-04-30 02:42:54', '', '', 0, 0, 'Purchase order'),
 (39, '0000-00-00', '2024-04-30 02:42:57', '', '', 0, 0, 'Purchase order'),
 (40, '0000-00-00', '2024-04-30 02:43:02', '', '', 0, 0, 'Purchase order'),
-(41, '0000-00-00', '2024-04-30 02:43:07', 'Fluzone', '', 1, 10, 'Purchase order');
+(41, '0000-00-00', '2024-04-30 02:43:07', 'Fluzone', '', 1, 10, 'Purchase order'),
+(42, '0000-00-00', '2024-05-17 15:02:17', 'Neozep', ' ', 0, 2000, 'Edit Item'),
+(43, '0000-00-00', '2024-05-17 15:02:20', 'Biogesic', ' ', 0, 300, 'Edit Item'),
+(44, '0000-00-00', '2024-05-17 15:02:22', 'Premarin', ' ', 0, 10, 'Edit Item'),
+(45, '0000-00-00', '2024-05-17 15:02:26', 'Cortaid', ' ', 0, 10, 'Edit Item'),
+(46, '0000-00-00', '2024-05-17 15:02:33', 'Cortaid', ' ', 0, 10, 'Edit Item'),
+(47, '0000-00-00', '2024-05-17 15:02:35', 'Cortaid', ' ', 0, 10, 'Edit Item'),
+(48, '0000-00-00', '2024-05-17 15:02:39', 'Cortaid', ' ', 0, 10, 'Edit Item'),
+(49, '0000-00-00', '2024-05-17 15:02:58', 'Premarin', ' ', 0, 10, 'Edit Item'),
+(50, '0000-00-00', '2024-05-17 15:03:15', 'Cortaid', ' ', 0, 10, 'Edit Item');
 
 -- --------------------------------------------------------
 
@@ -668,38 +651,20 @@ INSERT INTO `item` (`id`, `generic_name`, `brand_name`, `expiration_date`, `medi
 --
 
 CREATE TABLE `item_mapping` (
-  `id` int(11) NOT NULL,
+  `map_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
-  `section` int(11) NOT NULL,
+  `shelves` varchar(20) NOT NULL,
   `colum` int(11) NOT NULL,
-  `row` char(255) NOT NULL
+  `row` char(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `item_mapping`
 --
 
-INSERT INTO `item_mapping` (`id`, `item_id`, `section`, `colum`, `row`) VALUES
-(1, 1, 1, 1, 'a'),
-(2, 2, 1, 1, 'b'),
-(3, 3, 1, 1, 'c'),
-(4, 4, 1, 1, 'd'),
-(5, 5, 1, 1, 'e'),
-(6, 6, 1, 2, 'a'),
-(7, 7, 1, 2, 'b'),
-(8, 8, 1, 2, 'c'),
-(9, 9, 1, 2, 'd'),
-(10, 10, 1, 1, 'e'),
-(11, 11, 2, 1, 'a'),
-(12, 12, 2, 1, 'b'),
-(13, 13, 2, 1, 'c'),
-(14, 14, 2, 1, 'd'),
-(15, 15, 2, 1, 'e'),
-(16, 16, 3, 1, 'a'),
-(17, 17, 3, 1, 'b'),
-(18, 18, 3, 1, 'c'),
-(19, 19, 3, 1, 'd'),
-(20, 20, 3, 1, 'e');
+INSERT INTO `item_mapping` (`map_id`, `item_id`, `shelves`, `colum`, `row`) VALUES
+(21, 1, 'MedCenter', 1, 'B'),
+(23, 8, 'MedSouth', 2, 'B');
 
 -- --------------------------------------------------------
 
@@ -832,6 +797,89 @@ INSERT INTO `medicine_list` (`medicine_id`, `brand`, `unit`, `unit_qty`, `wholes
 (109, 'Fluzone', '10ml', '10.00', '9000.00', '900.00', 'vaccines', 2, 6, 5),
 (110, 'Dulcolax', '5mg', '10.00', '300.00', '30.00', 'Stool Softeners', 2, 7, 2),
 (111, 'Dulcolax', '10mg', '10.00', '500.00', '50.00', 'Stool Softeners', 2, 7, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `meremove`
+--
+
+CREATE TABLE `meremove` (
+  `id` int(11) NOT NULL,
+  `cashier_id` int(11) NOT NULL,
+  `item_id` int(11) NOT NULL,
+  `qty` int(11) NOT NULL,
+  `scale` varchar(11) NOT NULL,
+  `reasons` varchar(255) NOT NULL,
+  `stat` varchar(255) NOT NULL,
+  `date` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `meremove`
+--
+
+INSERT INTO `meremove` (`id`, `cashier_id`, `item_id`, `qty`, `scale`, `reasons`, `stat`, `date`) VALUES
+(1, 2, 3, 1, 'piece', 'Costumer change of mind ', 'single', '2024-05-18 23:25:18'),
+(2, 2, 4, 1, 'piece', 'Dont want to buy anymore', 'single', '2024-05-18 23:25:24'),
+(3, 2, 4, 1, 'pack', 'Costumer change of mind ', 'all', '2024-05-18 23:25:31'),
+(4, 2, 4, 1, 'piece', 'Costumer change of mind ', 'all', '2024-05-18 23:34:27'),
+(5, 2, 7, 1, 'piece', 'Costumer change of mind ', 'all', '2024-05-18 23:34:27'),
+(6, 2, 1, 1, 'pack', 'Costumer change of mind ', 'single', '2024-05-19 00:21:15'),
+(7, 2, 1, 1, 'piece', 'Costumer change of mind ', 'single', '2024-05-19 00:21:22'),
+(8, 2, 4, 1, 'piece', 'Costumer change of mind ', 'all', '2024-05-19 00:34:31'),
+(9, 2, 4, 1, 'pack', 'Costumer change of mind ', 'all', '2024-05-19 00:34:31'),
+(10, 2, 3, 1, 'piece', 'Costumer change of mind ', 'all', '2024-05-19 00:34:31'),
+(11, 2, 3, 1, 'pack', 'Costumer change of mind ', 'all', '2024-05-19 00:34:31'),
+(12, 2, 5, 1, 'piece', 'Costumer change of mind ', 'all', '2024-05-19 00:34:31'),
+(13, 2, 5, 1, 'pack', 'Costumer change of mind ', 'all', '2024-05-19 00:34:31'),
+(14, 2, 8, 1, 'piece', 'Costumer change of mind ', 'all', '2024-05-19 00:34:31'),
+(15, 2, 6, 1, 'piece', 'Costumer change of mind ', 'all', '2024-05-19 00:34:31'),
+(16, 2, 1, 1, 'piece', 'Costumer change of mind ', 'all', '2024-05-19 00:34:31'),
+(17, 2, 2, 1, 'piece', 'Costumer change of mind ', 'all', '2024-05-19 00:34:31'),
+(18, 2, 2, 1, 'piece', 'Dont want to buy anymore', 'all', '2024-05-19 00:36:13'),
+(19, 2, 2, 1, 'pack', 'Dont want to buy anymore', 'all', '2024-05-19 00:36:13'),
+(20, 2, 4, 1, 'piece', 'Dont want to buy anymore', 'all', '2024-05-19 00:36:13'),
+(21, 2, 4, 1, 'pack', 'Dont want to buy anymore', 'all', '2024-05-19 00:36:13'),
+(22, 2, 5, 1, 'piece', 'Dont want to buy anymore', 'all', '2024-05-19 00:36:13'),
+(23, 2, 5, 1, 'pack', 'Dont want to buy anymore', 'all', '2024-05-19 00:36:13'),
+(24, 2, 3, 1, 'piece', 'Costumer change of mind ', 'all', '2024-05-19 02:05:09'),
+(25, 2, 5, 1, 'piece', 'Costumer change of mind ', 'all', '2024-05-19 02:05:09');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mesali`
+--
+
+CREATE TABLE `mesali` (
+  `id` int(11) NOT NULL,
+  `transact_no` varchar(255) NOT NULL,
+  `item_id` int(11) NOT NULL,
+  `qty` int(11) NOT NULL,
+  `scale` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `mesali`
+--
+
+INSERT INTO `mesali` (`id`, `transact_no`, `item_id`, `qty`, `scale`) VALUES
+(9, 'BTA-2/000', 7, 1, 'piece'),
+(10, 'BTA-2/000', 7, 1, 'pack'),
+(11, 'BTA-2/001', 7, 2, 'piece'),
+(12, 'BTA-2/001', 7, 2, 'pack'),
+(13, 'BTA-2/002', 7, 3, 'piece'),
+(14, 'BTA-2/002', 7, 3, 'pack'),
+(15, 'BTA-2/003', 7, 1, 'piece'),
+(16, 'BTA-2/003', 7, 1, 'pack'),
+(17, 'BTA-2/004', 7, 1, 'piece'),
+(18, 'BTA-2/004', 7, 1, 'pack'),
+(19, 'BTA-2/005', 7, 2, 'piece'),
+(20, 'BTA-2/005', 7, 2, 'pack'),
+(21, 'BTA-2/006', 2, 2, 'piece'),
+(22, 'BTA-2/006', 1, 2, 'piece'),
+(23, 'BTA-2/007', 2, 2, 'piece');
 
 -- --------------------------------------------------------
 
@@ -1113,6 +1161,40 @@ INSERT INTO `supplier` (`supplier_id`, `name`, `address`, `contact_person`, `con
 (1, 'Pfizer', 'Florida, Pampanga', 'Veronica Valenzuela', '09090909090', 'valenzuelaveronica@gmail.com', '600.00', 'Cash on Delivery'),
 (2, 'Unilever', 'Bacolor,Pampanga', 'Cyra Tapang', '09123456789', 'joy_joy@gmail.com', '600.00', 'Cash on Delivery');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transact`
+--
+
+CREATE TABLE `transact` (
+  `id` int(11) NOT NULL,
+  `transact_no` varchar(255) NOT NULL,
+  `cashier_id` int(11) NOT NULL,
+  `pay_method` varchar(20) NOT NULL,
+  `sub_total` float(100,2) NOT NULL,
+  `type` varchar(20) NOT NULL,
+  `total_dis` float(100,2) NOT NULL,
+  `total_amount` float(100,2) NOT NULL,
+  `bayad` float(100,2) NOT NULL,
+  `sukli` float(100,2) NOT NULL,
+  `date` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `transact`
+--
+
+INSERT INTO `transact` (`id`, `transact_no`, `cashier_id`, `pay_method`, `sub_total`, `type`, `total_dis`, `total_amount`, `bayad`, `sukli`, `date`) VALUES
+(13, 'BTA-2/000', 2, 'GCash', 12000.00, 'None', 0.00, 12000.00, 0.00, 0.00, '2024-05-19 00:28:34'),
+(14, 'BTA-2/001', 2, 'GCash', 24000.00, 'Senior', 3600.00, 20400.00, 0.00, 0.00, '2024-05-19 00:29:04'),
+(15, 'BTA-2/002', 2, 'GCash', 36000.00, 'PWD', 7200.00, 28800.00, 0.00, 0.00, '2024-05-19 00:29:26'),
+(16, 'BTA-2/003', 2, 'Cash', 12000.00, 'None', 0.00, 12000.00, 12000.00, 0.00, '2024-05-19 00:29:44'),
+(17, 'BTA-2/004', 2, 'Cash', 12000.00, 'Senior', 1800.00, 10200.00, 11000.00, 800.00, '2024-05-19 00:29:56'),
+(18, 'BTA-2/005', 2, 'Cash', 24000.00, 'PWD', 4800.00, 19200.00, 20000.00, 800.00, '2024-05-19 00:30:17'),
+(19, 'BTA-2/006', 2, 'GCash', 26.00, 'PWD', 2.60, 23.40, 0.00, 0.00, '2024-05-19 01:51:36'),
+(20, 'BTA-2/007', 2, 'Cash', 14.00, 'None', 0.00, 14.00, 14.00, 0.00, '2024-05-19 02:24:24');
+
 --
 -- Indexes for dumped tables
 --
@@ -1123,6 +1205,13 @@ INSERT INTO `supplier` (`supplier_id`, `name`, `address`, `contact_person`, `con
 ALTER TABLE `cart`
   ADD PRIMARY KEY (`id`),
   ADD KEY `order_id` (`order_id`);
+
+--
+-- Indexes for table `cart_sales`
+--
+ALTER TABLE `cart_sales`
+  ADD PRIMARY KEY (`cart_id`),
+  ADD KEY `item_id` (`item_id`);
 
 --
 -- Indexes for table `cart_table`
@@ -1207,12 +1296,6 @@ ALTER TABLE `holiday`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `info`
---
-ALTER TABLE `info`
-  ADD KEY `item_id` (`item_id`);
-
---
 -- Indexes for table `inventory`
 --
 ALTER TABLE `inventory`
@@ -1234,7 +1317,7 @@ ALTER TABLE `item`
 -- Indexes for table `item_mapping`
 --
 ALTER TABLE `item_mapping`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`map_id`),
   ADD KEY `item_id` (`item_id`);
 
 --
@@ -1251,6 +1334,22 @@ ALTER TABLE `medicine_list`
   ADD KEY `supplier_id` (`supplier_id`),
   ADD KEY `category_id` (`category_id`),
   ADD KEY `type_id` (`type_id`);
+
+--
+-- Indexes for table `meremove`
+--
+ALTER TABLE `meremove`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `item_id` (`item_id`),
+  ADD KEY `cashier_id` (`cashier_id`);
+
+--
+-- Indexes for table `mesali`
+--
+ALTER TABLE `mesali`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `item_id` (`item_id`),
+  ADD KEY `transact_no` (`transact_no`);
 
 --
 -- Indexes for table `order`
@@ -1314,6 +1413,14 @@ ALTER TABLE `supplier`
   ADD PRIMARY KEY (`supplier_id`);
 
 --
+-- Indexes for table `transact`
+--
+ALTER TABLE `transact`
+  ADD PRIMARY KEY (`transact_no`),
+  ADD UNIQUE KEY `id` (`id`),
+  ADD KEY `cashier_id` (`cashier_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -1322,6 +1429,12 @@ ALTER TABLE `supplier`
 --
 ALTER TABLE `cart`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT for table `cart_sales`
+--
+ALTER TABLE `cart_sales`
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `cart_table`
@@ -1351,7 +1464,7 @@ ALTER TABLE `discounted_item`
 -- AUTO_INCREMENT for table `dtrrevised`
 --
 ALTER TABLE `dtrrevised`
-  MODIFY `record_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `record_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `employee_details`
@@ -1399,7 +1512,7 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `inventory_logs`
 --
 ALTER TABLE `inventory_logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `item`
@@ -1411,7 +1524,7 @@ ALTER TABLE `item`
 -- AUTO_INCREMENT for table `item_mapping`
 --
 ALTER TABLE `item_mapping`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `map_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `medicinetype`
@@ -1424,6 +1537,18 @@ ALTER TABLE `medicinetype`
 --
 ALTER TABLE `medicine_list`
   MODIFY `medicine_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
+
+--
+-- AUTO_INCREMENT for table `meremove`
+--
+ALTER TABLE `meremove`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT for table `mesali`
+--
+ALTER TABLE `mesali`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `order`
@@ -1480,6 +1605,12 @@ ALTER TABLE `supplier`
   MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `transact`
+--
+ALTER TABLE `transact`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
 -- Constraints for dumped tables
 --
 
@@ -1488,6 +1619,13 @@ ALTER TABLE `supplier`
 --
 ALTER TABLE `cart`
   ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`);
+
+--
+-- Constraints for table `cart_sales`
+--
+ALTER TABLE `cart_sales`
+  ADD CONSTRAINT `cart_sales_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `inventory` (`inventory_id`),
+  ADD CONSTRAINT `cart_sales_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `inventory` (`inventory_id`);
 
 --
 -- Constraints for table `cart_table`
@@ -1523,16 +1661,12 @@ ALTER TABLE `employee_salary_revised`
   ADD CONSTRAINT `mur` FOREIGN KEY (`employee_id`) REFERENCES `employee_details` (`employee_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `info`
---
-ALTER TABLE `info`
-  ADD CONSTRAINT `info_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `item` (`id`);
-
---
 -- Constraints for table `item_mapping`
 --
 ALTER TABLE `item_mapping`
-  ADD CONSTRAINT `item_mapping_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `item` (`id`);
+  ADD CONSTRAINT `item_mapping_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `item` (`id`),
+  ADD CONSTRAINT `item_mapping_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `inventory` (`inventory_id`),
+  ADD CONSTRAINT `item_mapping_ibfk_3` FOREIGN KEY (`item_id`) REFERENCES `inventory` (`inventory_id`);
 
 --
 -- Constraints for table `medicine_list`
@@ -1541,6 +1675,23 @@ ALTER TABLE `medicine_list`
   ADD CONSTRAINT `medicine_list_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`supplier_id`),
   ADD CONSTRAINT `medicine_list_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`),
   ADD CONSTRAINT `medicine_list_ibfk_3` FOREIGN KEY (`type_id`) REFERENCES `medicinetype` (`type_id`);
+
+--
+-- Constraints for table `meremove`
+--
+ALTER TABLE `meremove`
+  ADD CONSTRAINT `meremove_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `inventory` (`inventory_id`),
+  ADD CONSTRAINT `meremove_ibfk_2` FOREIGN KEY (`cashier_id`) REFERENCES `employee_details` (`employee_id`),
+  ADD CONSTRAINT `meremove_ibfk_3` FOREIGN KEY (`item_id`) REFERENCES `inventory` (`inventory_id`),
+  ADD CONSTRAINT `meremove_ibfk_4` FOREIGN KEY (`cashier_id`) REFERENCES `employee_details` (`employee_id`);
+
+--
+-- Constraints for table `mesali`
+--
+ALTER TABLE `mesali`
+  ADD CONSTRAINT `mesali_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `inventory` (`inventory_id`),
+  ADD CONSTRAINT `mesali_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `inventory` (`inventory_id`),
+  ADD CONSTRAINT `mesali_ibfk_3` FOREIGN KEY (`transact_no`) REFERENCES `transact` (`transact_no`);
 
 --
 -- Constraints for table `order_table`
@@ -1568,6 +1719,12 @@ ALTER TABLE `shift`
 ALTER TABLE `shiftdetails`
   ADD CONSTRAINT `adasdas` FOREIGN KEY (`employee_id`) REFERENCES `employee_details` (`employee_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `asa` FOREIGN KEY (`shift_id`) REFERENCES `shift` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `transact`
+--
+ALTER TABLE `transact`
+  ADD CONSTRAINT `transact_ibfk_1` FOREIGN KEY (`cashier_id`) REFERENCES `employee_details` (`employee_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
