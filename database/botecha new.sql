@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 19, 2024 at 02:26 PM
+-- Generation Time: May 24, 2024 at 06:13 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -254,6 +254,12 @@ CREATE TABLE `dtrrevised` (
   `date` date NOT NULL,
   `time_in` time NOT NULL,
   `time_out` time DEFAULT NULL,
+  `break_out` time DEFAULT NULL,
+  `break_in` time DEFAULT NULL,
+  `broken_time_in` time DEFAULT NULL,
+  `broken_time_out` time DEFAULT NULL,
+  `broken_break_out` time DEFAULT NULL,
+  `broken_break_in` time DEFAULT NULL,
   `remarks` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -261,28 +267,34 @@ CREATE TABLE `dtrrevised` (
 -- Dumping data for table `dtrrevised`
 --
 
-INSERT INTO `dtrrevised` (`record_id`, `employee_id`, `date`, `time_in`, `time_out`, `remarks`) VALUES
-(1, 17, '2024-03-30', '08:18:22', '09:18:22', ''),
-(2, 17, '2024-03-31', '08:25:54', '09:25:54', ''),
-(3, 17, '2024-04-01', '08:26:55', '09:26:55', 'Late and Valid Time Out'),
-(6, 19, '2024-03-30', '09:51:15', '10:51:15', ''),
-(7, 19, '2024-03-31', '09:51:36', '10:51:36', ''),
-(8, 20, '2024-03-30', '09:52:16', '10:52:16', ''),
-(9, 20, '2024-03-31', '09:52:38', '10:52:38', ''),
-(10, 21, '2024-03-30', '09:53:06', '10:53:06', ''),
-(11, 21, '2024-03-31', '09:53:27', '10:53:27', ''),
-(30, 18, '2024-03-16', '08:00:00', '20:00:00', ''),
-(31, 18, '2024-03-17', '08:00:00', '20:00:00', ''),
-(32, 19, '2024-04-01', '07:00:00', '11:00:00', ''),
-(33, 19, '2024-04-10', '07:00:00', '09:00:00', ''),
-(34, 19, '2024-04-11', '08:00:00', '12:00:00', ''),
-(35, 19, '2024-04-12', '07:00:00', '09:00:00', ''),
-(36, 18, '2024-04-10', '07:00:00', '09:00:00', ''),
-(37, 18, '2024-04-12', '07:00:00', '09:00:00', ''),
-(38, 20, '2024-04-10', '07:00:00', '09:00:00', ''),
-(39, 21, '2024-04-10', '07:00:00', '09:00:00', ''),
-(44, 55, '2024-04-01', '05:18:20', '19:18:54', ''),
-(45, 20, '2024-05-17', '18:44:38', '18:44:50', '');
+INSERT INTO `dtrrevised` (`record_id`, `employee_id`, `date`, `time_in`, `time_out`, `break_out`, `break_in`, `broken_time_in`, `broken_time_out`, `broken_break_out`, `broken_break_in`, `remarks`) VALUES
+(1, 17, '2024-03-30', '08:18:22', '09:18:22', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', ''),
+(2, 17, '2024-03-31', '08:25:54', '09:25:54', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', ''),
+(3, 17, '2024-04-01', '08:26:55', '09:26:55', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', 'Late and Valid Time Out'),
+(6, 19, '2024-03-30', '09:51:15', '10:51:15', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', ''),
+(7, 19, '2024-03-31', '09:51:36', '10:51:36', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', ''),
+(8, 20, '2024-03-30', '09:52:16', '10:52:16', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', ''),
+(9, 20, '2024-03-31', '09:52:38', '10:52:38', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', ''),
+(10, 21, '2024-03-30', '09:53:06', '10:53:06', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', ''),
+(11, 21, '2024-03-31', '09:53:27', '10:53:27', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', ''),
+(30, 18, '2024-03-16', '08:00:00', '20:00:00', '08:00:00', '09:00:00', '08:00:00', '09:00:00', '08:00:00', '09:00:00', ''),
+(31, 18, '2024-03-17', '08:00:00', '20:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', ''),
+(32, 19, '2024-04-01', '07:00:00', '11:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', ''),
+(33, 19, '2024-04-10', '07:00:00', '09:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', ''),
+(34, 19, '2024-04-11', '08:00:00', '12:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', ''),
+(35, 19, '2024-04-12', '07:00:00', '09:00:00', '08:00:00', '08:30:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', ''),
+(36, 18, '2024-04-10', '07:00:00', '09:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', ''),
+(37, 18, '2024-04-12', '07:00:00', '09:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', ''),
+(38, 20, '2024-04-10', '07:00:00', '09:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', ''),
+(39, 21, '2024-04-10', '07:00:00', '09:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', ''),
+(47, 59, '2024-04-16', '18:34:33', '18:34:36', NULL, NULL, '00:00:00', '00:00:00', '00:00:00', '00:00:00', ''),
+(50, 61, '2024-04-17', '07:00:00', '12:00:00', '12:00:00', '15:00:00', '08:00:00', '09:00:00', '09:00:00', '10:00:00', ''),
+(51, 61, '2024-04-16', '07:00:00', '12:00:00', '08:30:00', '09:00:00', '08:00:00', '09:00:00', '00:00:00', '00:00:00', ''),
+(52, 21, '2024-04-16', '07:00:00', '09:00:00', '07:30:00', '08:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', ''),
+(59, 62, '2024-04-20', '00:31:29', NULL, NULL, NULL, '00:00:00', '00:00:00', '00:00:00', '00:00:00', ''),
+(62, 59, '2024-04-26', '07:50:03', '10:50:03', '08:50:03', '09:20:03', NULL, NULL, NULL, NULL, ''),
+(64, 61, '2024-05-03', '07:00:00', '11:00:00', '08:00:00', '09:00:00', NULL, NULL, NULL, NULL, ''),
+(65, 69, '2024-05-24', '17:16:30', '17:16:50', '17:16:41', '17:16:46', NULL, NULL, NULL, NULL, '');
 
 -- --------------------------------------------------------
 
@@ -293,26 +305,42 @@ INSERT INTO `dtrrevised` (`record_id`, `employee_id`, `date`, `time_in`, `time_o
 CREATE TABLE `employee_details` (
   `employee_id` int(10) NOT NULL,
   `employee_name` varchar(200) NOT NULL,
+  `employee_number` int(50) NOT NULL,
   `employee_position` varchar(250) NOT NULL,
   `employee_contact` varchar(200) NOT NULL,
   `employee_datestart` date DEFAULT NULL,
   `employee_username` varchar(255) NOT NULL,
-  `employee_password` varchar(255) NOT NULL
+  `employee_password` varchar(255) NOT NULL,
+  `employee_age` int(50) NOT NULL,
+  `employee_birthday` int(50) NOT NULL,
+  `employee_email` text NOT NULL,
+  `employee_address` text NOT NULL,
+  `employee_gender` varchar(50) NOT NULL,
+  `employee_height` int(50) NOT NULL,
+  `employee_weight` int(50) NOT NULL,
+  `employee_leave_credit` int(11) NOT NULL DEFAULT 20
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `employee_details`
 --
 
-INSERT INTO `employee_details` (`employee_id`, `employee_name`, `employee_position`, `employee_contact`, `employee_datestart`, `employee_username`, `employee_password`) VALUES
-(1, 'Mark Salazar', 'Cashier', '09124365780', '2024-05-18', 'marksalazar', 'mark12345'),
-(2, 'Justin Abrenica', 'Cashier', '09213465870', '2024-05-18', 'justin', 'justin12345'),
-(17, 'Marco Torres', 'HR Officer', '09556454874', '2024-03-16', 'Marco_1', 'Marco_1'),
-(18, 'Micosh Yutuc', 'Purchase Order Officer', '09154751547', '2024-03-16', 'Micosh_1', 'Micosh_1'),
-(19, 'Aeron Herrera', 'Finance Officer', '09123854784', '2024-03-16', 'Aeron_1', 'Aeron_1'),
-(20, 'Regina Velarde', 'Sales Officer - Cashier', '09548975891', '2024-03-16', 'Regina_1', 'regina_1'),
-(21, 'Zenji Yangco', 'Inventory Officer', '09651254985', '2024-03-16', 'Zenji_1', 'Zenji_1'),
-(55, 'Trisha Macapagal', 'HR Officer', '09458745618', '2024-04-13', 'Trisha_1', 'Trisha_1');
+INSERT INTO `employee_details` (`employee_id`, `employee_name`, `employee_number`, `employee_position`, `employee_contact`, `employee_datestart`, `employee_username`, `employee_password`, `employee_age`, `employee_birthday`, `employee_email`, `employee_address`, `employee_gender`, `employee_height`, `employee_weight`, `employee_leave_credit`) VALUES
+(2, 'Justin Abrenica', 0, 'Cashier', '09213465870', '2024-05-18', 'justin', 'justin12345', 0, 0, '', '', '', 0, 0, 20),
+(17, 'Marco Torres', 0, 'HR Officer', '09556454874', '2024-03-16', 'Marco_1', 'Marco_1', 0, 0, '0', '', '', 0, 0, 26),
+(18, 'Micosh Yutuc', 0, 'Purchase Order Officer', '09154751547', '2024-03-16', 'Micosh_1', 'Micosh_1', 0, 0, '0', '', '', 0, 0, 20),
+(19, 'Aeron Herrera', 0, 'Finance Officer', '09123854784', '2024-03-16', 'Aeron_1', 'Aeron_1', 0, 0, '0', '', '', 0, 0, 20),
+(20, 'Regina Velarde', 0, 'Sales Officer - Cashier', '09548975891', '2024-03-16', 'Regina_1', 'regina_1', 0, 0, '0', '', '', 0, 0, 20),
+(21, 'Zenji Yangco', 0, 'Inventory Officer', '09651254985', '2024-03-16', 'Zenji_1', 'Zenji_1', 0, 0, '0', '', '', 0, 0, 20),
+(59, 'William Yusi', 0, 'Purchase Order Officer and HR Officer', '09154751547', '2024-04-16', 'f3to3hUl', 'ck8DydOA', 21, 2002, 'williamyusi@gmail.com', 'Sindalan, San Fernando, Pampanga', 'Male', 165, 81, 20),
+(61, 'Alvin Villamucho', 143307, 'Finance Officer and HR Officer', '09154751541', '2024-04-17', 'aE88VvjD', '6tdjbAxP', 21, 2002, 'alvinjohn@gmail.com', 'Apalit, Pampanga', 'Male', 165, 80, 20),
+(62, 'Charles Villanueva', 518210, 'Finance Officer and HR Officer', '09548975891', '2024-04-17', 'GInCGlQj', 'EFeNfmKL', 21, 2002, 'charles@gmail.com', 'Angeles, Pampanga', 'Male', 170, 70, 20),
+(64, 'MaRco', 605177, 'Purchase Order Officer and Sales Officer - Cashier', '09154751547', '2024-04-19', 'HGP6SV5S', 'A5aIR6j8', 21, 2003, 'alvinjvillamucho@gmail.com', 'San Luis, Pampanga', 'Male', 2, 2, 20),
+(65, 'Lavin', 803649, 'Purchase Order Officer and Inventory Officer', '09154751547', '2024-04-22', 'i5Kw8xTz', 'B5exxHDz', 21, 2003, 'alvinjvillamucho@gmail.com', 'San Juan, Apalit, Pampanga', 'Male', 165, 70, 20),
+(66, 'Lauv Lavan', 145358, 'Purchase Order Officer and HR Officer', '09154751547', '2024-04-29', 'xt5DAOOW', 'vzXZhwBs', 21, 2003, 'lauv@gmail.com', 'Sindalan, San Fernando, Pampanga', 'Male', 165, 70, 20),
+(67, '999999999999999999999999999999999999999999999', 547022, 'Sales Officer - Cashier', '09277093021', '5000-05-24', 'hmFPLTrS', 'ail29ygP', 55, 1969, 'alvin@gmail.com.com.com.com', 'Del Rosario, City of San Fernando, Pampanga Putanginamo', 'Male', 169, 100, 20),
+(68, '999999999999999999999999999999999999999999999', 867504, 'Purchase Order Officer and Inventory Officer and Sales Officer - Cashier', '09277093021', '5000-05-24', 'kq2DwAlk', 'MANXxPJn', 24, 2000, 'alvin@gmail.com.com.com.com', 'Del Rosario, City of San Fernando, Pampanga Putanginamo', 'Male', 169, 100, 20),
+(69, '888888888888888888888888888888888888888888888888', 359672, 'Sales Officer - Cashier and Finance Officer and HR Officer', '09277093055', '2024-05-24', 'PnlAXdoH', 'AswGIhxm', 25, 1999, 'bolang@gmail.com', 'Del Rosario, City of San Fernando, Pampanga Putanginamo', 'Male', 150, 121, 22);
 
 -- --------------------------------------------------------
 
@@ -325,22 +353,32 @@ CREATE TABLE `employee_salary` (
   `employee_id` int(11) NOT NULL,
   `salary` int(50) NOT NULL,
   `insurance` int(50) DEFAULT 1000,
+  `sss` int(50) DEFAULT 250,
+  `pag_ibig` int(50) DEFAULT 350,
   `tax` int(50) DEFAULT 1000,
   `hours_worked` int(50) NOT NULL,
   `pay_per_hour` int(50) DEFAULT 10,
-  `date` date DEFAULT NULL
+  `date` date DEFAULT NULL,
+  `status` text NOT NULL DEFAULT 'Unpaid'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `employee_salary`
 --
 
-INSERT INTO `employee_salary` (`id`, `employee_id`, `salary`, `insurance`, `tax`, `hours_worked`, `pay_per_hour`, `date`) VALUES
-(4, 18, 0, 1500, 1500, 0, 25, '2024-04-09'),
-(5, 19, 0, 1000, 1000, 3, 2000, '2024-04-09'),
-(6, 17, 0, 1000, 1000, 0, 100, '2024-04-09'),
-(7, 20, 0, 1000, 1000, 0, 70, '2024-04-09'),
-(8, 21, 0, 1000, 1000, 0, 70, '2024-04-09');
+INSERT INTO `employee_salary` (`id`, `employee_id`, `salary`, `insurance`, `sss`, `pag_ibig`, `tax`, `hours_worked`, `pay_per_hour`, `date`, `status`) VALUES
+(4, 18, 0, 1500, 250, 350, 1500, 0, 200, '2024-04-09', 'Unpaid'),
+(5, 19, 0, 1000, 250, 350, 1000, 3, 2000, '2024-04-09', 'Unpaid'),
+(6, 17, 0, 1000, 250, 350, 1000, 0, 100, '2024-04-09', 'Unpaid'),
+(7, 20, 0, 1000, 250, 350, 1000, 0, 70, '2024-04-09', 'Unpaid'),
+(8, 21, 0, 1000, 250, 350, 1000, 0, 70, '2024-04-09', 'Unpaid'),
+(44, 61, 0, 1000, 250, 350, 1000, 0, 100, NULL, 'Unpaid'),
+(45, 62, 0, 1000, 250, 350, 1000, 0, 20, NULL, 'Unpaid'),
+(47, 64, 0, 1000, 250, 350, 1000, 0, 20, NULL, 'Unpaid'),
+(48, 65, 0, 1000, 250, 350, 1000, 0, 20, NULL, 'Unpaid'),
+(49, 59, 0, 1000, 250, 350, 1000, 0, 20, NULL, 'Unpaid'),
+(50, 66, 0, 1000, 250, 350, 1000, 0, 20, NULL, 'Unpaid'),
+(53, 69, 0, 1000, 250, 350, 1000, 0, 20, NULL, 'Unpaid');
 
 -- --------------------------------------------------------
 
@@ -351,29 +389,118 @@ INSERT INTO `employee_salary` (`id`, `employee_id`, `salary`, `insurance`, `tax`
 CREATE TABLE `employee_salary_revised` (
   `id` int(11) NOT NULL,
   `employee_id` int(11) NOT NULL,
-  `salary` int(50) NOT NULL,
   `insurance` int(50) DEFAULT 1000,
+  `sss` int(50) DEFAULT 250,
+  `pag_ibig` int(50) DEFAULT 350,
   `tax` int(50) DEFAULT 1000,
   `hours_worked` int(50) NOT NULL,
   `pay_per_hour` int(50) DEFAULT 10,
-  `date` date DEFAULT NULL
+  `date` date DEFAULT NULL,
+  `from_date` date NOT NULL,
+  `to_date` date NOT NULL,
+  `gross_salary` int(50) NOT NULL,
+  `total_deductions` int(50) NOT NULL,
+  `total_salary` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `employee_salary_revised`
 --
 
-INSERT INTO `employee_salary_revised` (`id`, `employee_id`, `salary`, `insurance`, `tax`, `hours_worked`, `pay_per_hour`, `date`) VALUES
-(23, 19, 0, 1000, 1000, 10, 2000, '2024-04-09'),
-(27, 19, 0, 1000, 1000, 2, 2000, '2024-04-09'),
-(29, 19, 0, 1000, 1000, 2, 2000, '2024-04-09'),
-(30, 18, 0, 1500, 1500, 24, 200, '2024-04-09'),
-(31, 18, 0, 1500, 1500, 2, 200, '2024-04-09'),
-(33, 18, 0, 1500, 1500, 2, 200, '2024-04-09'),
-(34, 20, 0, 1000, 1000, 2, 70, '2024-04-09'),
-(35, 21, 0, 1000, 1000, 2, 70, '2024-04-09'),
-(36, 21, 0, 1000, 1000, 2, 70, '2024-04-09'),
-(37, 17, 0, 1000, 1000, 3, 100, '2024-04-09');
+INSERT INTO `employee_salary_revised` (`id`, `employee_id`, `insurance`, `sss`, `pag_ibig`, `tax`, `hours_worked`, `pay_per_hour`, `date`, `from_date`, `to_date`, `gross_salary`, `total_deductions`, `total_salary`) VALUES
+(160, 17, 1000, 250, 350, 1000, 1, 100, NULL, '2024-04-01', '2024-05-02', 100, 2600, -2500),
+(161, 18, 1500, 250, 350, 1500, 4, 200, NULL, '2024-04-01', '2024-05-02', 800, 3600, -2800),
+(162, 19, 1000, 250, 350, 1000, 11, 2000, NULL, '2024-04-01', '2024-05-02', 22000, 2600, 19400),
+(163, 20, 1000, 250, 350, 1000, 2, 70, NULL, '2024-04-01', '2024-05-02', 140, 2600, -2460),
+(164, 21, 1000, 250, 350, 1000, 3, 70, NULL, '2024-04-01', '2024-05-02', 210, 2600, -2390),
+(165, 59, 1000, 250, 350, 1000, 2, 20, NULL, '2024-04-01', '2024-05-02', 40, 2600, -2560),
+(167, 62, 1000, 250, 350, 1000, 0, 20, NULL, '2024-04-01', '2024-05-02', 0, 2600, -2600),
+(168, 64, 1000, 250, 350, 1000, 0, 20, NULL, '2024-04-01', '2024-05-02', 0, 2600, -2600),
+(169, 65, 1000, 250, 350, 1000, 0, 20, NULL, '2024-04-01', '2024-05-02', 0, 2600, -2600),
+(175, 17, 1000, 250, 350, 1000, 1, 100, NULL, '2024-04-01', '2024-04-30', 100, 2600, -2500),
+(176, 18, 1500, 250, 350, 1500, 4, 200, NULL, '2024-04-01', '2024-04-30', 800, 3600, -2800),
+(177, 19, 1000, 250, 350, 1000, 11, 2000, NULL, '2024-04-01', '2024-04-30', 22000, 2600, 19400),
+(178, 20, 1000, 250, 350, 1000, 2, 70, NULL, '2024-04-01', '2024-04-30', 140, 2600, -2460),
+(179, 21, 1000, 250, 350, 1000, 3, 70, NULL, '2024-04-01', '2024-04-30', 210, 2600, -2390),
+(180, 59, 1000, 250, 350, 1000, 2, 20, NULL, '2024-04-01', '2024-04-30', 40, 2600, -2560),
+(182, 62, 1000, 250, 350, 1000, 0, 20, NULL, '2024-04-01', '2024-04-30', 0, 2600, -2600),
+(183, 64, 1000, 250, 350, 1000, 0, 20, NULL, '2024-04-01', '2024-04-30', 0, 2600, -2600),
+(184, 65, 1000, 250, 350, 1000, 0, 20, NULL, '2024-04-01', '2024-04-30', 0, 2600, -2600),
+(185, 66, 1000, 250, 350, 1000, 0, 20, NULL, '2024-04-01', '2024-04-30', 0, 2600, -2600),
+(186, 17, 1000, 250, 350, 1000, 1, 100, NULL, '2024-04-01', '2024-05-03', 100, 2600, -2500),
+(187, 18, 1500, 250, 350, 1500, 4, 200, NULL, '2024-04-01', '2024-05-03', 800, 3600, -2800),
+(188, 19, 1000, 250, 350, 1000, 11, 2000, NULL, '2024-04-01', '2024-05-03', 22000, 2600, 19400),
+(189, 20, 1000, 250, 350, 1000, 2, 70, NULL, '2024-04-01', '2024-05-03', 140, 2600, -2460),
+(190, 21, 1000, 250, 350, 1000, 3, 70, NULL, '2024-04-01', '2024-05-03', 210, 2600, -2390),
+(191, 59, 1000, 250, 350, 1000, 2, 20, NULL, '2024-04-01', '2024-05-03', 40, 2600, -2560),
+(193, 62, 1000, 250, 350, 1000, 0, 20, NULL, '2024-04-01', '2024-05-03', 0, 2600, -2600),
+(194, 64, 1000, 250, 350, 1000, 0, 20, NULL, '2024-04-01', '2024-05-03', 0, 2600, -2600),
+(195, 65, 1000, 250, 350, 1000, 0, 20, NULL, '2024-04-01', '2024-05-03', 0, 2600, -2600),
+(196, 66, 1000, 250, 350, 1000, 0, 20, NULL, '2024-04-01', '2024-05-03', 0, 2600, -2600),
+(198, 2, NULL, 250, 350, NULL, 0, NULL, NULL, '2024-04-01', '2024-04-30', 0, 0, 0),
+(199, 17, 1000, 250, 350, 1000, 1, 100, NULL, '2024-04-01', '2024-04-30', 100, 2600, -2500),
+(200, 18, 1500, 250, 350, 1500, 4, 200, NULL, '2024-04-01', '2024-04-30', 800, 3600, -2800),
+(201, 19, 1000, 250, 350, 1000, 11, 2000, NULL, '2024-04-01', '2024-04-30', 22000, 2600, 19400),
+(202, 20, 1000, 250, 350, 1000, 2, 70, NULL, '2024-04-01', '2024-04-30', 140, 2600, -2460),
+(203, 21, 1000, 250, 350, 1000, 3, 70, NULL, '2024-04-01', '2024-04-30', 210, 2600, -2390),
+(204, 59, 1000, 250, 350, 1000, 2, 20, NULL, '2024-04-01', '2024-04-30', 40, 2600, -2560),
+(205, 61, 1000, 250, 350, 1000, 7, 100, NULL, '2024-04-01', '2024-04-30', 700, 2600, -1900),
+(206, 62, 1000, 250, 350, 1000, 0, 20, NULL, '2024-04-01', '2024-04-30', 0, 2600, -2600),
+(207, 64, 1000, 250, 350, 1000, 0, 20, NULL, '2024-04-01', '2024-04-30', 0, 2600, -2600),
+(208, 65, 1000, 250, 350, 1000, 0, 20, NULL, '2024-04-01', '2024-04-30', 0, 2600, -2600),
+(209, 66, 1000, 250, 350, 1000, 0, 20, NULL, '2024-04-01', '2024-04-30', 0, 2600, -2600),
+(210, 67, NULL, 250, 350, NULL, 0, NULL, NULL, '2024-04-01', '2024-04-30', 0, 0, 0),
+(211, 68, NULL, 250, 350, NULL, 0, NULL, NULL, '2024-04-01', '2024-04-30', 0, 0, 0),
+(212, 69, 1000, 250, 350, 1000, 0, 20, NULL, '2024-04-01', '2024-04-30', 0, 2600, -2600),
+(213, 61, 1000, 250, 350, 1000, 3, 100, NULL, '2024-05-01', '2024-05-03', 300, 2600, -2300),
+(214, 2, NULL, 250, 350, NULL, 0, NULL, NULL, '2024-04-01', '2024-04-30', 0, 0, 0),
+(215, 17, 1000, 250, 350, 1000, 1, 100, NULL, '2024-04-01', '2024-04-30', 100, 2600, -2500),
+(216, 18, 1500, 250, 350, 1500, 4, 200, NULL, '2024-04-01', '2024-04-30', 800, 3600, -2800),
+(217, 19, 1000, 250, 350, 1000, 11, 2000, NULL, '2024-04-01', '2024-04-30', 22000, 2600, 19400),
+(218, 20, 1000, 250, 350, 1000, 2, 70, NULL, '2024-04-01', '2024-04-30', 140, 2600, -2460),
+(219, 21, 1000, 250, 350, 1000, 3, 70, NULL, '2024-04-01', '2024-04-30', 210, 2600, -2390),
+(220, 59, 1000, 250, 350, 1000, 2, 20, NULL, '2024-04-01', '2024-04-30', 40, 2600, -2560),
+(221, 61, 1000, 250, 350, 1000, 7, 100, NULL, '2024-04-01', '2024-04-30', 700, 2600, -1900),
+(222, 62, 1000, 250, 350, 1000, 0, 20, NULL, '2024-04-01', '2024-04-30', 0, 2600, -2600),
+(223, 64, 1000, 250, 350, 1000, 0, 20, NULL, '2024-04-01', '2024-04-30', 0, 2600, -2600),
+(224, 65, 1000, 250, 350, 1000, 0, 20, NULL, '2024-04-01', '2024-04-30', 0, 2600, -2600),
+(225, 66, 1000, 250, 350, 1000, 0, 20, NULL, '2024-04-01', '2024-04-30', 0, 2600, -2600),
+(226, 67, NULL, 250, 350, NULL, 0, NULL, NULL, '2024-04-01', '2024-04-30', 0, 0, 0),
+(227, 68, NULL, 250, 350, NULL, 0, NULL, NULL, '2024-04-01', '2024-04-30', 0, 0, 0),
+(228, 69, 1000, 250, 350, 1000, 0, 20, NULL, '2024-04-01', '2024-04-30', 0, 2600, -2600),
+(229, 2, NULL, 250, 350, NULL, 0, NULL, NULL, '2024-04-01', '2024-04-30', 0, 0, 0),
+(230, 17, 1000, 250, 350, 1000, 1, 100, NULL, '2024-04-01', '2024-04-30', 100, 2600, -2500),
+(231, 18, 1500, 250, 350, 1500, 4, 200, NULL, '2024-04-01', '2024-04-30', 800, 3600, -2800),
+(232, 19, 1000, 250, 350, 1000, 11, 2000, NULL, '2024-04-01', '2024-04-30', 22000, 2600, 19400),
+(233, 20, 1000, 250, 350, 1000, 2, 70, NULL, '2024-04-01', '2024-04-30', 140, 2600, -2460),
+(234, 21, 1000, 250, 350, 1000, 3, 70, NULL, '2024-04-01', '2024-04-30', 210, 2600, -2390),
+(235, 59, 1000, 250, 350, 1000, 2, 20, NULL, '2024-04-01', '2024-04-30', 40, 2600, -2560),
+(236, 61, 1000, 250, 350, 1000, 7, 100, NULL, '2024-04-01', '2024-04-30', 700, 2600, -1900),
+(237, 62, 1000, 250, 350, 1000, 0, 20, NULL, '2024-04-01', '2024-04-30', 0, 2600, -2600),
+(238, 64, 1000, 250, 350, 1000, 0, 20, NULL, '2024-04-01', '2024-04-30', 0, 2600, -2600),
+(239, 65, 1000, 250, 350, 1000, 0, 20, NULL, '2024-04-01', '2024-04-30', 0, 2600, -2600),
+(240, 66, 1000, 250, 350, 1000, 0, 20, NULL, '2024-04-01', '2024-04-30', 0, 2600, -2600),
+(241, 67, NULL, 250, 350, NULL, 0, NULL, NULL, '2024-04-01', '2024-04-30', 0, 0, 0),
+(242, 68, NULL, 250, 350, NULL, 0, NULL, NULL, '2024-04-01', '2024-04-30', 0, 0, 0),
+(243, 69, 1000, 250, 350, 1000, 0, 20, NULL, '2024-04-01', '2024-04-30', 0, 2600, -2600),
+(244, 2, NULL, 250, 350, NULL, 0, NULL, NULL, '2024-04-01', '2024-04-30', 0, 0, 0),
+(245, 17, 1000, 250, 350, 1000, 1, 100, NULL, '2024-04-01', '2024-04-30', 100, 2600, -2500),
+(246, 18, 1500, 250, 350, 1500, 4, 200, NULL, '2024-04-01', '2024-04-30', 800, 3600, -2800),
+(247, 19, 1000, 250, 350, 1000, 11, 2000, NULL, '2024-04-01', '2024-04-30', 22000, 2600, 19400),
+(248, 20, 1000, 250, 350, 1000, 2, 70, NULL, '2024-04-01', '2024-04-30', 140, 2600, -2460),
+(249, 21, 1000, 250, 350, 1000, 3, 70, NULL, '2024-04-01', '2024-04-30', 210, 2600, -2390),
+(250, 59, 1000, 250, 350, 1000, 2, 20, NULL, '2024-04-01', '2024-04-30', 40, 2600, -2560),
+(251, 61, 1000, 250, 350, 1000, 7, 100, NULL, '2024-04-01', '2024-04-30', 700, 2600, -1900),
+(252, 62, 1000, 250, 350, 1000, 0, 20, NULL, '2024-04-01', '2024-04-30', 0, 2600, -2600),
+(253, 64, 1000, 250, 350, 1000, 0, 20, NULL, '2024-04-01', '2024-04-30', 0, 2600, -2600),
+(254, 65, 1000, 250, 350, 1000, 0, 20, NULL, '2024-04-01', '2024-04-30', 0, 2600, -2600),
+(255, 66, 1000, 250, 350, 1000, 0, 20, NULL, '2024-04-01', '2024-04-30', 0, 2600, -2600),
+(256, 67, NULL, 250, 350, NULL, 0, NULL, NULL, '2024-04-01', '2024-04-30', 0, 0, 0),
+(257, 68, NULL, 250, 350, NULL, 0, NULL, NULL, '2024-04-01', '2024-04-30', 0, 0, 0),
+(258, 69, 1000, 250, 350, 1000, 0, 20, NULL, '2024-04-01', '2024-04-30', 0, 2600, -2600),
+(259, 61, 1000, 250, 350, 1000, 3, 100, NULL, '2024-04-30', '2024-05-03', 300, 2600, -2300),
+(260, 19, 1000, 250, 350, 1000, 6, 2000, NULL, '2024-03-30', '2024-04-02', 12000, 2600, 9400),
+(261, 19, 1000, 250, 350, 1000, 8, 2000, NULL, '2024-03-30', '2024-04-10', 16000, 2600, 13400);
 
 -- --------------------------------------------------------
 
@@ -382,19 +509,48 @@ INSERT INTO `employee_salary_revised` (`id`, `employee_id`, `salary`, `insurance
 --
 
 CREATE TABLE `finance_balance` (
-  `transactionID` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `trackingID` varchar(255) NOT NULL,
   `currentbal` int(11) NOT NULL,
-  `cost` int(11) DEFAULT NULL,
-  `companyname` int(11) DEFAULT NULL
+  `cost` int(11) NOT NULL,
+  `company` varchar(255) NOT NULL,
+  `date` datetime DEFAULT current_timestamp(),
+  `description` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `finance_balance`
 --
 
-INSERT INTO `finance_balance` (`transactionID`, `currentbal`, `cost`, `companyname`) VALUES
-(7794684, -45362, 18505, 0),
-(7183168, 0, 45362, 0);
+INSERT INTO `finance_balance` (`id`, `trackingID`, `currentbal`, `cost`, `company`, `date`, `description`) VALUES
+(1, '0', 0, 0, 'FINANCE', '2024-04-19 22:36:47', ''),
+(13, 'TN66504884de4cc', 70295, 70295, 'Point of Sales', '2024-05-24 15:57:56', 'Daily Sales'),
+(14, 'TN66504884e111b', 14395, -55900, 'Finance', '2024-05-24 15:57:56', 'Expenses'),
+(19, 'TN665067418f13e', 47495, -13400, 'Human Resources', '2024-05-24 18:09:05', 'Payroll Given');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `finance_expenses`
+--
+
+CREATE TABLE `finance_expenses` (
+  `id` int(11) NOT NULL,
+  `expenses` varchar(255) NOT NULL,
+  `date` datetime NOT NULL DEFAULT current_timestamp(),
+  `cost` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `finance_expenses`
+--
+
+INSERT INTO `finance_expenses` (`id`, `expenses`, `date`, `cost`) VALUES
+(1, 'Electricity', '2024-04-20 22:05:23', 500),
+(2, 'Water', '2024-04-20 22:05:38', 200),
+(3, 'Rent', '2024-04-20 22:05:57', 50000),
+(4, 'Supplies', '2024-05-09 16:22:42', 200),
+(5, 'Other Utilities', '2024-05-10 16:23:40', 5000);
 
 -- --------------------------------------------------------
 
@@ -404,28 +560,56 @@ INSERT INTO `finance_balance` (`transactionID`, `currentbal`, `cost`, `companyna
 
 CREATE TABLE `finance_inbox` (
   `id` int(11) NOT NULL,
-  `company` varchar(255) DEFAULT NULL,
+  `sender` varchar(255) DEFAULT NULL,
+  `receiver` varchar(255) DEFAULT NULL,
   `msginfo` text DEFAULT NULL,
-  `date` datetime NOT NULL DEFAULT current_timestamp(),
-  `status` varchar(55) DEFAULT 'Pending',
-  `cost` decimal(10,0) DEFAULT NULL,
-  `approvaldate` datetime DEFAULT NULL,
-  `approvalmsg` text DEFAULT '----------'
+  `date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `finance_inbox`
 --
 
-INSERT INTO `finance_inbox` (`id`, `company`, `msginfo`, `date`, `status`, `cost`, `approvaldate`, `approvalmsg`) VALUES
-(1179392, 'PO', 'Purchase Order Request', '2024-04-20 07:54:41', 'Denied', 45362, '2024-04-20 09:28:20', 'kkk'),
-(3897459, 'PO', 'Purchase Order Request', '2024-04-21 02:52:03', 'Pending', 22981, NULL, '----------'),
-(4954463, 'PO', 'Purchase Order Request', '2024-04-21 02:47:47', 'Pending', 45362, NULL, '----------'),
-(5616664, 'PO', 'Purchase Order Request', '2024-04-21 03:41:35', 'Pending', 70029, NULL, '----------'),
-(7118311, 'PO', 'Purchase Order Request', '2024-04-21 02:41:29', 'Pending', 119008, NULL, '----------'),
-(7183168, 'PO', 'Purchase Order Request', '2024-04-20 03:31:19', 'Approved', 45362, '2024-04-20 03:46:21', 'as'),
-(7794684, 'PO', 'Purchase Order Request', '2024-04-20 03:34:07', 'Approved', 18505, '2024-04-20 03:44:31', 'asd'),
-(9006138, 'PO', 'Purchase Order Request', '2024-04-21 03:41:35', 'Pending', 70029, NULL, '----------');
+INSERT INTO `finance_inbox` (`id`, `sender`, `receiver`, `msginfo`, `date`) VALUES
+(3147385, 'Finance', 'Purchase Order', 'hello bakit may 5000 na bawas dito', '2024-06-08 16:29:49'),
+(3147386, 'Finance', 'Human Resources', 'hiii yung payroll ni ganto', '2024-06-08 16:30:37'),
+(3147387, 'Finance', 'Sales', 'thank you sa pera', '2024-06-08 16:32:14'),
+(3147388, 'Finance', 'Purchase Order', 'hiaaa', '2024-06-08 16:32:27');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `finance_inbox_hr`
+--
+
+CREATE TABLE `finance_inbox_hr` (
+  `id` int(11) NOT NULL,
+  `sender` varchar(255) DEFAULT NULL,
+  `receiver` varchar(255) DEFAULT NULL,
+  `msginfo` text DEFAULT NULL,
+  `date` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `finance_inbox_hr`
+--
+
+INSERT INTO `finance_inbox_hr` (`id`, `sender`, `receiver`, `msginfo`, `date`) VALUES
+(1, 'Finance', 'Human Resources', 'hiii yung payroll ni ganto', '2024-06-08 16:30:37');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `finance_inbox_inv`
+--
+
+CREATE TABLE `finance_inbox_inv` (
+  `id` int(11) NOT NULL,
+  `sender` varchar(255) DEFAULT NULL,
+  `receiver` varchar(255) DEFAULT NULL,
+  `msginfo` text DEFAULT NULL,
+  `date` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -435,28 +619,90 @@ INSERT INTO `finance_inbox` (`id`, `company`, `msginfo`, `date`, `status`, `cost
 
 CREATE TABLE `finance_inbox_po` (
   `id` int(11) NOT NULL,
-  `company` varchar(255) DEFAULT NULL,
+  `sender` varchar(255) DEFAULT NULL,
+  `receiver` varchar(255) DEFAULT NULL,
   `msginfo` text DEFAULT NULL,
-  `date` datetime NOT NULL DEFAULT current_timestamp(),
-  `status` varchar(55) DEFAULT 'Pending',
-  `cost` decimal(10,0) DEFAULT NULL,
-  `approvaldate` datetime DEFAULT NULL,
-  `approvalmsg` text DEFAULT '----------'
+  `date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `finance_inbox_po`
 --
 
-INSERT INTO `finance_inbox_po` (`id`, `company`, `msginfo`, `date`, `status`, `cost`, `approvaldate`, `approvalmsg`) VALUES
-(1179392, 'PO', 'Purchase Order Request', '2024-04-20 07:54:41', 'Denied', 45362, '2024-04-20 09:28:20', 'kkk'),
-(3897459, 'PO', 'Purchase Order Request', '2024-04-21 02:52:03', 'Pending', 22981, NULL, '----------'),
-(4954463, 'PO', 'Purchase Order Request', '2024-04-21 02:47:47', 'Pending', 45362, NULL, '----------'),
-(5616664, 'PO', 'Purchase Order Request', '2024-04-21 03:41:35', 'Pending', 70029, NULL, '----------'),
-(7118311, 'PO', 'Purchase Order Request', '2024-04-21 02:41:29', 'Pending', 119008, NULL, '----------'),
-(7183168, 'PO', 'Purchase Order Request', '2024-04-20 03:31:19', 'Approved', 45362, '2024-04-20 03:46:21', 'as'),
-(7794684, 'PO', 'Purchase Order Request', '2024-04-20 03:34:07', 'Approved', 18505, '2024-04-20 03:44:31', 'asd'),
-(9006138, 'PO', 'Purchase Order Request', '2024-04-21 03:41:35', 'Pending', 70029, NULL, '----------');
+INSERT INTO `finance_inbox_po` (`id`, `sender`, `receiver`, `msginfo`, `date`) VALUES
+(1, 'Finance', 'Purchase Order', 'hello bakit may 5000 na bawas dito', '2024-06-08 16:29:49'),
+(2, 'Finance', 'Purchase Order', 'hiaaa', '2024-06-08 16:32:27');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `finance_inbox_sales`
+--
+
+CREATE TABLE `finance_inbox_sales` (
+  `id` int(11) NOT NULL,
+  `sender` varchar(255) DEFAULT NULL,
+  `receiver` varchar(255) DEFAULT NULL,
+  `msginfo` text DEFAULT NULL,
+  `date` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `finance_inbox_sales`
+--
+
+INSERT INTO `finance_inbox_sales` (`id`, `sender`, `receiver`, `msginfo`, `date`) VALUES
+(1, 'Finance', 'Sales', 'thank you sa pera', '2024-06-08 16:32:14');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `finance_receipt`
+--
+
+CREATE TABLE `finance_receipt` (
+  `id` int(11) NOT NULL,
+  `reportid` int(11) NOT NULL,
+  `date` datetime DEFAULT current_timestamp(),
+  `finance` int(11) NOT NULL DEFAULT 0,
+  `po` int(11) NOT NULL DEFAULT 0,
+  `hr` int(11) NOT NULL DEFAULT 0,
+  `inventory` int(11) NOT NULL DEFAULT 0,
+  `sales` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `finance_receipt`
+--
+
+INSERT INTO `finance_receipt` (`id`, `reportid`, `date`, `finance`, `po`, `hr`, `inventory`, `sales`) VALUES
+(1, 2427295, '2024-05-24 15:56:18', -111800, 0, -81000, 0, 90511);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `finance_receipt_backup`
+--
+
+CREATE TABLE `finance_receipt_backup` (
+  `id` int(11) NOT NULL,
+  `reportid` int(11) NOT NULL,
+  `date` date DEFAULT current_timestamp(),
+  `finance` int(11) NOT NULL DEFAULT 0,
+  `po` int(11) NOT NULL DEFAULT 0,
+  `hr` int(11) NOT NULL DEFAULT 0,
+  `inventory` int(11) NOT NULL DEFAULT 0,
+  `sales` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `finance_receipt_backup`
+--
+
+INSERT INTO `finance_receipt_backup` (`id`, `reportid`, `date`, `finance`, `po`, `hr`, `inventory`, `sales`) VALUES
+(1, 1, '2024-04-23', 0, 0, 0, 0, 0),
+(2, 4377144, '2024-06-08', -213500, -14628, -32877, 0, 469418),
+(3, 3234745, '2024-05-24', -55900, 0, 0, 0, 74543);
 
 -- --------------------------------------------------------
 
@@ -484,6 +730,51 @@ INSERT INTO `holiday` (`id`, `date`, `title`, `details`, `offset_date`) VALUES
 (6, '2024-11-30', 'Bonifacio Day', 'Bonifacio Day', '2024-11-30'),
 (7, '2024-12-25', 'Christmas Day', 'Christmas Day', '2024-12-25'),
 (9, '2024-12-30', 'Rizal Day', 'Rizal Day', '2024-12-30');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `info`
+--
+
+CREATE TABLE `info` (
+  `item_id` int(11) NOT NULL,
+  `stock_piece` int(11) DEFAULT NULL,
+  `price_piece` int(11) DEFAULT NULL,
+  `price_pack` int(11) DEFAULT NULL,
+  `piece_pack` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `info`
+--
+
+INSERT INTO `info` (`item_id`, `stock_piece`, `price_piece`, `price_pack`, `piece_pack`) VALUES
+(1, 3000, 10, 1000, 100),
+(2, 3000, 17, 1700, 100),
+(3, 3000, 17, 1700, 100),
+(4, 3000, 17, 1700, 100),
+(5, 3000, 17, 1700, 100),
+(6, 3000, 114, 1140, 10),
+(7, 3000, 150, 1500, 10),
+(8, 3000, 20, 200, 10),
+(9, 3000, 30, 300, 10),
+(10, 3000, 50, 500, 10),
+(11, 3000, 50, 5000, 100),
+(12, 3000, 105, 10500, 100),
+(13, 3000, 95, 950, 10),
+(14, 3000, 445, 4450, 10),
+(15, 3000, 400, 4000, 10),
+(16, 3000, 145, 1450, 10),
+(17, 3000, 479, 4790, 10),
+(18, 3000, 47, 470, 10),
+(19, 3000, 115, 1150, 10),
+(20, 3000, 135, 1350, 10),
+(21, 3000, 10, 1000, 100),
+(22, 3000, 9, 900, 100),
+(23, 3000, 21, 2100, 100),
+(24, 3000, 30, 3000, 100),
+(25, 3000, 8, 800, 100);
 
 -- --------------------------------------------------------
 
@@ -1003,6 +1294,34 @@ INSERT INTO `order_table` (`id`, `subtotal`, `tax`, `shipping_fee`, `grand_total
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `payroll_all_history`
+--
+
+CREATE TABLE `payroll_all_history` (
+  `payroll_id` int(10) NOT NULL,
+  `payroll_date_from` date NOT NULL,
+  `payroll_date_to` date NOT NULL,
+  `payroll_date_released` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `payroll_all_history`
+--
+
+INSERT INTO `payroll_all_history` (`payroll_id`, `payroll_date_from`, `payroll_date_to`, `payroll_date_released`) VALUES
+(16, '2024-04-09', '2024-04-24', '2024-05-02'),
+(17, '2024-04-01', '2024-05-01', '2024-05-02'),
+(44, '2024-04-01', '2024-05-02', '2024-05-02'),
+(45, '2024-04-01', '2024-04-30', '2024-05-02'),
+(46, '2024-04-01', '2024-05-03', '2024-05-02'),
+(47, '2024-04-01', '2024-04-30', '2024-05-24'),
+(48, '2024-04-01', '2024-04-30', '2024-05-24'),
+(49, '2024-04-01', '2024-04-30', '2024-05-24'),
+(50, '2024-04-01', '2024-04-30', '2024-05-24');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `purchase_table`
 --
 
@@ -1023,6 +1342,35 @@ INSERT INTO `purchase_table` (`id`, `brand`, `unit_qty`, `unitcost`, `total_cost
 (1, 'Biogesic', 600, 5.99, 599.00, '2024-04-24'),
 (2, 'Bioflu', 100, 5.99, 599.00, '2024-04-24'),
 (3, 'Neozep', 200, 12.75, 2550.00, '2024-04-26');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `request_leave`
+--
+
+CREATE TABLE `request_leave` (
+  `id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  `absence_type` text NOT NULL,
+  `reason` text NOT NULL,
+  `status` text NOT NULL DEFAULT 'Pending',
+  `file_name` varchar(255) NOT NULL,
+  `file_type` varchar(255) NOT NULL,
+  `file_path` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `request_leave`
+--
+
+INSERT INTO `request_leave` (`id`, `employee_id`, `start_date`, `end_date`, `absence_type`, `reason`, `status`, `file_name`, `file_type`, `file_path`) VALUES
+(54, 17, '2024-04-22', '2024-04-24', 'Maternity Leave', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Facilisi cras fermentum odio eu feugiat. Lacus laoreet non curabitur gravida arcu ac tortor dignissim. Potenti nullam ac tortor vitae purus faucibus ornare. Parturient montes nascetur ridiculus mus mauris vitae ultricies leo integer. Neque laoreet suspendisse interdum consectetur libero id faucibus nisl tincidunt. Aliquet risus feugiat in ante. Neque convallis a cras semper auctor neque vitae. Tempor nec feugiat nisl pretium. Sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus. Egestas tellus rutrum tellus pellentesque eu. Eget nunc lobortis mattis aliquam. Ut placerat orci nulla pellentesque dignissim. Vehicula ipsum a arcu cursus vitae. Suspendisse interdum consectetur libero id faucibus nisl tincidunt. Egestas erat imperdiet sed euismod nisi porta lorem. Et netus et malesuada fames ac turpis egestas.', 'Approved', 'Voters Certificate.jpg', 'image/jpeg', 'uploads/Voters Certificate.jpg'),
+(55, 17, '2024-04-23', '2024-04-27', 'Sick Leave', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Facilisi cras fermentum odio eu feugiat. Lacus laoreet non curabitur gravida arcu ac tortor dignissim. Potenti nullam ac tortor vitae purus faucibus ornare. Parturient montes nascetur ridiculus mus mauris vitae ultricies leo integer. Neque laoreet suspendisse interdum consectetur libero id faucibus nisl tincidunt. Aliquet risus feugiat in ante. Neque convallis a cras semper auctor neque vitae. Tempor nec feugiat nisl pretium. Sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus. Egestas tellus rutrum tellus pellentesque eu. Eget nunc lobortis mattis aliquam. Ut placerat orci nulla pellentesque dignissim. Vehicula ipsum a arcu cursus vitae. Suspendisse interdum consectetur libero id faucibus nisl tincidunt. Egestas erat imperdiet sed euismod nisi porta lorem. Et netus et malesuada fames ac turpis egestas.', 'Rejected', 'luci.jpg', 'image/jpeg', 'uploads/luci.jpg'),
+(78, 69, '2024-05-25', '2024-05-30', 'Sick Leave', 'ulul kaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'Approved', 'unity.png', 'image/png', 'includes/pictures/uploadsunity.png'),
+(79, 69, '2024-05-25', '2024-05-27', 'Vacation Leave', 'mag sswimming sa space hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhjhgfhfghfghfghfgh', 'Rejected', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -1111,7 +1459,12 @@ CREATE TABLE `shift` (
 
 INSERT INTO `shift` (`id`, `employee_id`, `effective_date`, `created_date`, `created_by`) VALUES
 (61, 18, '2024-04-05', '2024-04-05', 'Lavin'),
-(64, 55, '2024-04-13', '2024-04-13', 'Marco');
+(66, 59, '2024-04-16', '2024-04-16', 'Marco Torres'),
+(68, 62, '2024-04-19', '2024-04-19', 'Marco Torres'),
+(69, 64, '2024-04-22', '2024-04-22', 'Marco Torres'),
+(70, 64, '2024-04-22', '2024-04-22', 'Marco Torres'),
+(93, 61, '2024-05-02', '2024-05-02', 'Marco Torres'),
+(97, 69, '2024-05-24', '2024-05-24', '888888888888888888888888888888888888888888888888');
 
 -- --------------------------------------------------------
 
@@ -1124,17 +1477,35 @@ CREATE TABLE `shiftdetails` (
   `shift_id` int(11) NOT NULL,
   `employee_id` int(11) NOT NULL,
   `day` text NOT NULL,
-  `time_in` time NOT NULL,
-  `time_out` time NOT NULL
+  `time_in` time DEFAULT NULL,
+  `time_out` time DEFAULT NULL,
+  `break_out` time DEFAULT NULL,
+  `break_in` time DEFAULT NULL,
+  `broken_time_in` time DEFAULT NULL,
+  `broken_time_out` time DEFAULT NULL,
+  `broken_break_in` time DEFAULT NULL,
+  `broken_break_out` time DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `shiftdetails`
 --
 
-INSERT INTO `shiftdetails` (`id`, `shift_id`, `employee_id`, `day`, `time_in`, `time_out`) VALUES
-(65, 61, 18, 'Friday', '00:01:00', '05:00:00'),
-(68, 64, 55, 'Saturday', '09:00:00', '10:00:00');
+INSERT INTO `shiftdetails` (`id`, `shift_id`, `employee_id`, `day`, `time_in`, `time_out`, `break_out`, `break_in`, `broken_time_in`, `broken_time_out`, `broken_break_in`, `broken_break_out`) VALUES
+(65, 61, 18, 'Friday', '00:01:00', '05:00:00', '12:00:00', '13:00:00', NULL, NULL, NULL, NULL),
+(70, 66, 59, 'Monday', '07:00:00', '16:00:00', '12:00:00', '13:00:00', NULL, NULL, NULL, NULL),
+(73, 68, 62, 'Monday', '07:16:00', '19:16:00', '00:00:00', '00:00:00', NULL, NULL, NULL, NULL),
+(74, 68, 62, 'Tuesday', '00:00:00', '00:00:00', '00:00:00', '00:00:00', NULL, NULL, NULL, NULL),
+(75, 68, 62, 'Wednesday', '00:00:00', '00:00:00', '00:00:00', '00:00:00', NULL, NULL, NULL, NULL),
+(76, 68, 62, 'Thursday', '00:00:00', '00:00:00', '00:00:00', '00:00:00', NULL, NULL, NULL, NULL),
+(77, 68, 62, 'Friday', '19:15:00', '00:00:00', '00:00:00', '00:00:00', NULL, NULL, NULL, NULL),
+(78, 69, 64, 'Monday', '04:48:00', '00:00:00', '00:00:00', '00:00:00', NULL, NULL, NULL, NULL),
+(79, 70, 64, 'Monday', '05:02:00', '00:00:00', '00:00:00', '00:00:00', NULL, NULL, NULL, NULL),
+(105, 93, 61, 'Thursday', '22:10:00', '22:10:00', '22:10:00', '22:10:00', NULL, NULL, NULL, NULL),
+(106, 94, 69, 'Monday', '17:47:00', '22:53:00', '19:47:00', '20:47:00', NULL, NULL, NULL, NULL),
+(107, 95, 69, 'Monday', '18:48:00', '18:49:00', '16:52:00', '22:49:00', NULL, NULL, NULL, NULL),
+(108, 96, 69, 'Monday', '17:50:00', '21:49:00', '05:49:00', '17:49:00', NULL, NULL, NULL, NULL),
+(109, 97, 69, 'Friday', '17:15:00', '23:15:00', '22:15:00', '22:17:00', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1278,15 +1649,57 @@ ALTER TABLE `employee_salary_revised`
   ADD KEY `employee_id` (`employee_id`);
 
 --
+-- Indexes for table `finance_balance`
+--
+ALTER TABLE `finance_balance`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `finance_expenses`
+--
+ALTER TABLE `finance_expenses`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `finance_inbox`
 --
 ALTER TABLE `finance_inbox`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `finance_inbox_hr`
+--
+ALTER TABLE `finance_inbox_hr`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `finance_inbox_inv`
+--
+ALTER TABLE `finance_inbox_inv`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `finance_inbox_po`
 --
 ALTER TABLE `finance_inbox_po`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `finance_inbox_sales`
+--
+ALTER TABLE `finance_inbox_sales`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `finance_receipt`
+--
+ALTER TABLE `finance_receipt`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `finance_receipt_backup`
+--
+ALTER TABLE `finance_receipt_backup`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1365,10 +1778,23 @@ ALTER TABLE `order_table`
   ADD KEY `supplier_id` (`supplier_id`);
 
 --
+-- Indexes for table `payroll_all_history`
+--
+ALTER TABLE `payroll_all_history`
+  ADD PRIMARY KEY (`payroll_id`);
+
+--
 -- Indexes for table `purchase_table`
 --
 ALTER TABLE `purchase_table`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `request_leave`
+--
+ALTER TABLE `request_leave`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `connect` (`employee_id`);
 
 --
 -- Indexes for table `return_item`
@@ -1464,37 +1890,73 @@ ALTER TABLE `discounted_item`
 -- AUTO_INCREMENT for table `dtrrevised`
 --
 ALTER TABLE `dtrrevised`
-  MODIFY `record_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `record_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `employee_details`
 --
 ALTER TABLE `employee_details`
-  MODIFY `employee_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `employee_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT for table `employee_salary`
 --
 ALTER TABLE `employee_salary`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `employee_salary_revised`
 --
 ALTER TABLE `employee_salary_revised`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=262;
 
 --
--- AUTO_INCREMENT for table `finance_inbox`
+-- AUTO_INCREMENT for table `finance_balance`
 --
-ALTER TABLE `finance_inbox`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9006139;
+ALTER TABLE `finance_balance`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT for table `finance_expenses`
+--
+ALTER TABLE `finance_expenses`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `finance_inbox_hr`
+--
+ALTER TABLE `finance_inbox_hr`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `finance_inbox_inv`
+--
+ALTER TABLE `finance_inbox_inv`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `finance_inbox_po`
 --
 ALTER TABLE `finance_inbox_po`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9006139;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `finance_inbox_sales`
+--
+ALTER TABLE `finance_inbox_sales`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `finance_receipt`
+--
+ALTER TABLE `finance_receipt`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `finance_receipt_backup`
+--
+ALTER TABLE `finance_receipt_backup`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `holiday`
@@ -1563,10 +2025,22 @@ ALTER TABLE `order_table`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
+-- AUTO_INCREMENT for table `payroll_all_history`
+--
+ALTER TABLE `payroll_all_history`
+  MODIFY `payroll_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+
+--
 -- AUTO_INCREMENT for table `purchase_table`
 --
 ALTER TABLE `purchase_table`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `request_leave`
+--
+ALTER TABLE `request_leave`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT for table `return_item`
@@ -1590,13 +2064,13 @@ ALTER TABLE `return_table`
 -- AUTO_INCREMENT for table `shift`
 --
 ALTER TABLE `shift`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
 
 --
 -- AUTO_INCREMENT for table `shiftdetails`
 --
 ALTER TABLE `shiftdetails`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
 
 --
 -- AUTO_INCREMENT for table `supplier`
@@ -1638,9 +2112,9 @@ ALTER TABLE `cart_table`
 -- Constraints for table `daily_time_record`
 --
 ALTER TABLE `daily_time_record`
-  ADD CONSTRAINT `ada` FOREIGN KEY (`rec_emp_id`) REFERENCES `employee_details` (`employee_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `dada` FOREIGN KEY (`record_emp_name`) REFERENCES `employee_details` (`employee_name`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `sasa` FOREIGN KEY (`record_emp_position`) REFERENCES `employee_details` (`employee_position`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `ada` FOREIGN KEY (`rec_emp_id`) REFERENCES `hr`.`employee_details` (`employee_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `dada` FOREIGN KEY (`record_emp_name`) REFERENCES `hr`.`employee_details` (`employee_name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `sasa` FOREIGN KEY (`record_emp_position`) REFERENCES `hr`.`employee_details` (`employee_position`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `dtrrevised`
@@ -1700,6 +2174,12 @@ ALTER TABLE `order_table`
   ADD CONSTRAINT `order_table_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`supplier_id`);
 
 --
+-- Constraints for table `request_leave`
+--
+ALTER TABLE `request_leave`
+  ADD CONSTRAINT `connect` FOREIGN KEY (`employee_id`) REFERENCES `employee_details` (`employee_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `return_table`
 --
 ALTER TABLE `return_table`
@@ -1712,13 +2192,6 @@ ALTER TABLE `return_table`
 --
 ALTER TABLE `shift`
   ADD CONSTRAINT `dsadasd` FOREIGN KEY (`employee_id`) REFERENCES `employee_details` (`employee_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `shiftdetails`
---
-ALTER TABLE `shiftdetails`
-  ADD CONSTRAINT `adasdas` FOREIGN KEY (`employee_id`) REFERENCES `employee_details` (`employee_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `asa` FOREIGN KEY (`shift_id`) REFERENCES `shift` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `transact`
