@@ -1,14 +1,13 @@
 <?php
 // Include database connection file
 include 'includes/connection.php';
-
 date_default_timezone_set('Asia/Manila');
 
 // Initialize the $employee_id variable
 $employee_id = null;
 
 // Check if employee_id is provided in the URL
-if (isset($_GET['id'])) {
+if(isset($_GET['id'])) {
     $employee_id = $_GET['id'];
 }
 
@@ -133,3 +132,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["time_out"])) {
 
 // Close database connectionection
 $connection->close();
+?>

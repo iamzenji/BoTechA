@@ -1,42 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Holiday</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        body,
-        button,
-        input,
-        select,
-        textarea {
-            font-family: 'Space Grotesk', sans-serif;
-        }
-
+         body, button, input, select, textarea {
+        font-family: 'Space Grotesk', sans-serif;
+         }
         table {
             border-collapse: collapse;
             width: 100%;
         }
-
-        th,
-        td {
+        th, td {
             border: 1px solid black;
             padding: 8px;
             text-align: left;
         }
-
         th {
             background-color: #3943ac;
             color: white;
         }
     </style>
 </head>
-
 <body>
     <h2>Holidays</h2>
-
+    
     <table>
         <thead>
             <tr>
@@ -76,5 +66,4 @@
         </tbody>
     </table>
 </body>
-
 </html>

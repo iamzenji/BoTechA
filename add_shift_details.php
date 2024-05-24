@@ -2,7 +2,6 @@
 // Include database connection file
 include 'includes/connection.php';
 
-
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve shift ID from URL parameter
@@ -25,3 +24,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "<script>alert('Shift details added successfully.')</script>";
     echo "<script>window.location.href = 'shift_management.php';</script>";
 }
+?>
