@@ -20,30 +20,9 @@
 
         <ul class="sidebar-nav">
             <li class="sidebar-item">
-                <a href="employeees.php" class="sidebar-link">
+                <a href="employees.php" class="sidebar-link">
                     <i class="lni lni-users"></i>
                     <span>Employees
-                    </span>
-                </a>
-            </li>
-            <li class="sidebar-item">
-                <a href="dtr_newpage.php" class="sidebar-link">
-                    <i class="lni lni-users"></i>
-                    <span>DTR new page
-                    </span>
-                </a>
-            </li>
-            <li class="sidebar-item">
-                <a href="request_leave.php" class="sidebar-link">
-                    <i class="lni lni-users"></i>
-                    <span>Request Leave
-                    </span>
-                </a>
-            </li>
-            <li class="sidebar-item">
-                <a href="generate_payroll_all.php" class="sidebar-link">
-                    <i class="lni lni-users"></i>
-                    <span>Payroll all
                     </span>
                 </a>
             </li>

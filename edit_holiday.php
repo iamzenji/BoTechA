@@ -12,7 +12,7 @@ if (isset($_GET['id'])) {
 
     // Fetch the holiday details from the database based on the provided ID
     $sql = "SELECT * FROM holiday WHERE id = $holiday_id";
-    $result = $connection->query($sql);
+    $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
         // Fetch the holiday details
@@ -41,21 +41,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Update the holiday details in the database
     $sql_update = "UPDATE holiday SET date = '$new_date', title = '$new_title', details = '$new_details', offset_date = '$new_offset_date' WHERE id = $holiday_id";
 
-    if ($connection->query($sql_update) === TRUE) {
+    if ($conn->query($sql_update) === TRUE) {
         // Redirect to the holidays page after successful update
         header("Location: holidayManager.php");
         exit();
     } else {
-        echo "Error updating record: " . $connection->error;
+        echo "Error updating record: " . $conn->error;
     }
 }
 
-// Close database connectionection
-$connection->close();
+// Close database connection
+$conn->close();
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -65,14 +66,20 @@ $connection->close();
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         /* Add your CSS styles here */
-        body, button, input, select, textarea {
-        font-family: 'Space Grotesk', sans-serif;
-    }
+        body,
+        button,
+        input,
+        select,
+        textarea {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
         .container {
             margin-top: 50px;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="row">
@@ -106,4 +113,5 @@ $connection->close();
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>

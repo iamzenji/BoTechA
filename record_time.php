@@ -7,7 +7,7 @@ date_default_timezone_set('Asia/Manila');
 $employee_id = null;
 
 // Check if employee_id is provided in the URL
-if(isset($_GET['id'])) {
+if (isset($_GET['id'])) {
     $employee_id = $_GET['id'];
 }
 
@@ -79,7 +79,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["time_in"])) {
     }
 }
 
-// Check if the form is submitted and the "Time Out" button is clicked
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["time_out"])) {
     // Get the current date
     $currentDate = date("Y-m-d");
@@ -131,75 +130,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["time_out"])) {
     }
 }
 
-// Check if the form is submitted and the "Break Out" button is clicked
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["break_out"])) {
-    // Get the current date
-    $currentDate = date("Y-m-d");
-    // Get the current date and time
-    $currentDateTime = date("Y-m-d H:i:s");
-
-    // Check if the break out schedule aligns with the button press
-    $sql_shift_details = "SELECT break_out FROM shiftdetails WHERE employee_id = ? AND day = DAYNAME(?)";
-    $stmt_shift_details = $connection->prepare($sql_shift_details);
-    $stmt_shift_details->bind_param("is", $employee_id, $currentDate);
-    $stmt_shift_details->execute();
-    $result_shift_details = $stmt_shift_details->get_result();
-
-    if ($result_shift_details->num_rows > 0) {
-        $row_shift_details = $result_shift_details->fetch_assoc();
-        $scheduled_break_out = strtotime($row_shift_details['break_out']);
-        $current_time = strtotime($currentDateTime);
-
-        // If the current time is before the scheduled break out time, show a message
-        if ($current_time < $scheduled_break_out) {
-            echo "<script>alert('Not yet time for a break out!'); window.location.href = 'dtrRevisedManager.php?id=" . $employee_id . "';</script>";
-        } else {
-            // Insert the current date and time as break out time into the database
-            $sql = "UPDATE dtrrevised SET break_out = ? WHERE employee_id = ? AND date = ?";
-            $stmt = $connection->prepare($sql);
-            $stmt->bind_param("sss", $currentDateTime, $employee_id, $currentDate);
-
-            if ($stmt->execute()) {
-                // Redirect to dtrRevisedManager.php with the employee_id parameter
-                echo "<script>alert('Break Out Recorded Successfully!'); window.location.href = 'dtrRevisedManager.php?id=" . $employee_id . "';</script>";
-            } else {
-                echo "Error recording Break Out: " . $connection->error;
-            }
-
-            // Close prepared statement
-            $stmt->close();
-        }
-    } else {
-        echo "<script>alert('No break out schedule found for today!');</script>";
-    }
-
-    // Close prepared statement
-    $stmt_shift_details->close();
-}
-
-// Check if the form is submitted and the "Break In" button is clicked
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["break_in"])) {
-    // Get the current date
-    $currentDate = date("Y-m-d");
-    // Get the current date and time
-    $currentDateTime = date("Y-m-d H:i:s");
-
-    // Insert the current date and time as break in time into the database
-    $sql = "UPDATE dtrrevised SET break_in = ? WHERE employee_id = ? AND date = ?";
-    $stmt = $connection->prepare($sql);
-    $stmt->bind_param("sss", $currentDateTime, $employee_id, $currentDate);
-
-    if ($stmt->execute()) {
-        // Redirect to dtrRevisedManager.php with the employee_id parameter
-        echo "<script>alert('Break In Recorded Successfully!'); window.location.href = 'dtrRevisedManager.php?id=" . $employee_id . "';</script>";
-    } else {
-        echo "Error recording Break In: " . $connection->error;
-    }
-
-    // Close prepared statement
-    $stmt->close();
-}
-
-// Close database connectionection
+// Close database connection
 $connection->close();
-?>
