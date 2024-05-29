@@ -43,7 +43,7 @@ include 'includes/header.php';
         }
 
         .modal-content {
-            background-color: #fefefe;
+            background-color: #fff;
             margin: 5% auto;
             padding: 20px;
             border: 1px solid #888;
@@ -101,35 +101,37 @@ include 'includes/header.php';
                         <tbody >
                         <?php
 include 'includes/connection.php';
-
-$query = "SELECT cart_table.order_date, cart_table.tracking_number, cart_table.brand, cart_table.quantity,cart_table.delivery_date, cart_table.unit, order_table.grand_total, delivery_status.status_name
+$query = "SELECT cart_table.order_date, cart_table.tracking_number, cart_table.brand, cart_table.quantity, cart_table.unit, cart_table.delivery_date, order_table.grand_total, delivery_status.status_name
           FROM order_table
           INNER JOIN cart_table ON order_table.id = cart_table.order_id
-          LEFT JOIN delivery_status ON cart_table.delivery_status_id = delivery_status.id
-          WHERE delivery_status.status_name = 'Completed'
+          LEFT JOIN  delivery_status ON cart_table.delivery_status_id = delivery_status.id
+          WHERE  delivery_status.status_name = 'Completed'
           ORDER BY cart_table.order_time DESC";
+
 $result = mysqli_query($connection, $query);
+
+$displayedTrackingNumbers = array();
 
 if ($result) {
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
-            echo "<tr class='td text-center'>";
-            echo "<td  class='td text-center'><a href='#' class='view-order-link' data-tracking-number='" . $row['tracking_number'] . "'>View Order</a></td>";
-            echo "<td  class='td text-center'>" . $row['order_date'] . "</td>";
-            echo "<td  class='td text-center'>" . $row['tracking_number'] . "</td>";
-            echo "<td  class='td text-center'>" . $row['brand'] . " (" . $row['quantity'] . " " . $row['unit'] . ")" . "</td>";
-            echo "<td  class='td text-center'>". $row['delivery_date'] ."</td>";
-
-            echo "<td  class=' td text-center'>" . $row['grand_total'] . "</td>";
-            echo "</tr>";
+            if (!in_array($row['tracking_number'], $displayedTrackingNumbers)) {
+                echo "<tr class='td text-center'>";
+                echo "<td class='td text-center'><a href='#' class='view-order-link' data-tracking-number='" . $row['tracking_number'] . "'>View Order</a></td>";
+                echo "<td class='td text-center'>" . $row['order_date'] . "</td>";
+                echo "<td class='td text-center'>" . $row['tracking_number'] . "</td>";
+                echo "<td class='td text-center'>" . $row['brand'] . " (" . $row['quantity'] . " " . $row['unit'] . ")" . "</td>";
+                echo "<td class='td text-center'>" . $row['grand_total'] . "</td>";
+                echo "</tr>";
+                $displayedTrackingNumbers[] = $row['tracking_number'];
+            }
         }
     } else {
-        echo "<tr><td colspan='7'>No orders found</td></tr>";
+        echo "<tr><td colspan='6'>No orders found</td></tr>";
     }
 } else {
     echo "Error: " . mysqli_error($connection);
 }
-
 mysqli_close($connection);
 ?>
 
@@ -182,4 +184,3 @@ mysqli_close($connection);
 
 </body>
 </html>
-

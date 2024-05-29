@@ -1,8 +1,3 @@
-<?php
-// Include database connection file
-include 'includes/connection.php';
-include 'includes/header.php';
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,14 +9,6 @@ include 'includes/header.php';
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        body,
-        button,
-        input,
-        select,
-        textarea {
-            font-family: 'Space Grotesk', sans-serif;
-        }
-
         .custom-table th,
         .custom-table td {
             padding: 8px;
@@ -82,8 +69,7 @@ include 'includes/header.php';
 
         <!-- Button to trigger modal -->
         <div class="table-container">
-            <button type="button" class="btn btn-primary btn-add-holiday" data-toggle="modal"
-                data-target="#addHolidayModal">Add Holiday</button>
+            <button type="button" class="btn btn-primary btn-add-holiday" data-toggle="modal" data-target="#addHolidayModal">Add Holiday</button>
         </div>
 
         <!-- Table -->
@@ -100,7 +86,15 @@ include 'includes/header.php';
                 <tbody>
                     <!-- Display holidays fetched from the database -->
                     <?php
+                    // Include database connection file
+                    include 'includes/connection.php';
+                    session_start();
+                    // Check if the user's position is "HR Officer"
+                    if (!isset($_SESSION['employee_position']) || $_SESSION['employee_position'] !== 'HR Officer') {
 
+                        header("Location: unauthorized.php");
+                        exit();
+                    }
                     // Query to fetch holidays
                     $sql = "SELECT * FROM holiday";
                     $result = $connection->query($sql);
@@ -154,8 +148,7 @@ include 'includes/header.php';
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="addHolidayModal" tabindex="-1" role="dialog" aria-labelledby="addHolidayModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="addHolidayModal" tabindex="-1" role="dialog" aria-labelledby="addHolidayModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -202,7 +195,7 @@ include 'includes/header.php';
         const offsetDateInput = document.getElementById('offset_date');
 
         // Add event listener to date input field
-        dateInput.addEventListener('change', function () {
+        dateInput.addEventListener('change', function() {
             // Set the value of offset date input field to match the selected date
             offsetDateInput.value = this.value;
         });
