@@ -39,7 +39,7 @@
             </li>
             <!-- ADDED BY: FINANCE -->
             <li class="sidebar-item">
-                <a href="financeInboxPO.php" class="sidebar-link">
+                <a href="notificationPO.php" class="sidebar-link">
                     <i class="lni lni-envelope"></i>
                     <span>Inbox</span>
                 </a>
@@ -79,7 +79,7 @@
                             <a href="cancel.php" class="sidebar-link text-decoration-none">Cancel</a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="return.php" class="sidebar-link text-decoration-none">Return</a>
+                            <a href="return.php" class="sidebar-link text-decoration-none">Report</a>
                         </li>
                         
                         

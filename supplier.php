@@ -79,20 +79,22 @@ include 'includes/header.php';
 <p> <span id="supplierAddress"></span></p>
 <p> <span id="supplierEmail"></span></p>
 <p>
-<h4>PURCHASE ORDER TERMS AND CONDITIONS</h4>
-<h4>OVERVIEW</h4>
-This Purchase Order (Agreement) shall be deemed to have been accepted by the Supplier if any of the following occur: (i) shipment of the goods or any portion thereof, (ii) commencement of any work on site or (iii) performance of any services hereunder. Any discrepancies in fulfilling the terms of the Purchase Order must be resolved between the University and supplier prior to the delivery of any service or commodity to the Supplier. Terms and Conditions of existing contracts supersede any conflicting Purchase Order Terms and Conditions that follow. All other Terms and Conditions apply. <br>
-
-<br>1. ORDER CHANGES <br>
-No substitutions, alterations, additions, or deletions are authorized to this order without the written consent of the Procurement Services.
-<br>2. CORRESPONDENCE<br>
-Direct all correspondence with the purchase order referenced to:
-<p> <span id="supplierEmail"></span></p>, Procurement Services <span id="supplierAddress"></span>, Phone: <p> <span id="supplierContact"></span></p>.
-
-<br>3. INVOICES<br>
-Cash discounts are encouraged. Mail to: <span id="supplierEmail"></span>, Accounts Payable,  <span id="supplierAddress"></span>, Oh. 44555. Fax to: 330-941-1962 or Email to: a <span id="supplierEmail"></span>
-<br>4. PAYMENT TERMS<br>
- Purchase Orders are Net 30 days or as specified. The supplier will endeavor to use discounts for quick payment if applicable.
+<h4>TERMS AND CONDITIONS</h4>
+<h5>1. Refund Policy:</h5>
+No refunds will be provided for any purchases made. Once an order is confirmed and processed, it cannot be refunded.<br><br>
+<h5>2. Return Policy:</h5>
+Returns are accepted only in the case of damaged, defective or expired products upon delivery.
+To initiate a return, the store should report it in the supplier. Returned items must be in their original packaging and condition.
+We reserve the right to refuse returns if the products show signs of misuse, damage, or tampering.
+<br><br><h5>3.Order Completion:</h5>
+Once an order is confirmed and completed, no changes or cancellations can be made. Customers are responsible for reviewing their orders carefully before confirming orders completed.
+<br><br><h5>4.Shipping Cost:</h5>
+Shipping costs are calculated based on the company. 
+We may offer discounts on shipping for bulk orders. Any such discounts will be applied automatically at checkout.
+<br><br><h5>5. Mode of Payment:</h5>
+The only accepted mode of payment is cash on delivery (COD). Payment must be made in full at the time of delivery.
+Customers are advised to prepare the exact amount for their order to facilitate smooth transactions.
+<br><br>These terms and conditions constitute a legally binding agreement between the supplier and the customer. And you acknowledge that you have read, understood, and agreed to abide by these terms and conditions. We reserve the right to update or modify these terms at any time without prior notice.
 </p>
         <p></p>
       </div>
