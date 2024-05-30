@@ -6,6 +6,7 @@ session_start();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
+    $desiredPosition = $_POST['employeePosition']; // Retrieve the selected position from the form
 
     $sql = "SELECT * FROM employee_details WHERE employee_username = ? AND employee_password = ?";
     $stmt = $connection->prepare($sql);
@@ -15,27 +16,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($result->num_rows > 0) {
         $employee = $result->fetch_assoc();
-        //employee id
+        // employee id
         $_SESSION['employee_id'] = $employee['employee_id'];
         // employee position
-        $_SESSION['employee_position'] = $employee['employee_position'];
+        $positions = explode(' and ', $employee['employee_position']); // Split the positions based on "and"
 
-        switch ($employee['employee_position']) {
-            case 'HR Officer':
-                header("Location: employees.php");
-                exit();
-            case 'Purchase Order Officer':
-                header("Location: purchase_dashboard.php");
-                exit();
-            case 'Finance Officer':
-                header("Location: financeHome.php");
-                exit();
-            case 'Sales Officer - Cashier':
-                header("Location: pos_dashboard.php");
-                exit();
-            case 'Inventory Officer':
-                header("Location: inventory_dashboard.php");
-                exit();
+        // sales info
+        $_SESSION['user_name'] = $employee['employee_username'];
+        $_SESSION['name'] = $employee['employee_name'];
+        $_SESSION['id'] = $employee['employee_id'];
+
+        // Check if the desired position is one of the user's positions
+        if (in_array($desiredPosition, $positions)) {
+            $_SESSION['employee_position'] = $desiredPosition; // Store the desired position in the session
+
+            switch ($desiredPosition) {
+                case 'HR Officer':
+                    header("Location: employeees.php");
+                    exit();
+                case 'Purchase Order Officer':
+                    header("Location: purchase_dashboard.php");
+                    exit();
+                case 'Finance Officer':
+                    header("Location: financeHome.php");
+                    exit();
+                case 'Sales Officer - Cashier':
+                    header("Location: sales/dashboard.php");
+                    exit();
+                case 'Cashier':
+                    header("Location: sales/dashboard.php");
+                    exit();
+                case 'Inventory Officer':
+                    header("Location: inventory_dashboard.php");
+                    exit();
+            }
+        } else {
+            $error = "You are not authorized to access this system.";
         }
     } else {
         $error = "Invalid username or password.";
@@ -75,6 +91,18 @@ $connection->close();
                                 <label for="password" class="form-label">Password</label>
                                 <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                             </div>
+                            <div class="form-group">
+                                <label for="employeePosition">Position:</label>
+                                <select class="form-control" id="employeePosition" name="employeePosition" required>
+                                    <option value="" disabled selected>Select Position</option>
+                                    <option value="Purchase Order Officer">Purchase Order Officer</option>
+                                    <option value="Inventory Officer">Inventory Officer</option>
+                                    <option value="Sales Officer - Cashier">Sales Officer - Cashier</option>
+                                    <option value="Finance Officer">Finance Officer</option>
+                                    <option value="HR Officer">HR Officer</option>
+                                </select>
+                            </div>
+
                             <div class="mb-3 form-check">
                                 <input type="checkbox" class="form-check-input" id="remember">
                                 <label class="form-check-label" for="remember">Remember me</label>
@@ -86,6 +114,10 @@ $connection->close();
                                 <div class="text-danger"><?php echo $error; ?></div>
                             <?php } ?>
                         </form>
+                        <div class="dtr-link">
+                        <h2>For DTR, click the button below</h2>
+                        <a href="dtr_newpage.php" class="btn btn-secondary d-block mx-auto">DTR</a>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -97,5 +129,4 @@ $connection->close();
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="src/js/script.js"></script>
 </body>
-
 </html>

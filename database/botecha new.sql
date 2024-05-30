@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 30, 2024 at 12:39 PM
+-- Generation Time: May 30, 2024 at 05:52 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -40,35 +40,6 @@ CREATE TABLE `cart` (
   `order_id` int(11) NOT NULL,
   `tracking_number` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `cart`
---
-
-INSERT INTO `cart` (`id`, `category`, `brand`, `type`, `unit`, `price`, `quantity`, `unit_qty`, `total`, `order_id`, `tracking_number`) VALUES
-(1, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 10, 1500, 39966.00, 35, 'TN6622b7703b880'),
-(2, 'Paracetamol', 'Biogesic Tempra', 'Syrup', '500mg', 3996.60, 10, 2000, 39966.00, 35, 'TN6622b7703b880'),
-(10, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 1, 150, 3996.60, 46, 'TN6622c49c0baa2'),
-(11, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 1, 150, 3996.60, 47, 'TN6622c4a9cd1de'),
-(12, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 1, 150, 3996.60, 48, 'TN6622c51ee1b96'),
-(13, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 1, 150, 3996.60, 49, 'TN6622c52015140'),
-(14, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 1, 150, 3996.60, 50, 'TN6622c5b582317'),
-(15, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 10, 1500, 39966.00, 51, 'TN6622c6870179f'),
-(16, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 4, 600, 15986.40, 52, 'TN6622c72fd8318'),
-(17, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 10, 1500, 39966.00, 53, 'TN6622d013a4fc3'),
-(18, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 10, 1500, 39966.00, 53, 'TN6622d013a4fc3'),
-(19, 'Paracetamol', 'Biogesic Tempra', 'Syrup', '500mg', 3996.60, 15, 3000, 39966.00, 53, 'TN6622d013a4fc3'),
-(20, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 15, 2250, 59949.00, 54, 'TN6622d081d85f6'),
-(21, 'Paracetamol', 'Biogesic Tempra', 'Syrup', '500mg', 3996.60, 15, 3000, 59949.00, 54, 'TN6622d081d85f6'),
-(22, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 15, 2250, 59949.00, 55, 'TN6622d09b4fd78'),
-(23, 'Paracetamol', 'Biogesic Tempra', 'Syrup', '250mg', 4596.60, 2, 400, 9193.20, 56, 'TN6622d1ddec4c3'),
-(24, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 16, 2400, 63945.60, 57, 'TN6622d2f3f1117'),
-(25, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 10, 1500, 39966.00, 58, 'TN66230441dd49b'),
-(26, 'Paracetamol', 'Biogesic Tempra', 'Syrup', '250mg', 4596.60, 23, 4600, 105721.80, 59, 'TN66240c58f1774'),
-(27, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 10, 1500, 39966.00, 60, 'TN66240dd39b32e'),
-(28, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 5, 750, 19983.00, 61, 'TN66240ed3d7656'),
-(29, 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3996.60, 3, 450, 11989.80, 62, 'TN66241a6fb379d'),
-(30, 'Paracetamol', 'Neozep', 'Tablet', '500mg', 3996.60, 10, 2000, 11989.80, 62, 'TN66241a6fb379d');
 
 -- --------------------------------------------------------
 
@@ -114,42 +85,11 @@ CREATE TABLE `cart_table` (
 --
 
 INSERT INTO `cart_table` (`id`, `Category`, `brand`, `unit`, `wholesaleprice`, `unitcost`, `quantity`, `unit_qty`, `total`, `order_id`, `delivery_status_id`, `tracking_number`, `delivery_date`, `order_date`, `order_time`, `supplier_id`, `type_id`) VALUES
-(2, 'Hormonal Therapies', 'Premarin', '0.625mg', 1000.00, 100.00, 1, 10, 1000.00, 2, 1, 'PO-662f34a71b2ce', '2024-05-04', '2024-04-29', '07:48:23', 0, 0),
-(3, 'Dermatological Agents ', 'Cortaid', '15 grams', 2000.00, 200.00, 1, 10, 2000.00, 3, 1, 'PO-662f395f506d8', '2024-05-04', '2024-04-29', '08:08:31', 0, 0),
-(4, 'Paracetamol', 'Biogesic', '250mg', 1129.60, 41.00, 1, 150, 1129.60, 4, 1, 'PO-662f39972eafc', '2024-05-04', '2024-04-29', '08:09:27', 1, 0),
-(5, 'Paracetamol', 'Biogesic', '250mg', 1129.60, 41.00, 1, 150, 1129.60, 6, 1, 'PO-662f3a537a300', '2024-05-04', '2024-04-29', '08:12:35', 1, 0),
-(6, 'Paracetamol', 'Biogesic', '250mg', 1129.60, 41.00, 1, 150, 1129.60, 7, 1, 'PO-662f465ebf105', '2024-05-04', '2024-04-29', '09:03:58', 1, 0),
-(7, 'Paracetamol', 'Biogesic', '250mg', 1129.60, 41.00, 1, 150, 1129.60, 8, 1, 'PO-662f4b2b14f7b', '2024-05-04', '2024-04-29', '09:24:27', 1, 0),
-(8, 'Paracetamol', 'Biogesic', '250mg', 1129.60, 41.00, 1, 150, 1129.60, 9, 1, 'PO-662f4b5ba9fbb', '2024-05-04', '2024-04-29', '09:25:15', 1, 0),
-(9, 'Paracetamol', 'Biogesic', '250mg', 1129.60, 41.00, 1, 150, 1129.60, 10, 1, 'PO-662f4cce0400c', '2024-05-04', '2024-04-29', '09:31:26', 1, 0),
-(10, 'Hormonal Therapies', 'Premarin', '1.25mg', 1500.00, 150.00, 1, 10, 1500.00, 11, 1, 'PO-662f4dc2c89f3', '2024-05-04', '2024-04-29', '09:35:30', 2, 0),
-(11, 'Paracetamol', 'Biogesic', 'Capsule', 250.00, 1129.60, 1, 41, 250.00, 12, 1, 'PO-662f4f650c686', '2024-05-04', '2024-04-29', '09:42:29', 1, 0),
-(12, 'Paracetamol', 'Biogesic', '41', 250.00, 1129.60, 1, 150, 250.00, 13, 1, 'PO-662f5755b86a8', '2024-05-04', '2024-04-29', '10:16:21', 1, 0),
-(13, '', '', NULL, NULL, NULL, NULL, NULL, NULL, 14, 1, 'PO-662f58d172b71', '2024-05-04', '2024-04-29', '10:22:41', 1, 3),
-(14, '', '', '', 0.00, 0.00, 0, 0, 0.00, 15, 1, 'PO-662f593e8e23b', '2024-05-04', '2024-04-29', '10:24:30', 1, 3),
-(15, 'Paracetamol', 'Biogesic', '41', 250.00, 1129.60, 1, 150, 250.00, 16, 1, 'PO-662f59ab74274', '2024-05-04', '2024-04-29', '10:26:19', 1, 0),
-(16, 'Paracetamol', 'Biogesic', '41', 250.00, 1129.60, 1, 150, 250.00, 17, 1, 'PO-662f5be7901f8', '2024-05-04', '2024-04-29', '10:35:51', 1, 0),
-(17, 'Paracetamol', 'Biogesic', '41', 250.00, 1129.60, 1, 150, 250.00, 18, 1, 'PO-662f5c6f3224a', '2024-05-04', '2024-04-29', '10:38:07', 1, 0),
-(18, 'Paracetamol', 'Biogesic', '41', 250.00, 1129.60, 1, 150, 250.00, 19, 1, 'PO-662f5c86f3c4f', '2024-05-04', '2024-04-29', '10:38:30', 1, 0),
-(19, 'Paracetamol', 'Biogesic', '41', 250.00, 1129.60, 1, 150, 250.00, 21, 1, 'PO-662f5f3434a6e', '2024-05-04', '2024-04-29', '10:49:56', 1, 0),
-(20, 'Paracetamol', 'Biogesic', '41', 250.00, 1129.60, 1, 150, 250.00, 22, 1, 'PO-662f5f8adc6a9', '2024-05-04', '2024-04-29', '10:51:22', 1, 0),
-(21, 'Paracetamol', 'Biogesic', '41', 250.00, 1129.60, 1, 150, 250.00, 23, 1, 'PO-662f60723918d', '2024-05-04', '2024-04-29', '10:55:14', 1, 0),
-(22, 'Paracetamol', 'Biogesic', '41', 250.00, 1129.60, 1, 150, 250.00, 31, 1, 'PO-662f635d94f31', '2024-05-04', '2024-04-29', '11:07:41', 1, 0),
-(23, 'Paracetamol', 'Biogesic', '41', 250.00, 1129.60, 1, 150, 250.00, 32, 1, 'PO-662f636839c22', '2024-05-04', '2024-04-29', '11:07:52', 1, 0),
-(24, 'Paracetamol', 'Biogesic', '41', 250.00, 1129.60, 1, 150, 250.00, 37, 1, 'PO-662f650c26d52', '2024-05-04', '2024-04-29', '11:14:52', 0, 0),
-(25, 'Paracetamol', 'Biogesic', '41', 250.00, 1129.60, 1, 150, 250.00, 38, 1, 'PO-662f658d128db', '2024-05-04', '2024-04-29', '11:17:01', 1, 3),
-(26, 'Paracetamol', 'Biogesic', '41', 250.00, 1129.60, 1, 150, 250.00, 39, 1, 'PO-662f65e1a2cd7', '2024-05-04', '2024-04-29', '11:18:25', 1, 3),
-(27, 'Dermatological Agents ', 'Cortaid', '350.00', 30.00, 3500.00, 1, 10, 30.00, 40, 1, 'PO-662f661932567', '2024-05-04', '2024-04-29', '11:19:21', 2, 1),
-(28, 'Analgesic', 'Bioflu', '8', 500.00, 500.00, 1, 24, 500.00, 41, 4, 'PO-662f70e50dbf3', '2024-05-04', '2024-04-29', '12:05:25', 2, 2),
-(29, 'Analgesic', 'Bioflu', '8', 500.00, 500.00, 1, 24, 500.00, 42, 5, 'PO-662fdd652cdaa', '2024-05-04', '2024-04-29', '19:48:21', 2, 2),
-(30, 'Dermatological Agents ', 'Cortaid', '200.00', 15.00, 2000.00, 1, 10, 15.00, 43, 5, 'PO-662fde192f4cd', '2024-05-04', '2024-04-29', '19:51:21', 2, 1),
-(31, 'Analgesic', 'Bioflu', '8', 500.00, 500.00, 1, 24, 500.00, 44, 5, 'PO-662fe4e1261b3', '2024-05-04', '2024-04-29', '20:20:17', 2, 2),
-(32, 'Hormonal Therapies', 'Premarin', '150.00', 1.25, 1500.00, 1, 10, 1.25, 45, 5, 'PO-662fe8e2a5fd3', '2024-05-04', '2024-04-29', '20:37:22', 2, 2),
-(33, 'Analgesic', 'Bioflu', '8', 500.00, 500.00, 1, 24, 500.00, 46, 5, 'PO-662fe98cbde8a', '2024-05-04', '2024-04-29', '20:40:12', 2, 2),
-(34, 'Dermatological Agents ', 'Cortaid', '200.00', 15.00, 2000.00, 1, 10, 15.00, 47, 5, 'PO-662fea893b5e6', '2024-05-04', '2024-04-29', '20:44:25', 2, 1),
-(35, 'Laxatives ', 'Dulcolax', '30.00', 5.00, 300.00, 1, 10, 5.00, 48, 5, 'PO-662ffe57c83c7', '2024-05-04', '2024-04-29', '22:08:55', 2, 2),
-(36, 'Immunizations ', 'Fluzone', '500.00', 5.00, 5000.00, 1, 10, 5.00, 49, 5, 'PO-6630588f4ed65', '2024-05-05', '2024-04-30', '04:33:51', 2, 5),
-(37, 'Hormonal Therapies', 'Premarin', '150.00', 1.25, 1500.00, 1, 10, 1.25, 50, 1, 'PO-66305a847d6d1', '2024-05-05', '2024-04-30', '04:42:12', 2, 2);
+(1, 'Analgesic', 'Bioflu', '500mg', 500.00, 8.00, 1, 24, 500.00, 53, 5, 'PO-665893805005a', '2024-06-04', '2024-05-30', '16:56:00', 2, 2),
+(2, 'Analgesic', 'Bioflu', '500mg', 500.00, 8.00, 1, 24, 500.00, 54, 5, 'PO-665893f4aba5f', '2024-06-04', '2024-05-30', '16:57:56', 2, 2),
+(3, 'Analgesic', 'Bioflu', '500mg', 500.00, 8.00, 1, 24, 500.00, 55, 5, 'PO-66589f03ac3c0', '2024-06-04', '2024-05-30', '17:45:07', 2, 2),
+(4, 'Dermatological Agents ', 'Cortaid', '15 grams', 2000.00, 200.00, 1, 10, 2000.00, 56, 5, 'PO-66589fe202645', '2024-06-04', '2024-05-30', '17:48:50', 2, 1),
+(5, 'Analgesic', 'Bioflu', '500mg', 500.00, 8.00, 1, 24, 500.00, 57, 5, 'PO-6658a0156cc00', '2024-06-04', '2024-05-30', '17:49:41', 2, 2);
 
 -- --------------------------------------------------------
 
@@ -232,15 +172,6 @@ CREATE TABLE `discounted_item` (
   `unit_qty` int(11) NOT NULL,
   `total_cost` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `discounted_item`
---
-
-INSERT INTO `discounted_item` (`id`, `employee`, `supplier`, `category`, `brand`, `type`, `value`, `unit_qty`, `total_cost`) VALUES
-(1, '', 'UNILAB', 'Paracetamol', 'Neozep', 'Tablet', 5, 50, 0),
-(2, 'Zenji Yangco', 'UNILAB', 'Paracetamol', 'Neozep', 'Tablet', 4, 10, 40),
-(3, 'Zenji Yangco', 'UNILAB', 'Paracetamol', 'Biogesic', 'Tablet', 4, 10, 40);
 
 -- --------------------------------------------------------
 
@@ -807,14 +738,8 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`inventory_id`, `supplier`, `category`, `brand`, `type`, `unit`, `qty_stock`, `unit_cost`, `showroom_quantity_stock`, `price_pack`, `piece_pack`, `stock_pack`, `unit_inv_qty`, `storage_location`, `showroom_location`, `quantity_to_reorder`, `total_cost`) VALUES
-(1, 'UNILAB', 'Paracetamol', 'Biogesic', 'Tablet', '500mg', 3, 5, 98, 500, 100, 100, 300, 'IL2', 'SL2', 100, 1500),
-(2, 'UNILAB', 'Paracetamol', 'Neozep', 'Tablet', '500mg', 10, 6, 96, 600, 100, 100, 2000, 'IL1', 'SL1', 100, 12000),
-(3, 'Unilever', 'Dermatological Agents ', 'Cortaid', 'Tablet', '200.00', 1, 0, 0, 0, 0, 0, 10, '', '', 0, 0),
-(4, 'Unilever', 'Analgesic', 'Bioflu', 'Tablet', '8', 1, 0, 0, 0, 0, 0, 24, '', '', 0, 500),
-(5, 'Unilever', 'Hormonal Therapies', 'Premarin', 'Tablet', '150.00', 1, 0, 100, 0, 0, 0, 10, '', '', 0, 0),
-(6, 'Unilever', 'Laxatives ', 'Dulcolax', 'Tablet', '30.00', 1, 300, 0, 0, 0, 0, 10, '', '', 0, 5),
-(7, 'Unilever', 'Dermatological Agents ', 'Cortaid', 'Tablet', '200.00', 1, 2000, 82, 10000, 5, 82, 10, '', '', 0, 20000),
-(8, 'Unilever', 'Immunizations ', 'Fluzone', 'Tablet', '500.00', 1, 5000, 0, 0, 0, 0, 10, '', '', 0, 5);
+(2, 'Unilever', 'Dermatological Agents ', 'Cortaid', 'Tablet', '15 grams', 1, 200, 0, 0, 0, 0, 10, '', '', 0, 2000),
+(3, 'Unilever', 'Analgesic', 'Bioflu', 'Tablet', '500mg', 1, 8, 0, 0, 0, 0, 24, '', '', 0, 192);
 
 -- --------------------------------------------------------
 
@@ -838,58 +763,11 @@ CREATE TABLE `inventory_logs` (
 --
 
 INSERT INTO `inventory_logs` (`log_id`, `inventory_id`, `date`, `brand_name`, `employee`, `quantity`, `stock_after`, `reason`) VALUES
-(1, '0000-00-00', '2024-04-20 19:41:35', 'Biogesic', '', 3, 450, 'Purchase order'),
-(2, '0000-00-00', '2024-04-20 19:41:35', 'Neozep', '', 10, 2000, 'Purchase order'),
-(3, '0000-00-00', '2024-04-20 19:42:38', 'Neozep', '21', 50, 1950, 'Add Discount'),
-(4, '0000-00-00', '2024-04-20 19:43:05', 'Biogesic', '21', 20, 430, 'Return Item'),
-(5, '0000-00-00', '2024-04-20 19:43:34', 'Neozep', '', 0, 1950, 'Edit Item'),
-(6, '0000-00-00', '2024-04-20 19:43:53', 'Biogesic', '', 0, 430, 'Edit Item'),
-(7, '0000-00-00', '2024-04-21 09:27:39', 'Neozep', '0', 100, 1850, 'Return Item'),
-(8, '0000-00-00', '2024-04-21 10:03:56', 'Biogesic', '0', 100, 330, 'Return Item'),
-(9, '0000-00-00', '2024-04-21 10:04:36', 'Biogesic', '', 70, 400, 'Edit Item'),
-(10, '0000-00-00', '2024-04-21 10:11:09', 'Biogesic', '0', 100, 300, 'Return Item'),
-(11, '0000-00-00', '2024-04-21 10:12:43', 'Biogesic', '0', 100, 200, 'Return Item'),
-(12, '0000-00-00', '2024-04-21 10:35:33', 'Neozep', '21', 10, 1810, 'Add Discount'),
-(13, '0000-00-00', '2024-04-21 11:22:16', 'Biogesic', '', 200, 400, 'Edit Item'),
-(14, '0000-00-00', '2024-04-21 11:22:38', 'Biogesic', 'Zenji Yangco', 100, 300, 'Return Item'),
-(15, '0000-00-00', '2024-04-21 11:23:08', 'Biogesic', 'Zenji Yangco', 10, 290, 'Add Discount'),
-(16, '0000-00-00', '2024-04-21 15:23:23', 'Neozep', '', 190, 2000, 'Edit Item'),
-(17, '0000-00-00', '2024-04-21 15:24:52', 'Biogesic', '', 10, 300, 'Edit Item'),
-(18, '0000-00-00', '2024-04-29 19:59:47', '', '', 0, 0, 'Purchase order'),
-(19, '0000-00-00', '2024-04-29 20:00:18', '', '', 0, 0, 'Purchase order'),
-(20, '0000-00-00', '2024-04-29 20:00:35', 'Cortaid', '', 1, 10, 'Purchase order'),
-(21, '0000-00-00', '2024-04-29 20:04:33', '', '', 0, 0, 'Purchase order'),
-(22, '0000-00-00', '2024-04-29 20:04:35', '', '', 0, 0, 'Purchase order'),
-(23, '0000-00-00', '2024-04-29 20:04:46', '', '', 0, 0, 'Purchase order'),
-(24, '0000-00-00', '2024-04-29 20:05:00', 'Bioflu', '', 1, 24, 'Purchase order'),
-(25, '0000-00-00', '2024-04-29 20:05:26', '', '', 0, 0, 'Purchase order'),
-(26, '0000-00-00', '2024-04-29 20:05:30', '', '', 0, 0, 'Purchase order'),
-(27, '0000-00-00', '2024-04-29 20:05:47', 'Premarin', '', 1, 10, 'Purchase order'),
-(28, '0000-00-00', '2024-04-29 20:08:57', '', '', 0, 0, 'Purchase order'),
-(29, '0000-00-00', '2024-04-29 20:08:58', '', '', 0, 0, 'Purchase order'),
-(30, '0000-00-00', '2024-04-29 20:09:00', '', '', 0, 0, 'Purchase order'),
-(31, '0000-00-00', '2024-04-29 20:09:01', 'Dulcolax', '', 1, 10, 'Purchase order'),
-(32, '0000-00-00', '2024-04-30 02:34:34', '', '', 0, 0, 'Purchase order'),
-(33, '0000-00-00', '2024-04-30 02:34:37', '', '', 0, 0, 'Purchase order'),
-(34, '0000-00-00', '2024-04-30 02:34:40', 'Cortaid', '', 1, 10, 'Purchase order'),
-(35, '0000-00-00', '2024-04-30 02:35:44', '', '', 0, 0, 'Purchase order'),
-(36, '0000-00-00', '2024-04-30 02:35:49', '', '', 0, 0, 'Purchase order'),
-(37, '0000-00-00', '2024-04-30 02:35:52', '', '', 0, 0, 'Purchase order'),
-(38, '0000-00-00', '2024-04-30 02:42:54', '', '', 0, 0, 'Purchase order'),
-(39, '0000-00-00', '2024-04-30 02:42:57', '', '', 0, 0, 'Purchase order'),
-(40, '0000-00-00', '2024-04-30 02:43:02', '', '', 0, 0, 'Purchase order'),
-(41, '0000-00-00', '2024-04-30 02:43:07', 'Fluzone', '', 1, 10, 'Purchase order'),
-(42, '0000-00-00', '2024-05-17 15:02:17', 'Neozep', ' ', 0, 2000, 'Edit Item'),
-(43, '0000-00-00', '2024-05-17 15:02:20', 'Biogesic', ' ', 0, 300, 'Edit Item'),
-(44, '0000-00-00', '2024-05-17 15:02:22', 'Premarin', ' ', 0, 10, 'Edit Item'),
-(45, '0000-00-00', '2024-05-17 15:02:26', 'Cortaid', ' ', 0, 10, 'Edit Item'),
-(46, '0000-00-00', '2024-05-17 15:02:33', 'Cortaid', ' ', 0, 10, 'Edit Item'),
-(47, '0000-00-00', '2024-05-17 15:02:35', 'Cortaid', ' ', 0, 10, 'Edit Item'),
-(48, '0000-00-00', '2024-05-17 15:02:39', 'Cortaid', ' ', 0, 10, 'Edit Item'),
-(49, '0000-00-00', '2024-05-17 15:02:58', 'Premarin', ' ', 0, 10, 'Edit Item'),
-(50, '0000-00-00', '2024-05-17 15:03:15', 'Cortaid', ' ', 0, 10, 'Edit Item'),
-(51, '0000-00-00', '2024-05-30 10:16:36', 'Neozep', 'Zenji Yangco', 0, 0, 'Request order'),
-(52, '0000-00-00', '2024-05-30 10:17:36', 'Biogesic', 'Zenji Yangco', 0, 0, 'Request order');
+(1, '0000-00-00', '2024-05-30 14:56:08', 'Bioflu', 'Micosh Yutuc', 1, 24, 'Purchase order'),
+(2, '0000-00-00', '2024-05-30 14:58:00', 'Bioflu', 'Micosh Yutuc', 1, 24, 'Purchase order'),
+(3, '0000-00-00', '2024-05-30 15:45:15', 'Bioflu', 'Micosh Yutuc', 1, 24, 'Purchase order'),
+(4, '0000-00-00', '2024-05-30 15:48:57', 'Cortaid', 'Micosh Yutuc', 1, 10, 'Purchase order'),
+(5, '0000-00-00', '2024-05-30 15:49:44', 'Bioflu', 'Micosh Yutuc', 1, 24, 'Purchase order');
 
 -- --------------------------------------------------------
 
@@ -1291,7 +1169,14 @@ INSERT INTO `order_table` (`id`, `subtotal`, `tax`, `shipping_fee`, `grand_total
 (47, 15.00, 1.80, 600.00, 615.00, 'Cash on Delivery', 2),
 (48, 5.00, 0.60, 600.00, 605.00, 'Cash on Delivery', 2),
 (49, 5.00, 0.60, 600.00, 605.00, 'Cash on Delivery', 2),
-(50, 1.25, 0.15, 600.00, 601.25, 'Cash on Delivery', 2);
+(50, 1.25, 0.15, 600.00, 601.25, 'Cash on Delivery', 2),
+(51, 500.00, 60.00, 600.00, 1100.00, 'Cash on Delivery', 2),
+(52, 500.00, 60.00, 600.00, 1100.00, 'Cash on Delivery', 2),
+(53, 500.00, 60.00, 600.00, 1100.00, 'Cash on Delivery', 2),
+(54, 500.00, 60.00, 600.00, 1100.00, 'Cash on Delivery', 2),
+(55, 500.00, 60.00, 600.00, 1100.00, 'Cash on Delivery', 2),
+(56, 2000.00, 240.00, 600.00, 2600.00, 'Cash on Delivery', 2),
+(57, 500.00, 60.00, 600.00, 1100.00, 'Cash on Delivery', 2);
 
 -- --------------------------------------------------------
 
@@ -1387,17 +1272,16 @@ CREATE TABLE `request_order` (
   `category` varchar(255) NOT NULL,
   `brand` varchar(255) NOT NULL,
   `type` varchar(255) NOT NULL,
-  `unit` varchar(255) NOT NULL,
-  `item-label` varchar(255) NOT NULL
+  `unit` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `request_order`
 --
 
-INSERT INTO `request_order` (`id`, `employee`, `supplier`, `category`, `brand`, `type`, `unit`, `item-label`) VALUES
-(1, '', '', 'Paracetamol', 'Neozep', 'Tablet', '500mg', ''),
-(2, '', '', 'Paracetamol', 'Biogesic', 'Tablet', '500mg', '');
+INSERT INTO `request_order` (`id`, `employee`, `supplier`, `category`, `brand`, `type`, `unit`) VALUES
+(1, '', '', 'Paracetamol', 'Neozep', 'Tablet', '500mg'),
+(2, '', '', 'Paracetamol', 'Biogesic', 'Tablet', '500mg');
 
 -- --------------------------------------------------------
 
@@ -1415,19 +1299,6 @@ CREATE TABLE `return_item` (
   `unit` varchar(255) NOT NULL,
   `unit_qty` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `return_item`
---
-
-INSERT INTO `return_item` (`id`, `employee`, `supplier`, `category`, `brand`, `type`, `unit`, `unit_qty`) VALUES
-(1, '', 'UNILAB', 'Paracetamol', 'Biogesic', 'Tablet', '0', 20),
-(2, 'Zenji Yangco', 'UNILAB', 'Paracetamol', 'Neozep', 'Tablet', '0', 100),
-(3, 'Zenji Yangco', 'UNILAB', 'Paracetamol', 'Neozep', 'Tablet', '0', 10),
-(4, 'Zenji Yangco', 'UNILAB', 'Paracetamol', 'Biogesic', 'Tablet', '0', 100),
-(5, 'Zenji Yangco', 'UNILAB', 'Paracetamol', 'Biogesic', 'Tablet', '0', 100),
-(6, 'Zenji Yangco', 'UNILAB', 'Paracetamol', 'Biogesic', 'Tablet', '0', 100),
-(7, 'Zenji Yangco', 'UNILAB', 'Paracetamol', 'Biogesic', 'Tablet', '0', 100);
 
 -- --------------------------------------------------------
 
@@ -1888,7 +1759,7 @@ ALTER TABLE `transact`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `cart_sales`
@@ -1900,7 +1771,7 @@ ALTER TABLE `cart_sales`
 -- AUTO_INCREMENT for table `cart_table`
 --
 ALTER TABLE `cart_table`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -1918,7 +1789,7 @@ ALTER TABLE `delivery_status`
 -- AUTO_INCREMENT for table `discounted_item`
 --
 ALTER TABLE `discounted_item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `dtrrevised`
@@ -2002,13 +1873,13 @@ ALTER TABLE `holiday`
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `inventory_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `inventory_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `inventory_logs`
 --
 ALTER TABLE `inventory_logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `item`
@@ -2056,7 +1927,7 @@ ALTER TABLE `order`
 -- AUTO_INCREMENT for table `order_table`
 --
 ALTER TABLE `order_table`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `payroll_all_history`
@@ -2086,7 +1957,7 @@ ALTER TABLE `request_order`
 -- AUTO_INCREMENT for table `return_item`
 --
 ALTER TABLE `return_item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `return_status`
