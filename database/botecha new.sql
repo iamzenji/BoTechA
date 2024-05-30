@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 30, 2024 at 05:22 PM
+-- Generation Time: May 30, 2024 at 05:52 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -86,7 +86,10 @@ CREATE TABLE `cart_table` (
 
 INSERT INTO `cart_table` (`id`, `Category`, `brand`, `unit`, `wholesaleprice`, `unitcost`, `quantity`, `unit_qty`, `total`, `order_id`, `delivery_status_id`, `tracking_number`, `delivery_date`, `order_date`, `order_time`, `supplier_id`, `type_id`) VALUES
 (1, 'Analgesic', 'Bioflu', '500mg', 500.00, 8.00, 1, 24, 500.00, 53, 5, 'PO-665893805005a', '2024-06-04', '2024-05-30', '16:56:00', 2, 2),
-(2, 'Analgesic', 'Bioflu', '500mg', 500.00, 8.00, 1, 24, 500.00, 54, 5, 'PO-665893f4aba5f', '2024-06-04', '2024-05-30', '16:57:56', 2, 2);
+(2, 'Analgesic', 'Bioflu', '500mg', 500.00, 8.00, 1, 24, 500.00, 54, 5, 'PO-665893f4aba5f', '2024-06-04', '2024-05-30', '16:57:56', 2, 2),
+(3, 'Analgesic', 'Bioflu', '500mg', 500.00, 8.00, 1, 24, 500.00, 55, 5, 'PO-66589f03ac3c0', '2024-06-04', '2024-05-30', '17:45:07', 2, 2),
+(4, 'Dermatological Agents ', 'Cortaid', '15 grams', 2000.00, 200.00, 1, 10, 2000.00, 56, 5, 'PO-66589fe202645', '2024-06-04', '2024-05-30', '17:48:50', 2, 1),
+(5, 'Analgesic', 'Bioflu', '500mg', 500.00, 8.00, 1, 24, 500.00, 57, 5, 'PO-6658a0156cc00', '2024-06-04', '2024-05-30', '17:49:41', 2, 2);
 
 -- --------------------------------------------------------
 
@@ -735,7 +738,8 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`inventory_id`, `supplier`, `category`, `brand`, `type`, `unit`, `qty_stock`, `unit_cost`, `showroom_quantity_stock`, `price_pack`, `piece_pack`, `stock_pack`, `unit_inv_qty`, `storage_location`, `showroom_location`, `quantity_to_reorder`, `total_cost`) VALUES
-(1, 'Unilever', 'Analgesic', 'Bioflu', 'Tablet', '500mg', 2, 8, 0, 0, 0, 0, 48, '', '', 0, 1000);
+(2, 'Unilever', 'Dermatological Agents ', 'Cortaid', 'Tablet', '15 grams', 1, 200, 0, 0, 0, 0, 10, '', '', 0, 2000),
+(3, 'Unilever', 'Analgesic', 'Bioflu', 'Tablet', '500mg', 1, 8, 0, 0, 0, 0, 24, '', '', 0, 192);
 
 -- --------------------------------------------------------
 
@@ -760,7 +764,10 @@ CREATE TABLE `inventory_logs` (
 
 INSERT INTO `inventory_logs` (`log_id`, `inventory_id`, `date`, `brand_name`, `employee`, `quantity`, `stock_after`, `reason`) VALUES
 (1, '0000-00-00', '2024-05-30 14:56:08', 'Bioflu', 'Micosh Yutuc', 1, 24, 'Purchase order'),
-(2, '0000-00-00', '2024-05-30 14:58:00', 'Bioflu', 'Micosh Yutuc', 1, 24, 'Purchase order');
+(2, '0000-00-00', '2024-05-30 14:58:00', 'Bioflu', 'Micosh Yutuc', 1, 24, 'Purchase order'),
+(3, '0000-00-00', '2024-05-30 15:45:15', 'Bioflu', 'Micosh Yutuc', 1, 24, 'Purchase order'),
+(4, '0000-00-00', '2024-05-30 15:48:57', 'Cortaid', 'Micosh Yutuc', 1, 10, 'Purchase order'),
+(5, '0000-00-00', '2024-05-30 15:49:44', 'Bioflu', 'Micosh Yutuc', 1, 24, 'Purchase order');
 
 -- --------------------------------------------------------
 
@@ -1166,7 +1173,10 @@ INSERT INTO `order_table` (`id`, `subtotal`, `tax`, `shipping_fee`, `grand_total
 (51, 500.00, 60.00, 600.00, 1100.00, 'Cash on Delivery', 2),
 (52, 500.00, 60.00, 600.00, 1100.00, 'Cash on Delivery', 2),
 (53, 500.00, 60.00, 600.00, 1100.00, 'Cash on Delivery', 2),
-(54, 500.00, 60.00, 600.00, 1100.00, 'Cash on Delivery', 2);
+(54, 500.00, 60.00, 600.00, 1100.00, 'Cash on Delivery', 2),
+(55, 500.00, 60.00, 600.00, 1100.00, 'Cash on Delivery', 2),
+(56, 2000.00, 240.00, 600.00, 2600.00, 'Cash on Delivery', 2),
+(57, 500.00, 60.00, 600.00, 1100.00, 'Cash on Delivery', 2);
 
 -- --------------------------------------------------------
 
@@ -1262,17 +1272,16 @@ CREATE TABLE `request_order` (
   `category` varchar(255) NOT NULL,
   `brand` varchar(255) NOT NULL,
   `type` varchar(255) NOT NULL,
-  `unit` varchar(255) NOT NULL,
-  `item-label` varchar(255) NOT NULL
+  `unit` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `request_order`
 --
 
-INSERT INTO `request_order` (`id`, `employee`, `supplier`, `category`, `brand`, `type`, `unit`, `item-label`) VALUES
-(1, '', '', 'Paracetamol', 'Neozep', 'Tablet', '500mg', ''),
-(2, '', '', 'Paracetamol', 'Biogesic', 'Tablet', '500mg', '');
+INSERT INTO `request_order` (`id`, `employee`, `supplier`, `category`, `brand`, `type`, `unit`) VALUES
+(1, '', '', 'Paracetamol', 'Neozep', 'Tablet', '500mg'),
+(2, '', '', 'Paracetamol', 'Biogesic', 'Tablet', '500mg');
 
 -- --------------------------------------------------------
 
@@ -1762,7 +1771,7 @@ ALTER TABLE `cart_sales`
 -- AUTO_INCREMENT for table `cart_table`
 --
 ALTER TABLE `cart_table`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -1864,13 +1873,13 @@ ALTER TABLE `holiday`
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `inventory_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `inventory_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `inventory_logs`
 --
 ALTER TABLE `inventory_logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `item`
@@ -1918,7 +1927,7 @@ ALTER TABLE `order`
 -- AUTO_INCREMENT for table `order_table`
 --
 ALTER TABLE `order_table`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `payroll_all_history`
