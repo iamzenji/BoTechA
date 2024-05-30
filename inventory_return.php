@@ -6,23 +6,11 @@ if (strlen($_SESSION['employee_id']) === 0) {
     header('location:login.php');
     session_destroy();
 } else {
-
-
     $query = "SELECT DISTINCT supplier FROM inventory";
     $result = mysqli_query($connection, $query);
-    $supplier = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $suppliers = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-    $query = "SELECT DISTINCT category FROM inventory";
-    $result = mysqli_query($connection, $query);
-    $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-    $query = "SELECT DISTINCT brand FROM inventory";
-    $result = mysqli_query($connection, $query);
-    $brands = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-    $query = "SELECT DISTINCT type FROM inventory";
-    $result = mysqli_query($connection, $query);
-    $types = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 ?>
 
@@ -138,39 +126,33 @@ if (strlen($_SESSION['employee_id']) === 0) {
                 <div class="modal-body">
                     <form action="add_return.php" method="post">
                         <div class="form-group">
-                            <label for="supplier">supplier</label>
-                            <select class="form-control" name="supplier">
+                            <label for="supplier">Supplier</label>
+                            <select class="form-control" id="supplier" name="supplier">
                                 <option value="" selected disabled>Select supplier</option>
-                                <?php foreach ($supplier as $supplier) : ?>
+                                <?php foreach ($suppliers as $supplier) : ?>
                                     <option value="<?php echo $supplier['supplier']; ?>"><?php echo $supplier['supplier']; ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
+                        <!-- Category Dropdown -->
                         <div class="form-group">
                             <label for="category">Category</label>
-                            <select class="form-control" name="category">
+                            <select class="form-control" id="category" name="category" disabled>
                                 <option value="" selected disabled>Select category</option>
-                                <?php foreach ($categories as $category) : ?>
-                                    <option value="<?php echo $category['category']; ?>"><?php echo $category['category']; ?></option>
-                                <?php endforeach; ?>
                             </select>
                         </div>
+                        <!-- Brand Dropdown -->
                         <div class="form-group">
                             <label for="brand">Brand name</label>
-                            <select class="form-control" name="brand">
+                            <select class="form-control" id="brand" name="brand" disabled>
                                 <option value="" selected disabled>Select brand</option>
-                                <?php foreach ($brands as $brand) : ?>
-                                    <option value="<?php echo $brand['brand']; ?>"><?php echo $brand['brand']; ?></option>
-                                <?php endforeach; ?>
                             </select>
                         </div>
+                        <!-- Type Dropdown -->
                         <div class="form-group">
                             <label for="type">Type</label>
-                            <select class="form-control" name="type">
+                            <select class="form-control" id="type" name="type" disabled>
                                 <option value="" selected disabled>Select type</option>
-                                <?php foreach ($types as $type) : ?>
-                                    <option value="<?php echo $type['type']; ?>"><?php echo $type['type']; ?></option>
-                                <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="form-group">
@@ -190,8 +172,60 @@ if (strlen($_SESSION['employee_id']) === 0) {
         </div>
 
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
+        $(document).ready(function() {
+            // AJAX request to fetch categories based on selected supplier
+            $('#supplier').change(function() {
+                var supplier = $(this).val();
+                $.ajax({
+                    url: 'get_categories.php',
+                    type: 'post',
+                    data: {
+                        supplier: supplier
+                    },
+                    success: function(response) {
+                        $('#category').html(response).prop('disabled', false);
+                    }
+                });
+            });
+
+            // AJAX request to fetch brands based on selected category
+            $('#category').change(function() {
+                var category = $(this).val();
+                $.ajax({
+                    url: 'get_brands.php',
+                    type: 'post',
+                    data: {
+                        category: category
+                    },
+                    success: function(response) {
+                        $('#brand').html(response).prop('disabled', false);
+                    }
+                });
+            });
+
+            // AJAX request to fetch types based on selected brand
+            $('#brand').change(function() {
+                var brand = $(this).val();
+                $.ajax({
+                    url: 'get_types.php',
+                    type: 'post',
+                    data: {
+                        brand: brand
+                    },
+                    success: function(response) {
+                        $('#type').html(response).prop('disabled', false);
+                    }
+                });
+            });
+
+            // Show add discount modal on button click
+            $('#addReturnButton').click(function() {
+                $('#addReturnModal').modal('show');
+            });
+        });
         document.getElementById('toggleSearch').addEventListener('click', function() {
             var searchContainer = document.getElementById('searchContainer');
             searchContainer.style.display = (searchContainer.style.display === 'none' || searchContainer.style.display === '') ? 'block' : 'none';

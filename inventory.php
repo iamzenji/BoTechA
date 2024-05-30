@@ -165,8 +165,23 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="storage_location">Storage Location:</label>
-                                                                <input type="text" class="form-control" id="storage_location" name="storage_location" value="<?php echo $row['storage_location']; ?>">
+                                                                <select class="form-control" id="storage_location" name="storage_location">
+                                                                    <option value="">Select a location</option>
+                                                                    <?php
+                                                                    $mainStockroomNorth = "MainStockroomNorth";
+                                                                    $letters = range('A', 'E');
+                                                                    $numbers = range(1, 5);
+                                                                    foreach ($letters as $letter) {
+                                                                        foreach ($numbers as $number) {
+                                                                            $location = "$mainStockroomNorth-$letter$number";
+                                                                            $selected = ($row['storage_location'] == $location) ? 'selected' : '';
+                                                                            echo "<option value=\"$location\" $selected>$location</option>";
+                                                                        }
+                                                                    }
+                                                                    ?>
+                                                                </select>
                                                             </div>
+
 
                                                             <div class="form-group">
                                                                 <label for="showroom_quantity_stock">Showroom Quantity Stock:</label>
@@ -174,8 +189,25 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="showroom_location">Showroom Location:</label>
-                                                                <input type="text" class="form-control" id="showroom_location" name="showroom_location" value="<?php echo $row['showroom_location']; ?>">
+                                                                <select class="form-control" id="showroom_location" name="showroom_location">
+                                                                    <option value="">Select a location</option>
+                                                                    <?php
+                                                                    $regions = ["MedNorth", "MedEast", "MedCenter", "MedWest", "MedSouth"];
+                                                                    $letters = range('A', 'E');
+                                                                    $numbers = range(1, 5);
+                                                                    foreach ($regions as $region) {
+                                                                        foreach ($letters as $letter) {
+                                                                            foreach ($numbers as $number) {
+                                                                                $location = "$region-$letter$number";
+                                                                                $selected = ($row['showroom_location'] == $location) ? 'selected' : '';
+                                                                                echo "<option value=\"$location\" $selected>$location</option>";
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                    ?>
+                                                                </select>
                                                             </div>
+
                                                             <div class="form-group">
                                                                 <label for="quantity_to_reorder">Quantity to Reorder:</label>
                                                                 <input type="text" class="form-control" id="quantity_to_reorder" name="quantity_to_reorder" value="<?php echo $row['quantity_to_reorder']; ?>">
