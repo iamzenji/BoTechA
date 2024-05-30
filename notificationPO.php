@@ -32,7 +32,7 @@ include 'includes/header.php';
                                     <h2 class="mt-3">Notification</h2>
                                 </div>
                                 <?php
-                                $query = "SELECT * FROM inventory";
+                                $query = "SELECT * FROM request_order";
                                 $result = mysqli_query($connection, $query);
 
                                 while ($row = mysqli_fetch_assoc($result)) {
@@ -58,14 +58,23 @@ include 'includes/header.php';
                                             <a href="order-add.php" class="btn btn-primary">Order Now</a>
                                         </div>
                                     </div>
+                                <?php
+                                }
+
+                                $query1 = "SELECT * FROM return_item";
+                                $result = mysqli_query($connection, $query);
+
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                ?>
                                     <div class="row notification-card">
                                         <div class="col-md-3">
                                             <h5>Return</h5>
                                             <p><?php echo $row['supplier']; ?></p>
                                             <p><?php echo $row['category']; ?></p>
                                             <p><?php echo $row['brand']; ?></p>
+                                            <p><?php echo $row['type']; ?></p>
                                             <p><?php echo $row['unit']; ?></p>
-                                            <p>Quantity: <?php echo $row['qty_stock']; ?></p>
+                                            <p>Quantity: <?php echo $row['unit_qty']; ?></p>
                                             <p>Reason: Expired</p>
                                         </div>
                                         <div class="col-md-3">
