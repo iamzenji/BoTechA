@@ -47,14 +47,6 @@ include 'includes/header.php';
                                             <p><?php echo $row['unit']; ?></p>
                                         </div>
                                         <div class="col-md-3">
-                                            <p>Quantity Stock: <?php echo $row['qty_stock']; ?></p>
-                                            <p>Unit Cost: <?php echo $row['unit_cost']; ?></p>
-                                            <p>Qty to Reorder: <?php echo $row['quantity_to_reorder']; ?></p>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <p>Total Cost: <?php echo $row['total_cost']; ?></p>
-                                        </div>
-                                        <div class="col-md-3">
                                             <a href="order-add.php" class="btn btn-primary">Order Now</a>
                                         </div>
                                     </div>
@@ -62,9 +54,9 @@ include 'includes/header.php';
                                 }
 
                                 $query1 = "SELECT * FROM return_item";
-                                $result = mysqli_query($connection, $query);
+                                $result1 = mysqli_query($connection, $query1);
 
-                                while ($row = mysqli_fetch_assoc($result)) {
+                                while ($row = mysqli_fetch_assoc($result1)) {
                                 ?>
                                     <div class="row notification-card">
                                         <div class="col-md-3">
