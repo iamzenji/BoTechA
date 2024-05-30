@@ -84,7 +84,7 @@
                     <div class="d-flex align-items-center">
                         <div><i class="bi bi-cart-fill biicons"></i></div>
                         <div class="ms-2">
-                            <h3 class="mb-0">Purchase Orders</h3>
+                            <h4 class="mb-0">Purchase Orders</h4>
                             <?php
                            include 'includes/connection.php';
 

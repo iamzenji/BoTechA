@@ -46,12 +46,12 @@ if(isset($_SESSION['message'])) {
     <div class="container">
                 <div class="card-body d-flex justify-content-between align-items-center">
                             <h2 class="mt-3">Items List</h2>
-                            <button class="btn btn-primary btn-rounded" data-bs-toggle="modal" data-bs-target="#addItemModal">
+                            <button class="btnadditem btn btn-primary btn-rounded" data-bs-toggle="modal" data-bs-target="#addItemModal">
                                 <i class="fas fa-plus"></i> Add Items
                             </button>
                     </div>
                     <div class="card-body">
-    <form action="importitems.php" method="POST" enctype="multipart/form-data">
+                    <form action="importitems.php" method="POST" enctype="multipart/form-data">
         <div class="row">
        
             <div class="col-sm-6 offset-sm-4">
@@ -67,7 +67,7 @@ if(isset($_SESSION['message'])) {
     </form>
 </div>
                     <ul class="nav nav-tabs mt-20" id="supplierTabs" role="tablist">
-                        <?php
+                    <?php
                         $query = "SELECT * FROM supplier";
                         $result = mysqli_query($connection, $query);
                         $defaultSupplierId = 1; 
@@ -83,7 +83,7 @@ if(isset($_SESSION['message'])) {
                         ?>
                     </ul>
                     <div class="tab-content" id="supplierTabsContent">
-                        <?php
+                    <?php
                         mysqli_data_seek($result, 0); 
                         while ($row = mysqli_fetch_assoc($result)) {
                             $supplierId = $row['supplier_id'];
@@ -190,33 +190,40 @@ if(isset($_SESSION['message'])) {
 </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-    <!-- <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script> -->
+    <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script> 
 
 
     <script>
-        $(document).ready(function() {
-            function loadMedicineList(supplierId) {
-                $.ajax({
-                    url: 'fetch_medicine_list.php', 
-                    method: 'GET',
-                    data: {supplier_id: supplierId},
-                    dataType: 'html',
-                    success: function(response) {
-                        $('#supplierContent' + supplierId).html(response);
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(xhr.responseText);
-                    }
-                });
+$(document).ready(function() {
+    function loadMedicineList(supplierId) {
+        $.ajax({
+            url: 'fetch_medicine_list.php', 
+            method: 'GET',
+            data: {supplier_id: supplierId}, // Send the supplier_id parameter
+            dataType: 'html',
+            success: function(response) {
+                $('#supplierContent' + supplierId).html(response);
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
             }
-
-            loadMedicineList(<?php echo $defaultSupplierId; ?>);
-            $('#supplierTabs a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-                var supplierId = $(e.target).attr('aria-controls').replace('supplierContent', '');
-                loadMedicineList(supplierId);
-            });
         });
-    </script>
+    }
+
+    // Iterate through each supplier tab to load its medicine list
+    $('#supplierTabs a[data-toggle="tab"]').each(function() {
+        var supplierId = $(this).attr('href').replace('#supplierContent', '');
+        loadMedicineList(supplierId);
+    });
+
+    // Bind event handler to load medicine list when a tab is shown
+    $('#supplierTabs a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        var supplierId = $(e.target).attr('href').replace('#supplierContent', '');
+        loadMedicineList(supplierId);
+    });
+});
+</script>
+
  <script>
     function openEditModal(itemId, brand, category, type, description, unit, unit_qty, wholesaleprice, unitcost) {
         $('#editItemId').val(itemId);

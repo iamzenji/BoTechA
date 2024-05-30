@@ -135,9 +135,7 @@ if ($result) {
             echo "<td>" . $row['status_name'] . "</td>";
             echo "<td>" . $row['grand_total'] . "</td>";
             echo '<td>
-                    <a href="mailto:your-email@gmail.com" class="btn btn-primary">
-                        <button class="btn btn-primary downloadReceiptBtn">Download Receipt</button>
-                    </a>
+                        <button class="btn btn-primary downloadReceiptBtn"><i class="bi bi-receipt mr-3"></i> Receipt</button>
                   </td>';
         echo "<td>
         <form name='update_status_form' action='update_status.php' method='post'>
@@ -193,46 +191,61 @@ mysqli_close($connection);
             <div id="orderDetails"></div>
         </div>
     </div>
-        <!-- The Modal -->
-        <div id="myModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h3>Order Details</h3>
-                <div id="orderDetails"></div>
-            </div>
-        </div>
-
-        <script>
-            // Get the modal
-            var modal = document.getElementById("myModal");
-
-            // Get the <span> element that closes the modal
-            var span = document.getElementsByClassName("close")[0];
-
-            // When the user clicks on <span> (x), close the modal
-            span.onclick = function() {
-                modal.style.display = "none";
-            }
-
-            // When the user clicks on a "View Order" link
-            var viewOrderLinks = document.querySelectorAll('.view-order-link');
-            viewOrderLinks.forEach(function(link) {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    var trackingNumber = this.getAttribute('data-tracking-number');
-                    fetchOrderDetails(trackingNumber);
-                });
+<div id="returnRefundModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>Return/Refund Reason</h3>
+        <form id="returnRefundForm">
+            <textarea id="returnRefundReason" rows="4" cols="50" placeholder="Enter reason for return/refund..."></textarea><br>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+<script>
+        var modal = document.getElementById("myModal");
+        var span = document.getElementsByClassName("close")[0];
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+        var viewOrderLinks = document.querySelectorAll('.view-order-link');
+        viewOrderLinks.forEach(function (link) {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                var trackingNumber = this.getAttribute('data-tracking-number');
+                fetchOrderDetails(trackingNumber);
             });
+        });
+        function fetchOrderDetails(trackingNumber) {
+            fetch('fetch_order_details.php?tracking_number=' + trackingNumber)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("orderDetails").innerHTML = data;
+                    modal.style.display = "block";
+                });
+        }
+    </script>
 
-            // Fetch and display order details in the modal
-            function fetchOrderDetails(trackingNumber) {
-                fetch('fetch_order_details.php?tracking_number=' + trackingNumber)
-                    .then(response => response.text())
-                    .then(data => {
-                        document.getElementById("orderDetails").innerHTML = data;
-                        modal.style.display = "block";
-                    });
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+  $(document).ready(function() {
+    $('.downloadReceiptBtn').click(function() {
+        var trackingNumber = $(this).closest('tr').find('.view-order-link').data('tracking-number');
+        $.ajax({
+            url: 'generate_receipt.php',
+            type: 'POST',
+            data: { tracking_number: trackingNumber },
+            dataType: 'text',
+            success: function(data) {
+                var blob = new Blob([data], { type: 'application/pdf' });
+                var a = document.createElement('a');
+                a.href = window.URL.createObjectURL(blob);
+                a.download = 'receipt.pdf';
+                document.body.appendChild(a);
+                window.location.href = 'generate_receipt.php?tracking_number=' + trackingNumber;
             }
+        });
+    });
+});
         </script>
     </body>
 

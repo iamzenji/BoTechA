@@ -33,7 +33,7 @@ if (isset($_POST['addReturn'])) {
             }
 
             // Insert return item
-            $query = "INSERT INTO return_item (employee ,supplier, category, brand, type, unit_qty) 
+            $query = "INSERT INTO return_item (employee ,supplier, category, brand, type, unit, unit_qty) 
                       VALUES (?, ?, ?, ?, ?, ?)";
             $stmt = mysqli_prepare($connection, $query);
             mysqli_stmt_bind_param($stmt, "sssssi", $userName, $supplier, $category, $brand, $type, $unitQuantity); // Fix: Changed 'sssi' to 'ssssi'

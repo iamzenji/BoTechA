@@ -33,6 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['from_date']) && isset
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,11 +43,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['from_date']) && isset
             border-collapse: collapse;
             width: 100%;
         }
-        th, td {
+
+        th,
+        td {
             border: 1px solid black;
             padding: 8px;
             text-align: left;
         }
+
         th {
             background-color: #f2f2f2;
         }
@@ -56,14 +60,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['from_date']) && isset
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script>
-    $( function() {
-        // Datepicker for "From" and "To" dates
-        $( "#from_date, #to_date" ).datepicker({
-            dateFormat: 'yy-mm-dd'
+        $(function() {
+            // Datepicker for "From" and "To" dates
+            $("#from_date, #to_date").datepicker({
+                dateFormat: 'yy-mm-dd'
+            });
         });
-    });
     </script>
 </head>
+
 <body>
     <h2>Employee Information</h2>
     <p><strong>Name:</strong> <?php echo $employee_name; ?></p>
@@ -80,7 +85,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['from_date']) && isset
         <button type="submit">Search</button>
     </form>
 
-    <?php if ($result_dtr->num_rows > 0): ?>
+    <!-- 🐞🦋🐛🐛🦗🐜🦟 -->
+
+    <?php if ($result_dtr->num_rows > 0) : ?>
         <table>
             <thead>
                 <tr>
@@ -91,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['from_date']) && isset
                 </tr>
             </thead>
             <tbody>
-                <?php while ($row_dtr = $result_dtr->fetch_assoc()): ?>
+                <?php while ($row_dtr = $result_dtr->fetch_assoc()) : ?>
                     <tr>
                         <td><?php echo $row_dtr['date']; ?></td>
                         <td><?php echo $row_dtr['time_in']; ?></td>
@@ -101,21 +108,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['from_date']) && isset
                 <?php endwhile; ?>
             </tbody>
         </table>
-    <?php else: ?>
+    <?php else : ?>
         <p>No DTR records found.</p>
     <?php endif; ?>
 
     <form action="record_time_employee.php?id=<?php echo $_SESSION['employee_id']; ?>" method="post">
         <button type="submit" name="time_in" class="btn btn-primary">Time In</button>
-        </form>
-        <form action="record_time_employee.php?id=<?php echo $_SESSION['employee_id']; ?>" method="post">
+    </form>
+    <form action="record_time_employee.php?id=<?php echo $_SESSION['employee_id']; ?>" method="post">
         <button type="submit" name="time_out" class="btn btn-primary">Time Out</button>
-        </form>
+    </form>
 
 </body>
+
 </html>
 
 <?php
-// Close database connection
+// Close database connectionection
 $connection->close();
 ?>

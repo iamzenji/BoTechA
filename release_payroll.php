@@ -4,7 +4,7 @@ session_start();
 include 'includes/connection.php';
 
 // Check if employee ID is provided in the URL
-if(isset($_GET['id'])) {
+if (isset($_GET['id'])) {
     $employee_id = $_GET['id'];
 } else {
     // Handle case where employee ID is not provided
@@ -15,7 +15,7 @@ if(isset($_GET['id'])) {
 $current_date = date("Y-m-d");
 
 // Retrieve total hours worked from session
-if(isset($_SESSION['total_hours_worked'])) {
+if (isset($_SESSION['total_hours_worked'])) {
     $total_hours_worked = $_SESSION['total_hours_worked'];
 } else {
     // Handle case where total hours worked is not set in session
@@ -47,4 +47,3 @@ $connection->close();
 // Redirect to salary.php with the updated employee ID
 header("Location: salary.php?id=" . $employee_id);
 exit();
-?>

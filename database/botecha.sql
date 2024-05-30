@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 24, 2024 at 06:13 PM
+-- Generation Time: May 30, 2024 at 12:39 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -887,7 +887,9 @@ INSERT INTO `inventory_logs` (`log_id`, `inventory_id`, `date`, `brand_name`, `e
 (47, '0000-00-00', '2024-05-17 15:02:35', 'Cortaid', ' ', 0, 10, 'Edit Item'),
 (48, '0000-00-00', '2024-05-17 15:02:39', 'Cortaid', ' ', 0, 10, 'Edit Item'),
 (49, '0000-00-00', '2024-05-17 15:02:58', 'Premarin', ' ', 0, 10, 'Edit Item'),
-(50, '0000-00-00', '2024-05-17 15:03:15', 'Cortaid', ' ', 0, 10, 'Edit Item');
+(50, '0000-00-00', '2024-05-17 15:03:15', 'Cortaid', ' ', 0, 10, 'Edit Item'),
+(51, '0000-00-00', '2024-05-30 10:16:36', 'Neozep', 'Zenji Yangco', 0, 0, 'Request order'),
+(52, '0000-00-00', '2024-05-30 10:17:36', 'Biogesic', 'Zenji Yangco', 0, 0, 'Request order');
 
 -- --------------------------------------------------------
 
@@ -1375,6 +1377,31 @@ INSERT INTO `request_leave` (`id`, `employee_id`, `start_date`, `end_date`, `abs
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `request_order`
+--
+
+CREATE TABLE `request_order` (
+  `id` int(11) NOT NULL,
+  `employee` varchar(50) NOT NULL,
+  `supplier` varchar(255) NOT NULL,
+  `category` varchar(255) NOT NULL,
+  `brand` varchar(255) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `unit` varchar(255) NOT NULL,
+  `item-label` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `request_order`
+--
+
+INSERT INTO `request_order` (`id`, `employee`, `supplier`, `category`, `brand`, `type`, `unit`, `item-label`) VALUES
+(1, '', '', 'Paracetamol', 'Neozep', 'Tablet', '500mg', ''),
+(2, '', '', 'Paracetamol', 'Biogesic', 'Tablet', '500mg', '');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `return_item`
 --
 
@@ -1385,6 +1412,7 @@ CREATE TABLE `return_item` (
   `category` varchar(255) NOT NULL,
   `brand` varchar(255) NOT NULL,
   `type` varchar(255) NOT NULL,
+  `unit` varchar(255) NOT NULL,
   `unit_qty` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -1392,14 +1420,14 @@ CREATE TABLE `return_item` (
 -- Dumping data for table `return_item`
 --
 
-INSERT INTO `return_item` (`id`, `employee`, `supplier`, `category`, `brand`, `type`, `unit_qty`) VALUES
-(1, '', 'UNILAB', 'Paracetamol', 'Biogesic', 'Tablet', 20),
-(2, 'Zenji Yangco', 'UNILAB', 'Paracetamol', 'Neozep', 'Tablet', 100),
-(3, 'Zenji Yangco', 'UNILAB', 'Paracetamol', 'Neozep', 'Tablet', 10),
-(4, 'Zenji Yangco', 'UNILAB', 'Paracetamol', 'Biogesic', 'Tablet', 100),
-(5, 'Zenji Yangco', 'UNILAB', 'Paracetamol', 'Biogesic', 'Tablet', 100),
-(6, 'Zenji Yangco', 'UNILAB', 'Paracetamol', 'Biogesic', 'Tablet', 100),
-(7, 'Zenji Yangco', 'UNILAB', 'Paracetamol', 'Biogesic', 'Tablet', 100);
+INSERT INTO `return_item` (`id`, `employee`, `supplier`, `category`, `brand`, `type`, `unit`, `unit_qty`) VALUES
+(1, '', 'UNILAB', 'Paracetamol', 'Biogesic', 'Tablet', '0', 20),
+(2, 'Zenji Yangco', 'UNILAB', 'Paracetamol', 'Neozep', 'Tablet', '0', 100),
+(3, 'Zenji Yangco', 'UNILAB', 'Paracetamol', 'Neozep', 'Tablet', '0', 10),
+(4, 'Zenji Yangco', 'UNILAB', 'Paracetamol', 'Biogesic', 'Tablet', '0', 100),
+(5, 'Zenji Yangco', 'UNILAB', 'Paracetamol', 'Biogesic', 'Tablet', '0', 100),
+(6, 'Zenji Yangco', 'UNILAB', 'Paracetamol', 'Biogesic', 'Tablet', '0', 100),
+(7, 'Zenji Yangco', 'UNILAB', 'Paracetamol', 'Biogesic', 'Tablet', '0', 100);
 
 -- --------------------------------------------------------
 
@@ -1797,6 +1825,12 @@ ALTER TABLE `request_leave`
   ADD KEY `connect` (`employee_id`);
 
 --
+-- Indexes for table `request_order`
+--
+ALTER TABLE `request_order`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `return_item`
 --
 ALTER TABLE `return_item`
@@ -1974,7 +2008,7 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `inventory_logs`
 --
 ALTER TABLE `inventory_logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `item`
@@ -2043,6 +2077,12 @@ ALTER TABLE `request_leave`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
+-- AUTO_INCREMENT for table `request_order`
+--
+ALTER TABLE `request_order`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `return_item`
 --
 ALTER TABLE `return_item`
@@ -2109,95 +2149,10 @@ ALTER TABLE `cart_table`
   ADD CONSTRAINT `cart_table_ibfk_2` FOREIGN KEY (`delivery_status_id`) REFERENCES `delivery_status` (`id`);
 
 --
--- Constraints for table `daily_time_record`
---
-ALTER TABLE `daily_time_record`
-  ADD CONSTRAINT `ada` FOREIGN KEY (`rec_emp_id`) REFERENCES `hr`.`employee_details` (`employee_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `dada` FOREIGN KEY (`record_emp_name`) REFERENCES `hr`.`employee_details` (`employee_name`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `sasa` FOREIGN KEY (`record_emp_position`) REFERENCES `hr`.`employee_details` (`employee_position`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Constraints for table `dtrrevised`
 --
 ALTER TABLE `dtrrevised`
   ADD CONSTRAINT `asdds` FOREIGN KEY (`employee_id`) REFERENCES `employee_details` (`employee_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `employee_salary`
---
-ALTER TABLE `employee_salary`
-  ADD CONSTRAINT `mean` FOREIGN KEY (`employee_id`) REFERENCES `employee_details` (`employee_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `employee_salary_revised`
---
-ALTER TABLE `employee_salary_revised`
-  ADD CONSTRAINT `mur` FOREIGN KEY (`employee_id`) REFERENCES `employee_details` (`employee_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `item_mapping`
---
-ALTER TABLE `item_mapping`
-  ADD CONSTRAINT `item_mapping_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `item` (`id`),
-  ADD CONSTRAINT `item_mapping_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `inventory` (`inventory_id`),
-  ADD CONSTRAINT `item_mapping_ibfk_3` FOREIGN KEY (`item_id`) REFERENCES `inventory` (`inventory_id`);
-
---
--- Constraints for table `medicine_list`
---
-ALTER TABLE `medicine_list`
-  ADD CONSTRAINT `medicine_list_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`supplier_id`),
-  ADD CONSTRAINT `medicine_list_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`),
-  ADD CONSTRAINT `medicine_list_ibfk_3` FOREIGN KEY (`type_id`) REFERENCES `medicinetype` (`type_id`);
-
---
--- Constraints for table `meremove`
---
-ALTER TABLE `meremove`
-  ADD CONSTRAINT `meremove_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `inventory` (`inventory_id`),
-  ADD CONSTRAINT `meremove_ibfk_2` FOREIGN KEY (`cashier_id`) REFERENCES `employee_details` (`employee_id`),
-  ADD CONSTRAINT `meremove_ibfk_3` FOREIGN KEY (`item_id`) REFERENCES `inventory` (`inventory_id`),
-  ADD CONSTRAINT `meremove_ibfk_4` FOREIGN KEY (`cashier_id`) REFERENCES `employee_details` (`employee_id`);
-
---
--- Constraints for table `mesali`
---
-ALTER TABLE `mesali`
-  ADD CONSTRAINT `mesali_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `inventory` (`inventory_id`),
-  ADD CONSTRAINT `mesali_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `inventory` (`inventory_id`),
-  ADD CONSTRAINT `mesali_ibfk_3` FOREIGN KEY (`transact_no`) REFERENCES `transact` (`transact_no`);
-
---
--- Constraints for table `order_table`
---
-ALTER TABLE `order_table`
-  ADD CONSTRAINT `order_table_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`supplier_id`);
-
---
--- Constraints for table `request_leave`
---
-ALTER TABLE `request_leave`
-  ADD CONSTRAINT `connect` FOREIGN KEY (`employee_id`) REFERENCES `employee_details` (`employee_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `return_table`
---
-ALTER TABLE `return_table`
-  ADD CONSTRAINT `return_table_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`supplier_id`),
-  ADD CONSTRAINT `return_table_ibfk_2` FOREIGN KEY (`delivery_status_id`) REFERENCES `delivery_status` (`id`),
-  ADD CONSTRAINT `return_table_ibfk_3` FOREIGN KEY (`return_status_id`) REFERENCES `return_status` (`id`);
-
---
--- Constraints for table `shift`
---
-ALTER TABLE `shift`
-  ADD CONSTRAINT `dsadasd` FOREIGN KEY (`employee_id`) REFERENCES `employee_details` (`employee_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `transact`
---
-ALTER TABLE `transact`
-  ADD CONSTRAINT `transact_ibfk_1` FOREIGN KEY (`cashier_id`) REFERENCES `employee_details` (`employee_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -95,18 +95,25 @@ $query = "SELECT cart_table.order_date, cart_table.tracking_number, cart_table.b
           LEFT JOIN  delivery_status ON cart_table.delivery_status_id = delivery_status.id
           WHERE  delivery_status.status_name = 'To Receive'
           ORDER BY cart_table.order_time DESC";
+
 $result = mysqli_query($connection, $query);
+
+$displayedTrackingNumbers = array();
+
 if ($result) {
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
-            echo "<tr class='td text-center'>";
-            echo "<td class='td text-center'><a href='#' class='view-order-link' data-tracking-number='" . $row['tracking_number'] . "'>View Order</a></td>";
-            echo "<td class='td text-center'>" . $row['order_date'] . "</td>";
-            echo "<td class='td text-center'>" . $row['tracking_number'] . "</td>";
-            echo "<td class='td text-center'>" . $row['brand'] . " (" . $row['quantity'] . " " . $row['unit'] . ")" . "</td>";
-            echo "<td  class='td text-center'>" .  $row['delivery_date'] . "</td>";
-            echo "<td class='td text-center'>" . $row['grand_total'] . "</td>";
-            echo "</tr>";
+            if (!in_array($row['tracking_number'], $displayedTrackingNumbers)) {
+                echo "<tr class='td text-center'>";
+                echo "<td class='td text-center'><a href='#' class='view-order-link' data-tracking-number='" . $row['tracking_number'] . "'>View Order</a></td>";
+                echo "<td class='td text-center'>" . $row['order_date'] . "</td>";
+                echo "<td class='td text-center'>" . $row['tracking_number'] . "</td>";
+                echo "<td class='td text-center'>" . $row['brand'] . " (" . $row['quantity'] . " " . $row['unit'] . ")" . "</td>";
+                echo "<td  class='td text-center'>" .  $row['delivery_date'] . "</td>";
+                echo "<td class='td text-center'>" . $row['grand_total'] . "</td>";
+                echo "</tr>";
+                $displayedTrackingNumbers[] = $row['tracking_number'];
+            }
         }
     } else {
         echo "<tr><td colspan='6'>No orders found</td></tr>";
@@ -114,7 +121,6 @@ if ($result) {
 } else {
     echo "Error: " . mysqli_error($connection);
 }
-
 mysqli_close($connection);
 ?>
                         </tbody>
