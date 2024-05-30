@@ -2,7 +2,7 @@
 include 'includes/connection.php';
 
 // Check if employee ID is provided in the URL
-if (isset($_GET['id'])) {
+if(isset($_GET['id'])) {
     $employee_id = $_GET['id'];
 } else {
     // Handle case where employee ID is not provided
@@ -18,10 +18,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_insurance'])) {
     $sql = "UPDATE employee_salary SET insurance = ? WHERE employee_id = ?";
     $stmt = $connection->prepare($sql);
     $stmt->bind_param("di", $new_insurance, $employee_id);
-
+    
     if ($stmt->execute()) {
         // Insurance updated successfully
         echo "<script>alert('Insurance updated successfully!'); window.location.href = 'salary.php?id=" . $employee_id . "';</script>";
+
     } else {
         // Error updating insurance
         echo "<script>alert('Error updating insurance!');</script>";
@@ -46,34 +47,59 @@ if ($result_insurance->num_rows > 0) {
     exit('No insurance value found for the employee.');
 }
 
-// Close statement and database connection
+// Close statement and database connectionection
 $stmt_insurance->close();
 $connection->close();
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Insurance</title>
-    <link rel="stylesheet" href="style.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
-
 <body>
 
-    <div class="container">
-        <h2>Edit Insurance</h2>
-        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . '?id=' . $employee_id; ?>">
-            <div class="form-group">
-                <label for="new_insurance">New Insurance Value:</label>
-                <input type="number" id="new_insurance" name="new_insurance" value="<?php echo $current_insurance; ?>" required>
-            </div>
-            <button type="submit" name="update_insurance">Update Insurance</button>
-        </form>
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h2 class="text-center">Edit Insurance</h2>
+        </div>
+        <div class="card-body">
+            <form id="insuranceForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . '?id=' . $employee_id; ?>">
+                <div class="form-group">
+                    <label for="new_insurance">New Insurance Value:</label>
+                    <input type="number" class="form-control" id="new_insurance" name="new_insurance" value="<?php echo $current_insurance; ?>" >
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" name="update_insurance" onclick="validateInsurance()">Update Insurance</button>
+            </form>
+        </div>
     </div>
+</div>
+
+<script>
+    // Function to display SweetAlert
+    function showAlert(message, type) {
+        Swal.fire({
+            icon: type,
+            title: message,
+            showConfirmButton: false,
+            timer: 1500 // milliseconds
+        });
+    }
+
+    // Function to validate insurance input
+    function validateInsurance() {
+        var insuranceValue = document.getElementById("new_insurance").value;
+        if (insuranceValue == "") {
+            showAlert("Insurance value cannot be empty.", "error");
+            event.preventDefault(); // Prevent form submission
+        }
+    }
+</script>
 
 </body>
-
 </html>

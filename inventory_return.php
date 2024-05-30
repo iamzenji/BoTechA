@@ -24,10 +24,6 @@ if (strlen($_SESSION['employee_id']) === 0) {
     $result = mysqli_query($connection, $query);
     $types = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-    $query = "SELECT DISTINCT unit FROM inventory";
-    $result = mysqli_query($connection, $query);
-    $units = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
 ?>
 
     <div class="container mt-5">
@@ -70,7 +66,6 @@ if (strlen($_SESSION['employee_id']) === 0) {
                     <th>Category</th>
                     <th>Brand name</th>
                     <th>Type</th>
-                    <th>Unit</th>
                     <th>Unit Quantity</th>
                     <th>Reasons</th>
                 </tr>
@@ -87,7 +82,6 @@ if (strlen($_SESSION['employee_id']) === 0) {
                         <td><?php echo $item['category']; ?></td>
                         <td><?php echo $item['brand']; ?></td>
                         <td><?php echo $item['type']; ?></td>
-                        <td><?php echo $item['unit']; ?></td>
                         <td><?php echo $item['unit_qty']; ?></td>
                         <td>Purchase Return</td>
                     </tr>
@@ -176,15 +170,6 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                 <option value="" selected disabled>Select type</option>
                                 <?php foreach ($types as $type) : ?>
                                     <option value="<?php echo $type['type']; ?>"><?php echo $type['type']; ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="unit">Unit</label>
-                            <select class="form-control" name="unit">
-                                <option value="" selected disabled>Select unit</option>
-                                <?php foreach ($units as $unit) : ?>
-                                    <option value="<?php echo $unit['unit']; ?>"><?php echo $unit['unit']; ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
