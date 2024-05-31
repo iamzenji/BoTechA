@@ -359,6 +359,7 @@ $total = 0;
 
 					<input type="hidden" id="tr" value="<?php echo $tr; ?>">
 					<input type="hidden" id="cashier" value="<?php echo $_SESSION['id']; ?>">
+					<input type="hidden" id="lagyu" value="<?php echo $_SESSION['name']; ?>">
 					<input type="hidden" id="paym">
 					<input type="hidden" id="sub">
 					<input type="hidden" id="disco">
@@ -423,6 +424,7 @@ $total = 0;
 	$('#save').click(function() {
 		var tr = $('#tr').val();
 		var cashier = $('#cashier').val();
+		var lagyu = $('#lagyu').val();
 		var paym = $('#paym').val();
 		var sub = $('#sub').val();
 		var dis = $('#disco').val();
@@ -435,6 +437,7 @@ $total = 0;
 			url: "code.php",
 			data: {
 				cashier: cashier,
+				lagyu: lagyu,
 				sub: sub,
 				paym: paym,
 				dis: dis,

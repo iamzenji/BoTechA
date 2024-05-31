@@ -143,22 +143,31 @@
         $cash = $_POST['cas'];
         $change = $_POST['change'];
 
+        $name = $_POST['lagyu'];
+
         mysqli_query($connection, "INSERT INTO `transact`(`transact_no`, `cashier_id`, `pay_method`, `sub_total`, `type`, `total_dis`, `total_amount`, `bayad`, `sukli`) VALUES ('$tr', $cashier,'$paym',$sub ,'$dist', $dis,$tot,$cash,$change);");
 
 
-        $cart = "SELECT * FROM `cart_sales` ";
+        $cart = "SELECT * FROM cart_sales CROSS JOIN inventory on cart_sales.item_id = inventory_id";
         $result = $connection->query($cart);
 
         while ($row = $result->fetch_assoc()) {
-            mysqli_query($connection, "INSERT INTO `mesali`(`transact_no`, `item_id`, `qty`, `scale`) VALUES ('$tr','$row[item_id]','$row[qty]','$row[scale]')");
+            mysqli_query($connection, "INSERT INTO `mesali`(`transact_no`, `item_id`, `qty`, `scale`) VALUES ('$tr','$row[item_id]','$row[qty]','$row[scale]');");
             if ($row['scale'] == "piece") {
-                mysqli_query($connection, "UPDATE `inventory` SET `showroom_quantity_stock`= (showroom_quantity_stock - $row[qty]) WHERE inventory_id  = $row[item_id] ");
+                // invetory logs
+                mysqli_query($connection, " INSERT INTO `inventory_logs`(`brand_name`, `employee`, `quantity`, `stock_after`, `reason`) VALUES ('$row[brand]','$name','$row[qty]','$row[showroom_quantity_stock]','Sell Item');");
+
+                mysqli_query($connection, "UPDATE `inventory` SET `showroom_quantity_stock`= (showroom_quantity_stock - $row[qty]) WHERE inventory_id  = $row[item_id];");
+                
             }
             elseif  ($row['scale'] == "pack") {
-                mysqli_query($connection, "UPDATE `inventory` SET `stock_pack`= (stock_pack - $row[qty]) WHERE inventory_id  = $row[item_id] ");
+                // inventory logs
+                mysqli_query($connection, " INSERT INTO `inventory_logs`(`brand_name`, `employee`, `quantity`, `stock_after`, `reason`) VALUES ('$row[brand]','$name','$row[qty]','$row[stock_pack]','Sell Item');");
+
+                mysqli_query($connection, "UPDATE `inventory` SET `stock_pack`= (stock_pack - $row[qty]) WHERE inventory_id  = $row[item_id];");
             }
-           
             
+           
         }
 
         mysqli_query($connection, "DELETE FROM `cart_sales`");
