@@ -3,92 +3,97 @@ include 'includes/connection.php';
 include 'includes/header.php';
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title>Order List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-       .th, .td {
-           
-            text-align: center;
-            padding: 8px;
-        }
-        .th {
-            background-color: #f2f2f2;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 80%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgb(0,0,0);
-            background-color: rgba(0,0,0,0.4);
-            padding-top: 60px;
-        }
-        .modal-content {
-            background-color: #fefefe;
-            margin: 5% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-        }
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
+        table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            th,
+            td {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+            }
+
+            th {
+                background-color: #f2f2f2;
+            }
+
+            /* Modal styles */
+            .modal {
+                display: none;
+                position: fixed;
+                z-index: 1;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: rgb(0, 0, 0);
+                background-color: rgba(0, 0, 0, 0.4);
+                padding-top: 60px;
+            }
+
+            .modal-content {
+                background-color: #fefefe;
+                margin: 5% auto;
+                padding: 20px;
+                border: 1px solid #888;
+                width: 80%;
+            }
+
+            .close {
+                color: #aaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+            }
+
+            .close:hover,
+            .close:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+            }
     </style>
 </head>
 <body>
     <div class="wrapper">
-    
+ 
         <div class="main p-3">
             <div class="text-center">
                 <div class="container">
                     <ul class="list">
                         <li class="d-flex justify-content-between align-items-center">
-                            <h2 class="me-3"> OrderReceive</h2>
-                            <a href="order.php" class="btn btn-primary btn-rounded">
-                            <i class="bi bi-arrow-left"></i>Back
+                            <h2 class="me-3">Order Recieved</h2>
+                            <a href="order-add.php" class="btn btn-primary btn-rounded">
+                                <i class="fas fa-plus"></i> Add Order
                             </a>
                         </li>
                     </ul>
-                    <form action="">
-                        <div class="input-group d-flex mt-4">
-                            <span class="input-group-text"><i class="lni lni-search-alt"></i></span>
-                            <input type="search" class="form-control" placeholder="Search">
-                        </div>
-                    </form>
-                    <table  style="width: 100%; border-collapse: collapse;">
-                        <thead style="border: 1px solid #dee2e6; padding: 8px; ">
+                   
+                    <table class="table">
+                        <thead>
                             <tr>
-                            <th class="th">View Order</th>
+                                <th class="th">View Order</th>
                                 <th class="th">Order Date</th>
                                 <th class="th">Tracking Number</th>
                                 <th class="th">Item</th>
                                 <th class="th">Delivery Date</th>
-                              
                                 <th class="th">Total</th>
-                                
                             </tr>
                         </thead>
-                        <tbody >
+                        <tbody>
                         <?php
 include 'includes/connection.php';
 $query = "SELECT cart_table.order_date, cart_table.tracking_number, cart_table.brand, cart_table.quantity, cart_table.unit, cart_table.delivery_date, order_table.grand_total, delivery_status.status_name
@@ -100,21 +105,25 @@ $query = "SELECT cart_table.order_date, cart_table.tracking_number, cart_table.b
 
 $result = mysqli_query($connection, $query);
 
+$displayedTrackingNumbers = array();
+
 if ($result) {
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
-            echo "<tr class='td text-center'>";
-            echo "<td  class='td text-center'><a href='#' class='view-order-link' data-tracking-number='" . $row['tracking_number'] . "'>View Order</a></td>";
-            echo "<td  class='td text-center'>" . $row['order_date'] . "</td>";
-            echo "<td  class='td text-center'>" . $row['tracking_number'] . "</td>";
-            echo "<td  class='td text-center'>" . $row['brand'] . " (" . $row['quantity'] . " " . $row['unit'] . ")" . "</td>";
-            echo "<td  class='td text-center'>" . $row['delivery_date']  .  "</td>";
-
-            echo "<td  class=' td text-center'>" . $row['grand_total'] . "</td>";
-            echo "</tr>";
+            if (!in_array($row['tracking_number'], $displayedTrackingNumbers)) {
+                echo "<tr class='td text-center'>";
+                echo "<td class='td text-center'><a href='#' class='view-order-link' data-tracking-number='" . $row['tracking_number'] . "'>View Order</a></td>";
+                echo "<td class='td text-center'>" . $row['order_date'] . "</td>";
+                echo "<td class='td text-center'>" . $row['tracking_number'] . "</td>";
+                echo "<td class='td text-center'>" . $row['brand'] . " (" . $row['quantity'] . " " . $row['unit'] . ")" . "</td>";
+                echo "<td  class='td text-center'>" .  $row['delivery_date'] . "</td>";
+                echo "<td class='td text-center'>" . $row['grand_total'] . "</td>";
+                echo "</tr>";
+                $displayedTrackingNumbers[] = $row['tracking_number'];
+            }
         }
     } else {
-        echo "<tr><td colspan='7'>No orders found</td></tr>";
+        echo "<tr><td colspan='6'>No orders found</td></tr>";
     }
 } else {
     echo "Error: " . mysqli_error($connection);
@@ -127,7 +136,7 @@ mysqli_close($connection);
             </div>
         </div>
     </div>
-       <div id="myModal" class="modal">
+    <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <h3>Order Details</h3>
@@ -157,14 +166,31 @@ mysqli_close($connection);
                     modal.style.display = "block";
                 });
         }
-    </script> 
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h3>Order Details</h3>
-            <div id="orderDetails"></div> 
-        </div>
-    </div>
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+$(document).ready(function() {
+    $('.downloadReceiptBtn').click(function() {
+        var trackingNumber = $(this).closest('tr').find('.view-order-link').data('tracking-number');
+        $.ajax({
+            url: 'generate_receipt.php',
+            type: 'POST',
+            data: { tracking_number: trackingNumber },
+            dataType: 'text',
+            success: function(data) {
+                var blob = new Blob([data], { type: 'application/pdf' });
+                var a = document.createElement('a');
+                a.href = window.URL.createObjectURL(blob);
+                a.download = 'receipt.pdf';
+                document.body.appendChild(a);
+                window.location.href = 'generate_receipt.php?tracking_number=' + trackingNumber;
+            }
+        });
+    });
+});
 
-</body>
-</html>
+    
+</script>
+
+
+ 

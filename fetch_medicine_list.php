@@ -20,7 +20,7 @@ if(isset($_GET['supplier_id'])) {
         $output = '<table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>#</th>
+                                
                                 <th>Category</th>
                                 <th>Brand</th>
                                 <th>Description</th>
@@ -34,7 +34,7 @@ if(isset($_GET['supplier_id'])) {
         // Fetch and display each medicine record
         while($row = mysqli_fetch_assoc($result)) {
             $output .= '<tr class="">
-                            <td>' . $row["medicine_id"] . '</td>
+                            
                             <td>' . $row["category_name"] . '</td>
                             <td>' . $row["brand"] . '</td>
                             <td>' . $row["description"] . '</td>
