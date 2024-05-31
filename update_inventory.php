@@ -16,11 +16,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $prev_inventory_query = "SELECT * FROM inventory WHERE inventory_id = '$inventory_id'";
     $prev_inventory_result = mysqli_query($connection, $prev_inventory_query);
     $prev_inventory_row = mysqli_fetch_assoc($prev_inventory_result);
+    $prev_showroom_quantity_stock = $prev_inventory_row['showroom_quantity_stock'];
+    $prev_unit_inv_qty = $prev_inventory_row['unit_inv_qty'];
+
+    // Calculate the correct unit_inv_qty change
+    $unit_inv_qty_change = $unit_inv_qty - $prev_unit_inv_qty;
+    $corrected_unit_inv_qty = $unit_inv_qty - $showroom_quantity_stock + $prev_showroom_quantity_stock;
 
     // Update inventory table
     $update_query = "UPDATE inventory SET 
         qty_stock = '$qty_stock', 
-        unit_inv_qty = $unit_inv_qty, 
+        unit_inv_qty = '$corrected_unit_inv_qty',
         storage_location = '$storage_location', 
         showroom_quantity_stock = '$showroom_quantity_stock', 
         showroom_location = '$showroom_location', 
@@ -47,11 +53,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($update_result) {
         // Calculate quantity changes
-        $unit_inv_qty_change = $unit_inv_qty - $prev_inventory_row['unit_inv_qty'];
+        $total_quantity_change = $unit_inv_qty_change + ($showroom_quantity_stock - $prev_showroom_quantity_stock);
 
         // Edit history of item
         $insert_query = "INSERT INTO inventory_logs (inventory_id, date, brand_name, employee, quantity, stock_after, reason) 
-            VALUES ('$inventory_id', NOW(), '{$prev_inventory_row['brand']}', '$userName', '$unit_inv_qty_change', '$unit_inv_qty', 'Edit Item')";
+            VALUES ('$inventory_id', NOW(), '{$prev_inventory_row['brand']}', '$userName', '$total_quantity_change', '$corrected_unit_inv_qty', 'Edit Item')";
         $insert_result = mysqli_query($connection, $insert_query);
 
         if ($insert_result) {
@@ -64,3 +70,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Error updating inventory: " . mysqli_error($connection);
     }
 }
+?>
