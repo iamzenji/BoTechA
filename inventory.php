@@ -7,10 +7,10 @@ if (strlen($_SESSION['employee_id']) === 0) {
     session_destroy();
 } else {
 
-    $query = "SELECT i.*, il.stock_after
+    $query = "SELECT DISTINCT i.*,  il.stock_after
     FROM inventory i
     INNER JOIN (
-        SELECT inventory_id, brand_name,MAX(date) AS latest_timestamp
+        SELECT DISTINCT inventory_id, brand_name,MAX(date) AS latest_timestamp
         FROM inventory_logs
         GROUP BY inventory_id, brand_name
     ) latest_logs ON i.inventory_id = latest_logs.inventory_id
