@@ -54,6 +54,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
                     <th>Category</th>
                     <th>Brand name</th>
                     <th>Type</th>
+                    <th>Unit</th>
                     <th>Unit Quantity</th>
                     <th>Reasons</th>
                 </tr>
@@ -70,6 +71,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
                         <td><?php echo $item['category']; ?></td>
                         <td><?php echo $item['brand']; ?></td>
                         <td><?php echo $item['type']; ?></td>
+                        <td><?php echo $item['unit']; ?></td>
                         <td><?php echo $item['unit_qty']; ?></td>
                         <td>Purchase Return</td>
                     </tr>
@@ -156,6 +158,12 @@ if (strlen($_SESSION['employee_id']) === 0) {
                             </select>
                         </div>
                         <div class="form-group">
+                            <label for="type">Unit</label>
+                            <select class="form-control" id="unit" name="unit" disabled>
+                                <option value="" selected disabled>Select unit</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="unitQuantity">Unit Quantity</label>
                             <input type="text" class="form-control" name="unitQuantity" placeholder="Enter unit quantity">
                         </div>
@@ -217,6 +225,22 @@ if (strlen($_SESSION['employee_id']) === 0) {
                     },
                     success: function(response) {
                         $('#type').html(response).prop('disabled', false);
+                    }
+                });
+                
+            });
+
+            // AJAX request to fetch unit based on selected brand
+            $('#brand').change(function() {
+                var brand = $(this).val();
+                $.ajax({
+                    url: 'get_unit.php',
+                    type: 'post',
+                    data: {
+                        brand: brand
+                    },
+                    success: function(response) {
+                        $('#unit').html(response).prop('disabled', false);
                     }
                 });
             });

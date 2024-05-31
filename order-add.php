@@ -346,8 +346,8 @@ if (strlen($_SESSION['employee_id']) === 0) {
                 var wholesalePrice = parseFloat($(this).closest('tr').find('td:eq(4)').text());
                 var Unitcost = parseFloat($(this).closest('tr').find('td:eq(5)').text());
                 var unit = $(this).closest('tr').find('td:eq(6)').text();
-                var unitQty = parseFloat($(this).closest('tr').find('td:eq(7)').text());
                 var quantity = parseFloat($(this).closest('tr').find('.quantity').val()) || 1;
+                var unitQty = parseFloat($(this).closest('tr').find('td:eq(7)').text()) * quantity;
                 var totalPrice = wholesalePrice * quantity;
                 var type = $(this).closest('tr').find('td:eq(3)').text(); // Fetching the type information
                 var hiddenInputs = '<input type="hidden" name="category_name[]" value="' + category_name + '">' +
