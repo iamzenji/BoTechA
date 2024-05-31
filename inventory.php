@@ -107,7 +107,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                                     <option value="option3">Fast moving</option>
                                                 </select>
                                             <td>
-                                                <form onsubmit="return confirmRequestOrder(event,'<?php echo $row['inventory_id']; ?>', '<?php echo $row['supplier']; ?>', '<?php echo $row['category']; ?>', '<?php echo $row['brand']; ?>', '<?php echo $row['type']; ?>', '<?php echo $row['unit'];?>');">
+                                                <form onsubmit="return confirmRequestOrder(event,'<?php echo $row['inventory_id']; ?>', '<?php echo $row['supplier']; ?>', '<?php echo $row['category']; ?>', '<?php echo $row['brand']; ?>', '<?php echo $row['type']; ?>', '<?php echo $row['unit']; ?>');">
                                                     <button type="submit" class="btn btn-sm btn-outline-primary rounded-pill" onclick="stopPropagation(event);">Request Order</button>
                                                 </form>
                                             </td>
@@ -420,32 +420,31 @@ if (strlen($_SESSION['employee_id']) === 0) {
 
 
     function confirmRequestOrder(event, inventoryId, supplier, category, brand, type, unit) {
-    event.preventDefault();
+        event.preventDefault();
 
-    // Set the hidden input values in the form
-    document.getElementById('inventory_id').value = inventoryId;
-    document.getElementById('supplier').value = supplier;
-    document.getElementById('category').value = category;
-    document.getElementById('brand').value = brand;
-    document.getElementById('type').value = type;
-    document.getElementById('unit').value = unit;
+        // Set the hidden input values in the form
+        document.getElementById('inventory_id').value = inventoryId;
+        document.getElementById('supplier').value = supplier;
+        document.getElementById('category').value = category;
+        document.getElementById('brand').value = brand;
+        document.getElementById('type').value = type;
+        document.getElementById('unit').value = unit;
 
-    // Display the confirmation modal with item details
-    var itemDetails = '<strong>Supplier:</strong> ' + supplier + '<br>';
-    itemDetails += '<strong>Category:</strong> ' + category + '<br>';
-    itemDetails += '<strong>Brand Name:</strong> ' + brand + '<br>';
-    itemDetails += '<strong>Type:</strong> ' + type + '<br>';
-    itemDetails += '<strong>Unit:</strong> ' + unit + '<br>';
-
-
-    document.getElementById('modalBodyText').innerHTML = itemDetails;
-    $('#confirmModal').modal('show');
-}
+        // Display the confirmation modal with item details
+        var itemDetails = '<strong>Supplier:</strong> ' + supplier + '<br>';
+        itemDetails += '<strong>Category:</strong> ' + category + '<br>';
+        itemDetails += '<strong>Brand Name:</strong> ' + brand + '<br>';
+        itemDetails += '<strong>Type:</strong> ' + type + '<br>';
+        itemDetails += '<strong>Unit:</strong> ' + unit + '<br>';
 
 
-function submitRequestOrder() {
-    // Submit the form
-    document.getElementById('confirmOrderForm').submit();
-}
+        document.getElementById('modalBodyText').innerHTML = itemDetails;
+        $('#confirmModal').modal('show');
+    }
 
+
+    function submitRequestOrder() {
+        // Submit the form
+        document.getElementById('confirmOrderForm').submit();
+    }
 </script>

@@ -152,22 +152,21 @@
         $result = $connection->query($cart);
 
         while ($row = $result->fetch_assoc()) {
-            mysqli_query($connection, "INSERT INTO `mesali`(`transact_no`, `item_id`, `qty`, `scale`) VALUES ('$tr','$row[item_id]','$row[qty]','$row[scale]');");
+            mysqli_query($connection, "INSERT INTO `mesali`(`transact_no`, `item_id`, `qty`, `scale`) VALUES ('$tr', '$row[item_id]', '$row[qty]', '$row[scale]')");
+
             if ($row['scale'] == "piece") {
-                // invetory logs
-                mysqli_query($connection, " INSERT INTO `inventory_logs`(`brand_name`, `employee`, `quantity`, `stock_after`, `reason`) VALUES ('$row[brand]','$name','$row[qty]','$row[showroom_quantity_stock]','Sell Item');");
 
-                mysqli_query($connection, "UPDATE `inventory` SET `showroom_quantity_stock`= (showroom_quantity_stock - $row[qty]) WHERE inventory_id  = $row[item_id];");
-                
-            }
-            elseif  ($row['scale'] == "pack") {
+                $new_stock = $row['showroom_quantity_stock'] - $row['qty'];
+                mysqli_query($connection, "UPDATE `inventory` SET `showroom_quantity_stock`= $new_stock WHERE inventory_id = $row[item_id]");
                 // inventory logs
-                mysqli_query($connection, " INSERT INTO `inventory_logs`(`brand_name`, `employee`, `quantity`, `stock_after`, `reason`) VALUES ('$row[brand]','$name','$row[qty]','$row[stock_pack]','Sell Item');");
+                mysqli_query($connection, "INSERT INTO `inventory_logs`(`brand_name`, `employee`, `quantity`, `stock_after`, `reason`) VALUES ('$row[brand]', '$name', '$row[qty]', $new_stock, 'Sell Item')");
+            } elseif ($row['scale'] == "pack") {
 
-                mysqli_query($connection, "UPDATE `inventory` SET `stock_pack`= (stock_pack - $row[qty]) WHERE inventory_id  = $row[item_id];");
+                $new_stock = $row['stock_pack'] - $row['qty'];
+                mysqli_query($connection, "UPDATE `inventory` SET `stock_pack`= $new_stock WHERE inventory_id = $row[item_id]");
+                // inventory logs
+                mysqli_query($connection, "INSERT INTO `inventory_logs`(`brand_name`, `employee`, `quantity`, `stock_after`, `reason`) VALUES ('$row[brand]', '$name', '$row[qty]', $new_stock, 'Sell Item')");
             }
-            
-           
         }
 
         mysqli_query($connection, "DELETE FROM `cart_sales`");

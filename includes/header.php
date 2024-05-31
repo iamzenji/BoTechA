@@ -72,9 +72,9 @@ if (isset($_SESSION['employee_position'])) {
                                 <i class="lni lni-user"></i><?php echo $userName; ?>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" style="min-width: 150px;">
-                                <a class="dropdown-item" href="">Profile</a>
-                                <a class="dropdown-item" href="">Settings</a>
-                                <div class="dropdown-divider"></div>
+                                <!-- <a class="dropdown-item" href="">Profile</a>
+                                <a class="dropdown-item" href="">Settings</a> -->
+
                                 <a class="dropdown-item" href="logout.php">Logout</a>
                             </div>
                         </li>

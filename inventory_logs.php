@@ -11,20 +11,11 @@ if (empty($_SESSION['employee_id'])) {
     session_destroy();
 } else {
 
-    $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-    $records_per_page = 10; // Set the number of records to display per page
-    $offset = ($current_page - 1) * $records_per_page;
 
-    // Query to get total number of records
-    $total_records_query = "SELECT COUNT(*) AS total_records FROM inventory_logs";
-    $total_records_result = mysqli_query($connection, $total_records_query);
-    $total_records = mysqli_fetch_assoc($total_records_result)['total_records'];
-    $total_pages = ceil($total_records / $records_per_page);
 
     $query = "SELECT il.*, i.brand FROM inventory_logs il 
               INNER JOIN inventory i ON il.inventory_id = i.category AND il.brand_name = i.brand
-              ORDER BY il.date DESC
-              LIMIT $records_per_page OFFSET $offset";
+              ORDER BY il.date DESC";
 
 
     $result = mysqli_query($connection, $query);
@@ -43,9 +34,11 @@ if (empty($_SESSION['employee_id'])) {
                     <hr>
                     <a href="#">Edit Item</a>
                     <a href="#">Purchase order</a>
-                    <a href="#">Sale</a>
+                    <a href="#">Sell Item</a>
                     <a href="#">Add Discount</a>
                     <a href="#">Return Item</a>
+                    <a href="#">Request order</a>
+
                 </div>
             </div>
         </div>
@@ -117,16 +110,17 @@ if (empty($_SESSION['employee_id'])) {
                                 <div class="col-md-6">
                                     <nav aria-label="Page navigation">
                                         <ul class="pagination justify-content-start">
-                                            <li class="page-item <?php if ($current_page == 1) echo 'disabled'; ?>">
-                                                <a class="page-link" href="?page=<?php echo $current_page - 1; ?>">&laquo;</a>
+                                            <li class="page-item disabled">
+                                                <span class="page-link">&laquo;</span>
                                             </li>
-                                            <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
-                                                <li class="page-item <?php if ($current_page == $i) echo 'active'; ?>">
-                                                    <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
-                                                </li>
-                                            <?php endfor; ?>
-                                            <li class="page-item <?php if ($current_page == $total_pages) echo 'disabled'; ?>">
-                                                <a class="page-link" href="?page=<?php echo $current_page + 1; ?>">&raquo;</a>
+                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                    <span class="sr-only">Next</span>
+                                                </a>
                                             </li>
                                         </ul>
                                     </nav>
@@ -139,7 +133,7 @@ if (empty($_SESSION['employee_id'])) {
                                             <option value="25">25</option>
                                             <option value="50">50</option>
                                             <option value="100">100</option>
-                                            <option value="-1">All</option>
+                                            <option value="1000">All</option>
                                         </select>
                                     </div>
                                 </div>

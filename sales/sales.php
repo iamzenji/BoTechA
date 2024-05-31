@@ -31,13 +31,13 @@ require 'connect.php'; ?>
 			const year = now.getFullYear();
 			const dateString = `${month}/${day}/${year}`;
 
-			
-            var date =  document.getElementById('date');
-            var time = document.getElementById('time');
-            if (time !== null && date !== null) {
-                time.textContent = timeString;
-                date.textContent = dateString;
-            }
+
+			var date = document.getElementById('date');
+			var time = document.getElementById('time');
+			if (time !== null && date !== null) {
+				time.textContent = timeString;
+				date.textContent = dateString;
+			}
 
 		}
 
@@ -73,28 +73,32 @@ require 'connect.php'; ?>
 			}
 		</style>
 		<div class="header">
-				<div class="timer">
-					<div id="time"></div>
-					<div id="date"></div>
-				</div>
-				<h1><i style="margin: 1rem;" class='bx bx-trending-up bx-tada'></i>SALES</h1>
+			<div class="timer">
+				<div id="time"></div>
+				<div id="date"></div>
 			</div>
-			<div class="dropdown position-absolute top-0 end-0" style="margin: 12px 7px 0 0;">
-                    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class='bx bx-user'></i> 
-                    </button>
-                    <ul class="dropdown-menu" style="width: 12vw;">
-                    
-                        <li><span class="dropdown-item-text"><i class='bx bxs-user-circle' ></i> <?php echo $_SESSION['name'] ?></span></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Profile</a></li>
-                        <li><a class="dropdown-item" href="#">Settings</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="logout.php">Logout</a></li>
-                    </ul>
-                </div>
+			<h1><i style="margin: 1rem;" class='bx bx-trending-up bx-tada'></i>SALES</h1>
+		</div>
+		<div class="dropdown position-absolute top-0 end-0" style="margin: 12px 7px 0 0;">
+			<button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+				<i class='bx bx-user'></i>
+			</button>
+			<ul class="dropdown-menu" style="width: 12vw;">
+
+				<li><span class="dropdown-item-text"><i class='bx bxs-user-circle'></i> <?php echo $_SESSION['name'] ?></span></li>
+				<li>
+					<hr class="dropdown-divider">
+				</li>
+				<li><a class="dropdown-item" href="#">Profile</a></li>
+				<li><a class="dropdown-item" href="#">Settings</a></li>
+				<li>
+					<hr class="dropdown-divider">
+				</li>
+				<li><a class="dropdown-item" href="logout.php">Logout</a></li>
+			</ul>
+		</div>
 		<div>
-			
+
 
 			<div style="box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);width: 86vw; padding: 1rem 1rem 2rem 1rem; margin: 2rem 2rem 4rem 3rem;">
 				<div style="position: absolute;     margin-left: 2rem;">
