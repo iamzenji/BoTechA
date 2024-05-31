@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 30, 2024 at 05:52 PM
+-- Generation Time: May 31, 2024 at 01:00 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -54,6 +54,14 @@ CREATE TABLE `cart_sales` (
   `scale` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `cart_sales`
+--
+
+INSERT INTO `cart_sales` (`cart_id`, `item_id`, `qty`, `scale`) VALUES
+(54, 3, 1, 'piece'),
+(55, 2, 1, 'piece');
+
 -- --------------------------------------------------------
 
 --
@@ -89,7 +97,15 @@ INSERT INTO `cart_table` (`id`, `Category`, `brand`, `unit`, `wholesaleprice`, `
 (2, 'Analgesic', 'Bioflu', '500mg', 500.00, 8.00, 1, 24, 500.00, 54, 5, 'PO-665893f4aba5f', '2024-06-04', '2024-05-30', '16:57:56', 2, 2),
 (3, 'Analgesic', 'Bioflu', '500mg', 500.00, 8.00, 1, 24, 500.00, 55, 5, 'PO-66589f03ac3c0', '2024-06-04', '2024-05-30', '17:45:07', 2, 2),
 (4, 'Dermatological Agents ', 'Cortaid', '15 grams', 2000.00, 200.00, 1, 10, 2000.00, 56, 5, 'PO-66589fe202645', '2024-06-04', '2024-05-30', '17:48:50', 2, 1),
-(5, 'Analgesic', 'Bioflu', '500mg', 500.00, 8.00, 1, 24, 500.00, 57, 5, 'PO-6658a0156cc00', '2024-06-04', '2024-05-30', '17:49:41', 2, 2);
+(5, 'Analgesic', 'Bioflu', '500mg', 500.00, 8.00, 1, 24, 500.00, 57, 5, 'PO-6658a0156cc00', '2024-06-04', '2024-05-30', '17:49:41', 2, 2),
+(6, 'Laxatives ', 'Dulcolax', '5mg', 300.00, 30.00, 1, 100, 300.00, 58, 1, 'PO-66597ddda19aa', '2024-06-05', '2024-05-31', '09:35:57', 2, 2),
+(7, 'Cardiovascular Medications', 'Lipitor', '10 mg', 500.00, 50.00, 1, 100, 500.00, 59, 1, 'PO-66597f52dd420', '2024-06-05', '2024-05-31', '09:42:10', 2, 2),
+(8, 'Analgesic', 'Bioflu', '500mg', 500.00, 8.00, 3, 72, 1500.00, 60, 5, 'PO-665980c80def8', '2024-06-05', '2024-05-31', '09:48:24', 2, 2),
+(9, 'Immunizations ', 'Fluzone', '10ml', 9000.00, 900.00, 1, 30, 9000.00, 61, 5, 'PO-66599a9c8dab3', '2024-06-05', '2024-05-31', '11:38:36', 2, 5),
+(10, 'Cardiovascular Medications', 'Lipitor', '40 mg', 1000.00, 100.00, 1, 10, 1000.00, 62, 5, 'PO-6659a9e58428c', '2024-06-05', '2024-05-31', '12:43:49', 2, 2),
+(11, 'Hormonal Therapies', 'Premarin', '1.25mg', 1500.00, 150.00, 1, 10, 1500.00, 62, 5, 'PO-6659a9e58428c', '2024-06-05', '2024-05-31', '12:43:49', 2, 2),
+(12, 'Dermatological Agents ', 'Cortaid', '15 grams', 2000.00, 200.00, 1, 10, 2000.00, 63, 5, 'PO-6659aa6abdff1', '2024-06-05', '2024-05-31', '12:46:02', 2, 1),
+(13, 'Dermatological Agents ', 'Cortaid', '30 grams', 3500.00, 350.00, 1, 10, 3500.00, 63, 5, 'PO-6659aa6abdff1', '2024-06-05', '2024-05-31', '12:46:02', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -168,10 +184,21 @@ CREATE TABLE `discounted_item` (
   `category` varchar(255) NOT NULL,
   `brand` varchar(255) NOT NULL,
   `type` varchar(255) NOT NULL,
+  `unit` varchar(50) NOT NULL,
   `value` decimal(10,0) NOT NULL,
   `unit_qty` int(11) NOT NULL,
   `total_cost` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `discounted_item`
+--
+
+INSERT INTO `discounted_item` (`id`, `employee`, `supplier`, `category`, `brand`, `type`, `unit`, `value`, `unit_qty`, `total_cost`) VALUES
+(1, 'Zenji Yangco', 'Unilever', 'Analgesic', 'Bioflu', 'Tablet', '', 6, 10, 60),
+(2, 'Zenji Yangco', 'Unilever', 'Analgesic', 'Bioflu', 'Tablet', '', 6, 3, 18),
+(3, 'Zenji Yangco', 'Unilever', 'Dermatological Agents ', 'Cortaid', '15 grams', '', 4, 3, 12),
+(4, 'Zenji Yangco', 'Unilever', 'Analgesic', 'Bioflu', 'Tablet', '500mg', 4, 3, 12);
 
 -- --------------------------------------------------------
 
@@ -738,8 +765,10 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`inventory_id`, `supplier`, `category`, `brand`, `type`, `unit`, `qty_stock`, `unit_cost`, `showroom_quantity_stock`, `price_pack`, `piece_pack`, `stock_pack`, `unit_inv_qty`, `storage_location`, `showroom_location`, `quantity_to_reorder`, `total_cost`) VALUES
-(2, 'Unilever', 'Dermatological Agents ', 'Cortaid', 'Tablet', '15 grams', 1, 200, 0, 0, 0, 0, 10, '', '', 0, 2000),
-(3, 'Unilever', 'Analgesic', 'Bioflu', 'Tablet', '500mg', 1, 8, 0, 0, 0, 0, 24, '', '', 0, 192);
+(2, 'Unilever', 'Dermatological Agents ', 'Cortaid', 'Tablet', '15 grams', 2, 200, 0, 0, 0, 0, 20, '', '', 0, 4000),
+(3, 'Unilever', 'Analgesic', 'Bioflu', 'Tablet', '500mg', 4, 8, 4, 0, 0, 0, 77, 'MainStockroomNorth-A1', 'MedNorth-A1', 5, 616),
+(4, 'Unilever', 'Immunizations ', 'Fluzone', 'Tablet', '10ml', 1, 900, 0, 0, 0, 0, 20, '', '', 0, 18000),
+(5, 'Unilever', 'Cardiovascular Medications', 'Lipitor', 'Tablet', '40 mg', 1, 100, 0, 0, 0, 0, 10, '', '', 0, 1000);
 
 -- --------------------------------------------------------
 
@@ -767,7 +796,35 @@ INSERT INTO `inventory_logs` (`log_id`, `inventory_id`, `date`, `brand_name`, `e
 (2, '0000-00-00', '2024-05-30 14:58:00', 'Bioflu', 'Micosh Yutuc', 1, 24, 'Purchase order'),
 (3, '0000-00-00', '2024-05-30 15:45:15', 'Bioflu', 'Micosh Yutuc', 1, 24, 'Purchase order'),
 (4, '0000-00-00', '2024-05-30 15:48:57', 'Cortaid', 'Micosh Yutuc', 1, 10, 'Purchase order'),
-(5, '0000-00-00', '2024-05-30 15:49:44', 'Bioflu', 'Micosh Yutuc', 1, 24, 'Purchase order');
+(5, '0000-00-00', '2024-05-30 15:49:44', 'Bioflu', 'Micosh Yutuc', 1, 24, 'Purchase order'),
+(6, '0000-00-00', '2024-05-31 07:20:42', 'Cortaid', 'Zenji Yangco', 0, 0, 'Request order'),
+(7, '0000-00-00', '2024-05-31 07:48:43', 'Bioflu', 'Micosh Yutuc', 3, 72, 'Purchase order'),
+(8, '0000-00-00', '2024-05-31 08:03:06', 'Bioflu', 'Zenji Yangco', 0, 0, 'Request order'),
+(9, '0000-00-00', '2024-05-31 08:08:06', 'Bioflu', 'Zenji Yangco', 0, 0, 'Request order'),
+(10, '0000-00-00', '2024-05-31 08:09:55', 'Bioflu', 'Zenji Yangco', 0, 96, 'Edit Item'),
+(11, '0000-00-00', '2024-05-31 08:19:07', 'Bioflu', 'Zenji Yangco', 0, 96, 'Edit Item'),
+(12, '0000-00-00', '2024-05-31 08:57:31', 'Bioflu', 'Zenji Yangco', 0, 90, 'Edit Item'),
+(13, '0000-00-00', '2024-05-31 09:03:26', 'Bioflu', 'Zenji Yangco', 10, 80, 'Add Discount'),
+(14, '0000-00-00', '2024-05-31 09:07:57', 'Bioflu', 'Zenji Yangco', 7, 73, 'Edit Item'),
+(15, '0000-00-00', '2024-05-31 09:08:41', 'Bioflu', 'Zenji Yangco', 3, 70, 'Add Discount'),
+(16, '0000-00-00', '2024-05-31 09:08:57', 'Bioflu', 'Zenji Yangco', 6, 64, 'Edit Item'),
+(17, '0000-00-00', '2024-05-31 09:14:38', 'Bioflu', 'Zenji Yangco', 20, 56, 'Edit Item'),
+(18, '0000-00-00', '2024-05-31 09:17:54', 'Bioflu', 'Zenji Yangco', 16, 68, 'Edit Item'),
+(19, '0000-00-00', '2024-05-31 09:22:49', 'Bioflu', 'Zenji Yangco', 8, 60, 'Edit Item'),
+(20, '0000-00-00', '2024-05-31 09:23:07', 'Bioflu', 'Zenji Yangco', -4, 64, 'Edit Item'),
+(21, '0000-00-00', '2024-05-31 09:25:20', 'Bioflu', 'Zenji Yangco', 6, 90, 'Edit Item'),
+(22, '0000-00-00', '2024-05-31 09:25:39', 'Bioflu', 'Zenji Yangco', 4, 86, 'Edit Item'),
+(23, '0000-00-00', '2024-05-31 09:25:51', 'Bioflu', 'Zenji Yangco', -4, 90, 'Edit Item'),
+(24, '0000-00-00', '2024-05-31 09:27:07', 'Bioflu', 'Zenji Yangco', 6, 90, 'Edit Item'),
+(25, '0000-00-00', '2024-05-31 09:27:26', 'Bioflu', 'Zenji Yangco', 4, 86, 'Edit Item'),
+(26, '0000-00-00', '2024-05-31 09:27:40', 'Bioflu', 'Zenji Yangco', -4, 90, 'Edit Item'),
+(27, '0000-00-00', '2024-05-31 09:39:33', 'Fluzone', 'Micosh Yutuc', 1, 30, 'Purchase order'),
+(28, '0000-00-00', '2024-05-31 09:40:09', 'Fluzone', 'Zenji Yangco', 0, 0, 'Request order'),
+(29, '0000-00-00', '2024-05-31 09:41:31', 'Fluzone', 'Zenji Yangco', 10, 20, 'Return Item'),
+(30, '0000-00-00', '2024-05-31 10:33:53', 'Bioflu', 'Zenji Yangco', 10, 80, 'Return Item'),
+(31, '0000-00-00', '2024-05-31 10:38:36', 'Bioflu', 'Zenji Yangco', 3, 77, 'Add Discount'),
+(32, '0000-00-00', '2024-05-31 10:44:08', 'Lipitor', 'Micosh Yutuc', 1, 10, 'Purchase order'),
+(33, '0000-00-00', '2024-05-31 10:46:20', 'Cortaid', 'Micosh Yutuc', 1, 10, 'Purchase order');
 
 -- --------------------------------------------------------
 
@@ -1015,7 +1072,8 @@ INSERT INTO `meremove` (`id`, `cashier_id`, `item_id`, `qty`, `scale`, `reasons`
 (22, 2, 5, 1, 'piece', 'Dont want to buy anymore', 'all', '2024-05-19 00:36:13'),
 (23, 2, 5, 1, 'pack', 'Dont want to buy anymore', 'all', '2024-05-19 00:36:13'),
 (24, 2, 3, 1, 'piece', 'Costumer change of mind ', 'all', '2024-05-19 02:05:09'),
-(25, 2, 5, 1, 'piece', 'Costumer change of mind ', 'all', '2024-05-19 02:05:09');
+(25, 2, 5, 1, 'piece', 'Costumer change of mind ', 'all', '2024-05-19 02:05:09'),
+(26, 20, 3, 1, 'pack', 'Wrong Items', 'single', '2024-05-31 16:10:48');
 
 -- --------------------------------------------------------
 
@@ -1050,7 +1108,11 @@ INSERT INTO `mesali` (`id`, `transact_no`, `item_id`, `qty`, `scale`) VALUES
 (20, 'BTA-2/005', 7, 2, 'pack'),
 (21, 'BTA-2/006', 2, 2, 'piece'),
 (22, 'BTA-2/006', 1, 2, 'piece'),
-(23, 'BTA-2/007', 2, 2, 'piece');
+(23, 'BTA-2/007', 2, 2, 'piece'),
+(24, 'BTA-20/000', 3, 1, 'piece'),
+(25, 'BTA-20/001', 3, 1, 'piece'),
+(26, 'BTA-20/002', 3, 1, 'piece'),
+(27, 'BTA-20/003', 3, 1, 'piece');
 
 -- --------------------------------------------------------
 
@@ -1176,7 +1238,13 @@ INSERT INTO `order_table` (`id`, `subtotal`, `tax`, `shipping_fee`, `grand_total
 (54, 500.00, 60.00, 600.00, 1100.00, 'Cash on Delivery', 2),
 (55, 500.00, 60.00, 600.00, 1100.00, 'Cash on Delivery', 2),
 (56, 2000.00, 240.00, 600.00, 2600.00, 'Cash on Delivery', 2),
-(57, 500.00, 60.00, 600.00, 1100.00, 'Cash on Delivery', 2);
+(57, 500.00, 60.00, 600.00, 1100.00, 'Cash on Delivery', 2),
+(58, 3000.00, 360.00, 600.00, 3600.00, 'Cash on Delivery', 2),
+(59, 5000.00, 600.00, 540.00, 5540.00, 'Cash on Delivery', 2),
+(60, 1500.00, 180.00, 600.00, 2100.00, 'Cash on Delivery', 2),
+(61, 27000.00, 3240.00, 120.00, 27120.00, 'Cash on Delivery', 2),
+(62, 2500.00, 300.00, 600.00, 3100.00, 'Cash on Delivery', 2),
+(63, 5500.00, 660.00, 540.00, 6040.00, 'Cash on Delivery', 2);
 
 -- --------------------------------------------------------
 
@@ -1281,7 +1349,10 @@ CREATE TABLE `request_order` (
 
 INSERT INTO `request_order` (`id`, `employee`, `supplier`, `category`, `brand`, `type`, `unit`) VALUES
 (1, '', '', 'Paracetamol', 'Neozep', 'Tablet', '500mg'),
-(2, '', '', 'Paracetamol', 'Biogesic', 'Tablet', '500mg');
+(2, '', '', 'Paracetamol', 'Biogesic', 'Tablet', '500mg'),
+(3, '', 'Unilever', 'Dermatological Agents ', 'Cortaid', 'Tablet', '15 grams'),
+(5, '', 'Unilever', 'Analgesic', 'Bioflu', 'Tablet', '500mg'),
+(6, '', 'Unilever', 'Immunizations ', 'Fluzone', 'Tablet', '10ml');
 
 -- --------------------------------------------------------
 
@@ -1299,6 +1370,14 @@ CREATE TABLE `return_item` (
   `unit` varchar(255) NOT NULL,
   `unit_qty` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `return_item`
+--
+
+INSERT INTO `return_item` (`id`, `employee`, `supplier`, `category`, `brand`, `type`, `unit`, `unit_qty`) VALUES
+(1, 'Zenji Yangco', 'Unilever', 'Immunizations ', 'Fluzone', 'Tablet', '', 10),
+(2, 'Zenji Yangco', 'Unilever', 'Analgesic', 'Bioflu', 'Tablet', '', 10);
 
 -- --------------------------------------------------------
 
@@ -1463,7 +1542,11 @@ INSERT INTO `transact` (`id`, `transact_no`, `cashier_id`, `pay_method`, `sub_to
 (17, 'BTA-2/004', 2, 'Cash', 12000.00, 'Senior', 1800.00, 10200.00, 11000.00, 800.00, '2024-05-19 00:29:56'),
 (18, 'BTA-2/005', 2, 'Cash', 24000.00, 'PWD', 4800.00, 19200.00, 20000.00, 800.00, '2024-05-19 00:30:17'),
 (19, 'BTA-2/006', 2, 'GCash', 26.00, 'PWD', 2.60, 23.40, 0.00, 0.00, '2024-05-19 01:51:36'),
-(20, 'BTA-2/007', 2, 'Cash', 14.00, 'None', 0.00, 14.00, 14.00, 0.00, '2024-05-19 02:24:24');
+(20, 'BTA-2/007', 2, 'Cash', 14.00, 'None', 0.00, 14.00, 14.00, 0.00, '2024-05-19 02:24:24'),
+(21, 'BTA-20/000', 20, 'Cash', 9.00, 'None', 0.00, 9.00, 9.00, 0.00, '2024-05-31 16:11:15'),
+(22, 'BTA-20/001', 20, 'Cash', 9.00, 'None', 0.00, 9.00, 9.00, 0.00, '2024-05-31 16:21:02'),
+(23, 'BTA-20/002', 20, 'Cash', 9.00, 'None', 0.00, 9.00, 9.00, 0.00, '2024-05-31 17:28:21'),
+(24, 'BTA-20/003', 20, 'Cash', 9.00, 'None', 0.00, 9.00, 9.00, 0.00, '2024-05-31 18:40:43');
 
 --
 -- Indexes for dumped tables
@@ -1765,13 +1848,13 @@ ALTER TABLE `cart`
 -- AUTO_INCREMENT for table `cart_sales`
 --
 ALTER TABLE `cart_sales`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `cart_table`
 --
 ALTER TABLE `cart_table`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -1789,7 +1872,7 @@ ALTER TABLE `delivery_status`
 -- AUTO_INCREMENT for table `discounted_item`
 --
 ALTER TABLE `discounted_item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `dtrrevised`
@@ -1873,13 +1956,13 @@ ALTER TABLE `holiday`
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `inventory_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `inventory_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `inventory_logs`
 --
 ALTER TABLE `inventory_logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `item`
@@ -1909,13 +1992,13 @@ ALTER TABLE `medicine_list`
 -- AUTO_INCREMENT for table `meremove`
 --
 ALTER TABLE `meremove`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `mesali`
 --
 ALTER TABLE `mesali`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `order`
@@ -1927,7 +2010,7 @@ ALTER TABLE `order`
 -- AUTO_INCREMENT for table `order_table`
 --
 ALTER TABLE `order_table`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT for table `payroll_all_history`
@@ -1951,13 +2034,13 @@ ALTER TABLE `request_leave`
 -- AUTO_INCREMENT for table `request_order`
 --
 ALTER TABLE `request_order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `return_item`
 --
 ALTER TABLE `return_item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `return_status`
@@ -1993,7 +2076,7 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT for table `transact`
 --
 ALTER TABLE `transact`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- Constraints for dumped tables
