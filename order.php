@@ -39,7 +39,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
                 z-index: 1;
                 left: 0;
                 top: 0;
-                width: 80%;
+                width: 100%;
                 height: 100%;
                 overflow: auto;
                 background-color: rgb(0, 0, 0);
@@ -91,12 +91,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
                   </li>
                     </ul>
                   
-                    <form action="">
-                        <div class="input-group d-flex mt-4">
-                            <span class="input-group-text"><i class="lni lni-search-alt"></i></span>
-                            <input type="search" class="form-control" placeholder="Search">
-                        </div>
-                    </form>
+                   
                     <table class="table">
                         <thead>
                             <tr>
@@ -121,7 +116,7 @@ $query = "SELECT cart_table.order_date, cart_table.tracking_number, cart_table.d
           INNER JOIN cart_table ON order_table.id = cart_table.order_id
           LEFT JOIN delivery_status ON cart_table.delivery_status_id = delivery_status.id
           GROUP BY cart_table.tracking_number, cart_table.delivery_date
-          ORDER BY cart_table.order_time DESC"; 
+          ORDER BY cart_table.id DESC"; 
 $result = mysqli_query($connection, $query);
 if ($result) {
     if (mysqli_num_rows($result) > 0) {

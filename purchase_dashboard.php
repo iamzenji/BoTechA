@@ -113,7 +113,7 @@
                     <div class="d-flex align-items-center">
                         <div><i class="bi bi-cart-check-fill biicons"></i></div>
                         <div class="ms-2">
-                            <h3 class="mb-0">Order Received</h3>
+                            <h4 class="mb-0">Completed Orders</h4>
                                      <?php
                                     include 'includes/connection.php';
 
@@ -148,94 +148,106 @@
         
                 <h3>Inventory</h3>
                 <?php
- include 'includes/connection.php';
+include 'includes/connection.php';
 
-$query = "SELECT supplier.name AS supplier_name, medicine_list.brand, SUM(cart_table.quantity * medicine_list.unit_qty) AS total_inventory
-FROM cart_table
-JOIN order_table ON cart_table.order_id = order_table.id
-JOIN supplier ON order_table.supplier_id = supplier.supplier_id
-JOIN medicine_list ON cart_table.brand = medicine_list.brand
-GROUP BY supplier.name, medicine_list.brand;";
+$query = "SELECT supplier, brand, type, qty_stock
+          FROM inventory";
 
 $result = mysqli_query($connection, $query);
 
 if ($result) {
-    echo "<table class='table'>"; 
+    echo "<table class='table'>";
     echo "<thead><tr>
-    <th>Supplier Name</th>
+    <th>Supplier</th>
     <th>Brand</th>
-    <th>Stocks</th>
+    <th>Type</th>
+    <th>Qty Stock</th>
     <th>Stock Level</th>
     </tr></thead>";
     echo "<tbody>";
     while ($row = mysqli_fetch_assoc($result)) {
         echo "<tr>";
-        echo "<td>" . $row['supplier_name'] . "</td>"; 
+        echo "<td>" . $row['supplier'] . "</td>";
         echo "<td>" . $row['brand'] . "</td>";
-        echo "<td>" . $row['total_inventory'] . "</td>";
-        $stockControl = '';
-        if ($row['total_inventory'] <= 200) {
-            $stockControl = 'Low Stock';
-        } elseif ($row['total_inventory'] > 200 && $row['total_inventory'] <= 500) { 
-            $stockControl = 'Minimum Low Stock';
+        echo "<td>" . $row['type'] . "</td>";
+        echo "<td>" . $row['qty_stock'] . "</td>";
+        
+        $stockLevel = '';
+        if ($row['qty_stock'] <= 200) {
+            $stockLevel = 'Low Stock';
+        } elseif ($row['qty_stock'] > 200 && $row['qty_stock'] <= 500) {
+            $stockLevel = 'Minimum Low Stock';
         } else {
-            $stockControl = 'High Stock';
+            $stockLevel = 'High Stock';
         }
         
-    echo "<td>" . $stockControl . "</td>"; 
+        echo "<td>" . $stockLevel . "</td>";
         echo "</tr>";
     }
     echo "</tbody>";
-    echo "</table>"; 
+    echo "</table>";
 } else {
     echo "Error: " . mysqli_error($connection);
 }
 
 mysqli_close($connection);
 ?>
+
+ 
         </div>
         <div class="col-md-6">
         <h3>Fast Selling Items</h3>
             <table class="table">
-                <thead>
-                    <tr>
-                        <th>Brand</th>
-                        <th>Sales</th>
-                        <th></th>
-                    </tr>
-                </thead>
+                
                 <tbody>
                 <?php
  include 'includes/connection.php';
+ 
+ 
+ $query = "SELECT inventory.brand, inventory.type, 
+                  SUM(mesali.qty) AS total_sales,
+                  inventory.qty_stock AS total_inventory,
+                  CASE
+                      WHEN SUM(mesali.qty) / inventory.qty_stock >= 0.8 THEN 'Fast Selling'
+                      WHEN SUM(mesali.qty) / inventory.qty_stock >= 0.75 THEN 'Slow Selling'
+                      ELSE 'Non-Moving'
+                  END AS sales_category
+           FROM mesali
+           JOIN inventory ON mesali.item_id = inventory.inventory_id
+           GROUP BY inventory.brand, inventory.type
+           ORDER BY total_sales DESC";
+ 
+ $result = mysqli_query($connection, $query);
+ 
+ if ($result) {
+     echo "<table class='table'>";
+     echo "<thead><tr>
+     <th>Brand</th>
+     <th>Type</th>
+     <th>Total Sales</th>
+     <th>Total Inventory</th>
+     <th>Sales Category</th>
+     </tr></thead>";
+     echo "<tbody>";
+     while ($row = mysqli_fetch_assoc($result)) {
+         echo "<tr>";
+         echo "<td>" . $row['brand'] . "</td>"; 
+         echo "<td>" . $row['type'] . "</td>";
+         echo "<td>" . $row['total_sales'] . "</td>"; 
+         echo "<td>" . $row['total_inventory'] . "</td>"; 
+         echo "<td>" . $row['sales_category'] . "</td>";
+         echo "</tr>";
+     }
+     echo "</tbody>";
+     echo "</table>";
+ } else {
+     echo "Error: " . mysqli_error($connection);
+ }
+ mysqli_close($connection);
+ ?>
+ 
+ 
 
-$query = "SELECT brand, SUM(unit_qty) AS total_sales
-          FROM purchase_table
-          GROUP BY brand
-          ORDER BY total_sales DESC";
-
-$result = mysqli_query($connection, $query);
-
-if ($result) {
-    echo "<tbody>";
-    while ($row = mysqli_fetch_assoc($result)) {
-        echo "<tr>";
-        echo "<td>" . $row['brand'] . "</td>"; 
-        echo "<td>" . $row['total_sales'] . "</td>"; 
-        echo "<td>";
-        if ($row['total_sales'] <= 200) {
-             echo "Average Selling";
-        } elseif($row['total_sales'] >= 500) {
-            echo "Fast Selling"; 
-        }
-        echo "</td>";
-        echo "</tr>";
-    }
-    echo "</tbody>";
-} else {
-    echo "Error: " . mysqli_error($connection);
-}
-mysqli_close($connection);
-?>
                 </tbody>
             </table>
         </div>

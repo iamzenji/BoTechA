@@ -11,9 +11,8 @@ include 'includes/header.php';
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-plus-lg"></i>Add Supplier </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                
+                    
                 </div>
                 <form action="supplier-add.php" method="POST">
 
