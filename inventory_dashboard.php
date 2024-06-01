@@ -42,6 +42,18 @@ if (strlen($_SESSION['employee_id']) === 0) {
         </div>
 
         <div class="col-md-3">
+            <a href="inventory_audit.php" class="card-link">
+                <div class="card">
+                    <div class="card-body">
+                        <i class="lni lni-archive" style="font-size: 70px;"></i>
+                        <h5 class="card-title">Inventory Audit Record</h5>
+                        <h5 style="font-size: 27px;" ><?php echo $toinventory;?></h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-3">
             <a href="inventory_discount.php" class="card-link">
                 <div class="card">
                     <div class="card-body">

@@ -76,15 +76,15 @@ if (isset($_POST['addDiscount'])) {
                 mysqli_stmt_close($insert_discount_stmt);
 
                 // Log the inventory update
-                $insert_log_query = "INSERT INTO inventory_logs (inventory_id, date, brand_name, employee, quantity, stock_after, reason) 
-                                    VALUES (?, NOW(), ?, ?, ?, ?, 'Add Discount')";
+                $insert_log_query = "INSERT INTO inventory_logs (inventory_id, date, brand_name, type, unit employee, quantity, stock_after, reason) 
+                                    VALUES (?, NOW(), ?, ?, ?, ?, ?, ?, 'Add Discount')";
                 $insert_log_stmt = mysqli_prepare($connection, $insert_log_query);
-                mysqli_stmt_bind_param($insert_log_stmt, "sssid", $category, $brand, $userName, $unitQuantity, $unit_inv_qty_after);
+                mysqli_stmt_bind_param($insert_log_stmt, "sssssid", $category, $brand, $type, $unit, $userName, $unitQuantity, $unit_inv_qty_after);
                 mysqli_stmt_execute($insert_log_stmt);
                 mysqli_stmt_close($insert_log_stmt);
 
                 // Update total cost in the inventory
-                $update_total_cost = "UPDATE inventory SET total_cost = $unit_inv_qty_after * unit_cost WHERE supplier = '$supplier' AND category = '$category' AND brand = '$brand' AND type = '$type'";
+                $update_total_cost = "UPDATE inventory SET total_cost = $unit_inv_qty_after * unit_cost WHERE supplier = '$supplier' AND category = '$category' AND brand = '$brand' AND type = '$type' AND unit = '$unit'";
                 $update_result = mysqli_query($connection, $update_total_cost);
 
                 // Check if the update was successful

@@ -165,13 +165,13 @@
                 $new_stock = $row['showroom_quantity_stock'] - $row['qty'];
                 mysqli_query($connection, "UPDATE `inventory` SET `showroom_quantity_stock`= $new_stock WHERE inventory_id = $row[item_id]");
                 // inventory logs
-                mysqli_query($connection, "INSERT INTO `inventory_logs`(`brand_name`, `employee`, `quantity`, `stock_after`, `reason`) VALUES ('$row[brand]', '$name', '$row[qty]', $new_stock, 'Sell Item')");
+                mysqli_query($connection, "INSERT INTO `inventory_logs`(`brand_name`, `type`, `unit`, `employee`, `quantity`, `stock_after`, `reason`) VALUES ('$row[brand]', '$row[type]', '$row[unit]', '$name', '$row[qty]', $new_stock, 'Sell Item')");
             } elseif ($row['scale'] == "pack") {
 
                 $new_stock = $row['stock_pack'] - $row['qty'];
                 mysqli_query($connection, "UPDATE `inventory` SET `stock_pack`= $new_stock WHERE inventory_id = $row[item_id]");
                 // inventory logs
-                mysqli_query($connection, "INSERT INTO `inventory_logs`(`brand_name`, `employee`, `quantity`, `stock_after`, `reason`) VALUES ('$row[brand]', '$name', '$row[qty]', $new_stock, 'Sell Item')");
+                mysqli_query($connection, "INSERT INTO `inventory_logs`(`brand_name`, `type`, `unit`, `employee`, `quantity`, `stock_after`, `reason`) VALUES ('$row[brand]', '$row[type]', '$row[unit]' '$name', '$row[qty]', $new_stock, 'Sell Item')");
             }
         }
 

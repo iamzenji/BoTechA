@@ -41,6 +41,12 @@
                 </a>
             </li>
             <li class="sidebar-item">
+                <a href="inventory_audit.php" class="sidebar-link">
+                    <i class="lni lni-archive"></i>
+                    <span>Inventory Audit Record</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
                 <a href="inventory_discount.php" class="sidebar-link">
                     <i class="lni lni-graph"></i>
                     <span>Discounted Product</span>
