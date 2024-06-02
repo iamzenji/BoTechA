@@ -10,6 +10,7 @@ if (isset($_POST['addReturn'])) {
         isset($_POST['category']) &&
         isset($_POST['brand']) &&
         isset($_POST['type']) &&
+        isset($_POST['unit']) &&
         isset($_POST['unitQuantity'])
    ) {
 
@@ -17,6 +18,7 @@ if (isset($_POST['addReturn'])) {
         $category = mysqli_real_escape_string($connection, $_POST['category']);
         $brand = mysqli_real_escape_string($connection, $_POST['brand']);
         $type = mysqli_real_escape_string($connection, $_POST['type']);
+        $unit = mysqli_real_escape_string($connection, $_POST['unit']);
         $unitQuantity = mysqli_real_escape_string($connection, $_POST['unitQuantity']);
 
         // Check if employee_id is set in the session
@@ -33,10 +35,10 @@ if (isset($_POST['addReturn'])) {
             }
 
             // Insert return item
-            $query = "INSERT INTO return_item (employee ,supplier, category, brand, type, unit_qty) 
-                      VALUES (?, ?, ?, ?, ?, ?)";
+            $query = "INSERT INTO return_item (employee ,supplier, category, brand, type, unit, unit_qty) 
+                      VALUES (?, ?, ?, ?, ?, ?, ?)";
             $stmt = mysqli_prepare($connection, $query);
-            mysqli_stmt_bind_param($stmt, "sssssi", $userName, $supplier, $category, $brand, $type, $unitQuantity); // Fix: Changed 'sssi' to 'ssssi'
+            mysqli_stmt_bind_param($stmt, "ssssssi", $userName, $supplier, $category, $brand, $type, $unit, $unitQuantity); // Fix: Changed 'sssi' to 'ssssi'
 
             if (mysqli_stmt_execute($stmt)) {
                 echo "Returned item inserted successfully.<br>";
@@ -65,10 +67,10 @@ if (isset($_POST['addReturn'])) {
                 // change the "6" if their is a value to fetch in line 63
 
                 // Log the inventory update
-                $insert_query = "INSERT INTO inventory_logs (inventory_id, date, brand_name, employee, quantity, stock_after, reason) 
-                    VALUES (?, NOW(), ?, ?, ?, ?, 'Return Item')";
+                $insert_query = "INSERT INTO inventory_logs (inventory_id, date, brand_name, type, unit, employee, quantity, stock_after, reason) 
+                    VALUES (?, NOW(), ?, ?, ?, ?, ?, ?, 'Return Item')";
                 $insert_stmt = mysqli_prepare($connection, $insert_query);
-                mysqli_stmt_bind_param($insert_stmt, "ssssi", $category, $brand, $userName, $unitQuantity, $current_stock); // Fix: Changed 'sssisi' to 'ssisi'
+                mysqli_stmt_bind_param($insert_stmt, "ssssssi", $category, $brand, $type, $unit, $userName, $unitQuantity, $current_stock); // Fix: Changed 'sssisi' to 'ssisi'
                 mysqli_stmt_execute($insert_stmt);
                 mysqli_stmt_close($insert_stmt);
 

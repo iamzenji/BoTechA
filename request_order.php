@@ -25,8 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       }   
 
       // Insert into inventory_logs table
-      $insert_query = "INSERT INTO inventory_logs (inventory_id, date, brand_name, employee, reason) 
-      VALUES ('$category', NOW(), '$brand', '$userName', 'Request order')";
+      $insert_query = "INSERT INTO inventory_logs (inventory_id, date, brand_name, type, unit, employee, reason) 
+      VALUES ('$category', NOW(), '$brand', '$type', '$unit', '$userName', 'Request order')";
       $insert_result = mysqli_query($connection, $insert_query);
 
       // Product does not exist in inventory, insert new entry
