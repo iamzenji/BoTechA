@@ -147,6 +147,12 @@
 
         mysqli_query($connection, "INSERT INTO `transact`(`transact_no`, `cashier_id`, `pay_method`, `sub_total`, `type`, `total_dis`, `total_amount`, `bayad`, `sukli`) VALUES ('$tr', $cashier,'$paym',$sub ,'$dist', $dis,$tot,$cash,$change);");
 
+        // Added by Finance
+        $selectsales = mysqli_query($connection, "SELECT * FROM `finance_daily_sales`");
+        $sales = mysqli_fetch_assoc($selectsales);
+        $totalsales = $sales['totalsales'] + $tot;
+
+        mysqli_query($connection, "UPDATE finance_daily_sales SET totalsales = $totalsales");
 
         $cart = "SELECT * FROM cart_sales CROSS JOIN inventory on cart_sales.item_id = inventory_id";
         $result = $connection->query($cart);

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 31, 2024 at 01:49 PM
+-- Generation Time: Jun 03, 2024 at 04:31 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -85,19 +85,12 @@ CREATE TABLE `cart_table` (
 --
 
 INSERT INTO `cart_table` (`id`, `Category`, `brand`, `unit`, `wholesaleprice`, `unitcost`, `quantity`, `unit_qty`, `total`, `order_id`, `delivery_status_id`, `tracking_number`, `delivery_date`, `order_date`, `order_time`, `supplier_id`, `type_id`) VALUES
-(1, 'Analgesic', 'Bioflu', '500mg', 500.00, 8.00, 1, 24, 500.00, 53, 5, 'PO-665893805005a', '2024-06-04', '2024-05-30', '16:56:00', 2, 2),
-(2, 'Analgesic', 'Bioflu', '500mg', 500.00, 8.00, 1, 24, 500.00, 54, 5, 'PO-665893f4aba5f', '2024-06-04', '2024-05-30', '16:57:56', 2, 2),
-(3, 'Analgesic', 'Bioflu', '500mg', 500.00, 8.00, 1, 24, 500.00, 55, 5, 'PO-66589f03ac3c0', '2024-06-04', '2024-05-30', '17:45:07', 2, 2),
-(4, 'Dermatological Agents ', 'Cortaid', '15 grams', 2000.00, 200.00, 1, 10, 2000.00, 56, 5, 'PO-66589fe202645', '2024-06-04', '2024-05-30', '17:48:50', 2, 1),
-(5, 'Analgesic', 'Bioflu', '500mg', 500.00, 8.00, 1, 24, 500.00, 57, 5, 'PO-6658a0156cc00', '2024-06-04', '2024-05-30', '17:49:41', 2, 2),
-(6, 'Laxatives ', 'Dulcolax', '5mg', 300.00, 30.00, 1, 100, 300.00, 58, 1, 'PO-66597ddda19aa', '2024-06-05', '2024-05-31', '09:35:57', 2, 2),
-(7, 'Cardiovascular Medications', 'Lipitor', '10 mg', 500.00, 50.00, 1, 100, 500.00, 59, 1, 'PO-66597f52dd420', '2024-06-05', '2024-05-31', '09:42:10', 2, 2),
-(8, 'Analgesic', 'Bioflu', '500mg', 500.00, 8.00, 3, 72, 1500.00, 60, 5, 'PO-665980c80def8', '2024-06-05', '2024-05-31', '09:48:24', 2, 2),
-(9, 'Immunizations ', 'Fluzone', '10ml', 9000.00, 900.00, 1, 30, 9000.00, 61, 5, 'PO-66599a9c8dab3', '2024-06-05', '2024-05-31', '11:38:36', 2, 5),
-(10, 'Cardiovascular Medications', 'Lipitor', '40 mg', 1000.00, 100.00, 1, 10, 1000.00, 62, 5, 'PO-6659a9e58428c', '2024-06-05', '2024-05-31', '12:43:49', 2, 2),
-(11, 'Hormonal Therapies', 'Premarin', '1.25mg', 1500.00, 150.00, 1, 10, 1500.00, 62, 5, 'PO-6659a9e58428c', '2024-06-05', '2024-05-31', '12:43:49', 2, 2),
-(12, 'Dermatological Agents ', 'Cortaid', '15 grams', 2000.00, 200.00, 1, 10, 2000.00, 63, 5, 'PO-6659aa6abdff1', '2024-06-05', '2024-05-31', '12:46:02', 2, 1),
-(13, 'Dermatological Agents ', 'Cortaid', '30 grams', 3500.00, 350.00, 1, 10, 3500.00, 63, 5, 'PO-6659aa6abdff1', '2024-06-05', '2024-05-31', '12:46:02', 2, 1);
+(1, 'Analgesic', 'Bioflu', '500mg', 192.00, 8.00, 50, 1200, 9600.00, 90, 5, 'PO-665a1b2d720c3', '2024-06-05', '2024-05-31', '20:47:09', 2, 2),
+(2, ' Anilide preparations', 'Biogesic', '500mg', 1000.00, 5.00, 1, 10000, 1000.00, 91, 5, 'PO-665a1b3a94872', '2024-06-05', '2024-05-31', '20:47:22', 2, 2),
+(3, 'Dermatological Agents ', 'Cortaid', '30g', 3500.00, 350.00, 1, 500, 3500.00, 92, 5, 'PO-665a1b5b834d9', '2024-06-05', '2024-05-31', '20:47:55', 2, 1),
+(4, 'Laxatives ', 'Dulcolax', '5mg', 300.00, 30.00, 1, 500, 300.00, 93, 5, 'PO-665a1b7b6d544', '2024-06-05', '2024-05-31', '20:48:27', 2, 2),
+(5, 'Immunizations ', 'Fluzone', '5ml', 5000.00, 500.00, 1, 500, 5000.00, 94, 5, 'PO-665a1b9e5dbfa', '2024-06-05', '2024-05-31', '20:49:02', 2, 5),
+(6, 'Diuretics ', 'Lasix', '40mg', 750.00, 75.00, 1, 500, 750.00, 95, 5, 'PO-665a1bb4bbc4e', '2024-06-05', '2024-05-31', '20:49:24', 2, 2);
 
 -- --------------------------------------------------------
 
@@ -122,7 +115,8 @@ INSERT INTO `category` (`category_id`, `category_name`) VALUES
 (5, 'Hormonal Therapies'),
 (6, 'Immunizations '),
 (7, 'Laxatives '),
-(8, 'Analgesic');
+(8, 'Analgesic'),
+(9, ' Anilide preparations');
 
 -- --------------------------------------------------------
 
@@ -187,10 +181,12 @@ CREATE TABLE `discounted_item` (
 --
 
 INSERT INTO `discounted_item` (`id`, `employee`, `supplier`, `category`, `brand`, `type`, `unit`, `value`, `unit_qty`, `total_cost`) VALUES
-(1, 'Zenji Yangco', 'Unilever', 'Analgesic', 'Bioflu', 'Tablet', '', 6, 10, 60),
-(2, 'Zenji Yangco', 'Unilever', 'Analgesic', 'Bioflu', 'Tablet', '', 6, 3, 18),
-(3, 'Zenji Yangco', 'Unilever', 'Dermatological Agents ', 'Cortaid', '15 grams', '', 4, 3, 12),
-(4, 'Zenji Yangco', 'Unilever', 'Analgesic', 'Bioflu', 'Tablet', '500mg', 4, 3, 12);
+(1, 'Zenji Yangco', 'Unilever', 'Analgesic', 'Bioflu', 'Tablet', '500mg', 4, 50, 200),
+(2, 'Zenji Yangco', 'Unilever', ' Anilide preparations', 'Biogesic', 'Tablet', '500mg', 3, 50, 150),
+(3, 'Zenji Yangco', 'Unilever', 'Dermatological Agents ', 'Cortaid', 'Tablet', '30g', 150, 10, 1500),
+(4, 'Zenji Yangco', 'Unilever', 'Laxatives ', 'Dulcolax', 'Tablet', '5mg', 15, 20, 300),
+(5, 'Zenji Yangco', 'Unilever', 'Immunizations ', 'Fluzone', 'Tablet', '5ml', 200, 5, 1000),
+(6, 'Zenji Yangco', 'Unilever', 'Diuretics ', 'Lasix', 'Tablet', '40mg', 30, 50, 1500);
 
 -- --------------------------------------------------------
 
@@ -450,7 +446,8 @@ INSERT INTO `employee_salary_revised` (`id`, `employee_id`, `insurance`, `sss`, 
 (258, 69, 1000, 250, 350, 1000, 0, 20, NULL, '2024-04-01', '2024-04-30', 0, 2600, -2600),
 (259, 61, 1000, 250, 350, 1000, 3, 100, NULL, '2024-04-30', '2024-05-03', 300, 2600, -2300),
 (260, 19, 1000, 250, 350, 1000, 6, 2000, NULL, '2024-03-30', '2024-04-02', 12000, 2600, 9400),
-(261, 19, 1000, 250, 350, 1000, 8, 2000, NULL, '2024-03-30', '2024-04-10', 16000, 2600, 13400);
+(261, 19, 1000, 250, 350, 1000, 8, 2000, NULL, '2024-03-30', '2024-04-10', 16000, 2600, 13400),
+(262, 19, 1000, 250, 350, 1000, 6, 2000, NULL, '2024-03-30', '2024-04-03', 12000, 2600, 9400);
 
 -- --------------------------------------------------------
 
@@ -476,7 +473,30 @@ INSERT INTO `finance_balance` (`id`, `trackingID`, `currentbal`, `cost`, `compan
 (1, '0', 0, 0, 'FINANCE', '2024-04-19 22:36:47', ''),
 (13, 'TN66504884de4cc', 70295, 70295, 'Point of Sales', '2024-05-24 15:57:56', 'Daily Sales'),
 (14, 'TN66504884e111b', 14395, -55900, 'Finance', '2024-05-24 15:57:56', 'Expenses'),
-(19, 'TN665067418f13e', 47495, -13400, 'Human Resources', '2024-05-24 18:09:05', 'Payroll Given');
+(19, 'TN665067418f13e', 47495, -13400, 'Human Resources', '2024-05-24 18:09:05', 'Payroll Given'),
+(20, 'TN6659fec317360', 57832, 10337, 'Point of Sales', '2024-06-01 00:45:55', 'Daily Sales'),
+(21, 'TN6659fec3198b6', 1932, -55900, 'Finance', '2024-06-01 00:45:55', 'Expenses'),
+(22, 'TN665bc99906041', 1946, 14, 'Point of Sales', '2024-06-02 09:23:37', 'Daily Sales'),
+(23, 'TN665d1b70f2e8b', 1543, -403, 'Point of Sales', '2024-06-03 09:25:04', 'Daily Sales'),
+(24, 'TN665d1cfa5ae91', -7857, -9400, 'Human Resources', '2024-06-03 09:31:38', 'Payroll Given');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `finance_daily_sales`
+--
+
+CREATE TABLE `finance_daily_sales` (
+  `id` int(11) NOT NULL,
+  `totalsales` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `finance_daily_sales`
+--
+
+INSERT INTO `finance_daily_sales` (`id`, `totalsales`) VALUES
+(1, 0);
 
 -- --------------------------------------------------------
 
@@ -626,7 +646,7 @@ CREATE TABLE `finance_receipt` (
 --
 
 INSERT INTO `finance_receipt` (`id`, `reportid`, `date`, `finance`, `po`, `hr`, `inventory`, `sales`) VALUES
-(1, 2427295, '2024-05-24 15:56:18', -111800, 0, -81000, 0, 90511);
+(1, 4897142, '2024-06-01 00:45:55', 0, 0, -9400, 0, -389);
 
 -- --------------------------------------------------------
 
@@ -652,7 +672,8 @@ CREATE TABLE `finance_receipt_backup` (
 INSERT INTO `finance_receipt_backup` (`id`, `reportid`, `date`, `finance`, `po`, `hr`, `inventory`, `sales`) VALUES
 (1, 1, '2024-04-23', 0, 0, 0, 0, 0),
 (2, 4377144, '2024-06-08', -213500, -14628, -32877, 0, 469418),
-(3, 3234745, '2024-05-24', -55900, 0, 0, 0, 74543);
+(3, 3234745, '2024-05-24', -55900, 0, 0, 0, 74543),
+(4, 2427295, '2024-06-01', -167700, 0, -81000, 0, 100848);
 
 -- --------------------------------------------------------
 
@@ -757,10 +778,12 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`inventory_id`, `supplier`, `category`, `brand`, `type`, `unit`, `qty_stock`, `unit_cost`, `showroom_quantity_stock`, `price_pack`, `piece_pack`, `stock_pack`, `unit_inv_qty`, `storage_location`, `showroom_location`, `quantity_to_reorder`, `total_cost`) VALUES
-(2, 'Unilever', 'Dermatological Agents ', 'Cortaid', 'Tablet', '15 grams', 2, 200, -5, 0, 0, 0, 20, '', '', 0, 4000),
-(3, 'Unilever', 'Analgesic', 'Bioflu', 'Tablet', '500mg', 4, 8, -1, 0, 0, 0, 77, 'MainStockroomNorth-A1', 'MedNorth-A1', 5, 616),
-(4, 'Unilever', 'Immunizations ', 'Fluzone', 'Tablet', '10ml', 1, 900, -4, 0, 0, 0, 20, '', '', 0, 18000),
-(5, 'Unilever', 'Cardiovascular Medications', 'Lipitor', 'Tablet', '40 mg', 1, 100, -4, 0, 0, 0, 10, '', '', 0, 1000);
+(1, 'Unilever', 'Analgesic', 'Bioflu', 'Tablet', '500mg', 50, 8, 89, 192, 24, 10, 1050, 'MainStockroomNorth-A1', 'MedNorth-A1', 100, 8400),
+(2, 'Unilever', ' Anilide preparations', 'Biogesic', 'Tablet', '500mg', 50, 5, 94, 1000, 200, 10, 9850, 'MainStockroomNorth-A2', 'MedNorth-A2', 100, 49250),
+(3, 'Unilever', 'Dermatological Agents ', 'Cortaid', 'Tablet', '30g', 50, 350, 98, 3500, 10, 10, 390, 'MainStockroomNorth-A3', 'MedNorth-A3', 100, 136500),
+(4, 'Unilever', 'Laxatives ', 'Dulcolax', 'Tablet', '5mg', 50, 30, 97, 300, 10, 10, 360, 'MainStockroomNorth-A4', 'MedNorth-A4', 100, 10800),
+(5, 'Unilever', 'Immunizations ', 'Fluzone', 'Tablet', '5ml', 50, 500, 99, 5000, 10, 10, 395, 'MainStockroomNorth-A5', 'MedNorth-A5', 100, 197500),
+(6, 'Unilever', 'Diuretics ', 'Lasix', 'Tablet', '40mg', 50, 75, 98, 750, 10, 10, 350, 'MainStockroomNorth-B1', 'MedNorth-B1', 100, 26250);
 
 -- --------------------------------------------------------
 
@@ -784,49 +807,35 @@ CREATE TABLE `inventory_logs` (
 --
 
 INSERT INTO `inventory_logs` (`log_id`, `inventory_id`, `date`, `brand_name`, `employee`, `quantity`, `stock_after`, `reason`) VALUES
-(1, '0000-00-00', '2024-05-30 14:56:08', 'Bioflu', 'Micosh Yutuc', 1, 24, 'Purchase order'),
-(2, '0000-00-00', '2024-05-30 14:58:00', 'Bioflu', 'Micosh Yutuc', 1, 24, 'Purchase order'),
-(3, '0000-00-00', '2024-05-30 15:45:15', 'Bioflu', 'Micosh Yutuc', 1, 24, 'Purchase order'),
-(4, '0000-00-00', '2024-05-30 15:48:57', 'Cortaid', 'Micosh Yutuc', 1, 10, 'Purchase order'),
-(5, '0000-00-00', '2024-05-30 15:49:44', 'Bioflu', 'Micosh Yutuc', 1, 24, 'Purchase order'),
-(6, '0000-00-00', '2024-05-31 07:20:42', 'Cortaid', 'Zenji Yangco', 0, 0, 'Request order'),
-(7, '0000-00-00', '2024-05-31 07:48:43', 'Bioflu', 'Micosh Yutuc', 3, 72, 'Purchase order'),
-(8, '0000-00-00', '2024-05-31 08:03:06', 'Bioflu', 'Zenji Yangco', 0, 0, 'Request order'),
-(9, '0000-00-00', '2024-05-31 08:08:06', 'Bioflu', 'Zenji Yangco', 0, 0, 'Request order'),
-(10, '0000-00-00', '2024-05-31 08:09:55', 'Bioflu', 'Zenji Yangco', 0, 96, 'Edit Item'),
-(11, '0000-00-00', '2024-05-31 08:19:07', 'Bioflu', 'Zenji Yangco', 0, 96, 'Edit Item'),
-(12, '0000-00-00', '2024-05-31 08:57:31', 'Bioflu', 'Zenji Yangco', 0, 90, 'Edit Item'),
-(13, '0000-00-00', '2024-05-31 09:03:26', 'Bioflu', 'Zenji Yangco', 10, 80, 'Add Discount'),
-(14, '0000-00-00', '2024-05-31 09:07:57', 'Bioflu', 'Zenji Yangco', 7, 73, 'Edit Item'),
-(15, '0000-00-00', '2024-05-31 09:08:41', 'Bioflu', 'Zenji Yangco', 3, 70, 'Add Discount'),
-(16, '0000-00-00', '2024-05-31 09:08:57', 'Bioflu', 'Zenji Yangco', 6, 64, 'Edit Item'),
-(17, '0000-00-00', '2024-05-31 09:14:38', 'Bioflu', 'Zenji Yangco', 20, 56, 'Edit Item'),
-(18, '0000-00-00', '2024-05-31 09:17:54', 'Bioflu', 'Zenji Yangco', 16, 68, 'Edit Item'),
-(19, '0000-00-00', '2024-05-31 09:22:49', 'Bioflu', 'Zenji Yangco', 8, 60, 'Edit Item'),
-(20, '0000-00-00', '2024-05-31 09:23:07', 'Bioflu', 'Zenji Yangco', -4, 64, 'Edit Item'),
-(21, '0000-00-00', '2024-05-31 09:25:20', 'Bioflu', 'Zenji Yangco', 6, 90, 'Edit Item'),
-(22, '0000-00-00', '2024-05-31 09:25:39', 'Bioflu', 'Zenji Yangco', 4, 86, 'Edit Item'),
-(23, '0000-00-00', '2024-05-31 09:25:51', 'Bioflu', 'Zenji Yangco', -4, 90, 'Edit Item'),
-(24, '0000-00-00', '2024-05-31 09:27:07', 'Bioflu', 'Zenji Yangco', 6, 90, 'Edit Item'),
-(25, '0000-00-00', '2024-05-31 09:27:26', 'Bioflu', 'Zenji Yangco', 4, 86, 'Edit Item'),
-(26, '0000-00-00', '2024-05-31 09:27:40', 'Bioflu', 'Zenji Yangco', -4, 90, 'Edit Item'),
-(27, '0000-00-00', '2024-05-31 09:39:33', 'Fluzone', 'Micosh Yutuc', 1, 30, 'Purchase order'),
-(28, '0000-00-00', '2024-05-31 09:40:09', 'Fluzone', 'Zenji Yangco', 0, 0, 'Request order'),
-(29, '0000-00-00', '2024-05-31 09:41:31', 'Fluzone', 'Zenji Yangco', 10, 20, 'Return Item'),
-(30, '0000-00-00', '2024-05-31 10:33:53', 'Bioflu', 'Zenji Yangco', 10, 80, 'Return Item'),
-(31, '0000-00-00', '2024-05-31 10:38:36', 'Bioflu', 'Zenji Yangco', 3, 77, 'Add Discount'),
-(32, '0000-00-00', '2024-05-31 10:44:08', 'Lipitor', 'Micosh Yutuc', 1, 10, 'Purchase order'),
-(33, '0000-00-00', '2024-05-31 10:46:20', 'Cortaid', 'Micosh Yutuc', 1, 10, 'Purchase order'),
-(34, '0000-00-00', '2024-05-31 11:37:51', 'Bioflu', '', 1, 4, 'Sell Item'),
-(35, '0000-00-00', '2024-05-31 11:37:51', 'Cortaid', '', 1, 0, 'Sell Item'),
-(36, '0000-00-00', '2024-05-31 11:40:30', 'Cortaid', '', 1, -1, 'Sell Item'),
-(37, '0000-00-00', '2024-05-31 11:40:30', 'Bioflu', '', 1, 3, 'Sell Item'),
-(38, '0000-00-00', '2024-05-31 11:40:30', 'Fluzone', '', 1, 0, 'Sell Item'),
-(39, '0000-00-00', '2024-05-31 11:40:30', 'Lipitor', '', 1, 0, 'Sell Item'),
-(40, '0000-00-00', '2024-05-31 11:46:39', 'Cortaid', 'Regina Velarde', 3, -2, 'Sell Item'),
-(41, '0000-00-00', '2024-05-31 11:46:39', 'Bioflu', 'Regina Velarde', 3, 2, 'Sell Item'),
-(42, '0000-00-00', '2024-05-31 11:46:39', 'Fluzone', 'Regina Velarde', 3, -1, 'Sell Item'),
-(43, '0000-00-00', '2024-05-31 11:46:39', 'Lipitor', 'Regina Velarde', 3, -1, 'Sell Item');
+(1, '0000-00-00', '2024-05-31 18:47:13', 'Bioflu', 'Micosh Yutuc', 50, 1200, 'Purchase order'),
+(2, '0000-00-00', '2024-05-31 18:47:27', 'Biogesic', 'Micosh Yutuc', 1, 10000, 'Purchase order'),
+(3, '0000-00-00', '2024-05-31 18:48:00', 'Cortaid', 'Micosh Yutuc', 1, 500, 'Purchase order'),
+(4, '0000-00-00', '2024-05-31 18:48:30', 'Dulcolax', 'Micosh Yutuc', 1, 500, 'Purchase order'),
+(5, '0000-00-00', '2024-05-31 18:49:06', 'Fluzone', 'Micosh Yutuc', 1, 500, 'Purchase order'),
+(6, '0000-00-00', '2024-05-31 18:49:28', 'Lasix', 'Micosh Yutuc', 1, 500, 'Purchase order'),
+(7, '0000-00-00', '2024-05-31 18:49:55', 'Bioflu', 'Zenji Yangco', 100, 1100, 'Edit Item'),
+(8, '0000-00-00', '2024-05-31 18:50:08', 'Biogesic', 'Zenji Yangco', 100, 9900, 'Edit Item'),
+(9, '0000-00-00', '2024-05-31 18:50:20', 'Cortaid', 'Zenji Yangco', 100, 400, 'Edit Item'),
+(10, '0000-00-00', '2024-05-31 18:50:35', 'Dulcolax', 'Zenji Yangco', 100, 400, 'Edit Item'),
+(11, '0000-00-00', '2024-05-31 18:50:52', 'Fluzone', 'Zenji Yangco', 100, 400, 'Edit Item'),
+(12, '0000-00-00', '2024-05-31 18:51:05', 'Lasix', 'Zenji Yangco', 100, 400, 'Edit Item'),
+(13, '0000-00-00', '2024-05-31 18:51:51', 'Bioflu', 'Zenji Yangco', 50, 1050, 'Add Discount'),
+(14, '0000-00-00', '2024-05-31 18:52:10', 'Biogesic', 'Zenji Yangco', 50, 9850, 'Add Discount'),
+(15, '0000-00-00', '2024-05-31 18:53:38', 'Cortaid', 'Zenji Yangco', 10, 390, 'Add Discount'),
+(16, '0000-00-00', '2024-05-31 18:53:59', 'Dulcolax', 'Zenji Yangco', 20, 380, 'Add Discount'),
+(17, '0000-00-00', '2024-05-31 18:54:25', 'Fluzone', 'Zenji Yangco', 5, 395, 'Add Discount'),
+(18, '0000-00-00', '2024-05-31 18:54:50', 'Lasix', 'Zenji Yangco', 50, 350, 'Add Discount'),
+(19, '0000-00-00', '2024-05-31 18:55:13', 'Dulcolax', 'Zenji Yangco', 0, 0, 'Request order'),
+(20, '0000-00-00', '2024-05-31 18:56:22', 'Dulcolax', 'Zenji Yangco', 20, 360, 'Return Item'),
+(21, '0000-00-00', '2024-05-31 19:23:31', 'Bioflu', 'Regina Velarde', 10, 90, 'Sell Item'),
+(22, '0000-00-00', '2024-05-31 19:23:46', 'Biogesic', 'Regina Velarde', 5, 95, 'Sell Item'),
+(23, '0000-00-00', '2024-05-31 19:23:58', 'Cortaid', 'Regina Velarde', 1, 99, 'Sell Item'),
+(24, '0000-00-00', '2024-05-31 19:24:10', 'Lasix', 'Regina Velarde', 2, 98, 'Sell Item'),
+(25, '0000-00-00', '2024-05-31 19:24:18', 'Fluzone', 'Regina Velarde', 1, 99, 'Sell Item'),
+(26, '0000-00-00', '2024-05-31 19:24:30', 'Dulcolax', 'Regina Velarde', 3, 97, 'Sell Item'),
+(27, '0000-00-00', '2024-06-01 01:19:41', 'Bioflu', 'Regina Velarde', 1, 89, 'Sell Item'),
+(28, '0000-00-00', '2024-06-01 01:19:41', 'Biogesic', 'Regina Velarde', 1, 94, 'Sell Item'),
+(29, '0000-00-00', '2024-06-02 01:24:32', 'Cortaid', 'Regina Velarde', 1, 98, 'Sell Item');
 
 -- --------------------------------------------------------
 
@@ -893,8 +902,13 @@ CREATE TABLE `item_mapping` (
 --
 
 INSERT INTO `item_mapping` (`map_id`, `item_id`, `shelves`, `colum`, `row`) VALUES
-(21, 1, 'MedCenter', 1, 'B'),
-(23, 8, 'MedSouth', 2, 'B');
+(23, 8, 'MedSouth', 2, 'B'),
+(24, 1, 'MedNorth', 1, 'A'),
+(25, 2, 'MedNorth', 2, 'A'),
+(26, 3, 'MedNorth', 3, 'A'),
+(27, 4, 'MedNorth', 4, 'A'),
+(28, 5, 'MedNorth', 5, 'A'),
+(29, 6, 'MedNorth', 1, 'B');
 
 -- --------------------------------------------------------
 
@@ -958,75 +972,14 @@ CREATE TABLE `medicine_list` (
 --
 
 INSERT INTO `medicine_list` (`medicine_id`, `brand`, `unit`, `unit_qty`, `wholesaleprice`, `unitcost`, `description`, `supplier_id`, `category_id`, `type_id`) VALUES
-(42, 'Lipitor', '10 mg', '10.00', '500.00', '50.00', 'beta-blockers', 2, 2, 2),
-(43, 'Lipitor', '20 mg', '10.00', '750.00', '75.00', 'beta-blockers', 2, 2, 2),
-(44, 'Lipitor', '40 mg', '10.00', '1000.00', '100.00', 'beta-blockers', 2, 2, 2),
-(45, 'Lipitor', '80mg', '10.00', '1200.00', '120.00', 'beta-blockers', 2, 2, 2),
-(46, 'Cortaid', '15 grams', '10.00', '2000.00', '200.00', 'for skin conditions', 2, 3, 1),
-(47, 'Cortaid', '30 grams', '10.00', '3500.00', '350.00', 'for skin conditions', 2, 3, 1),
-(48, 'Lasix', '20 mg', '10.00', '500.00', '50.00', 'for fluid retention', 2, 4, 2),
-(49, 'Lasix', '40 mg', '10.00', '750.00', '75.00', 'for fluid retention', 2, 4, 2),
-(50, 'Lasix', '80 mg', '10.00', '1000.00', '100.00', 'for fluid retention', 2, 4, 2),
-(51, 'Premarin', '0.3mg', '10.00', '800.00', '80.00', 'hormone replacement therapy', 2, 5, 2),
-(52, 'Premarin', '0.625mg', '10.00', '1000.00', '100.00', 'hormone replacement therapy', 2, 5, 2),
-(53, 'Premarin', '0.9mg', '10.00', '1200.00', '120.00', 'hormone replacement therapy', 2, 5, 2),
-(54, 'Premarin', '1.25mg', '10.00', '1500.00', '150.00', 'hormone replacement therapy', 2, 5, 2),
-(55, 'Fluzone', '5ml', '10.00', '5000.00', '500.00', 'vaccines', 2, 6, 5),
-(56, 'Fluzone', '10ml', '10.00', '9000.00', '900.00', 'vaccines', 2, 6, 5),
-(57, 'Dulcolax', '5mg', '10.00', '300.00', '30.00', 'Stool Softeners', 2, 7, 2),
-(58, 'Dulcolax', '10mg', '10.00', '500.00', '50.00', 'Stool Softeners', 2, 7, 2),
-(59, 'Bioflu', '500mg', '24', '500', '8', 'Anti flu', 2, 8, 2),
-(61, 'Lipitor', '10 mg', '10.00', '500.00', '50.00', 'beta-blockers', 2, 2, 2),
-(62, 'Lipitor', '20 mg', '10.00', '750.00', '75.00', 'beta-blockers', 2, 2, 2),
-(63, 'Lipitor', '40 mg', '10.00', '1000.00', '100.00', 'beta-blockers', 2, 2, 2),
-(64, 'Lipitor', '80mg', '10.00', '1200.00', '120.00', 'beta-blockers', 2, 2, 2),
-(65, 'Cortaid', '15 grams', '10.00', '2000.00', '200.00', 'for skin conditions', 2, 3, 1),
-(66, 'Cortaid', '30 grams', '10.00', '3500.00', '350.00', 'for skin conditions', 2, 3, 1),
-(67, 'Lasix', '20 mg', '10.00', '500.00', '50.00', 'for fluid retention', 2, 4, 2),
-(68, 'Lasix', '40 mg', '10.00', '750.00', '75.00', 'for fluid retention', 2, 4, 2),
-(69, 'Lasix', '80 mg', '10.00', '1000.00', '100.00', 'for fluid retention', 2, 4, 2),
-(70, 'Premarin', '0.3mg', '10.00', '800.00', '80.00', 'hormone replacement therapy', 2, 5, 2),
-(71, 'Premarin', '0.625mg', '10.00', '1000.00', '100.00', 'hormone replacement therapy', 2, 5, 2),
-(72, 'Premarin', '0.9mg', '10.00', '1200.00', '120.00', 'hormone replacement therapy', 2, 5, 2),
-(73, 'Premarin', '1.25mg', '10.00', '1500.00', '150.00', 'hormone replacement therapy', 2, 5, 2),
-(74, 'Fluzone', '5ml', '10.00', '5000.00', '500.00', 'vaccines', 2, 6, 5),
-(75, 'Fluzone', '10ml', '10.00', '9000.00', '900.00', 'vaccines', 2, 6, 5),
-(76, 'Dulcolax', '5mg', '10.00', '300.00', '30.00', 'Stool Softeners', 2, 7, 2),
-(77, 'Dulcolax', '10mg', '10.00', '500.00', '50.00', 'Stool Softeners', 2, 7, 2),
-(78, 'Lipitor', '10 mg', '10.00', '500.00', '50.00', 'beta-blockers', 2, 2, 2),
-(79, 'Lipitor', '20 mg', '10.00', '750.00', '75.00', 'beta-blockers', 2, 2, 2),
-(80, 'Lipitor', '40 mg', '10.00', '1000.00', '100.00', 'beta-blockers', 2, 2, 2),
-(81, 'Lipitor', '80mg', '10.00', '1200.00', '120.00', 'beta-blockers', 2, 2, 2),
-(82, 'Cortaid', '15 grams', '10.00', '2000.00', '200.00', 'for skin conditions', 2, 3, 1),
-(83, 'Cortaid', '30 grams', '10.00', '3500.00', '350.00', 'for skin conditions', 2, 3, 1),
-(84, 'Lasix', '20 mg', '10.00', '500.00', '50.00', 'for fluid retention', 2, 4, 2),
-(85, 'Lasix', '40 mg', '10.00', '750.00', '75.00', 'for fluid retention', 2, 4, 2),
-(86, 'Lasix', '80 mg', '10.00', '1000.00', '100.00', 'for fluid retention', 2, 4, 2),
-(87, 'Premarin', '0.3mg', '10.00', '800.00', '80.00', 'hormone replacement therapy', 2, 5, 2),
-(88, 'Premarin', '0.625mg', '10.00', '1000.00', '100.00', 'hormone replacement therapy', 2, 5, 2),
-(89, 'Premarin', '0.9mg', '10.00', '1200.00', '120.00', 'hormone replacement therapy', 2, 5, 2),
-(90, 'Premarin', '1.25mg', '10.00', '1500.00', '150.00', 'hormone replacement therapy', 2, 5, 2),
-(91, 'Fluzone', '5ml', '10.00', '5000.00', '500.00', 'vaccines', 2, 6, 5),
-(92, 'Fluzone', '10ml', '10.00', '9000.00', '900.00', 'vaccines', 2, 6, 5),
-(93, 'Dulcolax', '5mg', '10.00', '300.00', '30.00', 'Stool Softeners', 2, 7, 2),
-(94, 'Dulcolax', '10mg', '10.00', '500.00', '50.00', 'Stool Softeners', 2, 7, 2),
-(95, 'Lipitor', '10 mg', '10.00', '500.00', '50.00', 'beta-blockers', 2, 2, 2),
-(96, 'Lipitor', '20 mg', '10.00', '750.00', '75.00', 'beta-blockers', 2, 2, 2),
-(97, 'Lipitor', '40 mg', '10.00', '1000.00', '100.00', 'beta-blockers', 2, 2, 2),
-(98, 'Lipitor', '80mg', '10.00', '1200.00', '120.00', 'beta-blockers', 2, 2, 2),
-(99, 'Cortaid', '15 grams', '10.00', '2000.00', '200.00', 'for skin conditions', 2, 3, 1),
-(100, 'Cortaid', '30 grams', '10.00', '3500.00', '350.00', 'for skin conditions', 2, 3, 1),
-(101, 'Lasix', '20 mg', '10.00', '500.00', '50.00', 'for fluid retention', 2, 4, 2),
-(102, 'Lasix', '40 mg', '10.00', '750.00', '75.00', 'for fluid retention', 2, 4, 2),
-(103, 'Lasix', '80 mg', '10.00', '1000.00', '100.00', 'for fluid retention', 2, 4, 2),
-(104, 'Premarin', '0.3mg', '10.00', '800.00', '80.00', 'hormone replacement therapy', 2, 5, 2),
-(105, 'Premarin', '0.625mg', '10.00', '1000.00', '100.00', 'hormone replacement therapy', 2, 5, 2),
-(106, 'Premarin', '0.9mg', '10.00', '1200.00', '120.00', 'hormone replacement therapy', 2, 5, 2),
-(107, 'Premarin', '1.25mg', '10.00', '1500.00', '150.00', 'hormone replacement therapy', 2, 5, 2),
-(108, 'Fluzone', '5ml', '10.00', '5000.00', '500.00', 'vaccines', 2, 6, 5),
-(109, 'Fluzone', '10ml', '10.00', '9000.00', '900.00', 'vaccines', 2, 6, 5),
-(110, 'Dulcolax', '5mg', '10.00', '300.00', '30.00', 'Stool Softeners', 2, 7, 2),
-(111, 'Dulcolax', '10mg', '10.00', '500.00', '50.00', 'Stool Softeners', 2, 7, 2);
+(1, 'Lipitor', '80mg', '10', '1200', '120', 'beta-blockers', 2, 2, 2),
+(2, 'Cortaid', '30g', '10', '3500', '350', 'for skin conditions', 2, 3, 1),
+(3, 'Lasix', '40mg', '10', '750', '75', 'for fluid retention', 2, 4, 2),
+(4, 'Premarin', '1.25mg', '10', '1500', '150', 'hormone replacement therapy', 2, 5, 2),
+(5, 'Fluzone', '5ml', '10', '5000', '500', 'vaccines', 2, 6, 5),
+(6, 'Dulcolax', '5mg', '10', '300', '30', 'Stool Softeners', 2, 7, 2),
+(7, 'Bioflu', '500mg', '24', '192', '8', 'Anti flu', 2, 8, 2),
+(8, 'Biogesic', '500mg', '200', '1000', '5', 'relieve pain and fever', 2, 9, 2);
 
 -- --------------------------------------------------------
 
@@ -1044,39 +997,6 @@ CREATE TABLE `meremove` (
   `stat` varchar(255) NOT NULL,
   `date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `meremove`
---
-
-INSERT INTO `meremove` (`id`, `cashier_id`, `item_id`, `qty`, `scale`, `reasons`, `stat`, `date`) VALUES
-(1, 2, 3, 1, 'piece', 'Costumer change of mind ', 'single', '2024-05-18 23:25:18'),
-(2, 2, 4, 1, 'piece', 'Dont want to buy anymore', 'single', '2024-05-18 23:25:24'),
-(3, 2, 4, 1, 'pack', 'Costumer change of mind ', 'all', '2024-05-18 23:25:31'),
-(4, 2, 4, 1, 'piece', 'Costumer change of mind ', 'all', '2024-05-18 23:34:27'),
-(5, 2, 7, 1, 'piece', 'Costumer change of mind ', 'all', '2024-05-18 23:34:27'),
-(6, 2, 1, 1, 'pack', 'Costumer change of mind ', 'single', '2024-05-19 00:21:15'),
-(7, 2, 1, 1, 'piece', 'Costumer change of mind ', 'single', '2024-05-19 00:21:22'),
-(8, 2, 4, 1, 'piece', 'Costumer change of mind ', 'all', '2024-05-19 00:34:31'),
-(9, 2, 4, 1, 'pack', 'Costumer change of mind ', 'all', '2024-05-19 00:34:31'),
-(10, 2, 3, 1, 'piece', 'Costumer change of mind ', 'all', '2024-05-19 00:34:31'),
-(11, 2, 3, 1, 'pack', 'Costumer change of mind ', 'all', '2024-05-19 00:34:31'),
-(12, 2, 5, 1, 'piece', 'Costumer change of mind ', 'all', '2024-05-19 00:34:31'),
-(13, 2, 5, 1, 'pack', 'Costumer change of mind ', 'all', '2024-05-19 00:34:31'),
-(14, 2, 8, 1, 'piece', 'Costumer change of mind ', 'all', '2024-05-19 00:34:31'),
-(15, 2, 6, 1, 'piece', 'Costumer change of mind ', 'all', '2024-05-19 00:34:31'),
-(16, 2, 1, 1, 'piece', 'Costumer change of mind ', 'all', '2024-05-19 00:34:31'),
-(17, 2, 2, 1, 'piece', 'Costumer change of mind ', 'all', '2024-05-19 00:34:31'),
-(18, 2, 2, 1, 'piece', 'Dont want to buy anymore', 'all', '2024-05-19 00:36:13'),
-(19, 2, 2, 1, 'pack', 'Dont want to buy anymore', 'all', '2024-05-19 00:36:13'),
-(20, 2, 4, 1, 'piece', 'Dont want to buy anymore', 'all', '2024-05-19 00:36:13'),
-(21, 2, 4, 1, 'pack', 'Dont want to buy anymore', 'all', '2024-05-19 00:36:13'),
-(22, 2, 5, 1, 'piece', 'Dont want to buy anymore', 'all', '2024-05-19 00:36:13'),
-(23, 2, 5, 1, 'pack', 'Dont want to buy anymore', 'all', '2024-05-19 00:36:13'),
-(24, 2, 3, 1, 'piece', 'Costumer change of mind ', 'all', '2024-05-19 02:05:09'),
-(25, 2, 5, 1, 'piece', 'Costumer change of mind ', 'all', '2024-05-19 02:05:09'),
-(26, 20, 3, 1, 'pack', 'Wrong Items', 'single', '2024-05-31 16:10:48'),
-(27, 20, 3, 1, 'pack', 'Costumer change of mind ', 'single', '2024-05-31 19:46:22');
 
 -- --------------------------------------------------------
 
@@ -1097,35 +1017,18 @@ CREATE TABLE `mesali` (
 --
 
 INSERT INTO `mesali` (`id`, `transact_no`, `item_id`, `qty`, `scale`) VALUES
-(9, 'BTA-2/000', 7, 1, 'piece'),
-(10, 'BTA-2/000', 7, 1, 'pack'),
-(11, 'BTA-2/001', 7, 2, 'piece'),
-(12, 'BTA-2/001', 7, 2, 'pack'),
-(13, 'BTA-2/002', 7, 3, 'piece'),
-(14, 'BTA-2/002', 7, 3, 'pack'),
-(15, 'BTA-2/003', 7, 1, 'piece'),
-(16, 'BTA-2/003', 7, 1, 'pack'),
-(17, 'BTA-2/004', 7, 1, 'piece'),
-(18, 'BTA-2/004', 7, 1, 'pack'),
-(19, 'BTA-2/005', 7, 2, 'piece'),
-(20, 'BTA-2/005', 7, 2, 'pack'),
-(21, 'BTA-2/006', 2, 2, 'piece'),
-(22, 'BTA-2/006', 1, 2, 'piece'),
-(23, 'BTA-2/007', 2, 2, 'piece'),
-(24, 'BTA-20/000', 3, 1, 'piece'),
-(25, 'BTA-20/001', 3, 1, 'piece'),
-(26, 'BTA-20/002', 3, 1, 'piece'),
-(27, 'BTA-20/003', 3, 1, 'piece'),
-(28, 'BTA-20/004', 3, 1, 'piece'),
-(29, 'BTA-20/004', 2, 1, 'piece'),
-(30, 'BTA-20/005', 2, 1, 'piece'),
-(31, 'BTA-20/005', 3, 1, 'piece'),
-(32, 'BTA-20/005', 4, 1, 'piece'),
-(33, 'BTA-20/005', 5, 1, 'piece'),
-(34, 'BTA-20/006', 2, 3, 'piece'),
-(35, 'BTA-20/006', 3, 3, 'piece'),
-(36, 'BTA-20/006', 4, 3, 'piece'),
-(37, 'BTA-20/006', 5, 3, 'piece');
+(1, 'BTA-20/000', 1, 1, 'piece'),
+(2, 'BTA-20/000', 2, 1, 'piece'),
+(3, 'BTA-20/001', 6, 1, 'piece'),
+(4, 'BTA-20/000', 1, 10, 'piece'),
+(5, 'BTA-20/001', 2, 5, 'piece'),
+(6, 'BTA-20/002', 3, 1, 'piece'),
+(7, 'BTA-20/003', 6, 2, 'piece'),
+(8, 'BTA-20/004', 5, 1, 'piece'),
+(9, 'BTA-20/005', 4, 3, 'piece'),
+(10, 'BTA-20/006', 1, 1, 'piece'),
+(11, 'BTA-20/006', 2, 1, 'piece'),
+(12, 'BTA-20/007', 3, 1, 'piece');
 
 -- --------------------------------------------------------
 
@@ -1257,7 +1160,39 @@ INSERT INTO `order_table` (`id`, `subtotal`, `tax`, `shipping_fee`, `grand_total
 (60, 1500.00, 180.00, 600.00, 2100.00, 'Cash on Delivery', 2),
 (61, 27000.00, 3240.00, 120.00, 27120.00, 'Cash on Delivery', 2),
 (62, 2500.00, 300.00, 600.00, 3100.00, 'Cash on Delivery', 2),
-(63, 5500.00, 660.00, 540.00, 6040.00, 'Cash on Delivery', 2);
+(63, 5500.00, 660.00, 540.00, 6040.00, 'Cash on Delivery', 2),
+(64, 1000.00, 120.00, 600.00, 1600.00, 'Cash on Delivery', 2),
+(65, 9000.00, 1080.00, 540.00, 9540.00, 'Cash on Delivery', 2),
+(66, 25000.00, 3000.00, 120.00, 25120.00, 'Cash on Delivery', 2),
+(67, 19200.00, 2304.00, 360.00, 19560.00, 'Cash on Delivery', 2),
+(68, 50000.00, 6000.00, 0.00, 50000.00, 'Cash on Delivery', 2),
+(69, 175000.00, 21000.00, 0.00, 175000.00, 'Cash on Delivery', 2),
+(70, 15000.00, 1800.00, 360.00, 15360.00, 'Cash on Delivery', 2),
+(71, 200000.00, 24000.00, 0.00, 200000.00, 'Cash on Delivery', 2),
+(72, 37500.00, 4500.00, 0.00, 37500.00, 'Cash on Delivery', 2),
+(73, 9600.00, 1152.00, 540.00, 10140.00, 'Cash on Delivery', 2),
+(74, 50000.00, 6000.00, 0.00, 50000.00, 'Cash on Delivery', 2),
+(75, 175000.00, 21000.00, 0.00, 175000.00, 'Cash on Delivery', 2),
+(76, 15000.00, 1800.00, 360.00, 15360.00, 'Cash on Delivery', 2),
+(77, 250000.00, 30000.00, 0.00, 250000.00, 'Cash on Delivery', 2),
+(78, 37500.00, 4500.00, 0.00, 37500.00, 'Cash on Delivery', 2),
+(79, 9600.00, 1152.00, 540.00, 10140.00, 'Cash on Delivery', 2),
+(80, 50000.00, 6000.00, 0.00, 50000.00, 'Cash on Delivery', 2),
+(81, 175000.00, 21000.00, 0.00, 175000.00, 'Cash on Delivery', 2),
+(82, 15000.00, 1800.00, 360.00, 15360.00, 'Cash on Delivery', 2),
+(83, 250000.00, 30000.00, 0.00, 250000.00, 'Cash on Delivery', 2),
+(84, 750.00, 90.00, 600.00, 1350.00, 'Cash on Delivery', 2),
+(85, 36750.00, 4410.00, 0.00, 36750.00, 'Cash on Delivery', 2),
+(86, 9600.00, 1152.00, 540.00, 10140.00, 'Cash on Delivery', 2),
+(87, 50000.00, 6000.00, 0.00, 50000.00, 'Cash on Delivery', 2),
+(88, 175000.00, 21000.00, 0.00, 175000.00, 'Cash on Delivery', 2),
+(89, 15000.00, 1800.00, 360.00, 15360.00, 'Cash on Delivery', 2),
+(90, 9600.00, 1152.00, 540.00, 10140.00, 'Cash on Delivery', 2),
+(91, 50000.00, 6000.00, 0.00, 50000.00, 'Cash on Delivery', 2),
+(92, 175000.00, 21000.00, 0.00, 175000.00, 'Cash on Delivery', 2),
+(93, 15000.00, 1800.00, 360.00, 15360.00, 'Cash on Delivery', 2),
+(94, 250000.00, 30000.00, 0.00, 250000.00, 'Cash on Delivery', 2),
+(95, 37500.00, 4500.00, 0.00, 37500.00, 'Cash on Delivery', 2);
 
 -- --------------------------------------------------------
 
@@ -1361,11 +1296,7 @@ CREATE TABLE `request_order` (
 --
 
 INSERT INTO `request_order` (`id`, `employee`, `supplier`, `category`, `brand`, `type`, `unit`) VALUES
-(1, '', '', 'Paracetamol', 'Neozep', 'Tablet', '500mg'),
-(2, '', '', 'Paracetamol', 'Biogesic', 'Tablet', '500mg'),
-(3, '', 'Unilever', 'Dermatological Agents ', 'Cortaid', 'Tablet', '15 grams'),
-(5, '', 'Unilever', 'Analgesic', 'Bioflu', 'Tablet', '500mg'),
-(6, '', 'Unilever', 'Immunizations ', 'Fluzone', 'Tablet', '10ml');
+(1, '', 'Unilever', 'Laxatives ', 'Dulcolax', 'Tablet', '5mg');
 
 -- --------------------------------------------------------
 
@@ -1389,8 +1320,7 @@ CREATE TABLE `return_item` (
 --
 
 INSERT INTO `return_item` (`id`, `employee`, `supplier`, `category`, `brand`, `type`, `unit`, `unit_qty`) VALUES
-(1, 'Zenji Yangco', 'Unilever', 'Immunizations ', 'Fluzone', 'Tablet', '', 10),
-(2, 'Zenji Yangco', 'Unilever', 'Analgesic', 'Bioflu', 'Tablet', '', 10);
+(1, 'Zenji Yangco', 'Unilever', 'Laxatives ', 'Dulcolax', 'Tablet', '', 20);
 
 -- --------------------------------------------------------
 
@@ -1548,21 +1478,14 @@ CREATE TABLE `transact` (
 --
 
 INSERT INTO `transact` (`id`, `transact_no`, `cashier_id`, `pay_method`, `sub_total`, `type`, `total_dis`, `total_amount`, `bayad`, `sukli`, `date`) VALUES
-(13, 'BTA-2/000', 2, 'GCash', 12000.00, 'None', 0.00, 12000.00, 0.00, 0.00, '2024-05-19 00:28:34'),
-(14, 'BTA-2/001', 2, 'GCash', 24000.00, 'Senior', 3600.00, 20400.00, 0.00, 0.00, '2024-05-19 00:29:04'),
-(15, 'BTA-2/002', 2, 'GCash', 36000.00, 'PWD', 7200.00, 28800.00, 0.00, 0.00, '2024-05-19 00:29:26'),
-(16, 'BTA-2/003', 2, 'Cash', 12000.00, 'None', 0.00, 12000.00, 12000.00, 0.00, '2024-05-19 00:29:44'),
-(17, 'BTA-2/004', 2, 'Cash', 12000.00, 'Senior', 1800.00, 10200.00, 11000.00, 800.00, '2024-05-19 00:29:56'),
-(18, 'BTA-2/005', 2, 'Cash', 24000.00, 'PWD', 4800.00, 19200.00, 20000.00, 800.00, '2024-05-19 00:30:17'),
-(19, 'BTA-2/006', 2, 'GCash', 26.00, 'PWD', 2.60, 23.40, 0.00, 0.00, '2024-05-19 01:51:36'),
-(20, 'BTA-2/007', 2, 'Cash', 14.00, 'None', 0.00, 14.00, 14.00, 0.00, '2024-05-19 02:24:24'),
-(21, 'BTA-20/000', 20, 'Cash', 9.00, 'None', 0.00, 9.00, 9.00, 0.00, '2024-05-31 16:11:15'),
-(22, 'BTA-20/001', 20, 'Cash', 9.00, 'None', 0.00, 9.00, 9.00, 0.00, '2024-05-31 16:21:02'),
-(23, 'BTA-20/002', 20, 'Cash', 9.00, 'None', 0.00, 9.00, 9.00, 0.00, '2024-05-31 17:28:21'),
-(24, 'BTA-20/003', 20, 'Cash', 9.00, 'None', 0.00, 9.00, 9.00, 0.00, '2024-05-31 18:40:43'),
-(25, 'BTA-20/004', 20, 'Cash', 239.00, 'None', 0.00, 239.00, 250.00, 11.00, '2024-05-31 19:37:51'),
-(26, 'BTA-20/005', 20, 'Cash', 1389.00, 'Senior', 69.45, 1319.55, 1400.00, 80.45, '2024-05-31 19:40:30'),
-(27, 'BTA-20/006', 20, 'Cash', 4167.00, 'Senior', 208.35, 3958.65, 4000.00, 41.35, '2024-05-31 19:46:39');
+(1, 'BTA-20/000', 20, 'Cash', 90.00, 'None', 0.00, 90.00, 90.00, 0.00, '2024-06-01 03:23:31'),
+(2, 'BTA-20/001', 20, 'Cash', 30.00, 'None', 0.00, 30.00, 30.00, 0.00, '2024-06-01 03:23:46'),
+(3, 'BTA-20/002', 20, 'Cash', 403.00, 'None', 0.00, 403.00, 403.00, 0.00, '2024-06-01 03:23:58'),
+(4, 'BTA-20/003', 20, 'Cash', 172.00, 'None', 0.00, 172.00, 200.00, 28.00, '2024-06-01 03:24:10'),
+(5, 'BTA-20/004', 20, 'Cash', 575.00, 'None', 0.00, 575.00, 600.00, 25.00, '2024-06-01 03:24:18'),
+(6, 'BTA-20/005', 20, 'Cash', 105.00, 'None', 0.00, 105.00, 150.00, 45.00, '2024-06-01 03:24:30'),
+(7, 'BTA-20/006', 20, 'Cash', 15.00, 'Senior', 0.75, 14.25, 100.00, 85.75, '2024-06-01 09:19:41'),
+(8, 'BTA-20/007', 20, 'Cash', 403.00, 'None', 0.00, 403.00, 500.00, 97.00, '2024-06-02 09:24:32');
 
 --
 -- Indexes for dumped tables
@@ -1650,6 +1573,12 @@ ALTER TABLE `employee_salary_revised`
 -- Indexes for table `finance_balance`
 --
 ALTER TABLE `finance_balance`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `finance_daily_sales`
+--
+ALTER TABLE `finance_daily_sales`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1864,19 +1793,19 @@ ALTER TABLE `cart`
 -- AUTO_INCREMENT for table `cart_sales`
 --
 ALTER TABLE `cart_sales`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `cart_table`
 --
 ALTER TABLE `cart_table`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `delivery_status`
@@ -1888,7 +1817,7 @@ ALTER TABLE `delivery_status`
 -- AUTO_INCREMENT for table `discounted_item`
 --
 ALTER TABLE `discounted_item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `dtrrevised`
@@ -1912,13 +1841,19 @@ ALTER TABLE `employee_salary`
 -- AUTO_INCREMENT for table `employee_salary_revised`
 --
 ALTER TABLE `employee_salary_revised`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=262;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=263;
 
 --
 -- AUTO_INCREMENT for table `finance_balance`
 --
 ALTER TABLE `finance_balance`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT for table `finance_daily_sales`
+--
+ALTER TABLE `finance_daily_sales`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `finance_expenses`
@@ -1960,7 +1895,7 @@ ALTER TABLE `finance_receipt`
 -- AUTO_INCREMENT for table `finance_receipt_backup`
 --
 ALTER TABLE `finance_receipt_backup`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `holiday`
@@ -1972,13 +1907,13 @@ ALTER TABLE `holiday`
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `inventory_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `inventory_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `inventory_logs`
 --
 ALTER TABLE `inventory_logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `item`
@@ -1990,7 +1925,7 @@ ALTER TABLE `item`
 -- AUTO_INCREMENT for table `item_mapping`
 --
 ALTER TABLE `item_mapping`
-  MODIFY `map_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `map_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `medicinetype`
@@ -2002,19 +1937,19 @@ ALTER TABLE `medicinetype`
 -- AUTO_INCREMENT for table `medicine_list`
 --
 ALTER TABLE `medicine_list`
-  MODIFY `medicine_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
+  MODIFY `medicine_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `meremove`
 --
 ALTER TABLE `meremove`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `mesali`
 --
 ALTER TABLE `mesali`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `order`
@@ -2026,7 +1961,7 @@ ALTER TABLE `order`
 -- AUTO_INCREMENT for table `order_table`
 --
 ALTER TABLE `order_table`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
 
 --
 -- AUTO_INCREMENT for table `payroll_all_history`
@@ -2050,13 +1985,13 @@ ALTER TABLE `request_leave`
 -- AUTO_INCREMENT for table `request_order`
 --
 ALTER TABLE `request_order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `return_item`
 --
 ALTER TABLE `return_item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `return_status`
@@ -2092,7 +2027,7 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT for table `transact`
 --
 ALTER TABLE `transact`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
