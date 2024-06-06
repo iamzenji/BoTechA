@@ -23,38 +23,51 @@ if (empty($_SESSION['employee_id'])) {
 
     while ($row = mysqli_fetch_assoc($result)) {
         $key = $row['brand'] . '|' . $row['type'] . '|' . $row['unit'] . '|' . $row['reason'];
-        
+
         if (!isset($logs[$key])) {
             $logs[$key] = [
                 'brand' => $row['brand'],
                 'type' => $row['type'],
                 'unit' => $row['unit'],
                 'reason' => $row['reason'],
-                'date' => [],
                 'quantity' => 0,
-                'stock_after' => $row['stock_after'],
+                'earliest_stock_after' => $row['stock_after'], // Track the earliest stock_after
+                'earliest_date' => $row['date'], // Track the earliest date
                 'unit_inv_qty' => $row['unit_inv_qty']
             ];
+        } else {
+            // Update earliest stock_after if current row's date is earlier
+            if (strtotime($row['date']) < strtotime($logs[$key]['earliest_date'])) {
+                $logs[$key]['earliest_stock_after'] = $row['stock_after'];
+                $logs[$key]['earliest_date'] = $row['date'];
+            }
         }
 
-        $logs[$key]['date'][] = $row['date'];
         $logs[$key]['quantity'] += $row['quantity'];
 
-        // Track total counts based on reason
-        if (!isset($totals[$key])) {
-            $totals[$key] = [
+        // Track total counts based on distinct combination of brand, type, and unit
+        $distinctKey = $row['brand'] . '|' . $row['type'] . '|' . $row['unit'];
+
+        if (!isset($totals[$distinctKey])) {
+            $totals[$distinctKey] = [
                 'totalPurchased' => 0,
                 'totalDiscounted' => 0,
-                'totalReturned' => 0
+                'totalReturned' => 0,
+                'totalSale' => 0,
+                'totalAddItem' => 0
             ];
         }
 
-        if ($row['reason'] === 'Purchase order') {
-            $totals[$key]['totalPurchased'] += $row['quantity'];
-        } elseif ($row['reason'] === 'Add Discount') {
-            $totals[$key]['totalDiscounted'] += $row['quantity'];
-        } elseif ($row['reason'] === 'Return Item') {
-            $totals[$key]['totalReturned'] += $row['quantity'];
+        if ($row['reason'] === 'Purchase order' && $row['brand'] === $row['brand_name']) {
+            $totals[$distinctKey]['totalPurchased'] += $row['quantity'];
+        } elseif ($row['reason'] === 'Add Discount'&& $row['brand'] === $row['brand_name']) {
+            $totals[$distinctKey]['totalDiscounted'] += $row['quantity'];
+        } elseif ($row['reason'] === 'Return Item'&& $row['brand'] === $row['brand_name']) {
+            $totals[$distinctKey]['totalReturned'] += $row['quantity'];
+        } elseif ($row['reason'] === 'Sell Item'&& $row['brand'] === $row['brand_name']) {
+            $totals[$distinctKey]['totalSale'] += $row['quantity'];
+        } elseif ($row['reason'] === 'Edit Item'&& $row['brand'] === $row['brand_name']) {
+            $totals[$distinctKey]['totalAddItem'] += $row['quantity'];
         }
     }
     ?>
@@ -109,7 +122,6 @@ if (empty($_SESSION['employee_id'])) {
             </thead>
             <thead>
                 <tr>
-                    <th class="align-middle">Date</th>
                     <th class="align-middle">Brand Name</th>
                     <th class="align-middle">Type</th>
                     <th class="align-middle">Unit</th>
@@ -119,29 +131,30 @@ if (empty($_SESSION['employee_id'])) {
                     <th class="align-middle">Total Purchased</th>
                     <th class="align-middle">Total Discounted</th>
                     <th class="align-middle">Total Returned</th>
+                    <th class="align-middle">Total Sale</th>
+                    <th class="align-middle">Total Add Item Modified</th>
                     <th class="align-middle">Remaining Stock</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
                 foreach ($logs as $key => $log) {
-                    $formattedDates = array_map(function ($date) {
-                        return date('F j Y g:i A', strtotime($date));
-                    }, $log['date']);
-                    $stock_before = $log['stock_after'] + $log['quantity'];
+                    $distinctKey = $log['brand'] . '|' . $log['type'] . '|' . $log['unit'];
+                    $stock_before = $log['earliest_stock_after'] - $log['quantity']; // Adjusted calculation for stock_before
 
                     ?>
                     <tr data-reason="<?php echo $log['reason']; ?>">
-                        <td><?php echo implode(', ', $formattedDates); ?></td>
                         <td><?php echo $log['brand'];?></td>
                         <td><?php echo $log['type'];?></td>
                         <td><?php echo $log['unit'];?></td>
                         <td><?php echo $log['reason'];?></td>
                         <td><?php echo $log['quantity'];?></td>
-                        <td><?php echo $stock_before. '> '. $log['stock_after'];?></td>
-                        <td><?php echo $totals[$key]['totalPurchased'];?></td>
-                        <td><?php echo $totals[$key]['totalDiscounted'];?></td>
-                        <td><?php echo $totals[$key]['totalReturned'];?></td>
+                        <td><?php echo $stock_before . ' -> ' . $log['earliest_stock_after'];?></td>
+                        <td><?php echo $totals[$distinctKey]['totalPurchased'];?></td>
+                        <td><?php echo $totals[$distinctKey]['totalDiscounted'];?></td>
+                        <td><?php echo $totals[$distinctKey]['totalReturned'];?></td>
+                        <td><?php echo $totals[$distinctKey]['totalSale'];?></td>
+                        <td><?php echo $totals[$distinctKey]['totalAddItem'];?></td>
                         <td><?php echo $log['unit_inv_qty'];?></td>
                     </tr>
                 <?php
@@ -200,11 +213,11 @@ if (empty($_SESSION['employee_id'])) {
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="startDate">From Date:</label>
+                        <label for="startDate">Start Date</label>
                         <input type="date" class="form-control" id="startDate">
                     </div>
                     <div class="form-group">
-                        <label for="endDate">To Date:</label>
+                        <label for="endDate">End Date</label>
                         <input type="date" class="form-control" id="endDate">
                     </div>
                 </div>
@@ -225,13 +238,12 @@ if (empty($_SESSION['employee_id'])) {
             var rows = document.querySelectorAll('.inv-color-table tbody tr');
 
             rows.forEach(function(row) {
-                var date = row.querySelector('td:nth-child(1)').textContent.trim().toLowerCase();
-                var brand = row.querySelector('td:nth-child(2)').textContent.trim().toLowerCase();
-                var type = row.querySelector('td:nth-child(3)').textContent.trim().toLowerCase();
-                var unit = row.querySelector('td:nth-child(4)').textContent.trim().toLowerCase();
-                var reason = row.querySelector('td:nth-child(5)').textContent.trim().toLowerCase();
+                var brand = row.querySelector('td:nth-child(1)').textContent.trim().toLowerCase();
+                var type = row.querySelector('td:nth-child(2)').textContent.trim().toLowerCase();
+                var unit = row.querySelector('td:nth-child(3)').textContent.trim().toLowerCase();
+                var reason = row.querySelector('td:nth-child(4)').textContent.trim().toLowerCase();
 
-                if (date.includes(searchValue) || brand.includes(searchValue) || type.includes(searchValue) || unit.includes(searchValue) || reason.includes(searchValue)) {
+                if (brand.includes(searchValue) || type.includes(searchValue) || unit.includes(searchValue) || reason.includes(searchValue)) {
                     row.style.display = '';
                 } else {
                     row.style.display = 'none';
@@ -286,10 +298,7 @@ if (empty($_SESSION['employee_id'])) {
             visibleRows.forEach(function(row) {
                 var rowData = [];
 
-                var dateTime = row.querySelector('td:first-child').textContent.trim();
-                rowData.push(dateTime);
-
-                for (var i = 1; i < row.cells.length; i++) {
+                for (var i = 0; i < row.cells.length; i++) {
                     rowData.push(row.cells[i].textContent.trim());
                 }
 
