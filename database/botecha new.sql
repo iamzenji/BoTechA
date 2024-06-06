@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 02, 2024 at 12:56 AM
+-- Generation Time: Jun 06, 2024 at 11:05 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `botecha1`
+-- Database: `botecha`
 --
 
 -- --------------------------------------------------------
@@ -803,41 +803,6 @@ CREATE TABLE `inventory_logs` (
   `stock_after` int(11) NOT NULL,
   `reason` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `inventory_logs`
---
-
-INSERT INTO `inventory_logs` (`log_id`, `inventory_id`, `date`, `brand_name`, `type`, `unit`, `employee`, `quantity`, `stock_after`, `reason`) VALUES
-(1, '0000-00-00', '2024-05-31 18:47:13', 'Bioflu', '', '', 'Micosh Yutuc', 50, 1200, 'Purchase order'),
-(2, '0000-00-00', '2024-05-31 18:47:27', 'Biogesic', '', '', 'Micosh Yutuc', 1, 10000, 'Purchase order'),
-(3, '0000-00-00', '2024-05-31 18:48:00', 'Cortaid', '', '', 'Micosh Yutuc', 1, 500, 'Purchase order'),
-(4, '0000-00-00', '2024-05-31 18:48:30', 'Dulcolax', '', '', 'Micosh Yutuc', 1, 500, 'Purchase order'),
-(5, '0000-00-00', '2024-05-31 18:49:06', 'Fluzone', '', '', 'Micosh Yutuc', 1, 500, 'Purchase order'),
-(6, '0000-00-00', '2024-05-31 18:49:28', 'Lasix', '', '', 'Micosh Yutuc', 1, 500, 'Purchase order'),
-(7, '0000-00-00', '2024-05-31 18:49:55', 'Bioflu', '', '', 'Zenji Yangco', 100, 1100, 'Edit Item'),
-(8, '0000-00-00', '2024-05-31 18:50:08', 'Biogesic', '', '', 'Zenji Yangco', 100, 9900, 'Edit Item'),
-(9, '0000-00-00', '2024-05-31 18:50:20', 'Cortaid', '', '', 'Zenji Yangco', 100, 400, 'Edit Item'),
-(10, '0000-00-00', '2024-05-31 18:50:35', 'Dulcolax', '', '', 'Zenji Yangco', 100, 400, 'Edit Item'),
-(11, '0000-00-00', '2024-05-31 18:50:52', 'Fluzone', '', '', 'Zenji Yangco', 100, 400, 'Edit Item'),
-(12, '0000-00-00', '2024-05-31 18:51:05', 'Lasix', '', '', 'Zenji Yangco', 100, 400, 'Edit Item'),
-(13, '0000-00-00', '2024-05-31 18:51:51', 'Bioflu', '', '', 'Zenji Yangco', 50, 1050, 'Add Discount'),
-(14, '0000-00-00', '2024-05-31 18:52:10', 'Biogesic', '', '', 'Zenji Yangco', 50, 9850, 'Add Discount'),
-(15, '0000-00-00', '2024-05-31 18:53:38', 'Cortaid', '', '', 'Zenji Yangco', 10, 390, 'Add Discount'),
-(16, '0000-00-00', '2024-05-31 18:53:59', 'Dulcolax', '', '', 'Zenji Yangco', 20, 380, 'Add Discount'),
-(17, '0000-00-00', '2024-05-31 18:54:25', 'Fluzone', '', '', 'Zenji Yangco', 5, 395, 'Add Discount'),
-(18, '0000-00-00', '2024-05-31 18:54:50', 'Lasix', '', '', 'Zenji Yangco', 50, 350, 'Add Discount'),
-(19, '0000-00-00', '2024-05-31 18:55:13', 'Dulcolax', '', '', 'Zenji Yangco', 0, 0, 'Request order'),
-(20, '0000-00-00', '2024-05-31 18:56:22', 'Dulcolax', '', '', 'Zenji Yangco', 20, 360, 'Return Item'),
-(21, '0000-00-00', '2024-05-31 19:23:31', 'Bioflu', '', '', 'Regina Velarde', 10, 90, 'Sell Item'),
-(22, '0000-00-00', '2024-05-31 19:23:46', 'Biogesic', '', '', 'Regina Velarde', 5, 95, 'Sell Item'),
-(23, '0000-00-00', '2024-05-31 19:23:58', 'Cortaid', '', '', 'Regina Velarde', 1, 99, 'Sell Item'),
-(24, '0000-00-00', '2024-05-31 19:24:10', 'Lasix', '', '', 'Regina Velarde', 2, 98, 'Sell Item'),
-(25, '0000-00-00', '2024-05-31 19:24:18', 'Fluzone', '', '', 'Regina Velarde', 1, 99, 'Sell Item'),
-(26, '0000-00-00', '2024-05-31 19:24:30', 'Dulcolax', '', '', 'Regina Velarde', 3, 97, 'Sell Item'),
-(27, '0000-00-00', '2024-06-01 01:19:41', 'Bioflu', '', '', 'Regina Velarde', 1, 89, 'Sell Item'),
-(28, '0000-00-00', '2024-06-01 01:19:41', 'Biogesic', '', '', 'Regina Velarde', 1, 94, 'Sell Item'),
-(29, '0000-00-00', '2024-06-02 01:24:32', 'Cortaid', '', '', 'Regina Velarde', 1, 98, 'Sell Item');
 
 -- --------------------------------------------------------
 
@@ -1915,7 +1880,7 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `inventory_logs`
 --
 ALTER TABLE `inventory_logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `item`
