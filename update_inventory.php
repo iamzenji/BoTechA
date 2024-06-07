@@ -55,9 +55,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Calculate quantity changes
         $total_quantity_change = $unit_inv_qty_change + ($showroom_quantity_stock - $prev_showroom_quantity_stock);
 
+        // Check the stock quantity and update item label accordingly
+        if (100 < $unit_qty) {
+            // Update the item label to 'High Stock'
+            $update_item_label_query = "UPDATE inventory SET item_label = 'High Stock' WHERE supplier = '$supplierName' AND category = '$Category' AND brand = '$brand' AND type = '$type' AND unit = '$unit'";
+        } else if (100 > $unit_qty  && 30 > $unit_qty) {
+            // Update the item label to 'Stable'
+            $update_item_label_query = "UPDATE inventory SET item_label = 'Stable' WHERE supplier = '$supplierName' AND category = '$Category' AND brand = '$brand' AND type = '$type' AND unit = '$unit'";
+        } else if (30 < $unit_qty) {
+            // Update the item label to 'Low Stock'
+            $update_item_label_query = "UPDATE inventory SET item_label = 'Low Stock' WHERE supplier = '$supplierName' AND category = '$Category' AND brand = '$brand' AND type = '$type' AND unit = '$unit'";
+        }
+
+        // Execute the update query for item_label
+        if (mysqli_query($connection, $update_item_label_query)) {
+            echo "Item label updated successfully.<br>";
+        } else {
+            echo "Error updating item label: " . mysqli_error($connection) . "<br>";
+        }
+
         // Edit history of item
-        $insert_query = "INSERT INTO inventory_logs (inventory_id, date, brand_name, type, unit, employee, quantity, stock_after, reason) 
-            VALUES ('$inventory_id', NOW(), '{$prev_inventory_row['brand']}', '{$prev_inventory_row['type']}', '{$prev_inventory_row['unit']}', '$userName', '$total_quantity_change', '$corrected_unit_inv_qty', 'Edit Item')";
+        $insert_query = "INSERT INTO inventory_logs (inventory_id, date, brand_name, type, unit, employee, quantity, stock_before, stock_after, reason) 
+            VALUES ('$inventory_id', NOW(), '{$prev_inventory_row['brand']}', '{$prev_inventory_row['type']}', '{$prev_inventory_row['unit']}', '$userName', '$total_quantity_change', $prev_unit_inv_qty, '$corrected_unit_inv_qty', 'Edit Item')";
         $insert_result = mysqli_query($connection, $insert_query);
 
         if ($insert_result) {

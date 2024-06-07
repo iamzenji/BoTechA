@@ -79,6 +79,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['updatestatus'])) {
                         $total = $unit_qty * $unitcost;
 
                         if (mysqli_num_rows($check_inventory_result) > 0) {
+
+                            // Retrieve the current unit_inv_qty from the inventory table
+                            $prev_inv_query = "SELECT unit_inv_qty FROM inventory WHERE supplier = '$supplierName' AND category = '$Category' AND brand = '$brand' AND type = '$type' AND unit = '$unit'";
+                            $prev_inv_result = mysqli_query($connection, $prev_inv_query);
+
                             // Product exists in inventory, update the quantity
                             $update_inventory_query = "UPDATE inventory SET qty_stock = qty_stock + $quantity,  unit_inv_qty = unit_inv_qty + $unit_qty, total_cost = total_cost + $total WHERE supplier = '$supplierName' AND category = '$Category' AND brand = '$brand' AND type = '$type' AND unit = '$unit'";
                             if (mysqli_query($connection, $update_inventory_query)) {
@@ -86,6 +91,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['updatestatus'])) {
                             } else {
                                 echo "Error updating inventory: " . mysqli_error($connection) . "<br>";
                             }
+
+                            // Retrieve the updated unit_inv_qty from the inventory table
+                            $upd_inv_query = "SELECT unit_inv_qty FROM inventory WHERE supplier = '$supplierName' AND category = '$Category' AND brand = '$brand' AND type = '$type' AND unit = '$unit'";
+                            $upd_inv_result = mysqli_query($connection, $upd_inv_query);
+
+                            // Check if the query was successful and if a row was returned
+                            if ($prev_inv_result && mysqli_num_rows($prev_inv_result) && $upd_inv_result && mysqli_num_rows($upd_inv_result)> 0) {
+                                $row_prev_inv_result = mysqli_fetch_assoc($prev_inv_result);
+                                $row_upd_inv_result = mysqli_fetch_assoc($upd_inv_result);
+                                $stock_before = $row_prev_inv_result['unit_inv_qty'];
+                                $stock_after = $row_upd_inv_result['unit_inv_qty'];
+
+                                // Check the stock quantity and update item label accordingly
+                                if (100 < $stock_after) {
+                                    // Update the item label to 'High Stock'
+                                    $update_item_label_query = "UPDATE inventory SET item_label = 'High Stock' WHERE supplier = '$supplierName' AND category = '$Category' AND brand = '$brand' AND type = '$type' AND unit = '$unit'";
+                                } else if (100 > $stock_after  && 30 > $stock_after) {
+                                    // Update the item label to 'Stable'
+                                    $update_item_label_query = "UPDATE inventory SET item_label = 'Stable' WHERE supplier = '$supplierName' AND category = '$Category' AND brand = '$brand' AND type = '$type' AND unit = '$unit'";
+                                } else if (30 < $stock_after) {
+                                    // Update the item label to 'Low Stock'
+                                    $update_item_label_query = "UPDATE inventory SET item_label = 'Low Stock' WHERE supplier = '$supplierName' AND category = '$Category' AND brand = '$brand' AND type = '$type' AND unit = '$unit'";
+                                }
+
+                                // Execute the update query for item_label
+                                if (mysqli_query($connection, $update_item_label_query)) {
+                                    echo "Item label updated successfully.<br>";
+                                } else {
+                                    echo "Error updating item label: " . mysqli_error($connection) . "<br>";
+                                }
+
+                                // Insert into inventory_logs table using the retrieved unit_inv_qty as stock_before
+                                $insert_query = "INSERT INTO inventory_logs (inventory_id, date, brand_name, type, unit, employee, quantity, stock_before, stock_after, reason) 
+                                                VALUES ('$Category', NOW(), '$brand', '$type', '$unit', '$userName', '$unit_qty', '$stock_before', '$stock_after', 'Purchase order')";
+                                $insert_result = mysqli_query($connection, $insert_query);
+
+                                if ($insert_result) {
+                                    echo "Inventory log added successfully.";
+                                } else {
+                                    echo "Error: " . mysqli_error($connection);
+                                }
+                            } else {
+                                echo "Error retrieving inventory details: " . mysqli_error($connection);
+                            }
+                            
                         } else {
                             // Product does not exist in inventory, insert new entry
                             $insert_inventory_query = "INSERT INTO inventory (supplier, category, brand, type, unit, qty_stock, unit_inv_qty, unit_cost, total_cost) 
@@ -95,17 +145,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['updatestatus'])) {
                             } else {
                                 echo "Error inserting inventory item: " . mysqli_error($connection) . "<br>";
                             }
+
+                            // Check the stock quantity and update item label accordingly
+                            if (100 < $unit_qty) {
+                                // Update the item label to 'High Stock'
+                                $update_item_label_query = "UPDATE inventory SET item_label = 'High Stock' WHERE supplier = '$supplierName' AND category = '$Category' AND brand = '$brand' AND type = '$type' AND unit = '$unit'";
+                            } else if (100 > $unit_qty  && 30 > $unit_qty) {
+                                // Update the item label to 'Stable'
+                                $update_item_label_query = "UPDATE inventory SET item_label = 'Stable' WHERE supplier = '$supplierName' AND category = '$Category' AND brand = '$brand' AND type = '$type' AND unit = '$unit'";
+                            } else if (30 < $unit_qty) {
+                                // Update the item label to 'Low Stock'
+                                $update_item_label_query = "UPDATE inventory SET item_label = 'Low Stock' WHERE supplier = '$supplierName' AND category = '$Category' AND brand = '$brand' AND type = '$type' AND unit = '$unit'";
+                            }
+
+                            // Execute the update query for item_label
+                            if (mysqli_query($connection, $update_item_label_query)) {
+                                echo "Item label updated successfully.<br>";
+                            } else {
+                                echo "Error updating item label: " . mysqli_error($connection) . "<br>";
+                            }
+
+                            // Insert into inventory_logs table
+                            $insert_query = "INSERT INTO inventory_logs (inventory_id, date, brand_name, type, unit, employee,  quantity, stock_before, stock_after, reason) 
+                            VALUES ('$Category', NOW(), '$brand', '$type', '$unit', '$userName', '$unit_qty', 0,'$unit_qty', 'Purchase order')";
+                            $insert_result = mysqli_query($connection, $insert_query);
+
+                            // Check for successful insertion into inventory_logs
+                            if (!$insert_result) {
+                                echo "Error inserting into inventory_logs: " . mysqli_error($connection) . "<br>";
+                            }
                         }
 
-                        // Insert into inventory_logs table
-                        $insert_query = "INSERT INTO inventory_logs (inventory_id, date, brand_name, type, unit, employee,  quantity, stock_after, reason) 
-                            VALUES ('$Category', NOW(), '$brand', '$type', '$unit', '$userName', '$quantity', '$unit_qty', 'Purchase order')";
-                        $insert_result = mysqli_query($connection, $insert_query);
 
-                        // Check for successful insertion into inventory_logs
-                        if (!$insert_result) {
-                            echo "Error inserting into inventory_logs: " . mysqli_error($connection) . "<br>";
-                        }
 
                         // Execute the update query to update delivery status
                         if (mysqli_query($connection, $update_query)) {

@@ -7,14 +7,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
     session_destroy();
 } else {
 
-    $query = "SELECT DISTINCT i.*,  il.stock_after
-    FROM inventory i
-    INNER JOIN (
-        SELECT DISTINCT inventory_id, brand_name,MAX(date) AS latest_timestamp
-        FROM inventory_logs
-        GROUP BY inventory_id, brand_name
-    ) latest_logs ON i.inventory_id = latest_logs.inventory_id
-    INNER JOIN inventory_logs il ON latest_logs.inventory_id = il.inventory_id AND latest_logs.brand_name = i.brand AND latest_logs.latest_timestamp = il.date";
+    $query = "SELECT DISTINCT * FROM inventory ";
 
     // $query = "SELECT i.*, il.stock_after 
     //           FROM inventory_logs il
@@ -22,7 +15,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
 
     $result = mysqli_query($connection, $query);
 
-    if (mysqli_num_rows($result) > 0) {
+
 ?>
         <div class="container mt-5">
             <div class="row align-items-center">
@@ -85,150 +78,148 @@ if (strlen($_SESSION['employee_id']) === 0) {
                                 </thead>
                                 <tbody>
                                     <?php
-                                    while ($row = mysqli_fetch_assoc($result)) {
-                                    ?>
-                                        <tr class="edit-row align-middle text-center" data-toggle="modal" data-target="#editModal_<?php echo $row['inventory_id']; ?>">
-                                            <td><?php echo $row['supplier']; ?></td>
-                                            <td><?php echo $row['category']; ?></td>
-                                            <td><?php echo $row['brand']; ?></td>
-                                            <td><?php echo $row['type']; ?></td>
-                                            <td><?php echo $row['unit']; ?></td>
-                                            <td><?php echo $row['qty_stock']  ?></td>
-                                            <td><?php echo $row['unit_inv_qty'] . " (" . $row['unit_cost'] . "/ea)"; ?></td>
-                                            <td><?php echo $row['storage_location']; ?></td>
-                                            <td><?php echo $row['showroom_quantity_stock']; ?></td>
-                                            <td><?php echo $row['showroom_location']; ?></td>
-                                            <td><?php echo $row['quantity_to_reorder']; ?></td>
-                                            <td><?php echo $row['total_cost']; ?></td>
-                                            <td>
-                                                <select name="item_label" class="item-label-select rounded-pill border border-primary" data-inventory-id="<?php echo $row['inventory_id']; ?>" onclick="stopPropagation(event);">
-                                                    <option value="option1">High Stock</option>
-                                                    <option value="option2">Low Stock</option>
-                                                    <option value="option3">Fast moving</option>
-                                                </select>
-                                            <td>
-                                                <form onsubmit="return confirmRequestOrder(event,'<?php echo $row['inventory_id']; ?>', '<?php echo $row['supplier']; ?>', '<?php echo $row['category']; ?>', '<?php echo $row['brand']; ?>', '<?php echo $row['type']; ?>', '<?php echo $row['unit']; ?>');">
-                                                    <button type="submit" class="btn btn-sm btn-outline-primary rounded-pill" onclick="stopPropagation(event);">Request Order</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="confirmModalLabel">Confirm Request Order</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <p id="modalBodyText"></p>
-                                                        <form id="confirmOrderForm" action="request_order.php" method="post">
-                                                            <input type="hidden" name="inventory_id" id="inventory_id">
-                                                            <input type="hidden" name="supplier" id="supplier">
-                                                            <input type="hidden" name="category" id="category">
-                                                            <input type="hidden" name="brand" id="brand">
-                                                            <input type="hidden" name="type" id="type">
-                                                            <input type="hidden" name="unit" id="unit">
-                                                        </form>
-                                                    </div>
-                                                    <div class="modal-footer">
+                                    if (mysqli_num_rows($result) > 0) {
 
-                                                        <button type="button" class="btn btn-primary" onclick="submitRequestOrder()">Confirm</button>
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                        ?>
+                                            <tr class="edit-row align-middle text-center" data-toggle="modal" data-target="#editModal_<?php echo $row['inventory_id']; ?>">
+                                                <td><?php echo $row['supplier']; ?></td>
+                                                <td><?php echo $row['category']; ?></td>
+                                                <td><?php echo $row['brand']; ?></td>
+                                                <td><?php echo $row['type']; ?></td>
+                                                <td><?php echo $row['unit']; ?></td>
+                                                <td><?php echo $row['qty_stock']  ?></td>
+                                                <td><?php echo $row['unit_inv_qty'] . " (" . $row['unit_cost'] . "/ea)"; ?></td>
+                                                <td><?php echo $row['storage_location']; ?></td>
+                                                <td><?php echo $row['showroom_quantity_stock']; ?></td>
+                                                <td><?php echo $row['showroom_location']; ?></td>
+                                                <td><?php echo $row['quantity_to_reorder']; ?></td>
+                                                <td><?php echo $row['total_cost']; ?></td>
+                                                <td><?php echo $row['item_label']; ?></td>
+                                                <td>
+                                                    <form onsubmit="return confirmRequestOrder(event,'<?php echo $row['inventory_id']; ?>', '<?php echo $row['supplier']; ?>', '<?php echo $row['category']; ?>', '<?php echo $row['brand']; ?>', '<?php echo $row['type']; ?>', '<?php echo $row['unit']; ?>');">
+                                                        <button type="submit" class="btn btn-sm btn-outline-primary rounded-pill" onclick="stopPropagation(event);">Request Order</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                            <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="confirmModalLabel">Confirm Request Order</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p id="modalBodyText"></p>
+                                                            <form id="confirmOrderForm" action="request_order.php" method="post">
+                                                                <input type="hidden" name="inventory_id" id="inventory_id">
+                                                                <input type="hidden" name="supplier" id="supplier">
+                                                                <input type="hidden" name="category" id="category">
+                                                                <input type="hidden" name="brand" id="brand">
+                                                                <input type="hidden" name="type" id="type">
+                                                                <input type="hidden" name="unit" id="unit">
+                                                            </form>
+                                                        </div>
+                                                        <div class="modal-footer">
+
+                                                            <button type="button" class="btn btn-primary" onclick="submitRequestOrder()">Confirm</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="successModalLabel">Success</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        Your order request has been successfully submitted.
+                                            <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="successModalLabel">Success</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Your order request has been successfully submitted.
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div class="modal fade" id="editModal_<?php echo $row['inventory_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel_<?php echo $row['inventory_id']; ?>" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header bg-primary text-white">
-                                                        <h5 class="modal-title" id="editModalLabel_<?php echo $row['inventory_id']; ?>">Edit Inventory</h5>
-                                                        <button type="button" class="close close-modal-button" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form action="update_inventory.php" method="post">
-                                                            <input type="hidden" name="inventory_id" value="<?php echo $row['inventory_id']; ?>">
-                                                            <div class="form-group">
-                                                                <label for="qty_stock">Quantity Stock:</label>
-                                                                <input type="text" class="form-control" id="qty_stock" name="qty_stock" value="<?php echo $row['qty_stock']; ?>">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="unit_inv_qty">Unit Quantity:</label>
-                                                                <input type="text" class="form-control" id="unit_inv_qty" name="unit_inv_qty" value="<?php echo $row['unit_inv_qty']; ?>">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="storage_location">Storage Location:</label>
-                                                                <select class="form-control" id="storage_location" name="storage_location">
-                                                                    <option value="">Select a location</option>
-                                                                    <?php
-                                                                    $mainStockroomNorth = "MainStockroomNorth";
-                                                                    $letters = range('A', 'E');
-                                                                    $numbers = range(1, 5);
-                                                                    foreach ($letters as $letter) {
-                                                                        foreach ($numbers as $number) {
-                                                                            $location = "$mainStockroomNorth-$letter$number";
-                                                                            $selected = ($row['storage_location'] == $location) ? 'selected' : '';
-                                                                            echo "<option value=\"$location\" $selected>$location</option>";
-                                                                        }
-                                                                    }
-                                                                    ?>
-                                                                </select>
-                                                            </div>
-
-
-                                                            <div class="form-group">
-                                                                <label for="showroom_quantity_stock">Showroom Quantity Stock:</label>
-                                                                <input type="text" class="form-control" id="showroom_quantity_stock" name="showroom_quantity_stock" value="<?php echo $row['showroom_quantity_stock']; ?>">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="showroom_location">Showroom Location:</label>
-                                                                <select class="form-control" id="showroom_location" name="showroom_location">
-                                                                    <option value="">Select a location</option>
-                                                                    <?php
-                                                                    $regions = ["MedNorth", "MedEast", "MedCenter", "MedWest", "MedSouth"];
-                                                                    $letters = range('A', 'E');
-                                                                    $numbers = range(1, 5);
-                                                                    foreach ($regions as $region) {
+                                            <div class="modal fade" id="editModal_<?php echo $row['inventory_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel_<?php echo $row['inventory_id']; ?>" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header bg-primary text-white">
+                                                            <h5 class="modal-title" id="editModalLabel_<?php echo $row['inventory_id']; ?>">Edit Inventory</h5>
+                                                            <button type="button" class="close close-modal-button" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form action="update_inventory.php" method="post">
+                                                                <input type="hidden" name="inventory_id" value="<?php echo $row['inventory_id']; ?>">
+                                                                <div class="form-group">
+                                                                    <label for="qty_stock">Quantity Stock:</label>
+                                                                    <input type="text" class="form-control" id="qty_stock" name="qty_stock" value="<?php echo $row['qty_stock']; ?>">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="unit_inv_qty">Unit Quantity:</label>
+                                                                    <input type="text" class="form-control" id="unit_inv_qty" name="unit_inv_qty" value="<?php echo $row['unit_inv_qty']; ?>">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="storage_location">Storage Location:</label>
+                                                                    <select class="form-control" id="storage_location" name="storage_location">
+                                                                        <option value="">Select a location</option>
+                                                                        <?php
+                                                                        $mainStockroomNorth = "MainStockroomNorth";
+                                                                        $letters = range('A', 'E');
+                                                                        $numbers = range(1, 5);
                                                                         foreach ($letters as $letter) {
                                                                             foreach ($numbers as $number) {
-                                                                                $location = "$region-$letter$number";
-                                                                                $selected = ($row['showroom_location'] == $location) ? 'selected' : '';
+                                                                                $location = "$mainStockroomNorth-$letter$number";
+                                                                                $selected = ($row['storage_location'] == $location) ? 'selected' : '';
                                                                                 echo "<option value=\"$location\" $selected>$location</option>";
                                                                             }
                                                                         }
-                                                                    }
-                                                                    ?>
-                                                                </select>
-                                                            </div>
+                                                                        ?>
+                                                                    </select>
+                                                                </div>
 
-                                                            <div class="form-group">
-                                                                <label for="quantity_to_reorder">Quantity to Reorder:</label>
-                                                                <input type="text" class="form-control" id="quantity_to_reorder" name="quantity_to_reorder" value="<?php echo $row['quantity_to_reorder']; ?>">
-                                                            </div>
-                                                            <button type="submit" class="btn btn-primary">Save Changes</button>
-                                                        </form>
+
+                                                                <div class="form-group">
+                                                                    <label for="showroom_quantity_stock">Showroom Quantity Stock:</label>
+                                                                    <input type="text" class="form-control" id="showroom_quantity_stock" name="showroom_quantity_stock" value="<?php echo $row['showroom_quantity_stock']; ?>">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="showroom_location">Showroom Location:</label>
+                                                                    <select class="form-control" id="showroom_location" name="showroom_location">
+                                                                        <option value="">Select a location</option>
+                                                                        <?php
+                                                                        $regions = ["MedNorth", "MedEast", "MedCenter", "MedWest", "MedSouth"];
+                                                                        $letters = range('A', 'E');
+                                                                        $numbers = range(1, 5);
+                                                                        foreach ($regions as $region) {
+                                                                            foreach ($letters as $letter) {
+                                                                                foreach ($numbers as $number) {
+                                                                                    $location = "$region-$letter$number";
+                                                                                    $selected = ($row['showroom_location'] == $location) ? 'selected' : '';
+                                                                                    echo "<option value=\"$location\" $selected>$location</option>";
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        ?>
+                                                                    </select>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label for="quantity_to_reorder">Quantity to Reorder:</label>
+                                                                    <input type="text" class="form-control" id="quantity_to_reorder" name="quantity_to_reorder" value="<?php echo $row['quantity_to_reorder']; ?>">
+                                                                </div>
+                                                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                                                            </form>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    <?php
+                                        <?php
+                                        }
                                     }
-                                    ?>
+                                        ?>
                                 </tbody>
                                 <tfoot>
                                     <tr>
@@ -276,7 +267,7 @@ if (strlen($_SESSION['employee_id']) === 0) {
             </div>
         </div>
 <?php
-    }
+
 }
 ?>
 <script>
