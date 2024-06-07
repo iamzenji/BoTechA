@@ -44,6 +44,15 @@ if (isset($_POST['addReturn'])) {
                 echo "Returned item inserted successfully.<br>";
                 mysqli_stmt_close($stmt);
 
+                // Get before stock quantity
+                $before_stock_query = "SELECT unit_inv_qty FROM inventory WHERE supplier = ? AND category = ? AND brand = ? AND type = ?";
+                $before_stock_stmt = mysqli_prepare($connection, $before_stock_query);
+                mysqli_stmt_bind_param($before_stock_stmt, "ssss", $supplier, $category, $brand, $type);
+                mysqli_stmt_execute($before_stock_stmt);
+                mysqli_stmt_bind_result($before_stock_stmt, $before_stock);
+                mysqli_stmt_fetch($before_stock_stmt);
+                mysqli_stmt_close($before_stock_stmt);
+
                 // Update inventory quantity
                 $update_query = "UPDATE inventory SET unit_inv_qty = unit_inv_qty - ? 
                 WHERE supplier = ? AND category = ? AND brand = ? AND type = ?";
@@ -64,13 +73,30 @@ if (isset($_POST['addReturn'])) {
                 // Update total cost
                 $update_total_cost = "UPDATE inventory SET total_cost = $current_stock * unit_cost WHERE supplier = '$supplier' AND category = '$category' AND brand = '$brand' AND type = '$type'";
                 $update_result = mysqli_query($connection, $update_total_cost);
-                // change the "6" if their is a value to fetch in line 63
 
+                // Check the stock quantity and update item label accordingly
+                if (100 < $current_stock) {
+                    // Update the item label to 'High Stock'
+                    $update_item_label_query = "UPDATE inventory SET item_label = 'High Stock' WHERE supplier = '$supplierName' AND category = '$Category' AND brand = '$brand' AND type = '$type' AND unit = '$unit'";
+                } else if (100 > $current_stock  && 30 > $current_stock) {
+                    // Update the item label to 'Stable'
+                    $update_item_label_query = "UPDATE inventory SET item_label = 'Stable' WHERE supplier = '$supplierName' AND category = '$Category' AND brand = '$brand' AND type = '$type' AND unit = '$unit'";
+                } else if (30 < $current_stock) {
+                    // Update the item label to 'Low Stock'
+                    $update_item_label_query = "UPDATE inventory SET item_label = 'Low Stock' WHERE supplier = '$supplierName' AND category = '$Category' AND brand = '$brand' AND type = '$type' AND unit = '$unit'";
+                }
+
+                // Execute the update query for item_label
+                if (mysqli_query($connection, $update_item_label_query)) {
+                    echo "Item label updated successfully.<br>";
+                } else {
+                    echo "Error updating item label: " . mysqli_error($connection) . "<br>";
+                }
                 // Log the inventory update
-                $insert_query = "INSERT INTO inventory_logs (inventory_id, date, brand_name, type, unit, employee, quantity, stock_after, reason) 
-                    VALUES (?, NOW(), ?, ?, ?, ?, ?, ?, 'Return Item')";
+                $insert_query = "INSERT INTO inventory_logs (inventory_id, date, brand_name, type, unit, employee, quantity, stock_before, stock_after, reason) 
+                    VALUES (?, NOW(), ?, ?, ?, ?, ?, ?, ?, 'Return Item')";
                 $insert_stmt = mysqli_prepare($connection, $insert_query);
-                mysqli_stmt_bind_param($insert_stmt, "ssssssi", $category, $brand, $type, $unit, $userName, $unitQuantity, $current_stock); // Fix: Changed 'sssisi' to 'ssisi'
+                mysqli_stmt_bind_param($insert_stmt, "ssssssii", $category, $brand, $type, $unit, $userName, $unitQuantity, $before_stock, $current_stock); // Fix: Changed 'sssisi' to 'ssisi'
                 mysqli_stmt_execute($insert_stmt);
                 mysqli_stmt_close($insert_stmt);
 

@@ -6,7 +6,7 @@ if (empty($_SESSION['employee_id'])) {
     header('location:login.php');
     session_destroy();
 } else {
-    $query = "SELECT il.*, i.brand, i.unit_inv_qty, i.type, i.unit 
+    $query = "SELECT il.*, i.brand, i.unit_inv_qty, i.showroom_quantity_stock
               FROM inventory_logs il 
               INNER JOIN inventory i ON il.inventory_id = i.inventory_id
               ORDER BY il.date ASC";
@@ -22,52 +22,50 @@ if (empty($_SESSION['employee_id'])) {
     $totals = [];
 
     while ($row = mysqli_fetch_assoc($result)) {
-        $key = $row['brand'] . '|' . $row['type'] . '|' . $row['unit'] . '|' . $row['reason'];
+        $key = $row['brand'] . '|' . $row['type'] . '|' . $row['unit'];
 
         if (!isset($logs[$key])) {
+            // Fetch the earliest recorded stock for this item
+            $earliest_query = "SELECT stock_before FROM inventory_logs WHERE inventory_id = {$row['inventory_id']} ORDER BY date ASC LIMIT 1";
+            $earliest_result = mysqli_query($connection, $earliest_query);
+            $earliest_row = mysqli_fetch_assoc($earliest_result);
+            $earliest_stock_before = $earliest_row['stock_before'];
+
             $logs[$key] = [
                 'brand' => $row['brand'],
                 'type' => $row['type'],
                 'unit' => $row['unit'],
-                'reason' => $row['reason'],
                 'quantity' => 0,
-                'earliest_stock_after' => $row['stock_after'], // Track the earliest stock_after
-                'earliest_date' => $row['date'], // Track the earliest date
-                'unit_inv_qty' => $row['unit_inv_qty']
+                'earliest_stock_before' => $earliest_stock_before, // Set the earliest stock before
+                'earliest_stock_after' => $row['stock_after'],
+                'earliest_date' => $row['date'],
+                'unit_inv_qty' => $row['unit_inv_qty'],
+                'totalPurchased' => 0,
+                'totalDiscounted' => 0,
+                'totalReturned' => 0,
+                'totalSale' => 0,
+                'showroomStock' => $row['showroom_quantity_stock'],
+                'totalAddItem' => 0
             ];
         } else {
-            // Update earliest stock_after if current row's date is earlier
             if (strtotime($row['date']) < strtotime($logs[$key]['earliest_date'])) {
-                $logs[$key]['earliest_stock_after'] = $row['stock_after'];
+                $logs[$key]['earliest_stock_before'] = $row['stock_before'];
                 $logs[$key]['earliest_date'] = $row['date'];
             }
         }
 
         $logs[$key]['quantity'] += $row['quantity'];
 
-        // Track total counts based on distinct combination of brand, type, and unit
-        $distinctKey = $row['brand'] . '|' . $row['type'] . '|' . $row['unit'];
-
-        if (!isset($totals[$distinctKey])) {
-            $totals[$distinctKey] = [
-                'totalPurchased' => 0,
-                'totalDiscounted' => 0,
-                'totalReturned' => 0,
-                'totalSale' => 0,
-                'totalAddItem' => 0
-            ];
-        }
-
-        if ($row['reason'] === 'Purchase order' && $row['brand'] === $row['brand_name']) {
-            $totals[$distinctKey]['totalPurchased'] += $row['quantity'];
-        } elseif ($row['reason'] === 'Add Discount'&& $row['brand'] === $row['brand_name']) {
-            $totals[$distinctKey]['totalDiscounted'] += $row['quantity'];
-        } elseif ($row['reason'] === 'Return Item'&& $row['brand'] === $row['brand_name']) {
-            $totals[$distinctKey]['totalReturned'] += $row['quantity'];
-        } elseif ($row['reason'] === 'Sell Item'&& $row['brand'] === $row['brand_name']) {
-            $totals[$distinctKey]['totalSale'] += $row['quantity'];
-        } elseif ($row['reason'] === 'Edit Item'&& $row['brand'] === $row['brand_name']) {
-            $totals[$distinctKey]['totalAddItem'] += $row['quantity'];
+        if ($row['reason'] === 'Purchase order') {
+            $logs[$key]['totalPurchased'] += $row['quantity'];
+        } elseif ($row['reason'] === 'Add Discount') {
+            $logs[$key]['totalDiscounted'] += $row['quantity'];
+        } elseif ($row['reason'] === 'Return Item') {
+            $logs[$key]['totalReturned'] += $row['quantity'];
+        } elseif ($row['reason'] === 'Sell Item') {
+            $logs[$key]['totalSale'] += $row['quantity'];
+        } elseif ($row['reason'] === 'Edit Item') {
+            $logs[$key]['totalAddItem'] += $row['quantity'];
         }
     }
     ?>
@@ -125,13 +123,12 @@ if (empty($_SESSION['employee_id'])) {
                     <th class="align-middle">Brand Name</th>
                     <th class="align-middle">Type</th>
                     <th class="align-middle">Unit</th>
-                    <th class="align-middle">Reason</th>
-                    <th class="align-middle">Adjustment</th>
-                    <th class="align-middle">Before -> After Stock On Hand</th>
+                    <th class="align-middle">Before Stock On Hand</th>
                     <th class="align-middle">Total Purchased</th>
                     <th class="align-middle">Total Discounted</th>
                     <th class="align-middle">Total Returned</th>
                     <th class="align-middle">Total Sale</th>
+                    <th class="align-middle">Showroom Remaining Stock</th>
                     <th class="align-middle">Total Add Item Modified</th>
                     <th class="align-middle">Remaining Stock</th>
                 </tr>
@@ -139,22 +136,18 @@ if (empty($_SESSION['employee_id'])) {
             <tbody>
                 <?php
                 foreach ($logs as $key => $log) {
-                    $distinctKey = $log['brand'] . '|' . $log['type'] . '|' . $log['unit'];
-                    $stock_before = $log['earliest_stock_after'] - $log['quantity']; // Adjusted calculation for stock_before
-
                     ?>
-                    <tr data-reason="<?php echo $log['reason']; ?>">
+                    <tr>
                         <td><?php echo $log['brand'];?></td>
                         <td><?php echo $log['type'];?></td>
                         <td><?php echo $log['unit'];?></td>
-                        <td><?php echo $log['reason'];?></td>
-                        <td><?php echo $log['quantity'];?></td>
-                        <td><?php echo $stock_before . ' -> ' . $log['earliest_stock_after'];?></td>
-                        <td><?php echo $totals[$distinctKey]['totalPurchased'];?></td>
-                        <td><?php echo $totals[$distinctKey]['totalDiscounted'];?></td>
-                        <td><?php echo $totals[$distinctKey]['totalReturned'];?></td>
-                        <td><?php echo $totals[$distinctKey]['totalSale'];?></td>
-                        <td><?php echo $totals[$distinctKey]['totalAddItem'];?></td>
+                        <td><?php echo $log['earliest_stock_before'];?></td>
+                        <td><?php echo $log['totalPurchased'];?></td>
+                        <td><?php echo $log['totalDiscounted'];?></td>
+                        <td><?php echo $log['totalReturned'];?></td>
+                        <td><?php echo $log['totalSale'];?></td>
+                        <td><?php echo $log['showroomStock'];?></td>
+                        <td><?php echo $log['totalAddItem'] - $log['showroomStock'];?></td>
                         <td><?php echo $log['unit_inv_qty'];?></td>
                     </tr>
                 <?php
@@ -241,9 +234,8 @@ if (empty($_SESSION['employee_id'])) {
                 var brand = row.querySelector('td:nth-child(1)').textContent.trim().toLowerCase();
                 var type = row.querySelector('td:nth-child(2)').textContent.trim().toLowerCase();
                 var unit = row.querySelector('td:nth-child(3)').textContent.trim().toLowerCase();
-                var reason = row.querySelector('td:nth-child(4)').textContent.trim().toLowerCase();
 
-                if (brand.includes(searchValue) || type.includes(searchValue) || unit.includes(searchValue) || reason.includes(searchValue)) {
+                if (brand.includes(searchValue) || type.includes(searchValue) || unit.includes(searchValue)) {
                     row.style.display = '';
                 } else {
                     row.style.display = 'none';

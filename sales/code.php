@@ -165,13 +165,33 @@
                 $new_stock = $row['showroom_quantity_stock'] - $row['qty'];
                 mysqli_query($connection, "UPDATE `inventory` SET `showroom_quantity_stock`= $new_stock WHERE inventory_id = $row[item_id]");
                 // inventory logs
-                mysqli_query($connection, "INSERT INTO `inventory_logs`(`brand_name`, `type`, `unit`, `employee`, `quantity`, `stock_after`, `reason`) VALUES ('$row[brand]', '$row[type]', '$row[unit]', '$name', '$row[qty]', $new_stock, 'Sell Item')");
+                mysqli_query($connection, "INSERT INTO `inventory_logs`(`brand_name`, `type`, `unit`, `employee`, `quantity`, `stock_before`, `stock_after`, `reason`) VALUES ('$row[brand]', '$row[type]', '$row[unit]', '$name', '$row[qty]', '$row['showroom_quantity_stock']', $new_stock, 'Sell Item')");
+
+                // Check the stock quantity and update item label accordingly
+                if (100 < $new_stock) {
+                    // Update the item label to 'High Stock'
+                    $update_item_label_query = "UPDATE inventory SET item_label = 'High Stock' WHERE supplier = '$supplierName' AND category = '$Category' AND brand = '$brand' AND type = '$type' AND unit = '$unit'";
+                } else if (100 > $new_stock  && 30 > $new_stock) {
+                    // Update the item label to 'Stable'
+                    $update_item_label_query = "UPDATE inventory SET item_label = 'Stable' WHERE supplier = '$supplierName' AND category = '$Category' AND brand = '$brand' AND type = '$type' AND unit = '$unit'";
+                } else if (30 < $new_stock) {
+                    // Update the item label to 'Low Stock'
+                    $update_item_label_query = "UPDATE inventory SET item_label = 'Low Stock' WHERE supplier = '$supplierName' AND category = '$Category' AND brand = '$brand' AND type = '$type' AND unit = '$unit'";
+                }
+
+                // Execute the update query for item_label
+                if (mysqli_query($connection, $update_item_label_query)) {
+                    echo "Item label updated successfully.<br>";
+                } else {
+                    echo "Error updating item label: " . mysqli_error($connection) . "<br>";
+                }
             } elseif ($row['scale'] == "pack") {
 
-                $new_stock = $row['stock_pack'] - $row['qty'];
-                mysqli_query($connection, "UPDATE `inventory` SET `stock_pack`= $new_stock WHERE inventory_id = $row[item_id]");
+                $new_stock_pack = $row['stock_pack'] - $row['qty'];
+                $new_stock = $row['showroom_quantity_stock'] - $row['piece_pack'];
+                mysqli_query($connection, "UPDATE `inventory` SET `stock_pack`= $new_stock_pack, `showroom_quantity_stock`= $new_stock WHERE inventory_id = $row[item_id]");
                 // inventory logs
-                mysqli_query($connection, "INSERT INTO `inventory_logs`(`brand_name`, `type`, `unit`, `employee`, `quantity`, `stock_after`, `reason`) VALUES ('$row[brand]', '$row[type]', '$row[unit]' '$name', '$row[qty]', $new_stock, 'Sell Item')");
+                mysqli_query($connection, "INSERT INTO `inventory_logs`(`brand_name`, `type`, `unit`, `employee`, `quantity`, `stock_before`, `stock_after`, `reason`) VALUES ('$row[brand]', '$row[type]', '$row[unit]' '$name', '$row[qty]', '$row['showroom_quantity_stock']', $new_stock, 'Sell Item')");
             }
         }
 

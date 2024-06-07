@@ -13,9 +13,7 @@ if (empty($_SESSION['employee_id'])) {
 
 
 
-    $query = "SELECT il.*, i.brand FROM inventory_logs il 
-              INNER JOIN inventory i ON il.inventory_id = i.category AND il.brand_name = i.brand
-              ORDER BY il.date DESC";
+    $query = "SELECT * FROM inventory_logs il ORDER BY il.date DESC";
 
 
     $result = mysqli_query($connection, $query);
@@ -78,6 +76,8 @@ if (empty($_SESSION['employee_id'])) {
                 <tr>
                     <th class="align-middle">Date</th>
                     <th class="align-middle">Brand name</th>
+                    <th class="align-middle">Type</th>
+                    <th class="align-middle">Unit</th>
                     <th class="align-middle">Employee</th>
                     <th class="align-middle">Adjustment</th>
                     <th class="align-middle">Before -> After Stock On Hand</th>
@@ -87,15 +87,16 @@ if (empty($_SESSION['employee_id'])) {
             <tbody>
                 <?php
                 while ($row = mysqli_fetch_assoc($result)) {
-                    $formattedDate = date('F j Y g:i A', strtotime($row['date']));
-                    $stock_before = $row['stock_after'] + $row['quantity'];
+                    $formattedDate = date('F j Y g:i A', strtotime($row['date']));     
                 ?>
                     <tr data-reason="<?php echo $row['reason']; ?>">
                         <td><?php echo $formattedDate; ?></td>
                         <td><?php echo $row['brand_name']; ?></td>
+                        <td><?php echo $row['type']; ?></td>
+                        <td><?php echo $row['unit']; ?></td>
                         <td><?php echo $row['employee']; ?></td>
                         <td><?php echo $row['quantity']; ?></td>
-                        <td><?php echo $stock_before . ' -> ' . $row['stock_after']; ?></td>
+                        <td><?php echo $row['stock_before'] . ' -> ' . $row['stock_after']; ?></td>
                         <td><?php echo $row['reason']; ?></td>
                     </tr>
                 <?php
