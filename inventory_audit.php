@@ -123,8 +123,7 @@ if (empty($_SESSION['employee_id'])) {
                     <th class="align-middle">Brand Name</th>
                     <th class="align-middle">Type</th>
                     <th class="align-middle">Unit</th>
-                    <th class="align-middle">Adjustment</th>
-                    <th class="align-middle">Before -> After Stock On Hand</th>
+                    <th class="align-middle">Before Stock On Hand</th>
                     <th class="align-middle">Total Purchased</th>
                     <th class="align-middle">Total Discounted</th>
                     <th class="align-middle">Total Returned</th>
@@ -142,8 +141,7 @@ if (empty($_SESSION['employee_id'])) {
                         <td><?php echo $log['brand'];?></td>
                         <td><?php echo $log['type'];?></td>
                         <td><?php echo $log['unit'];?></td>
-                        <td><?php echo $log['quantity'];?></td>
-                        <td><?php echo $log['earliest_stock_before'] . ' -> ' . $log['earliest_stock_after'];?></td>
+                        <td><?php echo $log['earliest_stock_before'];?></td>
                         <td><?php echo $log['totalPurchased'];?></td>
                         <td><?php echo $log['totalDiscounted'];?></td>
                         <td><?php echo $log['totalReturned'];?></td>
